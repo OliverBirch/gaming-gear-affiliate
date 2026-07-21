@@ -4,9 +4,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
 import { getMouse } from "@/data/mice";
-import { getProsByMouse } from "@/data/pros";
 import { bestOffer } from "@/lib/affiliate";
 import { getRetailer } from "@/data/retailers";
 
@@ -19,80 +17,61 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const mouse = getMouse(slug);
   if (!mouse) return {};
   return {
-    title: `${mouse.navn} — test, specs og priser`,
-    description: `Se ${mouse.navn} specifikationer, vægt, sensor, og hvilke CS2-pros der bruger den. Sammenlign priser hos Proshop, MaxGaming og Computersalg.`,
+    title: `${mouse.navn} — specifikationer, fordele, og priser`,
+    description: `Se komplette specifikationer for ${mouse.navn}: vægt, sensor, greb, og find den bedste pris hos Proshop, MaxGaming eller Computersalg.`,
   };
 }
 
-export default async function MousePage({ params }: Props) {
+export default async function MusPage({ params }: Props) {
   const { slug } = await params;
   const mouse = getMouse(slug);
   if (!mouse) notFound();
 
-  const pros = getProsByMouse(slug);
   const offer = bestOffer(mouse);
   const retailer = offer ? getRetailer(offer.retailer) : null;
+
+  const getProCount = () => {
+    return mouse.proBrugere.length;
+  };
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
       <Link
-        href="/cs2"
+        href="/"
         className="mb-4 inline-block text-sm text-muted-foreground hover:text-foreground"
       >
-        ← Tilbage til CS2
+        ← Tilbage til forsiden
       </Link>
 
-      <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between mb-8">
-        <div>
-          <h1 className="mb-1 text-3xl font-bold tracking-tight">
-            {mouse.navn}
-          </h1>
-          <p className="text-muted-foreground">{mouse.brand}</p>
-        </div>
-        <div className="flex flex-wrap gap-2 shrink-0">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight mb-4">
+          {mouse.navn}
+        </h1>
+        <div className="flex flex-wrap gap-2 mb-4">
           <Badge variant="secondary">{mouse.vaegtGram}g</Badge>
           <Badge variant="secondary">{mouse.sensor}</Badge>
-          <Badge variant="secondary">{mouse.pollingHz}Hz</Badge>
           <Badge variant="secondary">{mouse.formfaktor}</Badge>
           {mouse.wireless && <Badge>Trådløs</Badge>}
+          {mouse.proBrugere.length > 0 && (
+            <Badge variant="default">
+              {mouse.proBrugere.length} pro{ mouse.proBrugere.length > 1 ? "s" : "" }
+            </Badge>
+          )}
         </div>
       </div>
 
-      <p className="mb-8 text-muted-foreground max-w-2xl">
-        {mouse.beskrivelse}
-      </p>
-
-      {offer && retailer && (
-        <div className="mb-8 rounded-lg border bg-card p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div>
-            <p className="text-sm text-muted-foreground">Bedste pris</p>
-            <p className="text-lg font-semibold">
-              {offer.prisDkk ? `${offer.prisDkk} kr.` : "Se pris"} hos {retailer.navn}
-            </p>
-          </div>
-          <a
-            href={offer.affiliateUrl}
-            rel="sponsored nofollow"
-            target="_blank"
-            className={cn(buttonVariants({}))}
-          >
-            Se pris hos {retailer.navn} →
-          </a>
-        </div>
-      )}
-
       <div className="grid gap-8 sm:grid-cols-2 mb-8">
-        <div>
-          <h2 className="mb-3 text-lg font-semibold">Specifikationer</h2>
+        <div className="rounded-lg border bg-card p-6">
+          <h2 className="text-xl font-semibold mb-4">Specifikationer</h2>
           <table className="w-full text-sm">
             <tbody>
               {[
+                ["Brand", mouse.brand],
                 ["Vægt", `${mouse.vaegtGram}g`],
-                ["Sensor", mouse.sensor],
-                ["Max DPI", mouse.maxDpi.toLocaleString()],
-                ["Polling rate", `${mouse.pollingHz} Hz`],
-                ["Forbindelse", mouse.wireless ? "Trådløs" : "Kablet"],
                 ["Formfaktor", mouse.formfaktor],
+                ["Sensor", mouse.sensor],
+                ["Max DPI", mouse.maxDpi],
+                ["Polling rate", `${mouse.pollingHz} Hz`],
                 ["Prisniveau", mouse.prisNiveau],
               ].map(([label, value]) => (
                 <tr key={label} className="border-b last:border-0">
@@ -104,82 +83,83 @@ export default async function MousePage({ params }: Props) {
           </table>
         </div>
 
-        <div>
-          <h2 className="mb-3 text-lg font-semibold">Greb og håndstørrelse</h2>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm text-muted-foreground mb-1">Greb</p>
-              <div className="flex flex-wrap gap-1">
-                {mouse.greb.map((g) => (
-                  <Badge key={g} variant="outline">{g}</Badge>
-                ))}
-              </div>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground mb-1">Håndstørrelse</p>
-              <div className="flex flex-wrap gap-1">
-                {mouse.haandStoerrelse.map((h) => (
-                  <Badge key={h} variant="outline">{h}</Badge>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <Separator className="my-4" />
-
-          <h2 className="mb-3 text-lg font-semibold">Fordele & ulemper</h2>
-          <div className="space-y-2">
-            {mouse.fordele.map((f) => (
-              <p key={f} className="text-sm text-green-700 dark:text-green-400">
-                + {f}
-              </p>
-            ))}
-            {mouse.ulemper.map((u) => (
-              <p key={u} className="text-sm text-red-700 dark:text-red-400">
-                − {u}
-              </p>
+        <div className="rounded-lg border bg-card p-6">
+          <h2 className="text-xl font-semibold mb-4">Greb</h2>
+          <div className="flex flex-wrap gap-2">
+            {mouse.greb.map((g) => (
+              <Badge key={g} variant="outline">
+                {g === "palm" ? "Palm-greb" : g === "claw" ? "Claw-greb" : "Fingertip-greb"}
+              </Badge>
             ))}
           </div>
         </div>
       </div>
 
-      {pros.length > 0 && (
-        <section>
-          <h2 className="mb-4 text-xl font-semibold">
-            Pros der bruger {mouse.navn} ({pros.length})
-          </h2>
-          <div className="rounded-lg border">
-            {pros.map((pro, i) => (
-              <Link
-                key={pro.slug}
-                href={`/pro/${pro.slug}`}
-                className={`flex items-center gap-4 px-4 py-3 hover:bg-muted/50 transition-colors ${
-                  i < pros.length - 1 ? "border-b" : ""
-                }`}
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold shrink-0">
-                  {pro.navn.charAt(0).toUpperCase()}
-                </div>
-                <div className="flex-1">
-                  <div className="font-medium">{pro.navn}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {pro.hold} · {pro.settings.dpi} DPI ·{" "}
-                    {pro.settings.edpi} eDPI
-                  </div>
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Sens: {pro.settings.inGameSens}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
+      <div className="rounded-lg border bg-card p-6 mb-8">
+        <h2 className="text-xl font-semibold mb-4">Fordele</h2>
+        <ul className="list-disc pl-5 space-y-2">
+          {mouse.fordele.map((fordel, index) => (
+            <li key={index} className="text-sm">{fordel}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="rounded-lg border bg-card p-6 mb-8">
+        <h2 className="text-xl font-semibold mb-4">Ulemper</h2>
+        <ul className="list-disc pl-5 space-y-2">
+          {mouse.ulemper.map((ulempe, index) => (
+            <li key={index} className="text-sm">{ulempe}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="rounded-lg border bg-muted/50 p-6">
+        <h2 className="text-xl font-semibold mb-4">Hvem bruger den</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          {mouse.proBrugere.length > 0 ? (
+            <>Bruger af {mouse.proBrugere.length} pro{ mouse.proBrugere.length > 1 ? "s" : "" }
+              {mouse.proBrugere.map((pro, index) => (
+                <Link
+                  key={pro}
+                  href={`/pro/${pro}`}
+                  className="text-primary hover:underline"
+                >
+                  {index > 0 && ", "}
+                  {pro.charAt(0).toUpperCase() + pro.slice(1)}
+                </Link>
+              ))}
+            </>
+          ) : (
+            <>. Ingen pro-brugere fundet endnu.</>
+          )}
+        </p>
+      </div>
+
+      <div className="mt-8 flex flex-wrap gap-4">
+        {offer && (
+          <a
+            href={offer.affiliateUrl}
+            rel="sponsored nofollow"
+            target="_blank"
+            className={cn(buttonVariants({ size: "lg" }))}
+          >
+            {offer.prisDkk
+              ? `Se pris ${offer.prisDkk} kr. hos ${retailer?.navn ?? offer.retailer}`
+              : "Se pris hos " + (retailer?.navn ?? offer.retailer)}
+          </a>
+        )}
+        <Link
+          href={`/`}
+          className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+        >
+          Tilbage til forsiden
+        </Link>
+      </div>
     </div>
   );
 }
 
 export async function generateStaticParams() {
   const { mice } = await import("@/data/mice");
-  return mice.map((m) => ({ slug: m.slug }));
+  return mice.map((mouse) => ({ slug: mouse.slug }));
 }
