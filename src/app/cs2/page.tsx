@@ -28,57 +28,77 @@ export default function Cs2Page() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <nav className="mb-6 text-sm text-muted-foreground">
-        <Link href="/" className="hover:text-foreground">Forside</Link> / <span className="text-foreground">CS2</span>
+      <nav className="mb-8 text-sm text-muted-foreground">
+        <Link href="/" className="hover:text-primary transition-colors">Forside</Link>
+        <span className="mx-2">/</span>
+        <span className="text-foreground">CS2</span>
       </nav>
       
-      <div className="mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">Counter-Strike 2 Mus</h1>
-        <p className="text-lg text-muted-foreground mb-6">
+      <div className="mb-16">
+        <h1 className="text-4xl font-bold tracking-tight mb-4">
+          Counter-Strike 2 <span className="text-primary">Mus</span>
+        </h1>
+        <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
           {esport.beskrivelse}
         </p>
         <div className="flex flex-wrap gap-3">
-          <Link href="/find-mus" className={cn(buttonVariants({ size: "lg" }))}>
-            Find din mus →
+          <Link
+            href="/find-mus"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "shadow-[0_0_20px_-5px_oklch(0.65_0.18_210/0.5)] hover:shadow-[0_0_30px_-5px_oklch(0.65_0.18_210/0.7)] transition-shadow duration-300"
+            )}
+          >
+            Find din mus
           </Link>
-          <Link href="/#popular-mice" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
-            Se alle pro-mus →
+          <Link href="/cs2#alle-mus" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
+            Se alle pro-mus &rarr;
           </Link>
         </div>
       </div>
 
-      <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-6">Mest brugte mus hos CS2-pros</h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mb-20">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold tracking-tight">Mest brugte mus hos CS2-pros</h2>
+          <Link href="/cs2#alle-mus" className="text-sm text-primary hover:underline underline-offset-4">
+            Se alle &rarr;
+          </Link>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {popularMice.map((mouse) => (
             <MouseCard key={mouse.slug} mouse={mouse} />
           ))}
         </div>
       </section>
 
-      <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-6">CS2 Pro-indstillinger</h2>
+      <section className="mb-20">
+        <h2 className="text-2xl font-bold tracking-tight mb-8">CS2 Pro-indstillinger</h2>
         <div className="grid gap-4">
           {cs2Pros.map((pro) => {
             const mouse = mice.find(m => m.slug === pro.musSlug);
             return (
-              <div key={pro.slug} className="rounded-lg border bg-card p-6">
+              <div key={pro.slug} className="rounded-xl border border-border/50 bg-card p-6 hover:border-primary/20 transition-colors duration-200">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-lg font-semibold">
+                  <div
+                    className="flex h-12 w-12 items-center justify-center rounded-full text-lg font-bold shrink-0"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, oklch(0.65 0.18 210 / 0.2), oklch(0.55 0.15 180 / 0.1))",
+                      color: "oklch(0.65 0.18 210)",
+                    }}
+                  >
                     {pro.navn.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold">{pro.navn}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {pro.hold} · {pro.settings.dpi} DPI · {pro.settings.edpi} eDPI
+                      {pro.hold} &middot; {pro.settings.dpi} DPI &middot; {pro.settings.edpi} eDPI
                     </p>
                   </div>
                   {mouse && (
-                    <div>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                        {mouse.navn}
-                      </span>
-                    </div>
+                    <Badge className="bg-primary/15 text-primary hover:bg-primary/20">
+                      {mouse.navn}
+                    </Badge>
                   )}
                 </div>
                 
@@ -93,39 +113,40 @@ export default function Cs2Page() {
         </div>
       </section>
 
-      <section>
-        <h2 className="text-3xl font-bold mb-6">Hvorfor denne mus-konfiguration fungerer</h2>
+      <section className="mb-20">
+        <h2 className="text-2xl font-bold tracking-tight mb-8">Hvorfor denne mus-konfiguration fungerer</h2>
         <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-lg border bg-card p-6">
-            <h3 className="text-xl font-semibold mb-3">Hastighed & Præcision</h3>
-            <p className="text-muted-foreground mb-4">
-              92% af CS2-pros bruger 400 eller 800 DPI — vi har tjekket 25+ trackede pro-indstillinger. Holder sig under 800 DPI for optimal kontrol.
+          <div className="rounded-xl border border-border/50 bg-card p-7">
+            <h3 className="text-xl font-semibold mb-3">Hastighed &amp; Pr&aelig;cision</h3>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              92% af CS2-pros bruger 400 eller 800 DPI &mdash; vi har tjekket 25+ trackede pro-indstillinger. Holder sig under 800 DPI for optimal kontrol.
             </p>
             <div className="flex flex-wrap gap-2">
               {Array.from({ length: 12 }).map((_, i) => (
-                <Badge key={i} variant="outline">
+                <Badge key={i} variant="outline" className="border-border/50 text-muted-foreground">
                   {i + 1}.5 + {i * 50} DPI
                 </Badge>
               ))}
             </div>
           </div>
           
-          <div className="rounded-lg border bg-card p-6">
-            <h3 className="text-xl font-semibold mb-3">Mus-præferencer</h3>
-            <p className="text-muted-foreground mb-4">
-              Letvægt, trådløs og minimal knapbehov til FPS. CS2-kartlayoutet favoriserer hurtige bevægelser, derfor foretrækker pros lette mus.</p>
-            <div className="space-y-2">
+          <div className="rounded-xl border border-border/50 bg-card p-7">
+            <h3 className="text-xl font-semibold mb-3">Mus-pr&aelig;ferencer</h3>
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              Letv&aelig;gt, tr&aring;dl&oslash;s og minimal knapbehov til FPS. CS2-kartlayoutet favoriserer hurtige bev&aelig;gelser, derfor foretr&aelig;kker pros lette mus.
+            </p>
+            <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm">Logitech G Pro X Superlight 2</span>
-                <span className="text-sm font-medium">60% (mest brugte)</span>
+                <span className="text-sm font-medium text-primary">60% (mest brugte)</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm">Razer Viper V3 Pro</span>
-                <span className="text-sm font-medium">24% (ZywOo, andre)</span>
+                <span className="text-sm font-medium text-primary">24% (ZywOo, andre)</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm">ZOWIE EC2-DW</span>
-                <span className="text-sm font-medium">20% (budgettip)</span>
+                <span className="text-sm font-medium text-primary">20% (budgettip)</span>
               </div>
             </div>
           </div>
