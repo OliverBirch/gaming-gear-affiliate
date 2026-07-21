@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 
 interface ProAvatarProps {
   navn: string;
+  slug?: string;
   billede?: string;
   className?: string;
   size?: "sm" | "md" | "lg";
@@ -20,8 +21,9 @@ const imageSizes = {
   lg: 64,
 };
 
-export function ProAvatar({ navn, billede, className, size = "sm" }: ProAvatarProps) {
-  if (billede) {
+export function ProAvatar({ navn, slug, billede, className, size = "sm" }: ProAvatarProps) {
+  const imgSrc = billede || (slug ? `/images/pros/${slug}.png` : undefined);
+  if (imgSrc) {
     return (
       <div
         className={cn(
@@ -31,7 +33,7 @@ export function ProAvatar({ navn, billede, className, size = "sm" }: ProAvatarPr
         )}
       >
         <Image
-          src={billede}
+          src={imgSrc}
           alt={navn}
           fill
           className="object-cover"

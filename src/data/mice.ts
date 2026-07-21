@@ -28,7 +28,7 @@ export const mice: Mouse[] = [
       "Ingen RGB",
       "Kræver software til DPI-justering",
     ],
-    proBrugere: ["donk", "device", "sh1ro", "hunter", "magisk", "w0nderful", "jl", "cadian", "degster", "ax1le", "b1t", "im", "naf", "malbsmd", "kscerato", "art", "jimpphat", "krimbo", "staehr", "hyped", "drop", "zont1x", "grim", "maj3r", "wicadia", "xfl0ud", "afro", "krimz", "fl4mus", "nawwk", "cacanito", "podi", "sdy", "cypher", "faven", "s1ren", "danistzz", "dgt", "buda", "luchov", "naz", "decenty", "coldzera", "venomzera", "nython", "deco", "togs", "vsm", "lucaozy", "zevy", "ricioli", "zmb", "lucas1", "aspas", "cned", "yay", "sacy", "saadhak", "derke", "leaf"],
+    proBrugere: ["donk", "device", "sh1ro", "hunter", "magisk", "w0nderful", "jl", "cadian", "degster", "ax1le", "b1t", "im", "naf", "malbsmd", "kscerato", "art", "jimpphat", "krimbo", "staehr", "hyped", "drop", "zont1x", "grim", "maj3r", "wicadia", "xfl0ud", "afro", "krimz", "fl4mus", "nawwk", "cacanito", "podi", "sdy", "cypher", "faven", "s1ren", "danistzz", "dgt", "buda", "luchov", "naz", "decenty", "coldzera", "venomzera", "nython", "deco", "togs", "vsm", "lucaozy", "zevy", "ricioli", "zmb", "lucas1", "aspas", "cned", "yay", "sacy", "saadhak", "derke", "leaf", "s1mple", "elige", "beyn"],
     offers: [
       {
         retailer: "proshop",
@@ -72,7 +72,7 @@ export const mice: Mouse[] = [
       "Ikke velegnet til palm-greb",
       "Overfladen kan være glat for nogle",
     ],
-    proBrugere: ["zywoo", "flamez", "jks", "saffee", "sense", "meyern", "fns", "boo"],
+    proBrugere: ["zywoo", "saffee", "sense", "meyern", "fns", "boo"],
     offers: [
       {
         retailer: "proshop",
@@ -116,7 +116,7 @@ export const mice: Mouse[] = [
       "Kun 1000 Hz polling rate",
       "Mikro-USB (ikke USB-C)",
     ],
-    proBrugere: ["niko", "twistzz", "jabbi", "nertz", "brollan", "sjuush", "stavn", "siuhy", "yekindar", "ztr", "jkaem", "zorte", "hen1", "felps", "qraxs"],
+    proBrugere: ["jabbi", "nertz", "brollan", "sjuush", "stavn", "siuhy", "yekindar", "ztr", "jkaem", "zorte", "hen1", "felps", "qraxs", "flamez"],
     offers: [
       {
         retailer: "computersalg",
@@ -204,7 +204,7 @@ export const mice: Mouse[] = [
       "Ikke til venstrehåndede",
       "Kun 1000 Hz polling rate (upgraded i V3 Pro)",
     ],
-    proBrugere: ["s1mple", "spinx", "karrigan", "torzsi", "andu", "hardzao", "nobody", "xeus"],
+    proBrugere: ["spinx", "karrigan", "torzsi", "andu", "hardzao", "nobody", "xeus", "ropz"],
     offers: [
       {
         retailer: "proshop",
@@ -241,7 +241,7 @@ export const mice: Mouse[] = [
       "Svær at få fat i (limited drops)",
       "Lille — kun til små/medium hænder",
     ],
-    proBrugere: ["twistzz", "elige"],
+    proBrugere: [],
     offers: [
       {
         retailer: "maxgaming",
@@ -278,7 +278,7 @@ export const mice: Mouse[] = [
       "Mindre kendt brand",
       "Software kunne være bedre",
     ],
-    proBrugere: ["ropz", "jdc"],
+    proBrugere: ["jdc"],
     offers: [
       {
         retailer: "maxgaming",
@@ -471,7 +471,7 @@ export const mice: Mouse[] = [
       "Kræver separat HyperPolling dongle til 8K Hz",
       "Ikke til små hænder",
     ],
-    proBrugere: ["smoggy", "johnqt", "beYN"],
+    proBrugere: ["smoggy", "johnqt", "twistzz"],
     offers: [
       {
         retailer: "maxgaming",

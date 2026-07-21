@@ -10,7 +10,7 @@ export function ProRow({ pro, isLast }: { pro: Pro; isLast: boolean }) {
         !isLast ? "border-b border-border/50" : ""
       }`}
     >
-      <ProAvatar navn={pro.navn} />
+      <ProAvatar navn={pro.navn} slug={pro.slug} />
       <div className="flex-1 min-w-0">
         <div className="font-semibold truncate group-hover:text-primary transition-colors duration-200">
           {pro.navn}

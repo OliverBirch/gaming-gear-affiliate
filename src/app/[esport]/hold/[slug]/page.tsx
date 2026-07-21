@@ -97,7 +97,7 @@ export default async function TeamPage({ params }: Props) {
                 className="flex items-center gap-4 rounded-xl border border-border/50 bg-card p-4 hover:border-primary/30 transition-colors duration-200"
               >
                 <Link href={`/pro/${pro.slug}`} className="shrink-0">
-                  <ProAvatar navn={pro.navn} size="md" />
+                  <ProAvatar navn={pro.navn} slug={pro.slug} size="md" />
                 </Link>
                 <div className="min-w-0 flex-1">
                   <Link

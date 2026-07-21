@@ -74,7 +74,7 @@ export default function Home() {
               href={`/pro/${pro.slug}`}
               className="group flex items-center gap-4 rounded-lg border border-border/50 bg-card p-4 hover:border-primary/30 hover:bg-card/80 transition-all duration-200"
             >
-              <ProAvatar navn={pro.navn} />
+              <ProAvatar navn={pro.navn} slug={pro.slug} />
               <div className="min-w-0">
                 <div className="font-semibold truncate group-hover:text-primary transition-colors duration-200">
                   {pro.navn}

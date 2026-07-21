@@ -10,6 +10,7 @@ import { getPro } from "@/data/pros";
 import { getMouse } from "@/data/mice";
 import { bestOffer } from "@/lib/affiliate";
 import { getRetailer } from "@/data/retailers";
+import { getProPeripherals } from "@/data/pros-peripherals";
 import { ProAvatar } from "@/components/pro-avatar";
 
 
@@ -48,7 +49,7 @@ export default async function ProPage({ params }: Props) {
 
       <div className="mb-10">
         <div className="flex items-center gap-5 mb-2">
-          <ProAvatar navn={pro.navn} size="lg" />
+          <ProAvatar navn={pro.navn} slug={pro.slug} size="lg" />
           <div>
             <h1 className="text-4xl font-bold tracking-tight">{pro.navn}</h1>
             <p className="text-muted-foreground">
@@ -90,6 +91,36 @@ export default async function ProPage({ params }: Props) {
             {new Date(pro.sidstVerificeret).toLocaleDateString("da-DK")}
           </p>
         </div>
+
+        {(() => {
+          const peri = getProPeripherals(pro.slug);
+          const items: [string, string | null][] = [
+            ["Skærm", peri?.monitor ?? null],
+            ["Tastatur", peri?.keyboard ?? null],
+            ["Musemåtte", peri?.mousepad ?? null],
+            ["Headset", peri?.headset ?? null],
+          ];
+          const hasAny = items.some(([, v]) => v !== null);
+          if (!hasAny) return null;
+          return (
+            <div className="rounded-xl border border-border/50 bg-card p-7">
+              <h2 className="mb-5 text-lg font-semibold">Periferiudstyr</h2>
+              <table className="w-full text-sm">
+                <tbody>
+                  {items.map(([label, value]) => (
+                    <tr key={label} className="border-b border-border/50 last:border-0">
+                      <td className="py-2.5 text-muted-foreground pr-4 w-[1%] whitespace-nowrap">{label}</td>
+                      <td className="py-2.5 font-medium">{value ?? "\u2014"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p className="mt-5 text-xs text-muted-foreground">
+                Kilde: ProSettings.net
+              </p>
+            </div>
+          );
+        })()}
 
         <div className="rounded-xl border border-border/50 bg-card p-7">
           <div className="relative mb-4 h-40 w-full overflow-hidden rounded-lg bg-gradient-to-br from-primary/[0.04] to-primary/[0.02]">
