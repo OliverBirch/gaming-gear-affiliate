@@ -1,0 +1,148 @@
+import type { Pro } from "@/lib/types";
+
+export const pros: Pro[] = [
+  {
+    slug: "donk",
+    navn: "donk",
+    esport: "cs2",
+    hold: "Team Spirit",
+    land: "Rusland",
+    musSlug: "logitech-g-pro-x-superlight-2",
+    settings: { dpi: 800, inGameSens: 1.25, edpi: 1000, pollingHz: 4000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-15",
+  },
+  {
+    slug: "zywoo",
+    navn: "ZywOo",
+    esport: "cs2",
+    hold: "Team Vitality",
+    land: "Frankrig",
+    musSlug: "razer-viper-v3-pro",
+    settings: { dpi: 400, inGameSens: 2.0, edpi: 800, pollingHz: 4000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-15",
+  },
+  {
+    slug: "s1mple",
+    navn: "s1mple",
+    esport: "cs2",
+    hold: "Falcons",
+    land: "Ukraine",
+    musSlug: "razer-deathadder-v3",
+    settings: { dpi: 400, inGameSens: 2.08, edpi: 832, pollingHz: 1000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-10",
+  },
+  {
+    slug: "device",
+    navn: "device",
+    esport: "cs2",
+    hold: "Astralis",
+    land: "Danmark",
+    musSlug: "logitech-g-pro-x-superlight-2",
+    settings: { dpi: 400, inGameSens: 2.1, edpi: 840, pollingHz: 4000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-12",
+  },
+  {
+    slug: "ropz",
+    navn: "ropz",
+    esport: "cs2",
+    hold: "FaZe Clan",
+    land: "Estland",
+    musSlug: "pulsar-x2h",
+    settings: { dpi: 400, inGameSens: 1.73, edpi: 692, pollingHz: 1000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-14",
+  },
+  {
+    slug: "m0nesy",
+    navn: "m0NESY",
+    esport: "cs2",
+    hold: "G2 Esports",
+    land: "Rusland",
+    musSlug: "g-wolves-hts-pro-4k",
+    settings: { dpi: 1600, inGameSens: 0.56, edpi: 896, pollingHz: 4000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-13",
+  },
+  {
+    slug: "niko",
+    navn: "NiKo",
+    esport: "cs2",
+    hold: "G2 Esports",
+    land: "Bosnien",
+    musSlug: "zowie-ec2-dw",
+    settings: { dpi: 400, inGameSens: 1.55, edpi: 620, pollingHz: 1000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-11",
+  },
+  {
+    slug: "elige",
+    navn: "EliGE",
+    esport: "cs2",
+    hold: "Complexity",
+    land: "USA",
+    musSlug: "finalmouse-starlight-pro-small",
+    settings: { dpi: 400, inGameSens: 2.2, edpi: 880, pollingHz: 1000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-06-28",
+  },
+  {
+    slug: "twistzz",
+    navn: "Twistzz",
+    esport: "cs2",
+    hold: "FaZe Clan",
+    land: "Canada",
+    musSlug: "zowie-ec2-dw",
+    settings: { dpi: 800, inGameSens: 1.1, edpi: 880, pollingHz: 1000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-14",
+  },
+  {
+    slug: "broky",
+    navn: "broky",
+    esport: "cs2",
+    hold: "FaZe Clan",
+    land: "Letland",
+    musSlug: "lamzu-maya-x",
+    settings: { dpi: 400, inGameSens: 2.4, edpi: 960, pollingHz: 4000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-14",
+  },
+  {
+    slug: "flamez",
+    navn: "flameZ",
+    esport: "cs2",
+    hold: "Team Vitality",
+    land: "Israel",
+    musSlug: "razer-viper-v3-pro",
+    settings: { dpi: 800, inGameSens: 1.22, edpi: 976, pollingHz: 4000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-15",
+  },
+  {
+    slug: "jks",
+    navn: "jks",
+    esport: "cs2",
+    hold: "Team Liquid",
+    land: "Australien",
+    musSlug: "razer-viper-v3-pro",
+    settings: { dpi: 400, inGameSens: 1.9, edpi: 760, pollingHz: 1000 },
+    kilde: "prosettings.net",
+    sidstVerificeret: "2026-07-10",
+  },
+];
+
+export function getPro(slug: string): Pro | undefined {
+  return pros.find((p) => p.slug === slug);
+}
+
+export function getProsByEsport(esportSlug: string): Pro[] {
+  return pros.filter((p) => p.esport === esportSlug);
+}
+
+export function getProsByMouse(mouseSlug: string): Pro[] {
+  return pros.filter((p) => p.musSlug === mouseSlug);
+}
