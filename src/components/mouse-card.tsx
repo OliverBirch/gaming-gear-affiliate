@@ -1,5 +1,6 @@
 import type { Mouse } from "@/lib/types";
 import Link from "next/link";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -18,6 +19,24 @@ export function MouseCard({ mouse }: { mouse: Mouse }) {
 
   return (
     <div className="group rounded-xl border border-border/50 bg-card p-5 flex flex-col hover:border-primary/30 hover:shadow-[0_0_20px_-8px_oklch(0.65_0.18_210/0.3)] transition-all duration-200">
+      <div className="relative mb-4 h-36 w-full overflow-hidden rounded-lg bg-gradient-to-br from-primary/[0.04] to-primary/[0.02]">
+        {mouse.billede ? (
+          <Image
+            src={mouse.billede}
+            alt={mouse.navn}
+            fill
+            className="object-contain p-3 transition-transform duration-300 group-hover:scale-110"
+            sizes="(max-width: 640px) 100vw, 300px"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center">
+            <div className="text-5xl font-bold text-primary/10">
+              {mouse.navn.charAt(0).toUpperCase()}
+            </div>
+          </div>
+        )}
+      </div>
+
       <div className="flex items-start justify-between mb-3">
         <div>
           <Link
@@ -26,7 +45,9 @@ export function MouseCard({ mouse }: { mouse: Mouse }) {
           >
             {mouse.navn}
           </Link>
-          <div className="text-xs text-muted-foreground mt-0.5">{mouse.brand}</div>
+          <div className="text-xs text-muted-foreground mt-0.5 flex items-center gap-1.5">
+            {mouse.brand}
+          </div>
         </div>
         <Badge
           className={cn(
@@ -82,18 +103,27 @@ export function MouseCard({ mouse }: { mouse: Mouse }) {
         >
           Se detaljer &rarr;
         </Link>
-        {offer && (
+        {offer && retailer && (
           <a
             href={offer.affiliateUrl}
             rel="sponsored nofollow"
             target="_blank"
             className={cn(
               buttonVariants({ size: "sm" }),
-              "shadow-[0_0_12px_-4px_oklch(0.65_0.18_210/0.3)] hover:shadow-[0_0_20px_-4px_oklch(0.65_0.18_210/0.5)] transition-shadow duration-300"
+              "shadow-[0_0_12px_-4px_oklch(0.65_0.18_210/0.3)] hover:shadow-[0_0_20px_-4px_oklch(0.65_0.18_210/0.5)] transition-shadow duration-300 gap-1.5"
             )}
           >
-            {retailer?.navn ?? offer.retailer}
-            {offer.prisDkk && ` — ${offer.prisDkk} kr.`}
+            {retailer.logo && (
+              <Image
+                src={retailer.logo}
+                alt={retailer.navn}
+                width={16}
+                height={16}
+                className="rounded-sm object-contain"
+              />
+            )}
+            {retailer.navn}
+            {offer.prisDkk && <>&nbsp;{offer.prisDkk} kr.</>}
           </a>
         )}
       </div>

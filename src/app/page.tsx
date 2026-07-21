@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MouseCard } from "@/components/mouse-card";
+import { ProAvatar } from "@/components/pro-avatar";
 import { mice } from "@/data/mice";
 import { pros } from "@/data/pros";
 import { buttonVariants } from "@/components/ui/button";
@@ -75,16 +76,7 @@ export default function Home() {
               href={`/pro/${pro.slug}`}
               className="group flex items-center gap-4 rounded-lg border border-border/50 bg-card p-4 hover:border-primary/30 hover:bg-card/80 transition-all duration-200"
             >
-              <div
-                className="flex h-11 w-11 items-center justify-center rounded-full text-sm font-bold shrink-0"
-                style={{
-                  background:
-                    "linear-gradient(135deg, oklch(0.65 0.18 210 / 0.2), oklch(0.55 0.15 180 / 0.1))",
-                  color: "oklch(0.65 0.18 210)",
-                }}
-              >
-                {pro.navn.charAt(0).toUpperCase()}
-              </div>
+              <ProAvatar navn={pro.navn} />
               <div className="min-w-0">
                 <div className="font-semibold truncate group-hover:text-primary transition-colors duration-200">
                   {pro.navn}

@@ -7,6 +7,7 @@ export const retailers: Retailer[] = [
     netvaerk: "partner-ads",
     basePayoutPct: 3.5,
     cookieDage: 30,
+    logo: "/images/retailers/proshop.png",
     hjemmeside: "https://www.proshop.dk",
   },
   {
@@ -15,6 +16,7 @@ export const retailers: Retailer[] = [
     netvaerk: "partner-ads",
     basePayoutPct: 3.0,
     cookieDage: 30,
+    logo: "/images/retailers/computersalg.png",
     hjemmeside: "https://www.computersalg.dk",
   },
   {
@@ -23,6 +25,7 @@ export const retailers: Retailer[] = [
     netvaerk: "adtraction",
     basePayoutPct: 4.0,
     cookieDage: 60,
+    logo: "/images/retailers/maxgaming.svg",
     hjemmeside: "https://www.maxgaming.dk",
   },
   {
@@ -31,6 +34,7 @@ export const retailers: Retailer[] = [
     netvaerk: "partner-ads",
     basePayoutPct: 3.0,
     cookieDage: 30,
+    logo: "/images/retailers/coolshop.png",
     hjemmeside: "https://www.coolshop.dk",
   },
 ];

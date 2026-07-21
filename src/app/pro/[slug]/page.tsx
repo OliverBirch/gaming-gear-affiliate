@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getPro } from "@/data/pros";
 import { getMouse } from "@/data/mice";
 import { bestOffer } from "@/lib/affiliate";
+import { getRetailer } from "@/data/retailers";
+import { ProAvatar } from "@/components/pro-avatar";
 
 
 interface Props {
@@ -44,16 +47,7 @@ export default async function ProPage({ params }: Props) {
 
       <div className="mb-10">
         <div className="flex items-center gap-5 mb-2">
-          <div
-            className="flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold shrink-0"
-            style={{
-              background:
-                "linear-gradient(135deg, oklch(0.65 0.18 210 / 0.2), oklch(0.55 0.15 180 / 0.1))",
-              color: "oklch(0.65 0.18 210)",
-            }}
-          >
-            {pro.navn.charAt(0).toUpperCase()}
-          </div>
+          <ProAvatar navn={pro.navn} size="lg" />
           <div>
             <h1 className="text-4xl font-bold tracking-tight">{pro.navn}</h1>
             <p className="text-muted-foreground">
@@ -93,7 +87,23 @@ export default async function ProPage({ params }: Props) {
         </div>
 
         <div className="rounded-xl border border-border/50 bg-card p-7">
-          <h2 className="mb-5 text-lg font-semibold">Om {pro.navn}s mus</h2>
+          <div className="relative mb-4 h-40 w-full overflow-hidden rounded-lg bg-gradient-to-br from-primary/[0.04] to-primary/[0.02]">
+            {mouse.billede ? (
+              <Image
+                src={mouse.billede}
+                alt={mouse.navn}
+                fill
+                className="object-contain p-4"
+                sizes="300px"
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center">
+                <div className="text-5xl font-bold text-primary/10">
+                  {mouse.navn.charAt(0).toUpperCase()}
+                </div>
+              </div>
+            )}
+          </div>
           <Link
             href={`/mus/${mouse.slug}`}
             className="text-xl font-semibold block mb-3 hover:text-primary transition-colors"
@@ -109,21 +119,33 @@ export default async function ProPage({ params }: Props) {
             {mouse.beskrivelse}
           </p>
           <div className="flex gap-3">
-            {offer && (
-              <a
-                href={offer.affiliateUrl}
-                rel="sponsored nofollow"
-                target="_blank"
-                className={cn(
-                  buttonVariants({}),
-                  "shadow-[0_0_20px_-5px_oklch(0.65_0.18_210/0.5)] hover:shadow-[0_0_30px_-5px_oklch(0.65_0.18_210/0.7)] transition-shadow duration-300"
-                )}
-              >
-                {offer.prisDkk
-                  ? `Se pris ${offer.prisDkk} kr.`
-                  : "Se pris"}
-              </a>
-            )}
+            {offer && (() => {
+              const retailer = getRetailer(offer.retailer);
+              return (
+                <a
+                  href={offer.affiliateUrl}
+                  rel="sponsored nofollow"
+                  target="_blank"
+                  className={cn(
+                    buttonVariants({}),
+                    "shadow-[0_0_20px_-5px_oklch(0.65_0.18_210/0.5)] hover:shadow-[0_0_30px_-5px_oklch(0.65_0.18_210/0.7)] transition-shadow duration-300 gap-1.5"
+                  )}
+                >
+                  {retailer?.logo && (
+                    <Image
+                      src={retailer.logo}
+                      alt={retailer.navn}
+                      width={16}
+                      height={16}
+                      className="rounded-sm object-contain"
+                    />
+                  )}
+                  {offer.prisDkk
+                    ? `Se pris ${offer.prisDkk} kr.`
+                    : "Se pris"}
+                </a>
+              );
+            })()}
             <Link
               href={`/mus/${mouse.slug}`}
               className={cn(buttonVariants({ variant: "outline" }))}
@@ -134,7 +156,7 @@ export default async function ProPage({ params }: Props) {
         </div>
       </div>
 
-      <div className="text-center">
+      <div className="text-center pb-12">
         <Link
           href={`/mus/${mouse.slug}`}
           className="text-sm text-primary hover:underline underline-offset-4"

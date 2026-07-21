@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -7,6 +8,7 @@ import { getEsport } from "@/data/esports";
 import { mice } from "@/data/mice";
 import { pros } from "@/data/pros";
 import { MouseCard } from "@/components/mouse-card";
+import { ProAvatar } from "@/components/pro-avatar";
 
 export const metadata: Metadata = {
   title: "CS2 mus — bedste mus til Counter-Strike 2",
@@ -27,35 +29,49 @@ export default function Cs2Page() {
     .slice(0, 6);
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12">
-      <nav className="mb-8 text-sm text-muted-foreground">
-        <Link href="/" className="hover:text-primary transition-colors">Forside</Link>
-        <span className="mx-2">/</span>
-        <span className="text-foreground">CS2</span>
-      </nav>
-      
-      <div className="mb-16">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">
-          Counter-Strike 2 <span className="text-primary">Mus</span>
-        </h1>
-        <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
-          {esport.beskrivelse}
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <Link
-            href="/find-mus"
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "shadow-[0_0_20px_-5px_oklch(0.65_0.18_210/0.5)] hover:shadow-[0_0_30px_-5px_oklch(0.65_0.18_210/0.7)] transition-shadow duration-300"
-            )}
-          >
-            Find din mus
-          </Link>
-          <Link href="/cs2#alle-mus" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
-            Se alle pro-mus &rarr;
-          </Link>
+    <div className="mx-auto max-w-5xl">
+      <section className="relative overflow-hidden mb-16">
+        {esport.heroImage && (
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src={esport.heroImage}
+              alt=""
+              fill
+              className="object-cover opacity-10"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background" />
+          </div>
+        )}
+        <div className="px-4 pt-12 pb-8">
+          <nav className="mb-8 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-primary transition-colors">Forside</Link>
+            <span className="mx-2">/</span>
+            <span className="text-foreground">CS2</span>
+          </nav>
+          
+          <h1 className="text-4xl font-bold tracking-tight mb-4">
+            Counter-Strike 2 <span className="text-primary">Mus</span>
+          </h1>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+            {esport.beskrivelse}
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/find-mus"
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "shadow-[0_0_20px_-5px_oklch(0.65_0.18_210/0.5)] hover:shadow-[0_0_30px_-5px_oklch(0.65_0.18_210/0.7)] transition-shadow duration-300"
+              )}
+            >
+              Find din mus
+            </Link>
+            <Link href="/cs2#alle-mus" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
+              Se alle pro-mus &rarr;
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
 
       <section className="mb-20">
         <div className="flex items-center justify-between mb-8">
@@ -79,16 +95,7 @@ export default function Cs2Page() {
             return (
               <div key={pro.slug} className="rounded-xl border border-border/50 bg-card p-6 hover:border-primary/20 transition-colors duration-200">
                 <div className="flex items-center gap-4 mb-4">
-                  <div
-                    className="flex h-12 w-12 items-center justify-center rounded-full text-lg font-bold shrink-0"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, oklch(0.65 0.18 210 / 0.2), oklch(0.55 0.15 180 / 0.1))",
-                      color: "oklch(0.65 0.18 210)",
-                    }}
-                  >
-                    {pro.navn.charAt(0).toUpperCase()}
-                  </div>
+                  <ProAvatar navn={pro.navn} size="md" />
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold">{pro.navn}</h3>
                     <p className="text-sm text-muted-foreground">

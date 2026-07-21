@@ -8,7 +8,7 @@ export const esports: Esport[] = [
     aktiv: true,
     beskrivelse:
       "Counter-Strike 2 er en taktisk first-person shooter, hvor præcision og konsistens er alt. Pros foretrækker letvægtsmus med minimal vægt og høj polling rate til hurtige flick shots og præcist aim.",
-    heroImage: undefined,
+    heroImage: "/images/esports/cs2.jpg",
     musProfil: {
       vaegtVigtighed: 5,
       knapBehov: "minimal",

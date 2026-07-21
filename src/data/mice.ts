@@ -14,6 +14,7 @@ export const mice: Mouse[] = [
     maxDpi: 32000,
     pollingHz: 4000,
     prisNiveau: "flagship",
+    billede: "/images/mice/logitech-g-pro-x-superlight-2.jpg",
     beskrivelse:
       "Den mest brugte mus blandt CS2-pros. 60 grams vægt, 4000 Hz polling rate og Hero 2-sensoren gør den til førstevalget for konkurrencespillere.",
     fordele: [
@@ -58,6 +59,7 @@ export const mice: Mouse[] = [
     maxDpi: 35000,
     pollingHz: 4000,
     prisNiveau: "flagship",
+    billede: "/images/mice/razer-viper-v3-pro.png",
     beskrivelse:
       "Razers letteste konkurrencemus. Med 55 gram og Razers Focus Pro-sensor er den et populært valg blandt CS2-pros — inklusive ZywOo.",
     fordele: [
@@ -101,6 +103,7 @@ export const mice: Mouse[] = [
     maxDpi: 3200,
     pollingHz: 1000,
     prisNiveau: "mid",
+    billede: "/images/mice/zowie-ec2-dw.png",
     beskrivelse:
       "ZOWIE EC2-DW er trådløsversionen af den legendariske EC2-serie. Ergonomisk højrehåndsdesign og pålidelig 3360-sensor — en solid indgang til pro-grade udstyr.",
     fordele: [
@@ -144,6 +147,7 @@ export const mice: Mouse[] = [
     maxDpi: 25600,
     pollingHz: 1000,
     prisNiveau: "budget",
+    billede: "/images/mice/logitech-g403-hero.png",
     beskrivelse:
       "Logitech G403 Hero er en pålidelig kablet mus med Hero 25K-sensor. Prisen gør den til det bedste budgetvalg for CS2-spillere, der vil have pro-grade sensor uden flagship-prisen.",
     fordele: [
@@ -187,6 +191,7 @@ export const mice: Mouse[] = [
     maxDpi: 30000,
     pollingHz: 1000,
     prisNiveau: "flagship",
+    billede: "/images/mice/razer-deathadder-v3.png",
     beskrivelse:
       "DeathAdder V3 er Razers letteste ergonomiske mus nogensinde. 63 gram og Focus Pro 30K-sensor giver præcision og komfort til CS2-spillere med palm-greb.",
     fordele: [
@@ -223,6 +228,7 @@ export const mice: Mouse[] = [
     maxDpi: 16000,
     pollingHz: 1000,
     prisNiveau: "flagship",
+    billede: "/images/mice/finalmouse-starlight-pro-small.jpg",
     beskrivelse:
       "Finalmouse Starlight Pro Small er en af de letteste gaming-mus på markedet med kun 38 gram. Den er et status-symbol blandt pros, men svær at få fat i.",
     fordele: [
@@ -259,6 +265,7 @@ export const mice: Mouse[] = [
     maxDpi: 26000,
     pollingHz: 1000,
     prisNiveau: "mid",
+    billede: "/images/mice/pulsar-x2h.jpg",
     beskrivelse:
       "Pulsar X2H er designet specifikt til claw-greb med en højere bagdel, der giver bedre støtte. PAW3395-sensoren matcher langt dyrere mus.",
     fordele: [
@@ -295,6 +302,7 @@ export const mice: Mouse[] = [
     maxDpi: 26000,
     pollingHz: 1000,
     prisNiveau: "mid",
+    billede: "/images/mice/vaxee-xe-wireless.jpg",
     beskrivelse:
       "Vaxee XE Wireless er skabt af tidligere ZOWIE-medarbejdere. Byggekvaliteten er exceptionel, og formen passer de fleste claw/palm-spillere.",
     fordele: [
@@ -331,6 +339,7 @@ export const mice: Mouse[] = [
     maxDpi: 26000,
     pollingHz: 4000,
     prisNiveau: "mid",
+    billede: "/images/mice/g-wolves-hts-pro-4k.jpg",
     beskrivelse:
       "G-Wolves HTS Pro 4K er en ultralet mus med 4000 Hz polling rate til en fornuftig pris. Ideel til spillere med små hænder og claw/fingertip-greb.",
     fordele: [
@@ -367,6 +376,7 @@ export const mice: Mouse[] = [
     maxDpi: 26000,
     pollingHz: 4000,
     prisNiveau: "mid",
+    billede: "/images/mice/lamzu-maya-x.webp",
     beskrivelse:
       "Lamzu Maya X kombinerer et slankt design med 50 grams vægt og 4000 Hz polling rate. Den er hurtigt blevet populær blandt konkurrencespillere.",
     fordele: [

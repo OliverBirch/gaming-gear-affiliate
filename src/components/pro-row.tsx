@@ -1,5 +1,6 @@
 import type { Pro } from "@/lib/types";
 import Link from "next/link";
+import { ProAvatar } from "@/components/pro-avatar";
 
 export function ProRow({ pro, isLast }: { pro: Pro; isLast: boolean }) {
   return (
@@ -9,16 +10,7 @@ export function ProRow({ pro, isLast }: { pro: Pro; isLast: boolean }) {
         !isLast ? "border-b border-border/50" : ""
       }`}
     >
-      <div
-        className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold shrink-0"
-        style={{
-          background:
-            "linear-gradient(135deg, oklch(0.65 0.18 210 / 0.2), oklch(0.55 0.15 180 / 0.1))",
-          color: "oklch(0.65 0.18 210)",
-        }}
-      >
-        {pro.navn.charAt(0).toUpperCase()}
-      </div>
+      <ProAvatar navn={pro.navn} />
       <div className="flex-1 min-w-0">
         <div className="font-semibold truncate group-hover:text-primary transition-colors duration-200">
           {pro.navn}

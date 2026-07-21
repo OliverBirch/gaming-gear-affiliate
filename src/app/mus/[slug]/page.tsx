@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -39,19 +40,38 @@ export default async function MusPage({ params }: Props) {
         &larr; Tilbage til forsiden
       </Link>
 
-      <div className="mb-10">
-        <h1 className="text-4xl font-bold tracking-tight mb-4">
-          {mouse.navn}
-        </h1>
-        <div className="flex flex-wrap gap-2">
-          <Badge className="bg-primary/15 text-primary hover:bg-primary/20">{mouse.vaegtGram}g</Badge>
-          <Badge variant="outline" className="border-border/50 text-muted-foreground">{mouse.sensor}</Badge>
-          <Badge variant="outline" className="border-border/50 text-muted-foreground">{mouse.formfaktor}</Badge>
-          {mouse.wireless && <Badge variant="outline" className="border-border/50 text-muted-foreground">Tr&aring;dl&oslash;s</Badge>}
-          {mouse.proBrugere.length > 0 && (
-            <Badge className="bg-primary/15 text-primary">
-              {mouse.proBrugere.length} pro{mouse.proBrugere.length > 1 ? "s" : ""}
-            </Badge>
+      <div className="grid gap-8 sm:grid-cols-[1fr_200px] mb-10 items-start">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight mb-4">
+            {mouse.navn}
+          </h1>
+          <div className="flex flex-wrap gap-2">
+            <Badge className="bg-primary/15 text-primary hover:bg-primary/20">{mouse.vaegtGram}g</Badge>
+            <Badge variant="outline" className="border-border/50 text-muted-foreground">{mouse.sensor}</Badge>
+            <Badge variant="outline" className="border-border/50 text-muted-foreground">{mouse.formfaktor}</Badge>
+            {mouse.wireless && <Badge variant="outline" className="border-border/50 text-muted-foreground">Tr&aring;dl&oslash;s</Badge>}
+            {mouse.proBrugere.length > 0 && (
+              <Badge className="bg-primary/15 text-primary">
+                {mouse.proBrugere.length} pro{mouse.proBrugere.length > 1 ? "s" : ""}
+              </Badge>
+            )}
+          </div>
+          <p className="mt-4 text-muted-foreground leading-relaxed">{mouse.beskrivelse}</p>
+        </div>
+        <div className="relative h-40 w-full rounded-xl bg-gradient-to-br from-primary/[0.04] to-primary/[0.02] overflow-hidden">
+          {mouse.billede ? (
+            <Image
+              src={mouse.billede}
+              alt={mouse.navn}
+              fill
+              className="object-contain p-3"
+              sizes="200px"
+              priority
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <div className="text-5xl font-bold text-primary/10">{mouse.navn.charAt(0).toUpperCase()}</div>
+            </div>
           )}
         </div>
       </div>
@@ -146,9 +166,18 @@ export default async function MusPage({ params }: Props) {
             target="_blank"
             className={cn(
               buttonVariants({ size: "lg" }),
-              "shadow-[0_0_20px_-5px_oklch(0.65_0.18_210/0.5)] hover:shadow-[0_0_30px_-5px_oklch(0.65_0.18_210/0.7)] transition-shadow duration-300"
+              "shadow-[0_0_20px_-5px_oklch(0.65_0.18_210/0.5)] hover:shadow-[0_0_30px_-5px_oklch(0.65_0.18_210/0.7)] transition-shadow duration-300 gap-1.5"
             )}
           >
+            {retailer?.logo && (
+              <Image
+                src={retailer.logo}
+                alt={retailer.navn}
+                width={18}
+                height={18}
+                className="rounded-sm object-contain"
+              />
+            )}
             {offer.prisDkk
               ? `Se pris ${offer.prisDkk} kr. hos ${retailer?.navn ?? offer.retailer}`
               : "Se pris hos " + (retailer?.navn ?? offer.retailer)}
