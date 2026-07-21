@@ -4,6 +4,7 @@ import { MouseCard } from "@/components/mouse-card";
 import { ProAvatar } from "@/components/pro-avatar";
 import { mice } from "@/data/mice";
 import { pros } from "@/data/pros";
+import { esports } from "@/data/esports";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -22,8 +23,8 @@ export default function Home() {
             <span className="text-primary">pros i esport</span>?
           </h1>
           <p className="mb-10 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Se pr&aelig;cis hvilke gaming-mus dine favorit CS2-, Valorant- og
-            LoL-pros bruger - med settings, eDPI og de bedste danske priser.
+            Se pr&aelig;cis hvilke gaming-mus dine favorit CS2- og
+            Valorant-pros bruger - med settings, eDPI og de bedste danske priser.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
@@ -36,10 +37,10 @@ export default function Home() {
               Find din mus
             </Link>
             <Link
-              href="/cs2"
+              href="/pros"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
-              CS2 pros &rarr;
+              Se alle pros &rarr;
             </Link>
           </div>
       </section>
@@ -47,13 +48,13 @@ export default function Home() {
       <section className="mb-20">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold tracking-tight">
-            Mest brugte mus hos CS2-pros
+            Mest brugte mus p&aring; tv&aelig;rs af spil
           </h2>
           <Link
-            href="/cs2"
+            href="/mus/logitech-g-pro-x-superlight-2"
             className="text-sm text-primary hover:underline underline-offset-4"
           >
-            Se alle CS2-mus &rarr;
+            Se flere mus &rarr;
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -65,7 +66,7 @@ export default function Home() {
 
       <section className="mb-20">
         <h2 className="mb-8 text-2xl font-bold tracking-tight">
-          Mest sete pros i CS2
+          Mest sete pros
         </h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {pros.slice(0, 6).map((pro) => (
@@ -84,6 +85,39 @@ export default function Home() {
                   {pro.settings.edpi} eDPI
                 </div>
               </div>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-6 text-center">
+          <Link
+            href="/pros"
+            className="text-sm text-primary hover:underline underline-offset-4"
+          >
+            Se alle {pros.length} pros &rarr;
+          </Link>
+        </div>
+      </section>
+
+      <section className="mb-16">
+        <h2 className="mb-6 text-2xl font-bold tracking-tight text-center">
+          V&aelig;lg dit spil
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {esports.filter((e) => e.aktiv).map((e) => (
+            <Link
+              key={e.slug}
+              href={`/${e.slug}`}
+              className="group rounded-xl border border-border/50 bg-card p-7 hover:border-primary/30 transition-all duration-200"
+            >
+              <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
+                {e.navn}
+              </h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                {e.beskrivelse}
+              </p>
+              <span className="mt-4 inline-block text-sm font-medium text-primary">
+                Se mus &rarr;
+              </span>
             </Link>
           ))}
         </div>
@@ -135,7 +169,7 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            name: "ProMus.dk",
+            name: "ProSetups.dk",
             url: "https://prosetups.dk",
             potentialAction: {
               "@type": "SearchAction",

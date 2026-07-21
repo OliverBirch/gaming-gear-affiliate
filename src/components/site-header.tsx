@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { esports } from "@/data/esports";
 
 export function SiteHeader() {
   return (
@@ -7,9 +8,18 @@ export function SiteHeader() {
         <Link href="/" className="text-xl font-bold tracking-tight text-primary">
           ProSetups.dk
         </Link>
-        <nav className="flex gap-6 text-sm text-muted-foreground">
-          <Link href="/cs2" className="hover:text-primary transition-colors duration-200">
-            CS2
+        <nav className="flex items-center gap-5 text-sm text-muted-foreground">
+          {esports.filter((e) => e.aktiv).map((e) => (
+            <Link
+              key={e.slug}
+              href={`/${e.slug}`}
+              className="hover:text-primary transition-colors duration-200"
+            >
+              {e.navn}
+            </Link>
+          ))}
+          <Link href="/pros" className="hover:text-primary transition-colors duration-200">
+            Alle pros
           </Link>
           <Link href="/find-mus" className="hover:text-primary transition-colors duration-200">
             Find mus
