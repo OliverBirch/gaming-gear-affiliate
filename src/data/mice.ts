@@ -28,7 +28,7 @@ export const mice: Mouse[] = [
       "Ingen RGB",
       "Kræver software til DPI-justering",
     ],
-    proBrugere: ["donk", "s1mple", "device", "ropz", "m0nesy", "broky"],
+    proBrugere: ["donk", "device", "sh1ro", "hunter", "magisk", "w0nderful", "jl", "cadian", "degster", "ax1le", "b1t", "im", "naf", "malbsmd", "kscerato", "art", "jimpphat", "krimbo", "staehr", "hyped", "drop", "zont1x", "grim", "maj3r", "wicadia", "xfl0ud", "afro", "krimz", "fl4mus", "nawwk", "cacanito", "podi", "sdy", "cypher", "faven", "s1ren", "danistzz", "dgt", "buda", "luchov", "naz", "decenty", "coldzera", "venomzera", "nython", "deco", "togs", "vsm", "lucaozy", "zevy", "ricioli", "zmb", "lucas1", "aspas", "cned", "yay", "sacy", "saadhak", "derke", "leaf"],
     offers: [
       {
         retailer: "proshop",
@@ -72,7 +72,7 @@ export const mice: Mouse[] = [
       "Ikke velegnet til palm-greb",
       "Overfladen kan være glat for nogle",
     ],
-    proBrugere: ["zywoo", "flamez", "jks"],
+    proBrugere: ["zywoo", "flamez", "jks", "saffee", "sense", "meyern", "fns", "boo"],
     offers: [
       {
         retailer: "proshop",
@@ -116,7 +116,7 @@ export const mice: Mouse[] = [
       "Kun 1000 Hz polling rate",
       "Mikro-USB (ikke USB-C)",
     ],
-    proBrugere: ["niko", "elige", "twistzz"],
+    proBrugere: ["niko", "twistzz", "jabbi", "nertz", "brollan", "sjuush", "stavn", "siuhy", "yekindar", "ztr", "jkaem", "zorte", "hen1", "felps", "qraxs"],
     offers: [
       {
         retailer: "computersalg",
@@ -204,7 +204,7 @@ export const mice: Mouse[] = [
       "Ikke til venstrehåndede",
       "Kun 1000 Hz polling rate (upgraded i V3 Pro)",
     ],
-    proBrugere: ["s1mple"],
+    proBrugere: ["s1mple", "spinx", "karrigan", "torzsi", "andu", "hardzao", "nobody", "xeus"],
     offers: [
       {
         retailer: "proshop",
@@ -278,7 +278,7 @@ export const mice: Mouse[] = [
       "Mindre kendt brand",
       "Software kunne være bedre",
     ],
-    proBrugere: ["ropz"],
+    proBrugere: ["ropz", "jdc"],
     offers: [
       {
         retailer: "maxgaming",
@@ -315,7 +315,7 @@ export const mice: Mouse[] = [
       "Ikke til små hænder",
       "Kun sort/hvid farver",
     ],
-    proBrugere: ["device"],
+    proBrugere: ["sl3nd", "max"],
     offers: [
       {
         retailer: "maxgaming",
@@ -388,13 +388,193 @@ export const mice: Mouse[] = [
       "Ikke til palm-greb",
       "Nyere brand med mindre track record",
     ],
-    proBrugere: ["broky"],
+    proBrugere: ["broky", "floppy", "xkacpersky"],
     offers: [
       {
         retailer: "maxgaming",
         produktUrl: "https://www.maxgaming.dk/da/tilbehoer/mus/lamzu-maya-x",
         affiliateUrl: "https://www.maxgaming.dk/da/tilbehoer/mus/lamzu-maya-x",
         payoutPct: 4.0,
+        inStock: true,
+      },
+    ],
+  },
+  {
+    slug: "razer-deathadder-v4-pro",
+    navn: "DeathAdder V4 Pro",
+    brand: "Razer",
+    vaegtGram: 56,
+    formfaktor: "ergonomisk",
+    greb: ["palm", "claw"],
+    haandStoerrelse: ["stor"],
+    wireless: true,
+    sensor: "Focus Pro 45K Gen-2",
+    maxDpi: 45000,
+    pollingHz: 8000,
+    prisNiveau: "flagship",
+    billede: "/images/mice/razer-deathadder-v4-pro.jpg",
+    beskrivelse:
+      "Razers nyeste flagskib ergonomiske mus med 56 grams vægt og 8000 Hz polling rate. Den opdaterede DeathAdder-serie har et mere bokset design end forgængeren.",
+    fordele: [
+      "Ekstremt let (56g) til ergonomisk mus",
+      "8000 Hz polling rate",
+      "Focus Pro 45K Gen-2 sensor",
+      "Optiske switches",
+    ],
+    ulemper: [
+      "Høj pris",
+      "Kun til større hænder",
+      "Kræver separat HyperPolling dongle til 8K Hz",
+    ],
+    proBrugere: ["alfajer", "pancada"],
+    offers: [
+      {
+        retailer: "maxgaming",
+        produktUrl: "https://www.maxgaming.dk/dk/tradlose/deathadder-v4-pro-tradlos-gamingmus-hvid",
+        affiliateUrl: "https://www.maxgaming.dk/dk/tradlose/deathadder-v4-pro-tradlos-gamingmus-hvid",
+        payoutPct: 4.0,
+        inStock: true,
+      },
+      {
+        retailer: "proshop",
+        produktUrl: "https://www.proshop.dk/Mus/Razer-DeathAdder-V4-Pro-Gaming-Mus-Optisk-6-knapper-Sort/3452053",
+        affiliateUrl: "https://www.proshop.dk/Mus/Razer-DeathAdder-V4-Pro-Gaming-Mus-Optisk-6-knapper-Sort/3452053",
+        payoutPct: 3.0,
+        inStock: true,
+      },
+    ],
+  },
+  {
+    slug: "razer-viper-v4-pro",
+    navn: "Viper V4 Pro",
+    brand: "Razer",
+    vaegtGram: 49,
+    formfaktor: "symmetrisk",
+    greb: ["palm", "claw", "fingertip"],
+    haandStoerrelse: ["medium", "stor"],
+    wireless: true,
+    sensor: "Focus Pro 50K Gen-3",
+    maxDpi: 50000,
+    pollingHz: 8000,
+    prisNiveau: "flagship",
+    billede: "/images/mice/razer-viper-v4-pro.jpg",
+    beskrivelse:
+      "Den nyeste Viper-serie fra Razer med 49 grams vægt og 8000 Hz polling rate. En af de mest populære mus blandt Valorant-pros.",
+    fordele: [
+      "Meget let (49g)",
+      "8000 Hz polling rate",
+      "Focus Pro 50K Gen-3 sensor",
+      "Populær blandt Valorant-pros",
+    ],
+    ulemper: [
+      "Høj pris",
+      "Kræver separat HyperPolling dongle til 8K Hz",
+      "Ikke til små hænder",
+    ],
+    proBrugere: ["smoggy", "johnqt", "beYN"],
+    offers: [
+      {
+        retailer: "maxgaming",
+        produktUrl: "https://www.maxgaming.dk/dk/tradlose/razer-viper-v4-pro-hvid",
+        affiliateUrl: "https://www.maxgaming.dk/dk/tradlose/razer-viper-v4-pro-hvid",
+        payoutPct: 4.0,
+        inStock: true,
+      },
+      {
+        retailer: "proshop",
+        produktUrl: "https://www.proshop.dk/Mus/Razer-Viper-V4-Pro-Wireless-Gaming-Mus-Optisk-6-knapper-Sort/3457139",
+        affiliateUrl: "https://www.proshop.dk/Mus/Razer-Viper-V4-Pro-Wireless-Gaming-Mus-Optisk-6-knapper-Sort/3457139",
+        payoutPct: 3.0,
+        inStock: true,
+      },
+    ],
+  },
+  {
+    slug: "pulsar-tenz-signature-edition",
+    navn: "TenZ Signature Edition",
+    brand: "Pulsar",
+    vaegtGram: 47,
+    formfaktor: "symmetrisk",
+    greb: ["claw"],
+    haandStoerrelse: ["medium"],
+    wireless: true,
+    sensor: "XS-1",
+    maxDpi: 32000,
+    pollingHz: 8000,
+    prisNiveau: "flagship",
+    billede: "/images/mice/pulsar-tenz-signature-edition.jpg",
+    beskrivelse:
+      "TenZ' signaturmus fra Pulsar med utrolige 47 grams vægt og 8000 Hz polling rate. Designet i samarbejde med en af Valorants største stjerner.",
+    fordele: [
+      "Ekstremt let (47g)",
+      "8000 Hz polling rate",
+      "TenZ signaturdesign",
+      "Konkurrencedygtig pris",
+    ],
+    ulemper: [
+      "Kun til claw-greb",
+      "Bedst til mellemstore hænder",
+      "Kræver separat 8K dongle",
+    ],
+    proBrugere: ["tenz"],
+    offers: [
+      {
+        retailer: "maxgaming",
+        produktUrl: "https://www.maxgaming.dk/dk/tradlose/pulsar-tenz-signature-edition",
+        affiliateUrl: "https://www.maxgaming.dk/dk/tradlose/pulsar-tenz-signature-edition",
+        payoutPct: 4.0,
+        inStock: true,
+      },
+      {
+        retailer: "proshop",
+        produktUrl: "https://www.proshop.dk/Mus/Pulsar-TenZ-Signature-Edition-Gaming-Mus-Optisk-5-knapper-Sort/3395272",
+        affiliateUrl: "https://www.proshop.dk/Mus/Pulsar-TenZ-Signature-Edition-Gaming-Mus-Optisk-5-knapper-Sort/3395272",
+        payoutPct: 3.0,
+        inStock: true,
+      },
+    ],
+  },
+  {
+    slug: "zowie-u2-dw",
+    navn: "U2-DW",
+    brand: "ZOWIE",
+    vaegtGram: 60,
+    formfaktor: "symmetrisk",
+    greb: ["claw", "fingertip", "palm"],
+    haandStoerrelse: ["medium"],
+    wireless: true,
+    sensor: "PAW3950",
+    maxDpi: 3200,
+    pollingHz: 4000,
+    prisNiveau: "flagship",
+    billede: "/images/mice/zowie-u2-dw.jpg",
+    beskrivelse:
+      "ZOWIEs nyeste trådløse flagskib med 60 grams vægt og 4000 Hz polling rate. Driverløs opsætning med faste DPI-trin og ZOWIEs klassiske byggekvalitet.",
+    fordele: [
+      "Driverløs opsætning",
+      "ZOWIE byggekvalitet",
+      "4000 Hz polling rate",
+      "Populær blandt Valorant-pros",
+    ],
+    ulemper: [
+      "Fast DPI (400/800/1000/1200/1600/3200)",
+      "Høj pris",
+      "Ingen software til makroer",
+    ],
+    proBrugere: ["nats"],
+    offers: [
+      {
+        retailer: "maxgaming",
+        produktUrl: "https://www.maxgaming.dk/dk/tradlose/zowie-by-benq-u2-dw-4k-tradlos-gaming-mus-glossy-edition",
+        affiliateUrl: "https://www.maxgaming.dk/dk/tradlose/zowie-by-benq-u2-dw-4k-tradlos-gaming-mus-glossy-edition",
+        payoutPct: 4.0,
+        inStock: true,
+      },
+      {
+        retailer: "proshop",
+        produktUrl: "https://www.proshop.dk/Mus/BenQ-Zowie-U2-DW-Medium-Wireless-Mouse-for-Esports-Gaming-Mus-Optisk-7-knapper-Sort/3338183",
+        affiliateUrl: "https://www.proshop.dk/Mus/BenQ-Zowie-U2-DW-Medium-Wireless-Mouse-for-Esports-Gaming-Mus-Optisk-7-knapper-Sort/3338183",
+        payoutPct: 3.0,
         inStock: true,
       },
     ],

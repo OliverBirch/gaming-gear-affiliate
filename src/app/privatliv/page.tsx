@@ -44,7 +44,7 @@ export default function PrivatlivPage() {
         <section>
           <h2 className="mb-2 text-lg font-semibold text-foreground">Kontakt</h2>
           <p>
-            Har du spørgsmål? Skriv til os på kontakt@promus.dk (kommende).
+            Har du spørgsmål? Skriv til os på kontakt@prosetups.dk (kommende).
           </p>
         </section>
       </div>

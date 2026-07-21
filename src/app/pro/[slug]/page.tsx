@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -51,7 +52,11 @@ export default async function ProPage({ params }: Props) {
           <div>
             <h1 className="text-4xl font-bold tracking-tight">{pro.navn}</h1>
             <p className="text-muted-foreground">
-              {pro.hold} &middot; {pro.land} &middot;{" "}
+              {pro.hold ? (
+                <Link href={`/${pro.esport}/hold/${pro.hold.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-primary transition-colors">
+                  {pro.hold}
+                </Link>
+              ) : "\u2014"} &middot; {pro.land} &middot;{" "}
               {new Date(pro.sidstVerificeret).toLocaleDateString("da-DK")}
             </p>
           </div>
@@ -128,7 +133,7 @@ export default async function ProPage({ params }: Props) {
                   target="_blank"
                   className={cn(
                     buttonVariants({}),
-                    "shadow-[0_0_20px_-5px_oklch(0.65_0.18_210/0.5)] hover:shadow-[0_0_30px_-5px_oklch(0.65_0.18_210/0.7)] transition-shadow duration-300 gap-1.5"
+                    "active:scale-[0.98] transition-transform duration-150 gap-1.5"
                   )}
                 >
                   {retailer?.logo && (
@@ -164,6 +169,24 @@ export default async function ProPage({ params }: Props) {
           Se flere detaljer om {mouse.navn} &rarr;
         </Link>
       </div>
+
+      <Script
+        id="schema-person"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: pro.navn,
+            affiliation: pro.hold,
+            knowsAbout: {
+              "@type": "Product",
+              name: mouse.navn,
+              brand: { "@type": "Brand", name: mouse.brand },
+            },
+          }),
+        }}
+      />
     </div>
   );
 }

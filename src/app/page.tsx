@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Script from "next/script";
 import { MouseCard } from "@/components/mouse-card";
 import { ProAvatar } from "@/components/pro-avatar";
 import { mice } from "@/data/mice";
@@ -13,26 +14,24 @@ export default function Home() {
     .slice(0, 3);
 
   return (
+    <>
     <div className="mx-auto max-w-5xl px-4">
-      <section className="relative overflow-hidden mb-24 pt-20 pb-16 text-center">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_oklch(0.65_0.18_210/0.08),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
-        <div className="relative">
+      <section className="mb-24 pt-20 pb-16 text-center">
           <h1 className="mb-4 text-5xl font-bold tracking-tight leading-tight">
             Hvilken mus bruger{" "}
             <span className="text-primary">pros i esport</span>?
           </h1>
           <p className="mb-10 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Se pr&aelig;cis hvilke gaming-mus dine favorit CS2-, Valorant- og
-            LoL-pros bruger &mdash; med settings, eDPI og de bedste danske priser.
+            LoL-pros bruger - med settings, eDPI og de bedste danske priser.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/find-mus"
               className={cn(
-                buttonVariants({ size: "lg" }),
-                "shadow-[0_0_20px_-5px_oklch(0.65_0.18_210/0.5)] hover:shadow-[0_0_30px_-5px_oklch(0.65_0.18_210/0.7)] transition-shadow duration-300"
-              )}
+                  buttonVariants({ size: "lg" }),
+                  "active:scale-[0.98] transition-transform duration-150"
+                )}
             >
               Find din mus
             </Link>
@@ -43,7 +42,6 @@ export default function Home() {
               CS2 pros &rarr;
             </Link>
           </div>
-        </div>
       </section>
 
       <section className="mb-20">
@@ -122,12 +120,34 @@ export default function Home() {
             </div>
             <h3 className="mb-2 font-semibold">Find bedste pris</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Vi viser dig den bedste danske pris &mdash; klik og k&oslash;b hos
+              Vi viser dig den bedste danske pris - klik og k&oslash;b hos
               Proshop, MaxGaming eller Computersalg.
             </p>
           </div>
         </div>
       </section>
-    </div>
+      </div>
+
+      <Script
+        id="schema-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "ProMus.dk",
+            url: "https://prosetups.dk",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: {
+                "@type": "EntryPoint",
+                urlTemplate: "https://prosetups.dk/find-mus",
+              },
+              "query-input": "required",
+            },
+          }),
+        }}
+      />
+    </>
   );
 }

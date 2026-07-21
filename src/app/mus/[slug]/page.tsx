@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -166,7 +167,7 @@ export default async function MusPage({ params }: Props) {
             target="_blank"
             className={cn(
               buttonVariants({ size: "lg" }),
-              "shadow-[0_0_20px_-5px_oklch(0.65_0.18_210/0.5)] hover:shadow-[0_0_30px_-5px_oklch(0.65_0.18_210/0.7)] transition-shadow duration-300 gap-1.5"
+              "active:scale-[0.98] transition-transform duration-150 gap-1.5"
             )}
           >
             {retailer?.logo && (
@@ -190,6 +191,31 @@ export default async function MusPage({ params }: Props) {
           Tilbage til forsiden
         </Link>
       </div>
+
+      <Script
+        id="schema-product"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: mouse.navn,
+            brand: { "@type": "Brand", name: mouse.brand },
+            description: mouse.beskrivelse,
+            image: mouse.billede ? `https://prosetups.dk${mouse.billede}` : undefined,
+            offers: mouse.offers.filter((o) => o.inStock !== false).map((o) => ({
+              "@type": "Offer",
+              url: o.affiliateUrl ?? o.produktUrl,
+              price: o.prisDkk ?? undefined,
+              priceCurrency: o.prisDkk ? "DKK" : undefined,
+              availability: o.inStock
+                ? "https://schema.org/InStock"
+                : "https://schema.org/OutOfStock",
+              seller: { "@type": "Organization", name: o.retailer },
+            })),
+          }),
+        }}
+      />
     </div>
   );
 }

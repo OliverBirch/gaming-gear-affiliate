@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import Script from "next/script";
+import FinderQuiz from "@/components/finder-quiz";
 
 export const metadata: Metadata = {
   title: "Find din gaming-mus",
@@ -11,27 +10,52 @@ export const metadata: Metadata = {
 
 export default function FindMusPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 text-center">
-      <h1 className="mb-4 text-3xl font-bold tracking-tight">
-        Find din perfekte gaming-mus
-      </h1>
-      <p className="mb-8 text-lg text-muted-foreground">
-        Svar på få spørgsmål, og få en skræddersyet anbefaling baseret på hvad
-        pros bruger — med de bedste priser fra danske forhandlere.
-      </p>
-      <div className="rounded-lg border bg-card p-8 mb-8">
-        <p className="text-muted-foreground mb-6">
-          Finder-værktøjet er på vej! Indtil da kan du se hvilke mus pros bruger
-          i{" "}
-          <Link href="/cs2" className="text-primary hover:underline">
-            CS2
-          </Link>
-          .
-        </p>
-        <Link href="/cs2" className={cn(buttonVariants({}))}>
-          Se CS2-mus →
-        </Link>
-      </div>
-    </div>
+    <>
+      <FinderQuiz />
+      <Script
+        id="schema-faq"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              {
+                "@type": "Question",
+                name: "Hvilket greb bruger du på din mus?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Palm-greb: hele hånden hviler på musen. Claw-greb: håndfladen hviler, fingrene er krummet. Fingertip-greb: kun fingerspidserne rører musen.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Hvilken håndstørrelse har du?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Lille (under 17 cm), Medium (17-20 cm) eller Stor (over 20 cm) målt fra håndrod til langefinger.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Hvad koster en god gaming-mus?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "Budget: under 500 kr. Mellemklasse: 500-1000 kr. Flagship: over 1000 kr. Pros bruger typisk flagskibsmus som Logitech G Pro X Superlight 2 og Razer Viper V3 Pro.",
+                },
+              },
+              {
+                "@type": "Question",
+                name: "Hvilken mus bruger CS2-pros?",
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: "De mest populære mus blandt CS2-pros er Logitech G Pro X Superlight 2, Razer Viper V3 Pro og ZOWIE EC2-DW. Over 60% af trackede pros bruger Logitech G Pro X Superlight 2.",
+                },
+              },
+            ],
+          }),
+        }}
+      />
+    </>
   );
 }

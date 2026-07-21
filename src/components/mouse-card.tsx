@@ -18,19 +18,19 @@ export function MouseCard({ mouse }: { mouse: Mouse }) {
   const retailer = offer ? getRetailer(offer.retailer) : null;
 
   return (
-    <div className="group rounded-xl border border-border/50 bg-card p-5 flex flex-col hover:border-primary/30 hover:shadow-[0_0_20px_-8px_oklch(0.65_0.18_210/0.3)] transition-all duration-200">
-      <div className="relative mb-4 h-36 w-full overflow-hidden rounded-lg bg-gradient-to-br from-primary/[0.04] to-primary/[0.02]">
+    <div className="group relative rounded-xl border border-border/50 bg-card p-5 flex flex-col hover:border-primary/30 hover:-translate-y-[1px] transition-all duration-200">
+      <div className="relative mb-4 h-40 w-full overflow-hidden rounded-lg bg-[#0d0d0d]">
         {mouse.billede ? (
           <Image
             src={mouse.billede}
             alt={mouse.navn}
             fill
-            className="object-contain p-3 transition-transform duration-300 group-hover:scale-110"
+            className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width: 640px) 100vw, 300px"
           />
         ) : (
           <div className="flex h-full items-center justify-center">
-            <div className="text-5xl font-bold text-primary/10">
+            <div className="text-5xl font-bold text-foreground/5">
               {mouse.navn.charAt(0).toUpperCase()}
             </div>
           </div>
@@ -45,20 +45,18 @@ export function MouseCard({ mouse }: { mouse: Mouse }) {
           >
             {mouse.navn}
           </Link>
-          <div className="text-xs text-muted-foreground mt-0.5 flex items-center gap-1.5">
+          <div className="text-xs text-muted-foreground mt-0.5">
             {mouse.brand}
           </div>
         </div>
-        <Badge
-          className={cn(
-            "shrink-0",
-            mouse.prisNiveau === "flagship"
-              ? "bg-primary/15 text-primary hover:bg-primary/20"
-              : "bg-secondary text-secondary-foreground"
-          )}
-        >
-          {mouse.vaegtGram}g
-        </Badge>
+      </div>
+
+      <div className="flex items-center gap-3 mb-3 text-xs font-mono tabular-nums text-muted-foreground">
+        <span>{mouse.vaegtGram}g</span>
+        <span className="text-border">|</span>
+        <span>{mouse.pollingHz}Hz</span>
+        <span className="text-border">|</span>
+        <span>{(mouse.maxDpi / 1000).toFixed(0)}K DPI</span>
       </div>
 
       <div className="flex flex-wrap gap-1.5 mb-3">
@@ -76,7 +74,7 @@ export function MouseCard({ mouse }: { mouse: Mouse }) {
             variant="outline"
             className="text-xs border-border/50 text-muted-foreground"
           >
-            Trådløs
+            Traadloes
           </Badge>
         )}
       </div>
@@ -87,7 +85,7 @@ export function MouseCard({ mouse }: { mouse: Mouse }) {
           <span className="text-foreground font-medium">
             {mouse.proBrugere.length}
           </span>{" "}
-          pro{mouse.proBrugere.length > 1 ? "s" : ""} &mdash;{" "}
+          pro{mouse.proBrugere.length > 1 ? "s" : ""} -{" "}
           {mouse.proBrugere
             .slice(0, 3)
             .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
@@ -110,7 +108,7 @@ export function MouseCard({ mouse }: { mouse: Mouse }) {
             target="_blank"
             className={cn(
               buttonVariants({ size: "sm" }),
-              "shadow-[0_0_12px_-4px_oklch(0.65_0.18_210/0.3)] hover:shadow-[0_0_20px_-4px_oklch(0.65_0.18_210/0.5)] transition-shadow duration-300 gap-1.5"
+              "gap-1.5 active:scale-[0.98] transition-transform duration-150"
             )}
           >
             {retailer.logo && (

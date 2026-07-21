@@ -16,6 +16,21 @@ export const esports: Esport[] = [
       typiskDpi: [400, 800],
     },
   },
+  {
+    slug: "valorant",
+    navn: "Valorant",
+    genre: "fps",
+    aktiv: true,
+    beskrivelse:
+      "Valorant er en taktisk hero-shooter, hvor præcision og reaktionstid er afgørende. Pros bruger typisk letvægtsmus med lave eDPI-værdier for præcist crosshair-placement.",
+    heroImage: "/images/esports/valorant.jpg",
+    musProfil: {
+      vaegtVigtighed: 4,
+      knapBehov: "minimal",
+      wirelessForventet: true,
+      typiskDpi: [800, 1600],
+    },
+  },
 ];
 
 export function getEsport(slug: string): Esport | undefined {
