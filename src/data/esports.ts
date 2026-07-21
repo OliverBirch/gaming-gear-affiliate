@@ -31,6 +31,21 @@ export const esports: Esport[] = [
       typiskDpi: [800, 1600],
     },
   },
+  {
+    slug: "r6",
+    navn: "Rainbow Six Siege",
+    genre: "fps",
+    aktiv: true,
+    beskrivelse:
+      "Rainbow Six Siege er en taktisk first-person shooter, hvor holdbaserede angreb og forsvar kræver præcision og kommunikation. Pros bruger ofte lav DPI med en unik multiplikator for at opnå pixel-præcist aim gennem små sprækker og huller.",
+    heroImage: "/images/esports/r6.jpg",
+    musProfil: {
+      vaegtVigtighed: 5,
+      knapBehov: "minimal",
+      wirelessForventet: true,
+      typiskDpi: [400, 800],
+    },
+  },
 ];
 
 export function getEsport(slug: string): Esport | undefined {
