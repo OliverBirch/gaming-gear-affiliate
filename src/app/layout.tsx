@@ -19,11 +19,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s — ProSetups.dk",
-    default: "ProSetups.dk — Hvilken mus bruger pros i dansk esport?",
+    template: "%s - ProSetups.dk",
+    default: "ProSetups.dk - Hvilken mus bruger pros i dansk esport?",
   },
   description:
-    "Se hvilken gaming-mus dine favorit CS2-pros bruger. Find den bedste mus til dit spil med vores finder-værktøj — priser fra Proshop, MaxGaming og Computersalg.",
+    "Se hvilken gaming-mus dine favorit CS2-pros bruger. Find den bedste mus til dit spil med vores finder-værktøj. Priser fra Proshop, MaxGaming og Computersalg.",
   metadataBase: new URL("https://prosetups.dk"),
   alternates: {
     languages: {

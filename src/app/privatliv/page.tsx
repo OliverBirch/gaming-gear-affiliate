@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Privatlivspolitik",
-  description: "Læs om hvordan ProMus.dk håndterer dine data og cookies.",
+  description: "Læs om hvordan ProSetups.dk håndterer dine data og cookies.",
 };
 
 export default function PrivatlivPage() {

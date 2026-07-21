@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Om ProMus.dk",
-  description: "Læs om ProMus.dk — dansk esport-mus guide med pro-data og affiliate-priser.",
+  title: "Om ProSetups.dk",
+  description: "Læs om ProSetups.dk - dansk esport-mus guide med pro-data og affiliate-priser.",
 };
 
 export default function OmPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="mb-6 text-3xl font-bold tracking-tight">Om ProMus.dk</h1>
+      <h1 className="mb-6 text-3xl font-bold tracking-tight">Om ProSetups.dk</h1>
       <div className="prose prose-sm max-w-none text-muted-foreground space-y-4">
         <p>
-          ProMus.dk er en dansk guide til gaming-mus med fokus på hvad
+          ProSetups.dk er en dansk guide til gaming-mus med fokus på hvad
           professionelle esport-spillere bruger. Vi samler data om mus, DPI,
           in-game sens og eDPI fra de største CS2-pros og gør det let at finde
           den rigtige mus til dit spil.

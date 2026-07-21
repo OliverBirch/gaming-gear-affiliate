@@ -359,8 +359,8 @@ export default function FinderQuiz() {
           </p>
           <div className="space-y-3">
             {[
-              { value: true as const, navn: "Ja", beskrivelse: "Trådløs — ingen kabelrod" },
-              { value: false as const, navn: "Nej", beskrivelse: "Kablet — billigere og lettere" },
+              { value: true as const, navn: "Ja", beskrivelse: "Trådløs - ingen kabelrod" },
+              { value: false as const, navn: "Nej", beskrivelse: "Kablet - billigere og lettere" },
               { value: null, navn: "Ligeglad", beskrivelse: "Det betyder ikke noget for mig" },
             ].map((w) => (
               <button

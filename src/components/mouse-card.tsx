@@ -74,7 +74,7 @@ export function MouseCard({ mouse }: { mouse: Mouse }) {
             variant="outline"
             className="text-xs border-border/50 text-muted-foreground"
           >
-            Traadloes
+            Trådløs
           </Badge>
         )}
       </div>

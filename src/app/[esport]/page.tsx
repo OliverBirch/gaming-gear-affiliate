@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Script from "next/script";
-import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getEsport } from "@/data/esports";
@@ -10,6 +9,7 @@ import { esports } from "@/data/esports";
 import { mice } from "@/data/mice";
 import { pros } from "@/data/pros";
 import { MouseCard } from "@/components/mouse-card";
+import { ProSettingsTable, type ProTableRow } from "@/components/pro-settings-table";
 
 interface Props {
   params: Promise<{ esport: string }>;
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!esport) return {};
   return {
     title: `${esport.navn} mus - bedste mus til ${esport.navn}`,
-    description: `Se praecis hvilke mus ${esport.navn}-pros bruger. Find den perfekte mus med de bedste danske priser.`,
+    description: `Se præcis hvilke mus ${esport.navn}-pros bruger. Find den perfekte mus med de bedste danske priser.`,
   };
 }
 
@@ -42,6 +42,11 @@ function computeStats(esportSlug: string) {
     dpiDist[p.settings.dpi] = (dpiDist[p.settings.dpi] ?? 0) + 1;
   }
 
+  // Sorteret efter hvor mange pros der bruger værdien, ikke efter DPI-tallet.
+  const dpiRanked = Object.entries(dpiDist)
+    .map(([dpi, num]) => ({ dpi: Number(dpi), num }))
+    .sort((a, b) => b.num - a.num || b.dpi - a.dpi);
+
   const mouseShare: Record<string, { navn: string; count: number; pct: number }> = {};
   for (const p of esportPros) {
     const mouseName = mice.find((m) => m.slug === p.musSlug)?.navn ?? p.musSlug;
@@ -59,7 +64,7 @@ function computeStats(esportSlug: string) {
     .map((slug) => mice.find((m) => m.slug === slug))
     .filter((m): m is NonNullable<typeof m> => m != null);
 
-  return { count, lastVerified, dpiDist, mouseShare, esportPros, esportMice };
+  return { count, lastVerified, dpiRanked, mouseShare, esportPros, esportMice };
 }
 
 export default async function EsportPage({ params }: Props) {
@@ -67,11 +72,25 @@ export default async function EsportPage({ params }: Props) {
   const esport = getEsport(slug);
   if (!esport) notFound();
 
-  const { count, lastVerified, dpiDist, mouseShare, esportPros, esportMice } = computeStats(slug);
+  const { count, lastVerified, dpiRanked, mouseShare, esportPros, esportMice } = computeStats(slug);
 
   const popularMice = [...esportMice]
     .sort((a, b) => b.proBrugere.length - a.proBrugere.length)
     .slice(0, 3);
+
+  const proRows: ProTableRow[] = esportPros.map((pro) => {
+    const mouse = mice.find((m) => m.slug === pro.musSlug);
+    return {
+      slug: pro.slug,
+      navn: pro.navn,
+      hold: pro.hold ?? null,
+      dpi: pro.settings.dpi,
+      edpi: pro.settings.edpi,
+      pollingHz: pro.settings.pollingHz ?? null,
+      musSlug: mouse?.slug ?? null,
+      musNavn: mouse?.navn ?? null,
+    };
+  });
 
   const sortedMouseShare = Object.entries(mouseShare)
     .sort(([, a], [, b]) => b.count - a.count);
@@ -153,63 +172,11 @@ export default async function EsportPage({ params }: Props) {
       {esportPros.length > 0 && (
         <section className="px-4 pb-20">
           <h2 className="text-2xl font-bold tracking-tight mb-6">{slug.toUpperCase()} Pro-indstillinger</h2>
-          <div className="rounded-xl border border-border/50 overflow-hidden">
-            <div className="hidden sm:grid grid-cols-[1fr_auto_auto] gap-4 px-6 py-3 text-xs font-medium text-muted-foreground bg-muted/50 border-b border-border/50">
-              <span>Spiller</span>
-              <span>Indstillinger</span>
-              <span>Mus</span>
-            </div>
-            {esportPros.map((pro) => {
-              const mouse = mice.find((m) => m.slug === pro.musSlug);
-              return (
-                <div
-                  key={pro.slug}
-                  className="grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-2 sm:gap-4 px-6 py-4 border-b border-border/50 last:border-0 hover:bg-muted/20 transition-colors duration-150"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-semibold text-primary shrink-0">
-                      {pro.navn.charAt(0).toUpperCase()}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="font-medium truncate">{pro.navn}</div>
-                      <div className="text-xs text-muted-foreground truncate">
-                        {pro.hold}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3 text-xs font-mono tabular-nums text-muted-foreground sm:justify-end">
-                    <span>{pro.settings.dpi} DPI</span>
-                    <span className="text-border">|</span>
-                    <span>{pro.settings.edpi} eDPI</span>
-                    {pro.settings.pollingHz && (
-                      <>
-                        <span className="text-border">|</span>
-                        <span>{pro.settings.pollingHz} Hz</span>
-                      </>
-                    )}
-                  </div>
-
-                  <div className="flex items-center gap-3 sm:justify-end">
-                    {mouse ? (
-                      <Link
-                        href={`/mus/${mouse.slug}`}
-                        className="text-sm font-medium text-primary hover:underline underline-offset-4"
-                      >
-                        {mouse.navn}
-                      </Link>
-                    ) : (
-                      <span className="text-sm text-muted-foreground">-</span>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <p className="mt-3 text-xs text-muted-foreground">
-            Kilde: ProSettings.net
-            {lastVerified && ` - Sidst verificeret ${new Date(lastVerified).toLocaleDateString("da-DK")}`}
-          </p>
+          <ProSettingsTable
+            rows={proRows}
+            kilde="ProSettings.net"
+            sidstVerificeret={lastVerified}
+          />
         </section>
       )}
 
@@ -220,17 +187,11 @@ export default async function EsportPage({ params }: Props) {
             <div className="rounded-xl border border-border/50 bg-card p-7">
               <h3 className="text-xl font-semibold mb-3">DPI-fordeling</h3>
               <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
-                {Object.entries(dpiDist)
-                  .sort(([a], [b]) => Number(b) - Number(a))
-                  .slice(0, 1)
-                  .map(([dpi, num]) => `${num} af ${count} ${slug.toUpperCase()}-pros bruger ${dpi} DPI.`)
-                  .join("")}
-                {' '}De resterende fordeler sig på andre DPI-værdier.
+                {dpiRanked.length > 0 &&
+                  `${dpiRanked[0].num} af ${count} ${slug.toUpperCase()}-pros bruger ${dpiRanked[0].dpi} DPI. Det er den mest udbredte indstilling blandt de trackede spillere.`}
               </p>
               <div className="space-y-2">
-                {Object.entries(dpiDist)
-                  .sort(([a], [b]) => Number(b) - Number(a))
-                  .map(([dpi, num]) => (
+                {dpiRanked.map(({ dpi, num }) => (
                   <div key={dpi} className="flex items-center gap-3">
                     <span className="text-sm font-mono tabular-nums w-16">{dpi} DPI</span>
                     <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
@@ -248,11 +209,11 @@ export default async function EsportPage({ params }: Props) {
             </div>
 
             <div className="rounded-xl border border-border/50 bg-card p-7">
-              <h3 className="text-xl font-semibold mb-3">Mus-praeferencer</h3>
+              <h3 className="text-xl font-semibold mb-3">Mus-præferencer</h3>
               <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
                 {esport.genre === "fps"
-                  ? "Letvaegt, traadloes og minimal knapbehov til FPS. Pros i dette spil foretraekker lette mus til hurtige bevaegelser."
-                  : "Pros i dette spil har forskellige praeferencer afhaengigt af deres rolle og spillestil."}
+                  ? "Letvægt, trådløs og minimal knapbehov til FPS. Pros i dette spil foretrækker lette mus til hurtige bevægelser."
+                  : "Pros i dette spil har forskellige præferencer afhængigt af deres rolle og spillestil."}
               </p>
               <div className="space-y-3">
                 {sortedMouseShare.map(([mouseSlug, data]) => (

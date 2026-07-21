@@ -61,9 +61,9 @@ export const mice: Mouse[] = [
     prisNiveau: "flagship",
     billede: "/images/mice/razer-viper-v3-pro.png",
     beskrivelse:
-      "Razers letteste konkurrencemus. Med 55 gram og Razers Focus Pro-sensor er den et populært valg blandt CS2-pros — inklusive ZywOo.",
+      "Razers letteste konkurrencemus. Med 55 gram og Razers Focus Pro-sensor er den et populært valg blandt CS2-pros - inklusive ZywOo.",
     fordele: [
-      "Kun 55 gram — ekstremt let",
+      "Kun 55 gram - ekstremt let",
       "Razers hurtigste sensor",
       "4000 Hz polling rate",
     ],
@@ -105,9 +105,9 @@ export const mice: Mouse[] = [
     prisNiveau: "mid",
     billede: "/images/mice/zowie-ec2-dw.png",
     beskrivelse:
-      "ZOWIE EC2-DW er trådløsversionen af den legendariske EC2-serie. Ergonomisk højrehåndsdesign og pålidelig 3360-sensor — en solid indgang til pro-grade udstyr.",
+      "ZOWIE EC2-DW er trådløsversionen af den legendariske EC2-serie. Ergonomisk højrehåndsdesign og pålidelig 3360-sensor - en solid indgang til pro-grade udstyr.",
     fordele: [
-      "Ergonomisk design — behagelig i længere sessioner",
+      "Ergonomisk design - behagelig i længere sessioner",
       "Ingen software nødvendig (plug and play)",
       "Lavere pris end flagship-mus",
     ],
@@ -153,7 +153,7 @@ export const mice: Mouse[] = [
     fordele: [
       "Hero 25K-sensor til en lav pris",
       "God ergonomi",
-      "Pålidelig kablet forbindelse — ingen latency",
+      "Pålidelig kablet forbindelse - ingen latency",
     ],
     ulemper: [
       "Tungere end konkurrenterne (87g)",
@@ -234,12 +234,12 @@ export const mice: Mouse[] = [
     fordele: [
       "Ekstremt letvægt (38g)",
       "Magnesium-konstruktion",
-      "Eksklusiv — brugt af mange pros",
+      "Eksklusiv - brugt af mange pros",
     ],
     ulemper: [
       "Meget dyr",
       "Svær at få fat i (limited drops)",
-      "Lille — kun til små/medium hænder",
+      "Lille - kun til små/medium hænder",
     ],
     proBrugere: [],
     offers: [
@@ -308,7 +308,7 @@ export const mice: Mouse[] = [
     fordele: [
       "Overlegen byggekvalitet",
       "God form til claw og palm",
-      "Plug and play — ingen software",
+      "Plug and play - ingen software",
     ],
     ulemper: [
       "Dyr for et mindre brand",

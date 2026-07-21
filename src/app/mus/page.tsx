@@ -4,7 +4,7 @@ import { MouseCard } from "@/components/mouse-card";
 import { mice } from "@/data/mice";
 
 export const metadata: Metadata = {
-  title: "Alle gaming-mus — ProSetups.dk",
+  title: "Alle gaming-mus - ProSetups.dk",
   description:
     "Se komplette specifikationer, priser og hvilke pros der bruger hver mus. Sammenlign Logitech, Razer, ZOWIE, Pulsar og flere.",
 };

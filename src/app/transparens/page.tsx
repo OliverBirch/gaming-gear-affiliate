@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Transparens — affiliate og datakilder",
+  title: "Transparens - affiliate og datakilder",
   description: "Læs om vores affiliate-partnerskaber, datakilder og hvordan vi tjener penge.",
 };
 
@@ -16,7 +16,7 @@ export default function TransparensPage() {
           </h2>
           <p>
             Nogle links på denne side er affiliate-links. Hvis du klikker på et
-            affiliate-link og foretager et køb, modtager vi en provision — uden
+            affiliate-link og foretager et køb, modtager vi en provision, uden
             ekstra omkostning for dig. Vi samarbejder med:
           </p>
           <ul className="list-disc pl-5 mt-2 space-y-1">
@@ -34,7 +34,7 @@ export default function TransparensPage() {
             Vores pro-data (mus, DPI, settings) stammer primært fra
             prosettings.net og Liquipedia. Alle data er krediteret med kilde og
             verificeringsdato. Pro-gear skifter med roster-moves og nye
-            product-launches — vi bestræber os på at holde data opdateret.
+            product-launches. Vi bestræber os på at holde data opdateret.
           </p>
         </section>
         <section>

@@ -1,9 +1,30 @@
-# /cs2 Redesign Handoff - ProMus.dk
+# /cs2 Redesign Handoff - ProSetups.dk
+
+> ## STATUS: LARGELY SUPERSEDED (updated 2026-07-21, 17:45)
+>
+> This document was written against the page as it existed around 14:30. Between then and 17:30 the
+> project changed substantially: the pro dataset grew from 13 to 156, prices were scraped in,
+> `src/app/cs2/page.tsx` was deleted and folded into `src/app/[esport]/page.tsx`, and R6 plus
+> Valorant were added.
+>
+> **Sections 1, 2, 3.1 and 5.3 describe a page that no longer exists.** Do not implement from them.
+>
+> Still useful and unaffected: **Section 4 (the five references)** and **Section 6 (constraints)**.
+>
+> Shipped since, across that work and the follow-up implementation pass: dead `#alle-mus` anchors
+> removed, fake DPI badges removed, percentages computed from real data, prices wired via
+> `src/data/prices.json`, `bestOffer()` switched to price-ascending, `MouseCard` removed from the
+> pro rows, routes consolidated, glow shadows stripped, trust strip added, `font-mono tabular-nums`
+> applied, real pro photos wired into the settings table, a client-side filter added over the
+> 88-row table, brand unified on ProSetups.dk, all em-dashes removed, and four mangled Danish
+> strings repaired.
+>
+> Known open item: the site header nav overflows horizontally below roughly 500px.
 
 **Date:** 2026-07-21
-**Scope:** `src/app/cs2/page.tsx` and the shared components it pulls in (`MouseCard`, `ProAvatar`, `SiteHeader`)
+**Scope:** originally `src/app/cs2/page.tsx`; the live equivalent is now `src/app/[esport]/page.tsx`
 **Mode:** Redesign - Overhaul of the visual language. Preserve IA, routes, Danish copy voice, and the dark base.
-**Deliverable status:** Direction + spec. No code changed.
+**Deliverable status:** superseded in part, see status block above.
 
 ---
 

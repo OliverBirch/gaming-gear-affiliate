@@ -7,7 +7,7 @@ import { esports } from "@/data/esports";
 
 export const metadata: Metadata = {
   title: "Alle pros",
-  description: "Se alle CS2- og Valorant-pros på ProSetups.dk — deres mus, DPI, eDPI og settings.",
+  description: "Se alle CS2- og Valorant-pros på ProSetups.dk - deres mus, DPI, eDPI og settings.",
 };
 
 export default function ProsPage() {

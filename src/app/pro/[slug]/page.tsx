@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const pro = getPro(slug);
   if (!pro) return {};
   return {
-    title: `${pro.navn} — mus, settings og DPI`,
+    title: `${pro.navn} - mus, settings og DPI`,
     description: `Se ${pro.navn}s gaming-mus, DPI, in-game sens og eDPI. Få den bedste pris på ${pro.navn}s mus hos danske forhandlere.`,
   };
 }

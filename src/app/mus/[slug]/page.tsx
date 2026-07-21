@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const mouse = getMouse(slug);
   if (!mouse) return {};
   return {
-    title: `${mouse.navn} — specifikationer, fordele, og priser`,
+    title: `${mouse.navn} - specifikationer, fordele, og priser`,
     description: `Se komplette specifikationer for ${mouse.navn}: vægt, sensor, greb, og find den bedste pris hos Proshop, MaxGaming eller Computersalg.`,
   };
 }

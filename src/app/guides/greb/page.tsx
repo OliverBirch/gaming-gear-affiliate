@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Grebsguide — palm, claw og fingertip",
+  title: "Grebsguide - palm, claw og fingertip",
   description:
     "Lær forskellen på palm, claw og fingertip greb. Find ud af hvilket greb du bruger, og hvilken mus der passer til dig.",
 };
@@ -44,8 +44,8 @@ export default function GrebGuidePage() {
       <section className="mb-8 rounded-lg border p-6">
         <h2 className="mb-2 text-xl font-semibold">Fingertip-greb</h2>
         <p className="text-muted-foreground mb-3">
-          Kun fingerspidserne rører musen — håndfladen svæver over den. Giver
-          mest fri bevægelighed, men mindre kontrol.
+          Kun fingerspidserne rører musen, mens håndfladen svæver over den.
+          Giver mest fri bevægelighed, men mindre kontrol.
         </p>
         <p className="text-sm text-muted-foreground">
           Bedst til: Letvægtsmus som Finalmouse Starlight eller Razer Viper V3
