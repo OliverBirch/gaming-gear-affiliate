@@ -21,6 +21,9 @@ export function SiteHeader() {
           <Link href="/pros" className="hover:text-primary transition-colors duration-200">
             Alle pros
           </Link>
+          <Link href="/mus" className="hover:text-primary transition-colors duration-200">
+            Alle mus
+          </Link>
           <Link href="/find-mus" className="hover:text-primary transition-colors duration-200">
             Find mus
           </Link>

@@ -51,10 +51,10 @@ export default function Home() {
             Mest brugte mus p&aring; tv&aelig;rs af spil
           </h2>
           <Link
-            href="/mus/logitech-g-pro-x-superlight-2"
+            href="/mus"
             className="text-sm text-primary hover:underline underline-offset-4"
           >
-            Se flere mus &rarr;
+            Se alle {mice.length} mus &rarr;
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
