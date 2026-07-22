@@ -18,7 +18,7 @@ export default function Home() {
     <>
     <div className="mx-auto max-w-5xl px-4">
       <section className="mb-24 pt-20 pb-16 text-center">
-          <h1 className="mb-4 text-5xl font-bold tracking-tight leading-tight">
+          <h1 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
             Hvilken mus bruger{" "}
             <span className="text-primary">pros i esport</span>?
           </h1>

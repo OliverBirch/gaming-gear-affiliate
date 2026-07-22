@@ -51,7 +51,7 @@ export default async function ProPage({ params }: Props) {
         <div className="flex items-center gap-5 mb-2">
           <ProAvatar navn={pro.navn} slug={pro.slug} size="lg" />
           <div>
-            <h1 className="text-4xl font-bold tracking-tight">{pro.navn}</h1>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">{pro.navn}</h1>
             <p className="text-muted-foreground">
               {pro.hold ? (
                 <Link href={`/${pro.esport}/hold/${pro.hold.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-primary transition-colors">

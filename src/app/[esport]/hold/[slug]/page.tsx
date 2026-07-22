@@ -69,7 +69,7 @@ export default async function TeamPage({ params }: Props) {
           <span className="text-foreground">{teamNavnProper}</span>
         </nav>
 
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
           {teamNavnProper}
         </h1>
         <p className="text-base text-muted-foreground leading-relaxed max-w-[65ch] mb-4">
@@ -78,11 +78,11 @@ export default async function TeamPage({ params }: Props) {
       </section>
 
       <section className="pb-12">
-        <div className="flex items-center gap-3 flex-wrap mb-8">
-          <h2 className="text-2xl font-bold tracking-tight">Spillere</h2>
+        <h2 className="text-2xl font-bold tracking-tight mb-4">Spillere</h2>
+        <div className="flex items-center gap-2 flex-wrap mb-8">
           {Object.entries(mouseDist).map(([mSlug, data]) => (
             <Link key={mSlug} href={`/mus/${mSlug}`}>
-              <Badge variant="secondary" className="text-xs">
+              <Badge variant="secondary" className="text-xs whitespace-nowrap">
                 {data.navn} &times;{data.count}
               </Badge>
             </Link>

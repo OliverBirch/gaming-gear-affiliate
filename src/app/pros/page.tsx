@@ -22,7 +22,7 @@ export default function ProsPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="text-4xl font-bold tracking-tight mb-2">Alle pros</h1>
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-2">Alle pros</h1>
       <p className="text-muted-foreground mb-10">
         {pros.length} pros p&aring; tv&aelig;rs af{" "}
         {esportPros.length} spil

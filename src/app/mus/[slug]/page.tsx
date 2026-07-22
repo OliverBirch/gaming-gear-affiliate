@@ -43,7 +43,7 @@ export default async function MusPage({ params }: Props) {
 
       <div className="grid gap-8 sm:grid-cols-[1fr_200px] mb-10 items-start">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight mb-4">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-4">
             {mouse.navn}
           </h1>
           <div className="flex flex-wrap gap-2">

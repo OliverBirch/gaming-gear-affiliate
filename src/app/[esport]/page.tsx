@@ -105,7 +105,7 @@ export default async function EsportPage({ params }: Props) {
           <span className="text-foreground">{esport.navn}</span>
         </nav>
 
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 max-w-[20ch]">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 max-w-[20ch]">
           {esport.navn} <span className="text-primary">Mus</span>
         </h1>
         <p className="text-base text-muted-foreground leading-relaxed max-w-[65ch] mb-8">

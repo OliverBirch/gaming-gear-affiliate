@@ -65,11 +65,11 @@ export function ConsentBanner() {
           </Link>
           .
         </p>
-        <div className="flex gap-2 shrink-0">
-          <Button variant="outline" size="sm" onClick={acceptEssential}>
+        <div className="flex gap-2 shrink-0 max-sm:w-full max-sm:flex-col">
+          <Button variant="outline" size="sm" onClick={acceptEssential} className="max-sm:w-full">
             Kun nødvendige
           </Button>
-          <Button size="sm" onClick={acceptAll}>
+          <Button size="sm" onClick={acceptAll} className="max-sm:w-full">
             Acceptér alle
           </Button>
         </div>
