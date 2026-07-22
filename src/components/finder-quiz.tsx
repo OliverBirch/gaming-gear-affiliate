@@ -116,7 +116,7 @@ function ResultCard({ scored, index }: { scored: ScoredMouse; index: number }) {
           </div>
 
           <div className="text-xs font-mono tabular-nums text-muted-foreground mb-2">
-            {mouse.vaegtGram}g &middot; {mouse.pollingHz}Hz &middot;{" "}
+            {mouse.vaegtGram}g &middot; {mouse.laengdeMm}&times;{mouse.breddeMm}&times;{mouse.hoejdeMm} mm &middot;{" "}
             {mouse.haandStoerrelse.map((h) => haandLabels[h] ?? h).join(", ")}
           </div>
 

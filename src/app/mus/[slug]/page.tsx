@@ -90,11 +90,11 @@ export default async function MusPage({ params }: Props) {
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-mono tabular-nums mb-4">
             <span className="text-foreground font-semibold">{mouse.vaegtGram}g</span>
             <span className="text-border/50">|</span>
-            <span>{mouse.pollingHz} Hz</span>
+            <span>{mouse.laengdeMm}×{mouse.breddeMm}×{mouse.hoejdeMm} mm</span>
             <span className="text-border/50">|</span>
             <span>{mouse.haandStoerrelse.map((h) => haandLabels[h] ?? h).join(", ")}</span>
             <span className="text-border/50">|</span>
-            <span>{mouse.wireless ? "Trådløs" : "Kablet"}</span>
+            <span>{mouse.forbindelse}</span>
           </div>
           <p className="text-muted-foreground leading-relaxed mb-6">
             {mouse.beskrivelse}
@@ -198,22 +198,28 @@ export default async function MusPage({ params }: Props) {
               {[
                 ["Brand", mouse.brand, brandSlug(mouse.brand)],
                 ["Vægt", `${mouse.vaegtGram}g`],
+                ["Mål", `${mouse.laengdeMm} × ${mouse.breddeMm} × ${mouse.hoejdeMm} mm`],
                 ["Formfaktor", formfaktorLabels[mouse.formfaktor] ?? mouse.formfaktor],
-                ["Forbindelse", mouse.wireless ? "Trådløs" : "Kablet"],
+                ["Forbindelse", mouse.forbindelse],
+                ["Batteritid", mouse.batteritidTimer ? `${mouse.batteritidTimer} timer` : "—"],
+                ["Switch-type", mouse.switchType === "optisk" ? "Optisk" : "Mekanisk"],
+                ["Knapper", mouse.knapper],
                 ["Greb", mouse.greb.map((g) => grebLabel(g)).join(", ")],
                 ["Håndstørrelse", mouse.haandStoerrelse.map((h) => haandLabels[h] ?? h).join(", ")],
                 ["Sensor", mouse.sensor],
                 ["Max DPI", mouse.maxDpi.toLocaleString("da-DK")],
                 ["Polling rate", `${mouse.pollingHz} Hz`],
+                ["LOD", `${mouse.lodMm} mm`],
+                ["Software", mouse.softwarePaakraevet ? "Påkrævet" : "Valgfri"],
                 ["Prisniveau", mouse.prisNiveau === "budget" ? "Budget" : mouse.prisNiveau === "mid" ? "Mellemklasse" : "Flagship"],
-              ].map((row: (string | undefined)[]) => {
+              ].map((row: (string | number | undefined)[]) => {
                 const [label, value, linkSlug] = row;
                 return (
-                  <tr key={label} className="border-b border-border/50 last:border-0">
-                    <td className="py-2.5 text-muted-foreground pr-4 whitespace-nowrap">{label}</td>
+                  <tr key={label as string} className="border-b border-border/50 last:border-0">
+                    <td className="py-2.5 text-muted-foreground pr-4 whitespace-nowrap">{label as string}</td>
                     <td className="py-2.5 font-medium">
                       {linkSlug ? (
-                        <Link href={`/maerke/${linkSlug}`} className="hover:text-primary transition-colors">
+                        <Link href={`/maerke/${linkSlug as string}`} className="hover:text-primary transition-colors">
                           {value}
                         </Link>
                       ) : (
@@ -279,11 +285,21 @@ export default async function MusPage({ params }: Props) {
                         className="rounded-sm object-contain"
                       />
                     )}
-                    <span className="font-medium">{r.navn}</span>
+                    <div>
+                      <span className="font-medium">{r.navn}</span>
+                      {o.inStock === false && (
+                        <span className="ml-2 text-xs text-destructive">Udsolgt</span>
+                      )}
+                    </div>
                   </div>
-                  <span className="text-lg font-bold tabular-nums text-primary">
-                    {o.prisDkk ? `${o.prisDkk} kr.` : "Se pris"}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    {o.inStock !== false && o.prisDkk && (
+                      <span className="text-xs text-muted-foreground">På lager</span>
+                    )}
+                    <span className="text-lg font-bold tabular-nums text-primary">
+                      {o.prisDkk ? `${o.prisDkk} kr.` : "Se pris"}
+                    </span>
+                  </div>
                 </a>
               );
             })}

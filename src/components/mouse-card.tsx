@@ -88,7 +88,7 @@ export function MouseCard({ mouse, rank }: { mouse: Mouse; rank?: number }) {
       <div className="flex items-center gap-2 mb-3 text-xs font-mono tabular-nums text-muted-foreground flex-wrap">
         <span className="text-foreground font-semibold">{mouse.vaegtGram}g</span>
         <span className="text-border/50">/</span>
-        <span>{mouse.pollingHz}Hz</span>
+        <span>{mouse.laengdeMm}×{mouse.breddeMm}×{mouse.hoejdeMm} mm</span>
         <span className="text-border/50">/</span>
         <span>{mouse.haandStoerrelse.map((h) => haandLabels[h] ?? h).join(", ")}</span>
       </div>
