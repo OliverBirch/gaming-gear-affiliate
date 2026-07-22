@@ -48,44 +48,46 @@
   --radius-3xl: 1.5rem;
   --radius-4xl: 2rem;
 
-  --color-cyan: var(--cyan);
+  --color-brand: var(--brand);
 }
 
 :root {
-  --background: oklch(0.13 0.015 260);
-  --foreground: oklch(0.92 0.01 260);
-  --card: oklch(0.18 0.015 260);
-  --card-foreground: oklch(0.92 0.01 260);
-  --popover: oklch(0.18 0.015 260);
-  --popover-foreground: oklch(0.92 0.01 260);
-  --primary: oklch(0.65 0.18 210);
-  --primary-foreground: oklch(0.13 0.015 260);
-  --secondary: oklch(0.22 0.015 260);
-  --secondary-foreground: oklch(0.92 0.01 260);
-  --muted: oklch(0.22 0.015 260);
-  --muted-foreground: oklch(0.6 0.02 260);
-  --accent: oklch(0.65 0.18 210);
-  --accent-foreground: oklch(0.13 0.015 260);
+  --background: oklch(0.13 0.015 30);
+  --foreground: oklch(0.92 0.01 30);
+  --card: oklch(0.18 0.015 30);
+  --card-foreground: oklch(0.92 0.01 30);
+  --popover: oklch(0.18 0.015 30);
+  --popover-foreground: oklch(0.92 0.01 30);
+  --primary: oklch(0.717 0.176 22.6);
+  --primary-foreground: oklch(0.13 0.015 30);
+  --secondary: oklch(0.22 0.015 30);
+  --secondary-foreground: oklch(0.92 0.01 30);
+  --muted: oklch(0.22 0.015 30);
+  /* 0.6 measured 4.28:1 on the brightest part of the page background, under
+     WCAG AA. 0.63 clears it both there and on cards. */
+  --muted-foreground: oklch(0.63 0.02 30);
+  --accent: oklch(0.717 0.176 22.6);
+  --accent-foreground: oklch(0.13 0.015 30);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.65 0.18 210 / 40%);
-  --chart-1: oklch(0.65 0.18 210);
+  --ring: oklch(0.717 0.176 22.6 / 40%);
+  --chart-1: oklch(0.717 0.176 22.6);
   --chart-2: oklch(0.55 0.15 180);
   --chart-3: oklch(0.7 0.15 250);
   --chart-4: oklch(0.5 0.12 300);
   --chart-5: oklch(0.6 0.17 30);
   --radius: 0.625rem;
-  --sidebar: oklch(0.16 0.015 260);
-  --sidebar-foreground: oklch(0.92 0.01 260);
-  --sidebar-primary: oklch(0.65 0.18 210);
-  --sidebar-primary-foreground: oklch(0.13 0.015 260);
-  --sidebar-accent: oklch(0.22 0.015 260);
-  --sidebar-accent-foreground: oklch(0.92 0.01 260);
+  --sidebar: oklch(0.16 0.015 30);
+  --sidebar-foreground: oklch(0.92 0.01 30);
+  --sidebar-primary: oklch(0.717 0.176 22.6);
+  --sidebar-primary-foreground: oklch(0.13 0.015 30);
+  --sidebar-accent: oklch(0.22 0.015 30);
+  --sidebar-accent-foreground: oklch(0.92 0.01 30);
   --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.65 0.18 210 / 40%);
+  --sidebar-ring: oklch(0.717 0.176 22.6 / 40%);
 
-  --cyan: oklch(0.65 0.18 210);
+  --brand: oklch(0.717 0.176 22.6);
 }
 
 @layer base {
@@ -100,19 +102,8 @@
   }
 }
 
-body {
-  background: #000000 radial-gradient(circle at 50% 50%, rgba(153, 38, 38, 1) 0%, rgba(0, 0, 0, 1) 60%);
-  background-attachment: fixed;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-}
+/*
+ * Page background is rendered by <GrainGradient fixed /> in app/layout.tsx.
+ * The previous ad-hoc body gradient plus body::before grain lived here and was
+ * removed so the two do not stack.
+ */

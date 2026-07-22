@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Om ProSetups.dk",
@@ -26,6 +27,34 @@ export default function OmPage() {
           pro-data og give dig den bedste købsrute til danske forhandlere.
         </p>
       </div>
+
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
+              { "@type": "ListItem", position: 2, name: "Om ProSetups.dk", item: "https://prosetups.dk/om" },
+            ],
+          }),
+        }}
+      />
+      <Script
+        id="schema-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            name: "Om ProSetups.dk",
+            description:
+              "ProSetups.dk er en dansk guide til gaming-mus med fokus på hvad professionelle esport-spillere bruger.",
+          }),
+        }}
+      />
     </div>
   );
 }

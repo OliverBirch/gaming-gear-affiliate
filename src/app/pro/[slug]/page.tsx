@@ -202,6 +202,21 @@ export default async function ProPage({ params }: Props) {
       </div>
 
       <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
+              { "@type": "ListItem", position: 2, name: "Alle pros", item: "https://prosetups.dk/pros" },
+              { "@type": "ListItem", position: 3, name: pro.navn, item: `https://prosetups.dk/pro/${pro.slug}` },
+            ],
+          }),
+        }}
+      />
+      <Script
         id="schema-person"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

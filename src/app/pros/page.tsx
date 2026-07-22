@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { ProAvatar } from "@/components/pro-avatar";
 import { pros } from "@/data/pros";
 import { mice } from "@/data/mice";
@@ -92,6 +93,43 @@ export default function ProsPage() {
           </div>
         </section>
       ))}
+
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
+              { "@type": "ListItem", position: 2, name: "Alle pros", item: "https://prosetups.dk/pros" },
+            ],
+          }),
+        }}
+      />
+      <Script
+        id="schema-pros-itemlist"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Alle pros",
+            description: `${pros.length} pros på tværs af ${esportPros.length} spil`,
+            itemListElement: pros.map((p, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "Person",
+                name: p.navn,
+                url: `https://prosetups.dk/pro/${p.slug}`,
+              },
+            })),
+            numberOfItems: pros.length,
+          }),
+        }}
+      />
     </div>
   );
 }

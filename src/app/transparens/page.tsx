@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Transparens - affiliate og datakilder",
@@ -47,6 +48,34 @@ export default function TransparensPage() {
           </p>
         </section>
       </div>
+
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
+              { "@type": "ListItem", position: 2, name: "Transparens", item: "https://prosetups.dk/transparens" },
+            ],
+          }),
+        }}
+      />
+      <Script
+        id="schema-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Transparens - affiliate og datakilder",
+            description:
+              "Læs om vores affiliate-partnerskaber, datakilder og hvordan vi tjener penge.",
+          }),
+        }}
+      />
     </div>
   );
 }

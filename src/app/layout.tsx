@@ -6,6 +6,7 @@ import { ConsentBanner } from "@/components/consent-banner";
 import { AffiliateDisclosure } from "@/components/affiliate-disclosure";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import GrainGradient from "@/components/GrainGradient";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -81,13 +82,47 @@ gtag('js', new Date());
 gtag('config', 'G-XXXXXXXXXX');`,
           }}
         />
+        <Script
+          id="schema-organization"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "ProSetups.dk",
+              url: "https://prosetups.dk",
+              description:
+                "Dansk esport-mus guide med pro-data, settings og affiliate-priser.",
+            }),
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col text-foreground">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        {/*
+          Dimmed well below the component's stock palette: the background is a
+          warm haze behind the content, not a feature. The coral accent is the
+          only thing on the page allowed to be bright.
+        */}
+        <GrainGradient
+          fixed
+          vars={{
+            red1: "#2a0a0e",
+            red2: "#1a0507",
+            red3: "#341016",
+            red4: "#110405",
+          }}
+        />
+        {/*
+          GrainGradient sits at z-index 0, so in-flow content needs its own
+          stacking position or it paints behind the background.
+        */}
+        <div className="relative z-10 flex flex-1 flex-col">
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+          <AffiliateDisclosure />
+        </div>
         <ConsentBanner />
-        <AffiliateDisclosure />
       </body>
     </html>
   );

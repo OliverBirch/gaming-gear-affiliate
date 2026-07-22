@@ -11,6 +11,20 @@ export const metadata: Metadata = {
 export default function FindMusPage() {
   return (
     <>
+      <Script
+        id="schema-find-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
+              { "@type": "ListItem", position: 2, name: "Find din mus", item: "https://prosetups.dk/find-mus" },
+            ],
+          }),
+        }}
+      />
       <FinderQuiz />
       <Script
         id="schema-faq"

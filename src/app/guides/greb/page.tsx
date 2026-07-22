@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Grebsguide - palm, claw og fingertip",
@@ -58,6 +59,34 @@ export default function GrebGuidePage() {
           Brug finderen til at matche dit greb med en mus →
         </Link>
       </p>
+
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
+              { "@type": "ListItem", position: 2, name: "Grebsguide", item: "https://prosetups.dk/guides/greb" },
+            ],
+          }),
+        }}
+      />
+      <Script
+        id="schema-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: "Grebsguide: palm, claw og fingertip",
+            description:
+              "Lær forskellen på palm, claw og fingertip greb. Find ud af hvilket greb du bruger, og hvilken mus der passer til dig.",
+          }),
+        }}
+      />
     </div>
   );
 }

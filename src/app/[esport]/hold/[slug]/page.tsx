@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Script from "next/script";
 import { getEsport } from "@/data/esports";
 import { esports } from "@/data/esports";
 import { pros } from "@/data/pros";
@@ -125,6 +126,44 @@ export default async function TeamPage({ params }: Props) {
           })}
         </div>
       </section>
+
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
+              { "@type": "ListItem", position: 2, name: esport.navn, item: `https://prosetups.dk/${esportSlug}` },
+              { "@type": "ListItem", position: 3, name: teamNavnProper, item: `https://prosetups.dk/${esportSlug}/hold/${slug}` },
+            ],
+          }),
+        }}
+      />
+      <Script
+        id="schema-team-itemlist"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: `${teamNavnProper} spillere`,
+            description: `${teamPros.length} spillere p&aring; ${teamNavnProper} i ${esport.navn}`,
+            itemListElement: teamPros.map((p, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "Person",
+                name: p.navn,
+                url: `https://prosetups.dk/pro/${p.slug}`,
+              },
+            })),
+            numberOfItems: teamPros.length,
+          }),
+        }}
+      />
     </div>
   );
 }

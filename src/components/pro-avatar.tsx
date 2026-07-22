@@ -47,7 +47,7 @@ export function ProAvatar({ navn, slug, billede, className, size = "sm" }: ProAv
     <div
       className={cn(
         "flex items-center justify-center rounded-full font-bold shrink-0",
-        "bg-gradient-to-br from-primary/20 to-cyan-500/10 text-primary",
+        "bg-gradient-to-br from-primary/20 to-primary/5 text-primary",
         sizeClasses[size],
         className
       )}

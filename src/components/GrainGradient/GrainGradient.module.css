@@ -1,0 +1,73 @@
+.stage {
+  /* --- base --- */
+  --bg: #0a0605;
+
+  /* --- deep red palette (brightened pass) --- */
+  --red-1: #7d141d; /* main crimson glow */
+  --red-2: #490d11; /* darker secondary */
+  --red-3: #a3222a; /* small brighter ember */
+  --red-4: #2c080c; /* deep maroon */
+  --shadow: #040202; /* near-black, carves depth */
+
+  /* --- feel --- */
+  --blur: 95px;
+  --grain-opacity: 0.22;
+  --grain-size: 200px;
+
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* Full-viewport variant (sits behind page content). */
+.fixed {
+  position: fixed;
+  z-index: 0;
+}
+
+/* Layer 2 - blurred color field. inset:-15% + scale hides blurred edges at the border. */
+.blobs {
+  position: absolute;
+  inset: -15%;
+  filter: blur(var(--blur));
+  transform: scale(1.05);
+  background:
+    radial-gradient(42% 55% at 24% 32%, var(--red-1) 0%, transparent 60%),
+    radial-gradient(38% 50% at 72% 26%, var(--red-2) 0%, transparent 62%),
+    radial-gradient(26% 40% at 58% 68%, var(--red-3) 0%, transparent 58%),
+    radial-gradient(48% 58% at 20% 82%, var(--red-4) 0%, transparent 60%),
+    radial-gradient(55% 65% at 88% 82%, var(--shadow) 0%, transparent 60%),
+    radial-gradient(45% 55% at 50% 50%, var(--shadow) 0%, transparent 70%);
+}
+
+.animate {
+  animation: drift 26s ease-in-out infinite;
+}
+
+/* Layer 3 - desaturated fractal-noise grain, blended in. */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: overlay;
+  background-size: var(--grain-size) var(--grain-size);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Optional content layer, rendered above the background. */
+.content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+
+@keyframes drift {
+  0%, 100% { transform: scale(1.05) translate(0, 0); }
+  50%      { transform: scale(1.1) translate(1.5%, -1.2%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate { animation: none; }
+}
