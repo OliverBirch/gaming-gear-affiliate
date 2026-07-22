@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { esports } from "@/data/esports";
 import { pros } from "@/data/pros";
 import { mice } from "@/data/mice";
+import { getBrands } from "@/data/brands";
+import { guides } from "@/data/guides";
 
 const BASE = "https://prosetups.dk";
 
@@ -16,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/mus`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/pros`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/blog`, changeFrequency: "weekly" as const, priority: 0.6 },
+    { url: `${BASE}/guides`, changeFrequency: "weekly" as const, priority: 0.7 },
   ];
 
   const esportPages = esports.filter((e) => e.aktiv).map((e) => ({
@@ -49,11 +52,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const brandPages = getBrands().map((b) => ({
+    url: `${BASE}/maerke/${b.slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
+
+  const guidePages = guides.map((g) => ({
+    url: `${BASE}/guides/${g.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   return [
     ...staticPages,
     ...esportPages,
     ...teamPages,
     ...mousePages,
     ...proPages,
+    ...brandPages,
+    ...guidePages,
   ];
 }

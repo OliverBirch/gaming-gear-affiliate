@@ -5,6 +5,8 @@ import { ProAvatar } from "@/components/pro-avatar";
 import { mice } from "@/data/mice";
 import { pros } from "@/data/pros";
 import { esports } from "@/data/esports";
+import { getBrands } from "@/data/brands";
+import { guides } from "@/data/guides";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -118,6 +120,49 @@ export default function Home() {
               <span className="mt-4 inline-block text-sm font-medium text-primary">
                 Se mus &rarr;
               </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-20">
+        <h2 className="mb-8 text-center text-2xl font-bold tracking-tight">
+          Mærker
+        </h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          {getBrands().sort((a, b) => b.antalMus - a.antalMus).map((brand) => (
+            <Link
+              key={brand.slug}
+              href={`/maerke/${brand.slug}`}
+              className="inline-flex items-center gap-2 rounded-lg border border-border/50 bg-card px-4 py-2.5 text-sm font-medium hover:border-primary/30 hover:bg-primary/[0.03] transition-all duration-200"
+            >
+              {brand.logo && (
+                <img src={brand.logo} alt="" className="h-5 w-auto object-contain" />
+              )}
+              {brand.navn}
+              <span className="text-xs text-muted-foreground">{brand.antalMus}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-20">
+        <h2 className="mb-2 text-center text-2xl font-bold tracking-tight">
+          Købsguides
+        </h2>
+        <p className="mb-8 text-center text-sm text-muted-foreground">
+          Hjælp til at vælge den rigtige mus
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {guides.map((guide) => (
+            <Link
+              key={guide.slug}
+              href={`/guides/${guide.slug}`}
+              className="group rounded-xl border border-border/50 bg-card p-5 text-center hover:border-primary/30 hover:bg-primary/[0.02] transition-all duration-200"
+            >
+              <div className="mb-2 text-2xl">{guide.emoji}</div>
+              <h3 className="mb-1 font-semibold group-hover:text-primary transition-colors">{guide.title}</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">{guide.description}</p>
             </Link>
           ))}
         </div>

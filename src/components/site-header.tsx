@@ -32,8 +32,8 @@ export function SiteHeader() {
           <Link href="/find-mus" className="hover:text-primary transition-colors duration-200">
             Find mus
           </Link>
-          <Link href="/guides/greb" className="hover:text-primary transition-colors duration-200">
-            Greb-guide
+          <Link href="/guides" className="hover:text-primary transition-colors duration-200">
+            Guides
           </Link>
         </nav>
         <button
@@ -93,11 +93,11 @@ export function SiteHeader() {
               Find mus
             </Link>
             <Link
-              href="/guides/greb"
+              href="/guides"
               className="py-3 hover:text-primary transition-colors duration-200"
               onClick={() => setOpen(false)}
             >
-              Greb-guide
+              Guides
             </Link>
           </nav>
         </div>

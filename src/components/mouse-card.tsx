@@ -6,6 +6,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { bestOffer } from "@/lib/affiliate";
 import { getRetailer } from "@/data/retailers";
+import { brandSlug } from "@/data/brands";
 
 const grebLabels: Record<string, string> = {
   palm: "Palm",
@@ -65,9 +66,12 @@ export function MouseCard({ mouse, rank }: { mouse: Mouse; rank?: number }) {
           >
             {mouse.navn}
           </Link>
-          <div className="text-xs text-muted-foreground mt-0.5">
+          <Link
+            href={`/maerke/${brandSlug(mouse.brand)}`}
+            className="text-xs text-muted-foreground mt-0.5 hover:text-primary transition-colors"
+          >
             {mouse.brand}
-          </div>
+          </Link>
         </div>
         {mouse.proBrugere.length > 0 && (
           <div className="shrink-0 text-right">

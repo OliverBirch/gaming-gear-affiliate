@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
+import { brandSlug } from "@/data/brands";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -195,7 +196,7 @@ export default async function MusPage({ params }: Props) {
           <table className="w-full text-sm">
             <tbody>
               {[
-                ["Brand", mouse.brand],
+                ["Brand", mouse.brand, brandSlug(mouse.brand)],
                 ["Vægt", `${mouse.vaegtGram}g`],
                 ["Formfaktor", formfaktorLabels[mouse.formfaktor] ?? mouse.formfaktor],
                 ["Forbindelse", mouse.wireless ? "Trådløs" : "Kablet"],
@@ -205,12 +206,23 @@ export default async function MusPage({ params }: Props) {
                 ["Max DPI", mouse.maxDpi.toLocaleString("da-DK")],
                 ["Polling rate", `${mouse.pollingHz} Hz`],
                 ["Prisniveau", mouse.prisNiveau === "budget" ? "Budget" : mouse.prisNiveau === "mid" ? "Mellemklasse" : "Flagship"],
-              ].map(([label, value]) => (
-                <tr key={label} className="border-b border-border/50 last:border-0">
-                  <td className="py-2.5 text-muted-foreground pr-4 whitespace-nowrap">{label}</td>
-                  <td className="py-2.5 font-medium">{value}</td>
-                </tr>
-              ))}
+              ].map((row: (string | undefined)[]) => {
+                const [label, value, linkSlug] = row;
+                return (
+                  <tr key={label} className="border-b border-border/50 last:border-0">
+                    <td className="py-2.5 text-muted-foreground pr-4 whitespace-nowrap">{label}</td>
+                    <td className="py-2.5 font-medium">
+                      {linkSlug ? (
+                        <Link href={`/maerke/${linkSlug}`} className="hover:text-primary transition-colors">
+                          {value}
+                        </Link>
+                      ) : (
+                        value
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
