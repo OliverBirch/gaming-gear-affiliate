@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { esports } from "@/data/esports";
 import { useState } from "react";
@@ -30,8 +31,15 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-        <Link href="/" className="text-xl font-bold tracking-tight text-primary">
-          ProSetups.dk
+        <Link href="/" className="shrink-0">
+          <Image
+            src="/images/logos/PROSETUPS transparent.png"
+            alt="ProSetups.dk"
+            width={180}
+            height={40}
+            className="h-8 w-auto"
+            priority
+          />
         </Link>
 
         <nav className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
