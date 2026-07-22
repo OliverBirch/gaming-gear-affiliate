@@ -49,6 +49,18 @@ const grebLabels: Record<string, string> = {
   fingertip: "Fingertip",
 };
 
+const formfaktorLabels: Record<string, string> = {
+  ergonomisk: "Ergonomisk",
+  symmetrisk: "Symmetrisk",
+  ambidextrous: "Ambidextrous",
+};
+
+const haandLabels: Record<string, string> = {
+  lille: "Lille",
+  medium: "Medium",
+  stor: "Stor",
+};
+
 function ProgressBar({ step, total }: { step: number; total: number }) {
   const pct = ((step - 1) / (total - 1)) * 100;
   return (
@@ -98,14 +110,26 @@ function ResultCard({ scored, index }: { scored: ScoredMouse; index: number }) {
               <h3 className="font-semibold">{mouse.navn}</h3>
               <p className="text-xs text-muted-foreground">{mouse.brand}</p>
             </div>
-            <Badge variant="outline" className="text-xs border-primary/30 text-primary">
+            <Badge variant="outline" className="text-xs border-primary/30 text-primary shrink-0">
               Match: {scored.score > 0 ? "+" : ""}{scored.score}
             </Badge>
           </div>
 
+          <div className="text-xs font-mono tabular-nums text-muted-foreground mb-2">
+            {mouse.vaegtGram}g &middot; {mouse.pollingHz}Hz &middot;{" "}
+            {mouse.haandStoerrelse.map((h) => haandLabels[h] ?? h).join(", ")}
+          </div>
+
           <div className="flex flex-wrap gap-1.5 mb-2">
-            <Badge variant="outline" className="text-xs border-border/50 text-muted-foreground">
-              {mouse.vaegtGram}g
+            <Badge
+              className={cn(
+                "text-xs border-0",
+                mouse.formfaktor === "ergonomisk"
+                  ? "bg-sky-500/10 text-sky-400"
+                  : "bg-amber-500/10 text-amber-400"
+              )}
+            >
+              {formfaktorLabels[mouse.formfaktor]}
             </Badge>
             {mouse.greb.map((g) => (
               <Badge key={g} variant="outline" className="text-xs border-border/50 text-muted-foreground">
@@ -125,33 +149,30 @@ function ResultCard({ scored, index }: { scored: ScoredMouse; index: number }) {
           {mouse.proBrugere.length > 0 && (
             <p className="text-sm text-muted-foreground/80 mb-3 leading-relaxed">
               Bruges af{" "}
-              <span className="text-foreground font-medium">
-                {mouse.proBrugere.length}
-              </span>{" "}
-              pro{mouse.proBrugere.length > 1 ? "s" : ""} -{" "}
               {mouse.proBrugere
                 .slice(0, 3)
                 .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
                 .join(", ")}
-              {mouse.proBrugere.length > 3 && " m.fl."}
+              {mouse.proBrugere.length > 3 && (
+                <>
+                  {" "}&amp;{" "}
+                  <span className="text-foreground font-medium">
+                    {mouse.proBrugere.length - 3} flere
+                  </span>
+                </>
+              )}
             </p>
           )}
 
-          <div className="mt-auto flex items-center justify-between gap-2">
-            <Link
-              href={`/mus/${mouse.slug}`}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
-            >
-              Se detaljer &rarr;
-            </Link>
-            {offer && retailer && (
+          <div className="mt-auto pt-2">
+            {offer && retailer ? (
               <a
                 href={offer.affiliateUrl}
                 rel="sponsored nofollow"
                 target="_blank"
                 className={cn(
                   buttonVariants({ size: "sm" }),
-                  "gap-1.5 active:scale-[0.98] transition-transform duration-150 shrink-0"
+                  "w-full gap-1.5 active:scale-[0.98] transition-transform duration-150"
                 )}
               >
                 {retailer.logo && (
@@ -163,9 +184,20 @@ function ResultCard({ scored, index }: { scored: ScoredMouse; index: number }) {
                     className="rounded-sm object-contain"
                   />
                 )}
-                Køb hos {retailer.navn}
-                {offer.prisDkk && <>&nbsp;{offer.prisDkk} kr.</>}
+                {offer.prisDkk
+                  ? `Køb ${offer.prisDkk} kr.`
+                  : `Køb hos ${retailer.navn}`}
               </a>
+            ) : (
+              <Link
+                href={`/mus/${mouse.slug}`}
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "sm" }),
+                  "w-full"
+                )}
+              >
+                Se detaljer
+              </Link>
             )}
           </div>
         </div>
