@@ -45,8 +45,17 @@ export const ProSchema = z.object({
 
 export type Pro = z.infer<typeof ProSchema>;
 
+/**
+ * Closed on purpose: which retailers we run offers through is a business
+ * decision, not something a data-gathering pass should be able to expand by
+ * just picking a slug (that's how an Amazon.com offer - wrong currency, wrong
+ * country - ended up live). Add a retailer here only after adding it to
+ * retailers.ts with real payout/network data.
+ */
+export const RETAILER_SLUGS = ["proshop", "computersalg", "maxgaming", "coolshop"] as const;
+
 export const AffiliateOfferSchema = z.object({
-  retailer: z.string(),
+  retailer: z.enum(RETAILER_SLUGS),
   produktUrl: z.string(),
   affiliateUrl: z.string().optional(),
   prisDkk: z.number().optional(),
@@ -55,6 +64,17 @@ export const AffiliateOfferSchema = z.object({
 });
 
 export type AffiliateOffer = z.infer<typeof AffiliateOfferSchema>;
+
+/**
+ * Guards against the other thing that just happened: a fabricated USD price
+ * range ("Høj pris (~$180-250)") baked directly into ulemper copy instead of
+ * offers[].prisDkk. Prices are DKK-only and belong in offers, never in prose.
+ */
+const CopyPoints = z.array(
+  z.string().refine((s) => !/\$\s?\d/.test(s), {
+    message: "no price literals in copy - prices belong in offers[].prisDkk",
+  })
+);
 
 export const MouseSchema = z.object({
   slug: z.string(),
@@ -81,15 +101,132 @@ export const MouseSchema = z.object({
   billede: z.string().optional(),
   offers: z.array(AffiliateOfferSchema),
   beskrivelse: z.string(),
-  fordele: z.array(z.string()),
-  ulemper: z.array(z.string()),
+  fordele: CopyPoints,
+  ulemper: CopyPoints,
   proBrugere: z.array(z.string()),
 });
 
 export type Mouse = z.infer<typeof MouseSchema>;
 
-export const RetailerSchema = z.object({
+export const KeyboardSchema = z.object({
   slug: z.string(),
+  navn: z.string(),
+  brand: z.string(),
+  layout: z.string(),
+  switchType: z.string(),
+  forbindelse: z.string(),
+  wireless: z.boolean(),
+  batteritidTimer: z.number().nullable(),
+  pollingHz: z.number(),
+  prisNiveau: z.enum(["budget", "mid", "flagship"]),
+  formfaktor: z.string(),
+  taster: z.number(),
+  rgb: z.boolean(),
+  hotSwappable: z.boolean(),
+  keycapMaterial: z.string().optional(),
+  beskrivelse: z.string(),
+  fordele: CopyPoints,
+  ulemper: CopyPoints,
+  billede: z.string().optional(),
+  offers: z.array(AffiliateOfferSchema),
+  proBrugere: z.array(z.string()),
+  kilde: z.string().optional(),
+  sidstVerificeret: z.string().optional(),
+});
+
+export type Keyboard = z.infer<typeof KeyboardSchema>;
+
+export const MousepadSchema = z.object({
+  slug: z.string(),
+  brand: z.string(),
+  model: z.string(),
+  variant: z.string().nullable(),
+  type: z.enum(["speed", "control", "hybrid"]),
+  materiale: z.string(),
+  størrelser: z.array(
+    z.object({
+      navn: z.string(),
+      breddeMm: z.number(),
+      laengdeMm: z.number(),
+      tykkelseMm: z.number(),
+    })
+  ),
+  bund: z.string(),
+  vaskbar: z.boolean(),
+  billede: z.string().nullable(),
+  prisNiveau: z.enum(["budget", "mid", "flagship"]),
+  offers: z.array(AffiliateOfferSchema),
+  beskrivelse: z.string(),
+  fordele: CopyPoints,
+  ulemper: CopyPoints,
+  kilde: z.string(),
+  sidstVerificeret: z.string(),
+});
+
+export type Mousepad = z.infer<typeof MousepadSchema>;
+
+export const HeadsetSchema = z.object({
+  slug: z.string(),
+  navn: z.string(),
+  brand: z.string(),
+  wireless: z.boolean(),
+  forbindelse: z.string(),
+  batteritidTimer: z.number().nullable(),
+  vaegtGram: z.number(),
+  driverStoerrelseMm: z.number().nullable(),
+  mikrofon: z.boolean(),
+  aftagelig: z.boolean().nullable(),
+  surroundSound: z.boolean(),
+  prisNiveau: z.enum(["budget", "mid", "flagship"]),
+  billede: z.string().nullable(),
+  offers: z.array(AffiliateOfferSchema),
+  beskrivelse: z.string(),
+  fordele: CopyPoints,
+  ulemper: CopyPoints,
+  kilde: z.string(),
+  sidstVerificeret: z.string(),
+});
+
+export type Headset = z.infer<typeof HeadsetSchema>;
+
+export const MonitorSchema = z.object({
+  slug: z.string(),
+  navn: z.string(),
+  brand: z.string(),
+  stoerrelseTommer: z.number(),
+  oploesning: z.string(),
+  opdateringsHz: z.number(),
+  paneltype: z.enum(["TN", "IPS", "VA", "OLED"]),
+  responstidMs: z.number().nullable(),
+  adaptiveSync: z.enum(["ingen", "g-sync", "freesync", "begge"]),
+  buet: z.boolean(),
+  prisNiveau: z.enum(["budget", "mid", "flagship"]),
+  billede: z.string().nullable(),
+  offers: z.array(AffiliateOfferSchema),
+  beskrivelse: z.string(),
+  fordele: CopyPoints,
+  ulemper: CopyPoints,
+  kilde: z.string(),
+  sidstVerificeret: z.string(),
+});
+
+export type Monitor = z.infer<typeof MonitorSchema>;
+
+export const ProPeripheralsSchema = z.object({
+  monitor: z.string().nullable(),
+  monitorSlug: z.string().nullable().optional(),
+  keyboard: z.string().nullable(),
+  keyboardSlug: z.string().nullable().optional(),
+  mousepad: z.string().nullable(),
+  mousepadSlug: z.string().nullable().optional(),
+  headset: z.string().nullable(),
+  headsetSlug: z.string().nullable().optional(),
+});
+
+export type ProPeripherals = z.infer<typeof ProPeripheralsSchema>;
+
+export const RetailerSchema = z.object({
+  slug: z.enum(RETAILER_SLUGS),
   navn: z.string(),
   netvaerk: z.enum(["partner-ads", "adtraction", "impact", "daisycon", "direkte"]),
   basePayoutPct: z.number(),
@@ -100,9 +237,19 @@ export const RetailerSchema = z.object({
 
 export type Retailer = z.infer<typeof RetailerSchema>;
 
+/**
+ * Structural shape shared by every product category (Mouse, Keyboard,
+ * Mousepad, Headset, Monitor) - lets bestOffer/bestOffers in lib/affiliate.ts
+ * work across all of them instead of being hardcoded to Mouse.
+ */
+export interface OfferableProduct {
+  slug: string;
+  offers: AffiliateOffer[];
+}
+
 export const OfferRecordSchema = z.object({
   id: z.string(),
-  mouseSlug: z.string(),
+  productSlug: z.string(),
   retailerSlug: z.string(),
   produktUrl: z.string(),
   affiliateUrl: z.string(),

@@ -57,7 +57,7 @@ export default async function ProPage({ params }: Props) {
                 <Link href={`/${pro.esport}/hold/${pro.hold.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-primary transition-colors">
                   {pro.hold}
                 </Link>
-              ) : "\u2014"} &middot; {pro.land} &middot;{" "}
+              ) : "-"} &middot; {pro.land} &middot;{" "}
               {new Date(pro.sidstVerificeret).toLocaleDateString("da-DK")}
             </p>
           </div>
@@ -76,7 +76,7 @@ export default async function ProPage({ params }: Props) {
                 ["eDPI", `${pro.settings.edpi}`],
                 [
                   "Polling rate",
-                  pro.settings.pollingHz ? `${pro.settings.pollingHz} Hz` : "\u2014",
+                  pro.settings.pollingHz ? `${pro.settings.pollingHz} Hz` : "-",
                 ],
               ].map(([label, value]) => (
                 <tr key={label} className="border-b border-border/50 last:border-0">
@@ -110,7 +110,7 @@ export default async function ProPage({ params }: Props) {
                   {items.map(([label, value]) => (
                     <tr key={label} className="border-b border-border/50 last:border-0">
                       <td className="py-2.5 text-muted-foreground pr-4 w-[1%] whitespace-nowrap">{label}</td>
-                      <td className="py-2.5 font-medium">{value ?? "\u2014"}</td>
+                      <td className="py-2.5 font-medium">{value ?? "-"}</td>
                     </tr>
                   ))}
                 </tbody>
