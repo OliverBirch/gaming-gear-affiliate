@@ -2,6 +2,7 @@ import Link from "next/link";
 import { pros } from "@/data/pros";
 import { mice } from "@/data/mice";
 import { miceToAdd } from "@/data/mice-todo";
+import { headsets } from "@/data/headsets";
 import { retailers } from "@/data/retailers";
 import { esports } from "@/data/esports";
 import pricesJson from "@/data/prices.json";
@@ -393,10 +394,10 @@ export default function AdminDashboardPage() {
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1">
             Dashboard
           </h1>
-          <p className="text-muted-foreground text-sm">
-            Pris-feed opdateret {dateLabel(lastFeedDate)} &middot; {pros.length}{" "}
-            pros &middot; {mice.length} mus &middot; {retailers.length}{" "}
-            retailers &middot; {issues.length} issues
+      <p className="text-muted-foreground text-sm">
+          Pris-feed opdateret {dateLabel(lastFeedDate)} &middot; {pros.length}{" "}
+          pros &middot; {mice.length} mus &middot; {headsets.length} headsets &middot; {retailers.length}{" "}
+          retailers &middot; {issues.length} issues
           </p>
         </div>
         {miceToAdd.length > 0 && (
@@ -651,6 +652,19 @@ export default function AdminDashboardPage() {
             </p>
             <p className="text-xs text-muted-foreground mt-1">
               af {mice.length} mus
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-border/50 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <ImageOff className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Headsets uden billede</span>
+            </div>
+            <p className="text-2xl font-bold tabular-nums">
+              {headsets.filter((h) => !h.billede).length}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              af {headsets.length} headsets
             </p>
           </div>
 

@@ -4,6 +4,7 @@ import { pros } from "@/data/pros";
 import { mice } from "@/data/mice";
 import { keyboards } from "@/data/keyboards";
 import { mousepads } from "@/data/mousepads";
+import { headsets } from "@/data/headsets";
 import { getBrands } from "@/data/brands";
 import { guides } from "@/data/guides";
 
@@ -20,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/mus`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/tastaturer`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/musemaatter`, changeFrequency: "weekly" as const, priority: 0.7 },
+    { url: `${BASE}/headset`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/pros`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/blog`, changeFrequency: "weekly" as const, priority: 0.6 },
     { url: `${BASE}/guides`, changeFrequency: "weekly" as const, priority: 0.7 },
@@ -62,6 +64,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const headsetPages = headsets.map((h) => ({
+    url: `${BASE}/headset/${h.slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   const proPages = pros.map((p) => ({
     url: `${BASE}/pro/${p.slug}`,
     changeFrequency: "weekly" as const,
@@ -87,6 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...mousePages,
     ...keyboardPages,
     ...mousepadPages,
+    ...headsetPages,
     ...proPages,
     ...brandPages,
     ...guidePages,

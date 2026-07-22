@@ -17,13 +17,14 @@ export interface Brand {
 }
 
 export function getBrands(): Brand[] {
-  const brandMap = new Map<string, { antalMus: number; pros: Set<string>; topMouse: { slug: string; navn: string; count: number } }>();
+  const brandMap = new Map<string, { navn: string; antalMus: number; pros: Set<string>; topMouse: { slug: string; navn: string; count: number } }>();
 
   for (const m of mice) {
-    if (!brandMap.has(m.brand)) {
-      brandMap.set(m.brand, { antalMus: 0, pros: new Set(), topMouse: { slug: m.slug, navn: m.navn, count: m.proBrugere.length } });
+    const key = m.brand.toLowerCase().replace(/\s+/g, "-");
+    if (!brandMap.has(key)) {
+      brandMap.set(key, { navn: m.brand, antalMus: 0, pros: new Set(), topMouse: { slug: m.slug, navn: m.navn, count: m.proBrugere.length } });
     }
-    const entry = brandMap.get(m.brand)!;
+    const entry = brandMap.get(key)!;
     entry.antalMus++;
     for (const pro of m.proBrugere) entry.pros.add(pro);
     if (m.proBrugere.length > entry.topMouse.count) {
@@ -31,10 +32,9 @@ export function getBrands(): Brand[] {
     }
   }
 
-  return Array.from(brandMap.entries()).map(([navn, data]) => {
-    const slug = navn.toLowerCase().replace(/\s+/g, "-");
+  return Array.from(brandMap.entries()).map(([slug, data]) => {
     return {
-      navn,
+      navn: data.navn,
       slug,
       antalMus: data.antalMus,
       antalPros: data.pros.size,

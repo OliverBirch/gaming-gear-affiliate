@@ -30,7 +30,14 @@ export default function AdminTodoPage() {
             <tbody>
               {miceToAdd.map((stub) => (
                 <tr key={stub.slug} className="border-b border-border/50 last:border-0">
-                  <td className="px-5 py-3 font-mono text-sm">{stub.slug}</td>
+                  <td className="px-5 py-3 font-mono text-sm">
+                    <Link
+                      href={`/mus/${stub.slug}`}
+                      className="text-primary hover:underline underline-offset-4"
+                    >
+                      {stub.slug}
+                    </Link>
+                  </td>
                   <td className="px-5 py-3 text-muted-foreground">{stub.brand}</td>
                   <td className="px-5 py-3">
                     <Link

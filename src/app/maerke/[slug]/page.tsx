@@ -6,10 +6,12 @@ import Script from "next/script";
 import { MouseCard } from "@/components/mouse-card";
 import { KeyboardCard } from "@/components/keyboard-card";
 import { MousepadCard } from "@/components/mousepad-card";
+import { HeadsetCard } from "@/components/headset-card";
 import { getBrand, getBrands } from "@/data/brands";
 import { mice } from "@/data/mice";
 import { keyboards } from "@/data/keyboards";
 import { mousepads } from "@/data/mousepads";
+import { headsets } from "@/data/headsets";
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -154,6 +156,32 @@ export default async function BrandPage({ params }: Props) {
                 className="text-sm font-semibold text-primary hover:underline underline-offset-4"
               >
                 Se alle musemåtter &rarr;
+              </Link>
+            </div>
+          </section>
+        ) : null;
+      })()}
+
+      {(() => {
+        const brandHeadsets = headsets.filter(
+          (h) => h.brand.toLowerCase() === brand.navn.toLowerCase()
+        );
+        return brandHeadsets.length > 0 ? (
+          <section className="mb-14">
+            <h2 className="text-xl font-bold tracking-tight mb-6">
+              {brand.navn} headsets
+            </h2>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {brandHeadsets.map((hs) => (
+                <HeadsetCard key={hs.slug} headset={hs} />
+              ))}
+            </div>
+            <div className="mt-6 text-center">
+              <Link
+                href="/headset"
+                className="text-sm font-semibold text-primary hover:underline underline-offset-4"
+              >
+                Se alle headsets &rarr;
               </Link>
             </div>
           </section>

@@ -1281,7 +1281,7 @@ const rawMice: MouseSansProBrugere[] = [
   {
     slug: "vaxee-outset-ax-wireless",
     navn: "OUTSET AX Wireless",
-    brand: "VAXEE",
+    brand: "Vaxee",
     vaegtGram: 0, laengdeMm: 0, breddeMm: 0, hoejdeMm: 0,
     formfaktor: "ergonomisk", greb: [], haandStoerrelse: [],
     wireless: false, forbindelse: "", batteritidTimer: null,

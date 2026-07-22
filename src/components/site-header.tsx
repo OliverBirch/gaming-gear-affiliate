@@ -69,6 +69,7 @@ export function SiteHeader() {
                 <DropdownItem href="/mus">Mus</DropdownItem>
                 <DropdownItem href="/tastaturer">Tastaturer</DropdownItem>
                 <DropdownItem href="/musemaatter">Musemåtter</DropdownItem>
+                <DropdownItem href="/headset">Headsets</DropdownItem>
               </div>
             </div>
           </div>
@@ -141,6 +142,7 @@ export function SiteHeader() {
                 <DropdownItem href="/mus" close={() => setOpen(false)}>Mus</DropdownItem>
                 <DropdownItem href="/tastaturer" close={() => setOpen(false)}>Tastaturer</DropdownItem>
                 <DropdownItem href="/musemaatter" close={() => setOpen(false)}>Musemåtter</DropdownItem>
+                <DropdownItem href="/headset" close={() => setOpen(false)}>Headsets</DropdownItem>
               </div>
             </details>
             <details className="group">
