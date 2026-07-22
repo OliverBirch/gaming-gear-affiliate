@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -6,8 +6,10 @@ import Script from "next/script";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getKeyboard } from "@/data/keyboards";
+import { pros } from "@/data/pros";
 import { getRetailer } from "@/data/retailers";
 import { bestOffer, bestOffers } from "@/lib/affiliate";
+import { ProAvatar } from "@/components/pro-avatar";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -34,8 +36,13 @@ export default async function TastaturPage({ params }: Props) {
   const keyboard = getKeyboard(slug);
   if (!keyboard) notFound();
 
-  const offer = bestOffer(keyboard);
   const allOffers = bestOffers(keyboard);
+  const lowestPrice = allOffers.reduce((min, o) => {
+    if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
+    return min;
+  }, Infinity);
+  const hasPrice = lowestPrice !== Infinity;
+  const offer = bestOffer(keyboard);
   const retailer = offer ? getRetailer(offer.retailer) : null;
 
   return (
@@ -53,7 +60,7 @@ export default async function TastaturPage({ params }: Props) {
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-3">
             {keyboard.navn}
           </h1>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-mono tabular-nums mb-4">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-sans tabular-nums mb-4">
             <span className="text-foreground font-semibold">{keyboard.brand}</span>
             <span className="text-border/50">|</span>
             <span>{keyboard.formfaktor}</span>
@@ -64,28 +71,15 @@ export default async function TastaturPage({ params }: Props) {
             {keyboard.beskrivelse}
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            {offer && retailer && (
+            {allOffers.length > 0 && (
               <a
-                href={offer.affiliateUrl}
-                rel="sponsored nofollow"
-                target="_blank"
+                href="#priser"
                 className={cn(
                   buttonVariants({ size: "lg" }),
                   "gap-1.5 active:scale-[0.98] transition-transform duration-150"
                 )}
               >
-                {retailer.logo && (
-                  <Image
-                    src={retailer.logo}
-                    alt={retailer.navn}
-                    width={18}
-                    height={18}
-                    className="rounded-sm object-contain"
-                  />
-                )}
-                {offer.prisDkk
-                  ? "Se pris " + offer.prisDkk + " kr. hos " + retailer.navn
-                  : "Se pris hos " + retailer.navn}
+                {hasPrice ? "Sammenlign priser (fra " + lowestPrice + " kr.)" : "Sammenlign priser"}
               </a>
             )}
           </div>
@@ -164,55 +158,90 @@ export default async function TastaturPage({ params }: Props) {
               ))}
             </ul>
           </div>
+
+          {keyboard.proBrugere.length > 0 && (
+            <div className="rounded-xl border border-border/50 bg-card p-7">
+              <h2 className="text-xl font-semibold mb-4">
+                Bruges af <span className="text-primary">{keyboard.proBrugere.length}</span> pro{keyboard.proBrugere.length > 1 ? "s" : ""}
+              </h2>
+              <div className="flex flex-wrap gap-3">
+                {keyboard.proBrugere.map((proSlug) => {
+                  const pro = pros.find((p) => p.slug === proSlug);
+                  if (!pro) return null;
+                  return (
+                    <Link
+                      key={pro.slug}
+                      href={`/pro/${pro.slug}`}
+                      className="flex items-center gap-2 rounded-lg p-1.5 hover:bg-muted/30 transition-colors duration-150"
+                    >
+                      <ProAvatar navn={pro.navn} slug={pro.slug} size="sm" />
+                      <span className="text-sm font-medium">{pro.navn}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
-      {allOffers.length > 1 && (
-        <div className="rounded-xl border border-border/50 bg-card p-7 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Priser</h2>
-          <div className="space-y-3">
-            {allOffers.map((o) => {
-              const r = getRetailer(o.retailer);
-              if (!r) return null;
-              return (
-                <a
-                  key={o.retailer}
-                  href={o.affiliateUrl ?? o.produktUrl}
-                  rel="sponsored nofollow"
-                  target="_blank"
-                  className="flex items-center justify-between rounded-lg border border-border/50 p-4 hover:border-primary/30 transition-all duration-200"
-                >
-                  <div className="flex items-center gap-3">
-                    {r.logo && (
-                      <Image
-                        src={r.logo}
-                        alt={r.navn}
-                        width={20}
-                        height={20}
-                        className="rounded-sm object-contain"
-                      />
-                    )}
-                    <div>
-                      <span className="font-medium">{r.navn}</span>
-                      {o.inStock === false && (
-                        <span className="ml-2 text-xs text-destructive">Udsolgt</span>
+      {allOffers.length > 0 && (() => {
+        const sorted = [...allOffers].sort((a, b) => {
+          const aP = a.prisDkk ?? Infinity;
+          const bP = b.prisDkk ?? Infinity;
+          return aP - bP;
+        });
+        const lowest = sorted[0]?.prisDkk ?? null;
+        return (
+          <div id="priser" className="rounded-xl border border-border/50 bg-card p-7 mb-8 scroll-mt-20">
+            <h2 className="text-xl font-semibold mb-4">
+              Sammenlign priser{lowest != null ? " (fra " + lowest + " kr.)" : ""}
+            </h2>
+            <div className="space-y-3">
+              {sorted.map((o) => {
+                const r = getRetailer(o.retailer);
+                if (!r) return null;
+                const isLowest = o.prisDkk === lowest && lowest != null;
+                return (
+                  <a
+                    key={o.retailer}
+                    href={o.affiliateUrl ?? o.produktUrl}
+                    rel="sponsored nofollow"
+                    target="_blank"
+                    className="flex items-center justify-between rounded-lg border border-border/50 p-4 hover:border-primary/30 hover:-translate-y-px transition-all duration-200"
+                  >
+                    <div className="flex items-center gap-3">
+                      {r.logo && (
+                        <Image
+                          src={r.logo}
+                          alt={r.navn}
+                          width={20}
+                          height={20}
+                          className="rounded-sm object-contain"
+                        />
                       )}
+                      <div>
+                        <span className="font-medium">{r.navn}</span>
+                        {o.inStock === false && (
+                          <span className="ml-2 text-xs text-destructive">Udsolgt</span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {o.inStock !== false && (
-                      <span className="text-xs text-muted-foreground">På lager</span>
-                    )}
-                    <span className="text-lg font-bold tabular-nums text-primary">
-                      {o.prisDkk ? o.prisDkk + " kr." : "Se pris"}
-                    </span>
-                  </div>
-                </a>
-              );
-            })}
+                    <div className="flex items-center gap-3">
+                      {o.inStock !== false && o.prisDkk && (
+                        <span className="text-xs text-muted-foreground">På lager</span>
+                      )}
+                      <span className={cn("text-lg font-bold tabular-nums", isLowest ? "text-purchase" : "text-primary")}>
+                        {o.prisDkk ? o.prisDkk + " kr." : "Se pris"}
+                      </span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       <div className="flex flex-wrap gap-4 pt-2">
         <Link
@@ -223,29 +252,16 @@ export default async function TastaturPage({ params }: Props) {
         </Link>
       </div>
 
-      {offer && retailer && (
+      {allOffers.length > 0 && (
         <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/50 bg-background/95 backdrop-blur-md p-3 sm:hidden">
           <a
-            href={offer.affiliateUrl}
-            rel="sponsored nofollow"
-            target="_blank"
+            href="#priser"
             className={cn(
-              buttonVariants({ size: "default" }),
+              buttonVariants({ variant: "purchase", size: "default" }),
               "w-full gap-2 active:scale-[0.98] transition-transform duration-150 text-base"
             )}
           >
-            {retailer.logo && (
-              <Image
-                src={retailer.logo}
-                alt={retailer.navn}
-                width={18}
-                height={18}
-                className="rounded-sm object-contain"
-              />
-            )}
-            {offer.prisDkk
-              ? "Køb " + offer.prisDkk + " kr. hos " + retailer.navn
-              : "Køb hos " + retailer.navn}
+            {hasPrice ? "Sammenlign priser (fra " + lowestPrice + " kr.)" : "Sammenlign priser"}
           </a>
         </div>
       )}

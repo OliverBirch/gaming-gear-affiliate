@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ConsentBanner } from "@/components/consent-banner";
@@ -8,13 +8,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import GrainGradient from "@/components/GrainGradient";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -50,7 +45,8 @@ export default function RootLayout({
   return (
     <html
       lang="da"
-      className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`dark ${spaceGrotesk.variable} h-full antialiased`}
     >
       <head>
         <Script
@@ -126,7 +122,6 @@ gtag('config', 'G-XXXXXXXXXX');`,
           <SiteFooter />
           <AffiliateDisclosure />
         </div>
-        <ConsentBanner />
       </body>
     </html>
   );

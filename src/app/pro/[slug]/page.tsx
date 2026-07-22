@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import Script from "next/script";
 import { Badge } from "@/components/ui/badge";
+import Script from "next/script";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getPro } from "@/data/pros";
 import { getMouse } from "@/data/mice";
-import { bestOffer } from "@/lib/affiliate";
-import { getRetailer } from "@/data/retailers";
+import { bestOffers } from "@/lib/affiliate";
 import { getProPeripherals } from "@/data/pros-peripherals";
+import { getKeyboardSlug, getMousepadSlug } from "@/data/pros-peripherals-mapping";
 import { ProAvatar } from "@/components/pro-avatar";
 
 
@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const pro = getPro(slug);
   if (!pro) return {};
   return {
-    title: `${pro.navn} - mus, settings og DPI`,
-    description: `Se ${pro.navn}s gaming-mus, DPI, in-game sens og eDPI. Få den bedste pris på ${pro.navn}s mus hos danske forhandlere.`,
+    title: `${pro.navn} - mus, tastatur og settings`,
+    description: `Se ${pro.navn}s gaming-mus, tastatur, musemåtte, DPI og settings. Få den bedste pris på ${pro.navn}s udstyr hos danske forhandlere.`,
   };
 }
 
@@ -36,7 +36,12 @@ export default async function ProPage({ params }: Props) {
   const mouse = getMouse(pro.musSlug);
   if (!mouse) notFound();
 
-  const offer = bestOffer(mouse);
+  const allOffers = bestOffers(mouse);
+  const lowestPrice = allOffers.reduce((min, o) => {
+    if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
+    return min;
+  }, Infinity);
+  const hasPrice = lowestPrice !== Infinity;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
@@ -94,11 +99,13 @@ export default async function ProPage({ params }: Props) {
 
         {(() => {
           const peri = getProPeripherals(pro.slug);
-          const items: [string, string | null][] = [
-            ["Skærm", peri?.monitor ?? null],
-            ["Tastatur", peri?.keyboard ?? null],
-            ["Musemåtte", peri?.mousepad ?? null],
-            ["Headset", peri?.headset ?? null],
+          const keyboardSlug = getKeyboardSlug(pro.slug);
+          const mousepadSlug = getMousepadSlug(pro.slug);
+          const items: [string, string | null, string | undefined][] = [
+            ["Skærm", peri?.monitor ?? null, undefined],
+            ["Tastatur", peri?.keyboard ?? null, keyboardSlug],
+            ["Musemåtte", peri?.mousepad ?? null, mousepadSlug],
+            ["Headset", peri?.headset ?? null, undefined],
           ];
           const hasAny = items.some(([, v]) => v !== null);
           if (!hasAny) return null;
@@ -107,10 +114,21 @@ export default async function ProPage({ params }: Props) {
               <h2 className="mb-5 text-lg font-semibold">Periferiudstyr</h2>
               <table className="w-full text-sm">
                 <tbody>
-                  {items.map(([label, value]) => (
+                  {items.map(([label, value, slug]) => (
                     <tr key={label} className="border-b border-border/50 last:border-0">
                       <td className="py-2.5 text-muted-foreground pr-4 w-[1%] whitespace-nowrap">{label}</td>
-                      <td className="py-2.5 font-medium">{value ?? "-"}</td>
+                      <td className="py-2.5 font-medium">
+                        {slug && value ? (
+                          <Link
+                            href={label === "Tastatur" ? `/tastaturer/${slug}` : `/musemaatter/${slug}`}
+                            className="text-primary hover:underline underline-offset-4"
+                          >
+                            {value}
+                          </Link>
+                        ) : (
+                          value ?? "-"
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -155,50 +173,22 @@ export default async function ProPage({ params }: Props) {
             {mouse.beskrivelse}
           </p>
           <div className="flex gap-3">
-            {offer && (() => {
-              const retailer = getRetailer(offer.retailer);
-              return (
-                <a
-                  href={offer.affiliateUrl}
-                  rel="sponsored nofollow"
-                  target="_blank"
-                  className={cn(
-                    buttonVariants({}),
-                    "active:scale-[0.98] transition-transform duration-150 gap-1.5"
-                  )}
-                >
-                  {retailer?.logo && (
-                    <Image
-                      src={retailer.logo}
-                      alt={retailer.navn}
-                      width={16}
-                      height={16}
-                      className="rounded-sm object-contain"
-                    />
-                  )}
-                  {offer.prisDkk
-                    ? `Se pris ${offer.prisDkk} kr.`
-                    : "Se pris"}
-                </a>
-              );
-            })()}
-            <Link
-              href={`/mus/${mouse.slug}`}
-              className={cn(buttonVariants({ variant: "outline" }))}
-            >
-              Se specs &rarr;
-            </Link>
+            {allOffers.length > 0 && (
+              <Link
+                href={`/mus/${mouse.slug}`}
+                className={cn(
+                  buttonVariants({}),
+                  "active:scale-[0.98] transition-transform duration-150 gap-1.5"
+                )}
+              >
+                {hasPrice ? `Se bedste pris (fra ${lowestPrice} kr.)` : "Se bedste pris"}
+              </Link>
+            )}
           </div>
         </div>
       </div>
 
       <div className="text-center pb-12">
-        <Link
-          href={`/mus/${mouse.slug}`}
-          className="text-sm text-primary hover:underline underline-offset-4"
-        >
-          Se flere detaljer om {mouse.navn} &rarr;
-        </Link>
       </div>
 
       <Script

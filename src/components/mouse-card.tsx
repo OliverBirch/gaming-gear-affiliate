@@ -4,8 +4,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { bestOffer } from "@/lib/affiliate";
-import { getRetailer } from "@/data/retailers";
+import { bestOffers } from "@/lib/affiliate";
 import { brandSlug } from "@/data/brands";
 
 const grebLabels: Record<string, string> = {
@@ -27,8 +26,12 @@ const haandLabels: Record<string, string> = {
 };
 
 export function MouseCard({ mouse, rank }: { mouse: Mouse; rank?: number }) {
-  const offer = bestOffer(mouse);
-  const retailer = offer ? getRetailer(offer.retailer) : null;
+  const resolvedOffers = bestOffers(mouse);
+  const lowestPrice = resolvedOffers.reduce((min, o) => {
+    if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
+    return min;
+  }, Infinity);
+  const hasPrice = lowestPrice !== Infinity;
 
   return (
     <div className="group relative rounded-xl border border-border/50 bg-card p-5 flex flex-col hover:border-primary/30 hover:-translate-y-[1px] transition-all duration-200">
@@ -66,9 +69,10 @@ export function MouseCard({ mouse, rank }: { mouse: Mouse; rank?: number }) {
           >
             {mouse.navn}
           </Link>
+          {' '}
           <Link
             href={`/maerke/${brandSlug(mouse.brand)}`}
-            className="text-xs text-muted-foreground mt-0.5 hover:text-primary transition-colors"
+            className="text-xs text-muted-foreground hover:text-primary transition-colors"
           >
             {mouse.brand}
           </Link>
@@ -85,7 +89,7 @@ export function MouseCard({ mouse, rank }: { mouse: Mouse; rank?: number }) {
         )}
       </div>
 
-      <div className="flex items-center gap-2 mb-3 text-xs font-mono tabular-nums text-muted-foreground flex-wrap">
+      <div className="flex items-center gap-2 mb-3 text-xs font-sans tabular-nums text-muted-foreground flex-wrap">
         <span className="text-foreground font-semibold">{mouse.vaegtGram}g</span>
         <span className="text-border/50">/</span>
         <span>{mouse.laengdeMm}×{mouse.breddeMm}×{mouse.hoejdeMm} mm</span>
@@ -142,33 +146,16 @@ export function MouseCard({ mouse, rank }: { mouse: Mouse; rank?: number }) {
       )}
 
       <div className="mt-auto pt-2">
-        {offer && retailer ? (
-          <a
-            href={offer.affiliateUrl}
-            rel="sponsored nofollow"
-            target="_blank"
+        {resolvedOffers.length > 0 ? (
+          <Link
+            href={`/mus/${mouse.slug}`}
             className={cn(
-              buttonVariants({ size: "sm" }),
-              "w-full gap-1.5 active:scale-[0.98] transition-transform duration-150"
+              buttonVariants({ variant: "purchase", size: "sm" }),
+              "w-full active:scale-[0.98] transition-transform duration-150"
             )}
           >
-            {retailer.logo && (
-              <Image
-                src={retailer.logo}
-                alt={retailer.navn}
-                width={16}
-                height={16}
-                className="rounded-sm object-contain"
-              />
-            )}
-            {offer.prisDkk
-              ? `Køb ${offer.prisDkk} kr.`
-              : `Køb hos ${retailer.navn}`}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="ml-0.5">
-              <path d="M7 17L17 7" />
-              <path d="M7 7h10v10" />
-            </svg>
-          </a>
+            {hasPrice ? `Se bedste pris (fra ${lowestPrice} kr.)` : "Se bedste pris"}
+          </Link>
         ) : (
           <Link
             href={`/mus/${mouse.slug}`}

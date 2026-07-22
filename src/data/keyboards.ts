@@ -1,6 +1,7 @@
 import type { Keyboard } from "@/lib/types";
+import { getKeyboardProSlugs } from "./pros-peripherals-mapping";
 
-export const keyboards: Keyboard[] = [
+const rawKeyboards: Keyboard[] = [
   {
     slug: "steelseries-apex-pro-tkl-gen-3",
     navn: "Apex Pro TKL Gen 3",
@@ -258,6 +259,11 @@ export const keyboards: Keyboard[] = [
     proBrugere: [],
   },
 ];
+
+export const keyboards: Keyboard[] = rawKeyboards.map((k) => ({
+  ...k,
+  proBrugere: getKeyboardProSlugs(k.slug),
+}));
 
 export function getKeyboard(slug: string): Keyboard | undefined {
   return keyboards.find((k) => k.slug === slug);

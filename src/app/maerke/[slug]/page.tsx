@@ -10,9 +10,6 @@ import { getBrand, getBrands } from "@/data/brands";
 import { mice } from "@/data/mice";
 import { keyboards } from "@/data/keyboards";
 import { mousepads } from "@/data/mousepads";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -85,25 +82,38 @@ export default async function BrandPage({ params }: Props) {
           <a
             key={m.slug}
             href={`/mus/${m.slug}`}
-            className="text-sm text-primary hover:underline underline-offset-4"
+            className="text-sm font-semibold text-primary hover:underline underline-offset-4"
           >
             {m.navn}
           </a>
         ))}
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {brandMice.map((mouse, i) => (
-          <MouseCard key={mouse.slug} mouse={mouse} rank={i + 1} />
-        ))}
-      </div>
+      <section className="mb-14">
+        <h2 className="text-xl font-bold tracking-tight mb-6">
+          {brand.navn} mus
+        </h2>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {brandMice.map((mouse, i) => (
+            <MouseCard key={mouse.slug} mouse={mouse} rank={i + 1} />
+          ))}
+        </div>
+        <div className="mt-6 text-center">
+          <Link
+            href="/mus"
+            className="text-sm font-semibold text-primary hover:underline underline-offset-4"
+          >
+            Se alle mus &rarr;
+          </Link>
+        </div>
+      </section>
 
       {(() => {
         const brandKeyboards = keyboards.filter(
           (k) => k.brand.toLowerCase() === brand.navn.toLowerCase()
         );
         return brandKeyboards.length > 0 ? (
-          <section className="mt-14 mb-8">
+          <section className="mb-14">
             <h2 className="text-xl font-bold tracking-tight mb-6">
               {brand.navn} tastaturer
             </h2>
@@ -115,7 +125,7 @@ export default async function BrandPage({ params }: Props) {
             <div className="mt-6 text-center">
               <Link
                 href="/tastaturer"
-                className="text-sm text-primary hover:underline underline-offset-4"
+                className="text-sm font-semibold text-primary hover:underline underline-offset-4"
               >
                 Se alle tastaturer &rarr;
               </Link>
@@ -141,7 +151,7 @@ export default async function BrandPage({ params }: Props) {
             <div className="mt-6 text-center">
               <Link
                 href="/musemaatter"
-                className="text-sm text-primary hover:underline underline-offset-4"
+                className="text-sm font-semibold text-primary hover:underline underline-offset-4"
               >
                 Se alle musemåtter &rarr;
               </Link>
@@ -149,15 +159,6 @@ export default async function BrandPage({ params }: Props) {
           </section>
         ) : null;
       })()}
-
-      <div className="text-center">
-        <Link
-          href="/mus"
-          className={cn(buttonVariants({ variant: "outline" }))}
-        >
-          &larr; Alle mus
-        </Link>
-      </div>
 
       <Script
         id="schema-breadcrumb"

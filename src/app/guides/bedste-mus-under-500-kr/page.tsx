@@ -3,8 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
 import { mice } from "@/data/mice";
-import { bestOffer } from "@/lib/affiliate";
-import { getRetailer } from "@/data/retailers";
+import { bestOffers } from "@/lib/affiliate";
 import { brandSlug } from "@/data/brands";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -75,8 +74,12 @@ export default function BedsteMusUnder500() {
 
       <div className="space-y-10 mb-16">
         {sortedMice.map(({ mouse, label, begrundelse }, i) => {
-          const offer = bestOffer(mouse);
-          const retailer = offer ? getRetailer(offer.retailer) : null;
+          const allOffers = bestOffers(mouse);
+          const lowestPrice = allOffers.reduce((min, o) => {
+            if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
+            return min;
+          }, Infinity);
+          const hasPrice = lowestPrice !== Infinity;
           const isTop = i === 0;
 
           return (
@@ -159,35 +162,16 @@ export default function BedsteMusUnder500() {
                   </p>
 
                   <div className="flex flex-wrap gap-3">
-                    <Link
-                      href={`/mus/${mouse.slug}`}
-                      className="text-sm text-primary hover:underline underline-offset-4"
-                    >
-                      Se specs &rarr;
-                    </Link>
-                    {offer && retailer && (
-                      <a
-                        href={offer.affiliateUrl}
-                        rel="sponsored nofollow"
-                        target="_blank"
+                    {allOffers.length > 0 && (
+                      <Link
+                        href={`/mus/${mouse.slug}`}
                         className={cn(
-                          buttonVariants({ size: "sm" }),
+                          buttonVariants({ variant: "purchase", size: "sm" }),
                           "gap-1.5 active:scale-[0.98] transition-transform duration-150"
                         )}
                       >
-                        {retailer.logo && (
-                          <Image
-                            src={retailer.logo}
-                            alt={retailer.navn}
-                            width={14}
-                            height={14}
-                            className="rounded-sm object-contain"
-                          />
-                        )}
-                        {offer.prisDkk
-                          ? `Køb ${offer.prisDkk} kr.`
-                          : `Køb hos ${retailer.navn}`}
-                      </a>
+                        {hasPrice ? `Se bedste pris (fra ${lowestPrice} kr.)` : "Se bedste pris"}
+                      </Link>
                     )}
                   </div>
                 </div>

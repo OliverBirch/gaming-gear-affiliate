@@ -35,9 +35,9 @@ export function SiteHeader() {
           <Image
             src="/images/logos/PROSETUPS transparent.png"
             alt="ProSetups.dk"
-            width={180}
-            height={40}
-            className="h-8 w-auto"
+            width={907}
+            height={131}
+            className="h-4 w-auto"
             priority
           />
         </Link>

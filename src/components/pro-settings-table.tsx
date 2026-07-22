@@ -242,7 +242,7 @@ export function ProSettingsTable({ rows, kilde, sidstVerificeret }: Props) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 text-xs font-mono tabular-nums text-muted-foreground sm:justify-end">
+              <div className="flex items-center gap-3 text-xs font-sans tabular-nums text-muted-foreground sm:justify-end">
                 <span>{pro.dpi} DPI</span>
                 <span className="text-border">|</span>
                 <span>{pro.edpi} eDPI</span>

@@ -159,7 +159,7 @@ export default async function EsportPage({ params }: Props) {
                   className="inline-flex items-center gap-2 rounded-lg border border-border/50 bg-card px-4 py-2.5 text-sm font-medium hover:border-primary/30 hover:bg-card/80 transition-all duration-200"
                 >
                   {hold}
-                  <span className="text-xs text-muted-foreground font-mono tabular-nums">
+                  <span className="text-xs text-muted-foreground font-sans tabular-nums">
                     {teamCount}
                   </span>
                 </Link>
@@ -193,14 +193,14 @@ export default async function EsportPage({ params }: Props) {
               <div className="space-y-2">
                 {dpiRanked.map(({ dpi, num }) => (
                   <div key={dpi} className="flex items-center gap-3">
-                    <span className="text-sm font-mono tabular-nums w-16">{dpi} DPI</span>
+                    <span className="text-sm font-sans tabular-nums w-16">{dpi} DPI</span>
                     <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
                       <div
                         className="h-full rounded-full bg-primary"
                         style={{ width: `${(num / count) * 100}%` }}
                       />
                     </div>
-                    <span className="text-sm font-mono tabular-nums text-muted-foreground w-8 text-right">
+                    <span className="text-sm font-sans tabular-nums text-muted-foreground w-8 text-right">
                       {Math.round((num / count) * 100)}%
                     </span>
                   </div>
@@ -231,7 +231,7 @@ export default async function EsportPage({ params }: Props) {
                         </span>
                       )}
                     </div>
-                    <span className="text-sm font-mono tabular-nums text-primary shrink-0 ml-3">
+                    <span className="text-sm font-sans tabular-nums text-primary shrink-0 ml-3">
                       {data.pct}%
                     </span>
                   </div>

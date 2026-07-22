@@ -1,5 +1,6 @@
 import type { Mousepad, AffiliateOffer } from "@/lib/types";
 import raw from "./mousepads.json";
+import { getMousepadProSlugs } from "./pros-peripherals-mapping";
 
 const SEARCH_URLS: Record<string, string> = {
   proshop: "https://www.proshop.dk/Musemaatte",
@@ -79,6 +80,7 @@ export const mousepads: Mousepad[] = raw.mousepads.map((m: any) => ({
   ulemper: m.ulemper,
   kilde: m.udstyrskilde ?? "spillerens-valg",
   sidstVerificeret: m.sidstOpdateret ?? "2026-07-22",
+  proBrugere: getMousepadProSlugs(m.slug),
 }));
 
 export function getMousepad(slug: string): Mousepad | undefined {

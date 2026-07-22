@@ -1,10 +1,9 @@
 ﻿import type { Mousepad } from "@/lib/types";
 import Link from "next/link";
-import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { getRetailer } from "@/data/retailers";
+import { bestOffers } from "@/lib/affiliate";
 
 const glideLabels: Record<string, string> = {
   speed: "Speed",
@@ -18,14 +17,13 @@ const glideColors: Record<string, string> = {
   hybrid: "bg-amber-500/10 text-amber-400",
 };
 
-function bestMousepadOffer(keyboard: Mousepad) {
-  const inStock = keyboard.offers.filter((o) => o.inStock !== false);
-  return inStock.length > 0 ? inStock[0] : null;
-}
-
 export function MousepadCard({ mousepad, rank }: { mousepad: Mousepad; rank?: number }) {
-  const offer = bestMousepadOffer(mousepad);
-  const retailer = offer ? getRetailer(offer.retailer) : null;
+  const resolvedOffers = bestOffers(mousepad);
+  const lowestPrice = resolvedOffers.reduce((min, o) => {
+    if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
+    return min;
+  }, Infinity);
+  const hasPrice = lowestPrice !== Infinity;
   const sizeCount = mousepad.størrelser.length;
 
   return (
@@ -58,7 +56,7 @@ export function MousepadCard({ mousepad, rank }: { mousepad: Mousepad; rank?: nu
         </div>
       </div>
 
-      <div className="flex items-center gap-2 mb-3 text-xs font-mono tabular-nums text-muted-foreground flex-wrap">
+      <div className="flex items-center gap-2 mb-3 text-xs font-sans tabular-nums text-muted-foreground flex-wrap">
         <span className="text-foreground font-semibold">
           {mousepad.materiale === "stof" ? "Stof" : mousepad.materiale}
         </span>
@@ -87,33 +85,16 @@ export function MousepadCard({ mousepad, rank }: { mousepad: Mousepad; rank?: nu
       </p>
 
       <div className="mt-auto pt-2">
-        {offer && retailer ? (
-          <a
-            href={offer.affiliateUrl ?? offer.produktUrl}
-            rel="sponsored nofollow"
-            target="_blank"
+        {resolvedOffers.length > 0 ? (
+          <Link
+            href={"/musemaatter/" + mousepad.slug}
             className={cn(
-              buttonVariants({ size: "sm" }),
-              "w-full gap-1.5 active:scale-[0.98] transition-transform duration-150"
+              buttonVariants({ variant: "purchase", size: "sm" }),
+              "w-full active:scale-[0.98] transition-transform duration-150"
             )}
           >
-            {retailer.logo && (
-              <Image
-                src={retailer.logo}
-                alt={retailer.navn}
-                width={16}
-                height={16}
-                className="rounded-sm object-contain"
-              />
-            )}
-            {offer.prisDkk
-              ? "Køb fra " + offer.prisDkk + " kr."
-              : "Køb hos " + retailer.navn}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="ml-0.5">
-              <path d="M7 17L17 7" />
-              <path d="M7 7h10v10" />
-            </svg>
-          </a>
+            {hasPrice ? "Se bedste pris (fra " + lowestPrice + " kr.)" : "Se bedste pris"}
+          </Link>
         ) : (
           <Link
             href={"/musemaatter/" + mousepad.slug}

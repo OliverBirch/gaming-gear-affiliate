@@ -58,9 +58,9 @@ export default function Home() {
           </h2>
           <Link
             href="/mus"
-            className="text-sm text-primary hover:underline underline-offset-4"
+            className="text-sm font-semibold text-primary hover:underline underline-offset-4"
           >
-            Se alle {mice.length} mus &rarr;
+            Se alle {mice.length}&nbsp;mus &rarr;
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -77,9 +77,9 @@ export default function Home() {
           </h2>
           <Link
             href="/tastaturer"
-            className="text-sm text-primary hover:underline underline-offset-4"
+            className="text-sm font-semibold text-primary hover:underline underline-offset-4"
           >
-            Se alle {keyboards.length} tastaturer &rarr;
+            Se alle {keyboards.length}&nbsp;tastaturer &rarr;
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -96,9 +96,9 @@ export default function Home() {
           </h2>
           <Link
             href="/musemaatter"
-            className="text-sm text-primary hover:underline underline-offset-4"
+            className="text-sm font-semibold text-primary hover:underline underline-offset-4"
           >
-            Se alle {mousepads.length} musemåtter &rarr;
+            Se alle {mousepads.length}&nbsp;musemåtter &rarr;
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -135,7 +135,7 @@ export default function Home() {
         <div className="mt-6 text-center">
           <Link
             href="/pros"
-            className="text-sm text-primary hover:underline underline-offset-4"
+            className="text-sm font-semibold text-primary hover:underline underline-offset-4"
           >
             Se alle {pros.length} pros &rarr;
           </Link>

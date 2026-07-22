@@ -25,6 +25,12 @@ Answer one question: *"What gear does this pro use, where can I buy it in Denmar
 ## Route naming
 - Danish for routes and UI: `/tastaturer`, `/musemaatter`, `/maerke`, `/mus`. English for code identifiers.
 
+## Data workflows
+- Use the `add-pro` skill to add pros — it handles pros.ts, peripherals, images, and stub mouse creation.
+- Use the `add-mouse` skill to create mice or complete stubs — it sources specs from RTINGS, copy from reviews, and offers from affiliate portals.
+- Unknown mice encountered during pro creation are tracked in `src/data/mice-todo.ts`. Visit `/admin/todo` to see the backlog.
+- Pro data source is always `prosettings.net`. Mouse specs come from RTINGS → Techpowerup → manufacturer.
+
 ## Generation
 - All content is statically generated at build time. Use `generateStaticParams` for dynamic routes. No runtime data fetching.
 

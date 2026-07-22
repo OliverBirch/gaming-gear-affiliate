@@ -38,6 +38,8 @@ export const ProSchema = z.object({
   land: z.string().optional(),
   billede: z.string().optional(),
   musSlug: z.string(),
+  tastaturSlug: z.string().optional(),
+  musemaatteSlug: z.string().optional(),
   settings: ProSettingsSchema,
   kilde: z.string(),
   sidstVerificeret: z.string(),
@@ -52,7 +54,7 @@ export type Pro = z.infer<typeof ProSchema>;
  * country - ended up live). Add a retailer here only after adding it to
  * retailers.ts with real payout/network data.
  */
-export const RETAILER_SLUGS = ["proshop", "computersalg", "maxgaming", "coolshop"] as const;
+export const RETAILER_SLUGS = ["proshop", "computersalg", "maxgaming", "coolshop", "elgiganten", "avxperten", "dustinhome", "komplett", "billo"] as const;
 
 export const AffiliateOfferSchema = z.object({
   retailer: z.enum(RETAILER_SLUGS),
@@ -159,6 +161,7 @@ export const MousepadSchema = z.object({
   beskrivelse: z.string(),
   fordele: CopyPoints,
   ulemper: CopyPoints,
+  proBrugere: z.array(z.string()),
   kilde: z.string(),
   sidstVerificeret: z.string(),
 });

@@ -5,8 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { FinderInput } from "@/lib/types";
 import { scoreMice, type ScoredMouse } from "@/lib/quiz-scoring";
-import { bestOffer } from "@/lib/affiliate";
-import { getRetailer } from "@/data/retailers";
+import { bestOffers } from "@/lib/affiliate";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -81,8 +80,12 @@ function ProgressBar({ step, total }: { step: number; total: number }) {
 
 function ResultCard({ scored, index }: { scored: ScoredMouse; index: number }) {
   const mouse = scored.mouse;
-  const offer = bestOffer(mouse);
-  const retailer = offer ? getRetailer(offer.retailer) : null;
+  const allOffers = bestOffers(mouse);
+  const lowestPrice = allOffers.reduce((min, o) => {
+    if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
+    return min;
+  }, Infinity);
+  const hasPrice = lowestPrice !== Infinity;
 
   return (
     <div className="rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-200 hover:border-primary/30">
@@ -115,7 +118,7 @@ function ResultCard({ scored, index }: { scored: ScoredMouse; index: number }) {
             </Badge>
           </div>
 
-          <div className="text-xs font-mono tabular-nums text-muted-foreground mb-2">
+          <div className="text-xs font-sans tabular-nums text-muted-foreground mb-2">
             {mouse.vaegtGram}g &middot; {mouse.laengdeMm}&times;{mouse.breddeMm}&times;{mouse.hoejdeMm} mm &middot;{" "}
             {mouse.haandStoerrelse.map((h) => haandLabels[h] ?? h).join(", ")}
           </div>
@@ -165,29 +168,16 @@ function ResultCard({ scored, index }: { scored: ScoredMouse; index: number }) {
           )}
 
           <div className="mt-auto pt-2">
-            {offer && retailer ? (
-              <a
-                href={offer.affiliateUrl}
-                rel="sponsored nofollow"
-                target="_blank"
+            {allOffers.length > 0 ? (
+              <Link
+                href={`/mus/${mouse.slug}`}
                 className={cn(
-                  buttonVariants({ size: "sm" }),
+                  buttonVariants({ variant: "purchase", size: "sm" }),
                   "w-full gap-1.5 active:scale-[0.98] transition-transform duration-150"
                 )}
               >
-                {retailer.logo && (
-                  <Image
-                    src={retailer.logo}
-                    alt={retailer.navn}
-                    width={16}
-                    height={16}
-                    className="rounded-sm object-contain"
-                  />
-                )}
-                {offer.prisDkk
-                  ? `Køb ${offer.prisDkk} kr.`
-                  : `Køb hos ${retailer.navn}`}
-              </a>
+                {hasPrice ? `Se bedste pris (fra ${lowestPrice} kr.)` : "Se bedste pris"}
+              </Link>
             ) : (
               <Link
                 href={`/mus/${mouse.slug}`}
