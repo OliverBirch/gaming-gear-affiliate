@@ -22,7 +22,7 @@ export default function GuidesPage() {
 
       <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-2">Guides</h1>
       <p className="text-muted-foreground mb-10">
-        Guides og anbefalinger til gaming-mus, greb og meget mere — baseret på data fra pros.
+        Guides og anbefalinger til gaming-mus, greb og meget mere, baseret på data fra pros.
       </p>
 
       <div className="grid gap-5 sm:grid-cols-2">

@@ -3,20 +3,27 @@ import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
 import { mice } from "@/data/mice";
+import { pros } from "@/data/pros";
 import { bestOffer } from "@/lib/affiliate";
 import { getRetailer } from "@/data/retailers";
-import { brandSlug } from "@/data/brands";
-import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Trådløs eller kablet mus? Hvad skal du vælge - ProSetups.dk",
-  description: "Trådløs vs kablet gaming-mus — hvad er bedst til dig? Vi sammenligner latency, vægt, batteritid og pris, så du kan træffe det rigtige valg.",
+  description: "Trådløs vs kablet gaming-mus: hvad er bedst til dig? Vi sammenligner latency, vægt, batteritid og pris, så du kan træffe det rigtige valg.",
 };
 
 const wireless = mice.filter((m) => m.wireless).sort((a, b) => b.proBrugere.length - a.proBrugere.length).slice(0, 3);
 const wired = mice.filter((m) => !m.wireless).sort((a, b) => b.proBrugere.length - a.proBrugere.length).slice(0, 3);
+
+// Was previously summing raw proBrugere counts across wireless mice and
+// rendering the sum directly as a percentage, which produced 156% once the
+// pro dataset grew past 100 tracked players. This divides by the actual
+// total instead.
+const wirelessProPct = Math.round(
+  (pros.filter((p) => mice.find((m) => m.slug === p.musSlug)?.wireless).length / pros.length) * 100
+);
 
 const haandLabels: Record<string, string> = {
   lille: "Lille",
@@ -76,12 +83,12 @@ export default function TraadloesEllerKablet() {
         <div className="rounded-xl border border-primary/30 bg-primary/[0.03] p-6">
           <h2 className="text-lg font-bold mb-1">Trådløs</h2>
           <p className="text-sm text-muted-foreground mb-4">
-            {mice.filter((m) => m.wireless && m.proBrugere.length > 0).reduce((s, m) => s + m.proBrugere.length, 0)}% af pros bruger trådløst
+            {wirelessProPct}% af pros bruger trådløst
           </p>
           <ul className="space-y-2 text-sm">
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">+</span>
-              <span>Ingen kabel — fuld bevægelsesfrihed</span>
+              <span>Ingen kabel, fuld bevægelsesfrihed</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">+</span>
@@ -113,20 +120,20 @@ export default function TraadloesEllerKablet() {
         <div className="rounded-xl border border-border/50 bg-card p-6">
           <h2 className="text-lg font-bold mb-1">Kablet</h2>
           <p className="text-sm text-muted-foreground mb-4">
-            Stadig et solidt valg — billigere og lettere
+            Stadig et solidt valg: billigere og lettere
           </p>
           <ul className="space-y-2 text-sm">
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">+</span>
-              <span>Billigere — samme sensor til lavere pris</span>
+              <span>Billigere, samme sensor til lavere pris</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">+</span>
-              <span>Lettere — intet batteri</span>
+              <span>Lettere, intet batteri</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">+</span>
-              <span>Plug and play — aldrig løbetør for strøm</span>
+              <span>Plug and play, aldrig løbetør for strøm</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-destructive mt-0.5">&minus;</span>
@@ -152,7 +159,7 @@ export default function TraadloesEllerKablet() {
         <h2 className="text-xl font-semibold mb-4">Hvad betyder latency i praksis?</h2>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
           Moderne trådløs teknologi som Logitech Lightspeed og Razer HyperSpeed har en
-          latency på under 1 ms — det samme som de bedste kablede forbindelser. I blindtests
+          latency på under 1 ms, det samme som de bedste kablede forbindelser. I blindtests
           kan selv professionelle spillere ikke skelne mellem kablet og trådløst.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed">
@@ -177,7 +184,7 @@ export default function TraadloesEllerKablet() {
             <p className="text-sm text-muted-foreground">
               De fleste trådløse gaming-mus holder 70-95 timer på en opladning. Hvis du spiller
               4 timer om dagen, skal du oplade cirka en gang hver 2-3 uge. De fleste har
-              også hurtigopladning — 10 minutter giver flere timers spil.
+              også hurtigopladning: 10 minutter giver flere timers spil.
             </p>
           </div>
           <div>
@@ -193,7 +200,7 @@ export default function TraadloesEllerKablet() {
 
       <div className="text-center space-y-4">
         <p className="text-muted-foreground">
-          Find den perfekte mus — uanset om den er trådløs eller kablet.
+          Find den perfekte mus, uanset om den er trådløs eller kablet.
         </p>
         <Link
           href="/find-mus"
@@ -226,7 +233,7 @@ export default function TraadloesEllerKablet() {
             "@context": "https://schema.org",
             "@type": "Article",
             headline: "Trådløs eller kablet mus? Hvad skal du vælge",
-            description: "Trådløs vs kablet gaming-mus — hvad er bedst til dig? Vi sammenligner latency, vægt, batteritid og pris.",
+            description: "Trådløs vs kablet gaming-mus: hvad er bedst til dig? Vi sammenligner latency, vægt, batteritid og pris.",
           }),
         }}
       />

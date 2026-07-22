@@ -36,6 +36,10 @@ export const metadata: Metadata = {
     siteName: "ProSetups.dk",
     type: "website",
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({

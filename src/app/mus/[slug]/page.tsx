@@ -201,7 +201,7 @@ export default async function MusPage({ params }: Props) {
                 ["Mål", `${mouse.laengdeMm} × ${mouse.breddeMm} × ${mouse.hoejdeMm} mm`],
                 ["Formfaktor", formfaktorLabels[mouse.formfaktor] ?? mouse.formfaktor],
                 ["Forbindelse", mouse.forbindelse],
-                ["Batteritid", mouse.batteritidTimer ? `${mouse.batteritidTimer} timer` : "—"],
+                ["Batteritid", mouse.batteritidTimer ? `${mouse.batteritidTimer} timer` : "-"],
                 ["Switch-type", mouse.switchType === "optisk" ? "Optisk" : "Mekanisk"],
                 ["Knapper", mouse.knapper],
                 ["Greb", mouse.greb.map((g) => grebLabel(g)).join(", ")],

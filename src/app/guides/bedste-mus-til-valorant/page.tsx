@@ -20,7 +20,7 @@ const picks = [
     slug: "logitech-g-pro-x-superlight-2",
     label: "Vores valg",
     begrundelse:
-      "Den mest populære mus på tværs af alle spil — også i Valorant. Let, præcis og med lang batteritid. Brugt af aspas, leaf og mange flere.",
+      "Den mest populære mus på tværs af alle spil, også i Valorant. Let, præcis og med lang batteritid. Brugt af aspas, leaf og mange flere.",
   },
   {
     slug: "razer-viper-v4-pro",
@@ -104,7 +104,7 @@ export default function BedsteMusTilValorant() {
                       : "bg-muted text-muted-foreground"
                   )}
                 >
-                  #{i + 1} — {label}
+                  #{i + 1} · {label}
                 </Badge>
                 {mouse.proBrugere.length > 0 && (
                   <Badge variant="outline" className="text-xs border-border/50 text-muted-foreground">
@@ -230,7 +230,7 @@ export default function BedsteMusTilValorant() {
           <div>
             <h3 className="font-medium mb-1">Hvilken mus bruger TenZ?</h3>
             <p className="text-sm text-muted-foreground">
-              TenZ har sin egen signaturmus fra Pulsar — Pulsar TenZ Signature Edition. Den vejer
+              TenZ har sin egen signaturmus fra Pulsar: Pulsar TenZ Signature Edition. Den vejer
               47 gram og har 8000 Hz polling rate. Han brugte tidligere Razer Viper V3 Pro.
             </p>
           </div>

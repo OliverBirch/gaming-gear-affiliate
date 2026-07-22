@@ -1,0 +1,716 @@
+{
+  "scrapedAt": "2026-07-22T00:00:00.000Z",
+  "mousepads": [
+    {
+      "slug": "steelseries-qck-heavy",
+      "brand": "SteelSeries",
+      "model": "QcK Heavy",
+      "variant": null,
+      "type": "control",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Medium", "breddeMm": 320, "laengdeMm": 270, "tykkelseMm": 6 },
+        { "navn": "Large", "breddeMm": 450, "laengdeMm": 400, "tykkelseMm": 6 },
+        { "navn": "XXL", "breddeMm": 900, "laengdeMm": 400, "tykkelseMm": 6 }
+      ],
+      "kant": "syet",
+      "bund": "Naturgummi",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "budget",
+      "priser": {
+        "proshop": { "Medium": 169, "Large": 229, "XXL Sort": 299, "XXL Hvid": 399 },
+        "maxgaming": { "Medium": 149, "Large": 229, "XXL": 399 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 149,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 13,
+      "proListe": ["m0nesy", "sh1ro", "cadian", "karrigan", "naf", "art", "krimbo", "hyped", "maj3r", "fl4mus", "buda", "zmb", "lucas1"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "SteelSeries QcK Heavy er den tykkere udgave af verdens mest populære gaming-musemåtte. Med 6 mm tykkelse giver den ekstra dæmpning og en stabil overflade, der holder sig flad på alle underlag. Den stofbaserede control-overflade giver fremragende præcision til slow-sens spillere i CS2 og Valorant.",
+      "fordele": [
+        "Solid control-overflade med god stoppkraft",
+        "6 mm tykkelse giver komfort og dæmpning",
+        "Billig og nem at finde hos DK-forhandlere",
+        "Bredt udvalg af størrelser"
+      ],
+      "ulemper": [
+        "Ikke vaskbar — slid kan ikke fjernes",
+        "Kanterne kan med tiden begynde at flosse",
+        "Langsommere end speed-pads — ikke ideel til tracking-tunge spillere"
+      ],
+      "anbefaletEdpiInterval": "200–400"
+    },
+    {
+      "slug": "zowie-g-sr-iii",
+      "brand": "ZOWIE",
+      "model": "G-SR III",
+      "variant": null,
+      "type": "control",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Standard", "breddeMm": 480, "laengdeMm": 400, "tykkelseMm": 3.5 }
+      ],
+      "kant": "syet",
+      "bund": "Gummibase med skridsikker overflade",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "mid",
+      "priser": {
+        "proshop": { "Standard": 319 },
+        "maxgaming": { "Standard": 309 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 309,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 9,
+      "proListe": ["jks", "w0nderful", "nertz", "jdc", "saffee", "siuhy", "yekindar", "xfl0ud", "naz"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "ZOWIE G-SR III er den nyeste generation af ZOWIES legendariske control-måtte. Den har en forbedret, mere konsistent overflade med præcis stoppkraft, der gør den til det foretrukne valg blandt CS2-pros. Den tyndere 3,5 mm profil giver en fast, direkte fornemmelse mod bordet.",
+      "fordele": [
+        "Branchens bedste control-overflade til taktiske shooters",
+        "Meget konsistent glide over hele måtten",
+        "Holdbar konstruktion med syede kanter",
+        "Skridsikker gummibase"
+      ],
+      "ulemper": [
+        "Kun én størrelse — mindre fleksibel end konkurrenter",
+        "Ikke vaskbar",
+        "Højere pris end tilsvarende control-pads"
+      ],
+      "anbefaletEdpiInterval": "200–400"
+    },
+    {
+      "slug": "artisan-ninja-fx-zero",
+      "brand": "Artisan",
+      "model": "Ninja FX Zero",
+      "variant": null,
+      "type": "control",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "XL", "breddeMm": 490, "laengdeMm": 420, "tykkelseMm": 4 },
+        { "navn": "XXL", "breddeMm": 920, "laengdeMm": 400, "tykkelseMm": 4 }
+      ],
+      "kant": "syet",
+      "bund": "Skridsikker silikonebase",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "flagship",
+      "priser": {
+        "proshop": null,
+        "maxgaming": { "XL": 449, "XXL": 529 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 449,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 9,
+      "proListe": ["niko", "twistzz", "hunter", "malbsmd", "decenty", "johnqt", "jabbi", "tenz", "beyn"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "Artisan Ninja FX Zero er en japansk håndlavet control-musemåtte i premium-klassen. Den er kendt for sin unikke vævede stofoverflade, der kombinerer kontrol med en overraskende jævn glide. Den silikonebaserede bund holder måtten fuldstændig stabil, og den syede kant forhindrer flosning. Fås i Soft og XSoft skumvarianter.",
+      "fordele": [
+        "Håndlavet japansk kvalitet med unik vævet overflade",
+        "Soft og XSoft varianter tilpasset præference",
+        "Silikonebase holder måtten perfekt stabil",
+        "Meget holdbar — holder glide i længere tid end de fleste"
+      ],
+      "ulemper": [
+        "Kun tilgængelig hos MaxGaming i Danmark",
+        "Høj pris —旗舰klasse",
+        "Kan være svær at få fat i ved lanceringsdatoer"
+      ],
+      "anbefaletEdpiInterval": "240–480"
+    },
+    {
+      "slug": "artisan-fx-hien",
+      "brand": "Artisan",
+      "model": "FX Hien",
+      "variant": null,
+      "type": "speed",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "XL", "breddeMm": 490, "laengdeMm": 420, "tykkelseMm": 4 },
+        { "navn": "XXL", "breddeMm": 920, "laengdeMm": 400, "tykkelseMm": 4 }
+      ],
+      "kant": "syet",
+      "bund": "Skridsikker silikonebase",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "flagship",
+      "priser": {
+        "proshop": null,
+        "maxgaming": { "XL": 449, "XXL": 549 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 449,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 2,
+      "proListe": ["podi", "fns"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "Artisan FX Hien er en speed-orienteret musemåtte med en unik hybrid-overflade, der minder om en groft vævet stof. Den giver en hurtig, friktionsfattig glide med stadig tilstrækkelig kontrol til præcise flicks. Et populært valg blandt spillere der foretrækker lav modstand og høj hastighed.",
+      "fordele": [
+        "Hurtig glide med god kontrol — bedste hybrid-kompromis",
+        "Unik vævet overflade der holder konsistens",
+        "Silikonebase — glider ikke en millimeter",
+        "Meget holdbar"
+      ],
+      "ulemper": [
+        "Kan opleves for hurtig til low-sens CS2-spillere",
+        "Kræver tilvænning hvis man kommer fra traditionel cloth pad",
+        "Kun hos MaxGaming i DK"
+      ],
+      "anbefaletEdpiInterval": "280–600"
+    },
+    {
+      "slug": "artisan-type-99",
+      "brand": "Artisan",
+      "model": "Type-99",
+      "variant": null,
+      "type": "control",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "XL", "breddeMm": 490, "laengdeMm": 420, "tykkelseMm": 4 }
+      ],
+      "kant": "syet",
+      "bund": "Skridsikker silikonebase",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "flagship",
+      "priser": {
+        "proshop": null,
+        "maxgaming": { "XL": 449, "XXL": 529 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 449,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 2,
+      "proListe": ["smoggy", "magisk"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "Artisan Type-99 er den mest kontrollerede musemåtte i Artisans sortiment. Den har en tæt vævet stofoverflade der giver maksimal stoppkraft, perfekt til low-sens spillere der prioriterer præcision over hastighed. Den bløde XSoft-variant giver ekstra dybde og komfort.",
+      "fordele": [
+        "Maksimal kontrol — bedst i klassen til low-sens",
+        "Høj kvalitet og holdbarhed",
+        "Komfortabel XSoft skum"
+      ],
+      "ulemper": [
+        "For langsom til spillere der foretrækker speed",
+        "Høj pris",
+        "Begrænset tilgængelighed i DK"
+      ],
+      "anbefaletEdpiInterval": "160–320"
+    },
+    {
+      "slug": "razer-gigantus-v2",
+      "brand": "Razer",
+      "model": "Gigantus V2",
+      "variant": null,
+      "type": "balanced",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Medium", "breddeMm": 355, "laengdeMm": 254, "tykkelseMm": 3 },
+        { "navn": "Large", "breddeMm": 455, "laengdeMm": 355, "tykkelseMm": 3 },
+        { "navn": "XXL", "breddeMm": 940, "laengdeMm": 410, "tykkelseMm": 3 }
+      ],
+      "kant": "syet",
+      "bund": "Gummibase med tekstureret overflade",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "budget",
+      "priser": {
+        "proshop": null,
+        "maxgaming": { "Large": 99 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 99,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 4,
+      "proListe": ["jimpphat", "brollan", "cacanito", "andu"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "Razer Gigantus V2 er en prisvenlig balanced musemåtte med en mikrovævet stofoverflade. Den leverer en god mellemting mellem speed og control til en pris, der gør den til et af de bedste budgetvalg på markedet. Overfladen er optimeret til præcis tracking uden at være for langsom.",
+      "fordele": [
+        "Fremragende værdi for pengene",
+        "Balanceret glide der passer til de fleste",
+        "Syede kanter for øget holdbarhed",
+        "Flere størrelser tilgængelige"
+      ],
+      "ulemper": [
+        "Overfladen kan slides ujævnt over tid",
+        "Gummibase er mindre stabil end silikone",
+        "Tyndere profil (3 mm) giver mindre dæmpning"
+      ],
+      "anbefaletEdpiInterval": "240–500"
+    },
+    {
+      "slug": "zowie-h-sr-iii",
+      "brand": "ZOWIE",
+      "model": "H-SR III",
+      "variant": null,
+      "type": "control",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Standard", "breddeMm": 480, "laengdeMm": 400, "tykkelseMm": 3.5 }
+      ],
+      "kant": "syet",
+      "bund": "Gummibase med skridsikker overflade",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "mid",
+      "priser": {
+        "proshop": { "Standard": 449 },
+        "maxgaming": { "Standard": 439 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 439,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 4,
+      "proListe": ["drop", "vsm", "lucaozy", "nats"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "ZOWIE H-SR III er en hybrid control-musemåtte fra ZOWIE med en mere åben vævning end G-SR III-serien. Den giver en lidt hurtigere glide med stadig solid kontrol, hvilket gør den velegnet til spillere der ønsker hurtigere reset men ikke vil give slip på præcisionen.",
+      "fordele": [
+        "Hurtigere end G-SR III men stadig control-orienteret",
+        "Konsistent overflade af ZOWIE-kvalitet",
+        "God til både CS2 og Valorant"
+      ],
+      "ulemper": [
+        "Høj pris for en stofmåtte",
+        "Kun én størrelse",
+        "Mindre kendt end G-SR III"
+      ],
+      "anbefaletEdpiInterval": "280–500"
+    },
+    {
+      "slug": "zowie-g-tr",
+      "brand": "ZOWIE",
+      "model": "G-TR",
+      "variant": null,
+      "type": "balanced",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Standard", "breddeMm": 480, "laengdeMm": 400, "tykkelseMm": 3.5 }
+      ],
+      "kant": "syet",
+      "bund": "Gummibase",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "mid",
+      "priser": {
+        "proshop": { "Standard": 349 },
+        "maxgaming": { "Standard": 349 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 349,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 4,
+      "proListe": ["device", "b1t", "im", "grim"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "ZOWIE G-TR er den ældre generation af ZOWIES balanced-måtte, stadig populær blandt pros der foretrækker den lidt fastere overflade sammenlignet med G-SR-serien. Den giver en jævn, neutral glide der fungerer godt på tværs af spilgenrer.",
+      "fordele": [
+        "Jævn, neutral glide der passer til de fleste",
+        "ZOWIE kvalitet og holdbarhed",
+        "God pris for en ZOWIE-måtte"
+      ],
+      "ulemper": [
+        "Ældre model — G-SR III er en opgradering",
+        "Kun én størrelse",
+        "Kan føles for tynd (3,5 mm) for nogle"
+      ],
+      "anbefaletEdpiInterval": "240–480"
+    },
+    {
+      "slug": "logitech-g740",
+      "brand": "Logitech",
+      "model": "G740",
+      "variant": null,
+      "type": "control",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Standard", "breddeMm": 460, "laengdeMm": 400, "tykkelseMm": 3 }
+      ],
+      "kant": "syet",
+      "bund": "Gummibase",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "mid",
+      "priser": {
+        "proshop": { "Standard": 190 },
+        "maxgaming": { "Standard": 269 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 190,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 4,
+      "proListe": ["kscerato", "staehr", "coldzera", "boo"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "Logitech G740 er en control-fokuseret musemåtte med tæt vævet stofoverflade. Den er designet til at give maksimal kontrol til low-sens spillere i fps-spil. Overfladen minder om G640 men med en mere udtalt bremse- og kontrolfornemmelse.",
+      "fordele": [
+        "Stærk kontrol til præcis aim",
+        "God pris — fås ofte på tilbud",
+        "Syede kanter for holdbarhed"
+      ],
+      "ulemper": [
+        "3 mm tykkelse — minimal dæmpning",
+        "Overfladen kan slides flad efter intensiv brug",
+        "Kun én størrelse"
+      ],
+      "anbefaletEdpiInterval": "200–400"
+    },
+    {
+      "slug": "logitech-g640",
+      "brand": "Logitech",
+      "model": "G640",
+      "variant": null,
+      "type": "balanced",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Standard", "breddeMm": 460, "laengdeMm": 400, "tykkelseMm": 3 }
+      ],
+      "kant": "syet",
+      "bund": "Gummibase",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "budget",
+      "priser": {
+        "proshop": { "Standard": 199 },
+        "maxgaming": { "Standard": 249 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 199,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 2,
+      "proListe": ["derke", "wicadia"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "Logitech G640 er en af de mest udbredte gaming-musemåtter på markedet. Den balanced stofoverflade giver en god mellemting mellem speed og kontrol, og den har længe været standardudstyret til CS2-turneringer. Et sikkert valg til de fleste spillere.",
+      "fordele": [
+        "Pålidelig balanced overflade — passer til de fleste",
+        "God pris",
+        "Turneringsafprøvet og bredt tilgængelig"
+      ],
+      "ulemper": [
+        "Kun 3 mm tykkelse",
+        "Holder ikke gliden helt så længe som dyrere pads",
+        "Kun én størrelse"
+      ],
+      "anbefaletEdpiInterval": "240–500"
+    },
+    {
+      "slug": "steelseries-qck-large",
+      "brand": "SteelSeries",
+      "model": "QcK Large",
+      "variant": null,
+      "type": "balanced",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Medium", "breddeMm": 320, "laengdeMm": 270, "tykkelseMm": 2 },
+        { "navn": "Large", "breddeMm": 450, "laengdeMm": 400, "tykkelseMm": 2 },
+        { "navn": "XXL", "breddeMm": 900, "laengdeMm": 300, "tykkelseMm": 2 }
+      ],
+      "kant": "syet",
+      "bund": "Naturgummi",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "budget",
+      "priser": {
+        "proshop": { "Large": 159 },
+        "maxgaming": { "Large": 169 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 159,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 5,
+      "proListe": ["donk", "stavn", "aspas", "afro", "ztr"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "SteelSeries QcK Large er standard-QcK med 2 mm tykkelse og en klassisk balanced overflade. Det er den mest udbredte musemåtte i esports og findes på de fleste LAN-turneringer som standardudstyr. Overfladen giver en jævn, neutral glide til både kontrol og hastighed.",
+      "fordele": [
+        "Defacto standarden inden for gaming-musemåtter",
+        "Jævn, neutral glide der fungerer til alt",
+        "Meget billig — tilgængelig hos alle forhandlere",
+        "Stort udvalg af størrelser"
+      ],
+      "ulemper": [
+        "Kun 2 mm tykkelse — minimal dæmpning",
+        "Slides hurtigere end tykkere pads",
+        "Overfladen er følsom over for fugt/sved"
+      ],
+      "anbefaletEdpiInterval": "280–550"
+    },
+    {
+      "slug": "vaxee-pa",
+      "brand": "VAXEE",
+      "model": "PA",
+      "variant": null,
+      "type": "control",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Standard", "breddeMm": 470, "laengdeMm": 390, "tykkelseMm": 3.5 }
+      ],
+      "kant": "syet",
+      "bund": "Gummibase",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "mid",
+      "priser": {
+        "proshop": null,
+        "maxgaming": null,
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": null,
+      "lagerstatus": "ukendt",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 4,
+      "proListe": ["ropz", "sjuush", "deco", "ricioli"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "VAXEE PA er en control-musemåtte fra det svenske esports-brand VAXEE. Den er designet med input fra professionelle spillere og giver en unik kombination af kontrol og glathed. Overfladen minder om ZOWIE G-SR men med en lidt fastere fornemmelse.",
+      "fordele": [
+        "Designet med pro-input — spillerens valg",
+        "God kontrol til low-sens spillere",
+        "Solid konstruktion med syede kanter"
+      ],
+      "ulemper": [
+        "Svær at finde hos danske forhandlere",
+        "Mindre kendt brand i Danmark",
+        "Kun én størrelse"
+      ],
+      "anbefaletEdpiInterval": "200–400"
+    },
+    {
+      "slug": "zowie-g-sr-ii",
+      "brand": "ZOWIE",
+      "model": "G-SR II",
+      "variant": null,
+      "type": "control",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Standard", "breddeMm": 480, "laengdeMm": 400, "tykkelseMm": 3.5 }
+      ],
+      "kant": "syet",
+      "bund": "Gummibase",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "mid",
+      "priser": {
+        "proshop": { "Standard": 259 },
+        "maxgaming": { "Standard": 259 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 259,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 4,
+      "proListe": ["danistzz", "hardzao", "luchov", "zevy"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "ZOWIE G-SR II er efterfølgeren til den originale G-SR og den direkte forgænger til G-SR III. Den har en forbedret overflade med mere konsistent glide og bedre fugtresistens end originalen. Stadig et populært valg blandt pros der foretrækker den klassiske ZOWIE-fornemmelse.",
+      "fordele": [
+        "Forbedret overflade i forhold til originale G-SR",
+        "God pris for ZOWIE-kvalitet",
+        "Konsistent glide med god kontrol"
+      ],
+      "ulemper": [
+        "Overgået af G-SR III",
+        "Kun én størrelse",
+        "Kan være svær at skelne fra G-SR III"
+      ],
+      "anbefaletEdpiInterval": "200–400"
+    },
+    {
+      "slug": "pulsar-es-saturn-pro",
+      "brand": "Pulsar",
+      "model": "eS Saturn Pro",
+      "variant": null,
+      "type": "control",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Large", "breddeMm": 490, "laengdeMm": 420, "tykkelseMm": 4 }
+      ],
+      "kant": "syet",
+      "bund": "Poron-skum med skridsikker base",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "flagship",
+      "priser": {
+        "proshop": null,
+        "maxgaming": null,
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": null,
+      "lagerstatus": "ukendt",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 4,
+      "proListe": ["cned", "sacy", "saadhak", "pancada"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "Pulsar eS Saturn Pro er en high-end control-musemåtte udviklet i samarbejde med Lethal Gaming Gear. Den bruger Poron-skum i bunden for overlegen stabilitet og komfort, og overfladen giver en blød, kontrolleret glide med minimal initial friktion. Fås i flere farver og hardness-varianter.",
+      "fordele": [
+        "Poron-skum base — bedre stabilitet end traditionel gummi",
+        "Blød, konsistent control-overflade",
+        "Samarbejde mellem Pulsar og LGG — gennemtestet kvalitet"
+      ],
+      "ulemper": [
+        "Ikke tilgængelig hos danske forhandlere (endnu)",
+        "Høj pris",
+        "Kan være udsolgt i populære varianter"
+      ],
+      "anbefaletEdpiInterval": "200–400"
+    },
+    {
+      "slug": "xtrfy-gp4",
+      "brand": "Xtrfy",
+      "model": "GP4",
+      "variant": null,
+      "type": "balanced",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Large", "breddeMm": 450, "laengdeMm": 400, "tykkelseMm": 3 }
+      ],
+      "kant": "syet",
+      "bund": "Naturgummi",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "mid",
+      "priser": {
+        "proshop": null,
+        "maxgaming": null,
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": null,
+      "lagerstatus": "ukendt",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 2,
+      "proListe": ["flamez", "zont1x"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "Xtrfy GP4 er en balanced musemåtte med en unik hybrid-overflade der kombinerer egenskaber fra både speed- og control-pads. Den er kendt for sit brede udvalg af flotte designvarianter og en overflade der fungerer godt til både tracking og flicks.",
+      "fordele": [
+        "Flotte designvarianter — personlig stil",
+        "God balanced overflade til de fleste spil",
+        "Syede kanter for holdbarhed"
+      ],
+      "ulemper": [
+        "Kan være svær at finde i DK for tiden",
+        "3 mm tykkelse — mellemklasse dæmpning",
+        "Overfladen slides hurtigere end Artisan/ZOWIE"
+      ],
+      "anbefaletEdpiInterval": "240–500"
+    },
+    {
+      "slug": "fnatic-focus-3",
+      "brand": "Fnatic",
+      "model": "FOCUS 3",
+      "variant": null,
+      "type": "balanced",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Large", "breddeMm": 450, "laengdeMm": 400, "tykkelseMm": 3 }
+      ],
+      "kant": "syet",
+      "bund": "Gummibase",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "mid",
+      "priser": {
+        "proshop": null,
+        "maxgaming": null,
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": null,
+      "lagerstatus": "ukendt",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 2,
+      "proListe": ["dgt", "krimz"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "Fnatic FOCUS 3 er tredje generation af Fnatics gaming-musemåtte med en forbedret balanced overflade. Den giver en jævn glide der egner sig til både fps og andre spilgenrer, og har et diskret design med Fnatics logo.",
+      "fordele": [
+        "Balanceret overflade til alsidig brug",
+        "Forbedret over forrige generation",
+        "Anstændig pris"
+      ],
+      "ulemper": [
+        "Begrænset tilgængelighed i Danmark",
+        "Ikke på niveau med premium pads som Artisan",
+        "Kun én størrelse i DK"
+      ],
+      "anbefaletEdpiInterval": "240–500"
+    },
+    {
+      "slug": "corsair-mm250",
+      "brand": "Corsair",
+      "model": "MM250 Champion Series",
+      "variant": null,
+      "type": "balanced",
+      "materiale": "stof",
+      "størrelser": [
+        { "navn": "Large", "breddeMm": 450, "laengdeMm": 400, "tykkelseMm": 3 }
+      ],
+      "kant": "syet",
+      "bund": "Gummibase",
+      "vaskbar": false,
+      "skateSlid": "lav",
+      "billede": null,
+      "prisNiveau": "budget",
+      "priser": {
+        "proshop": null,
+        "maxgaming": { "Large": 139 },
+        "computersalg": null,
+        "coolshop": null
+      },
+      "billigstePris": 139,
+      "lagerstatus": "på-lager",
+      "sidstOpdateret": "2026-07-22",
+      "proAntal": 1,
+      "proListe": ["faven"],
+      "udstyrskilde": "spillerens-valg",
+      "beskrivelse": "Corsair MM250 Champion Series er en prisvenlig balanced musemåtte med en mikrovævet stofoverflade. Den leverer en jævn, konsistent glide til en lav pris, hvilket gør den til et solidt budgetvalg for gamere på stramt budget.",
+      "fordele": [
+        "Meget billig",
+        "Balanceret overflade der fungerer til det meste",
+        "Syede kanter"
+      ],
+      "ulemper": [
+        "Kun 3 mm tykkelse",
+        "Overfladen er mindre holdbar end dyrere alternativer",
+        "Kun hos MaxGaming i DK"
+      ],
+      "anbefaletEdpiInterval": "240–500"
+    }
+  ]
+}

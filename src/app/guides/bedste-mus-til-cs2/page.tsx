@@ -20,7 +20,7 @@ const picks = [
     slug: "logitech-g-pro-x-superlight-2",
     label: "Vores valg",
     begrundelse:
-      "Den mest brugte mus blandt CS2-pros. 60 grams vægt, 4000 Hz polling og Hero 2-sensoren gør den til det oplagte førstevalg. Over 60 CS2-pros bruger den — inklusive donk, device og sh1ro.",
+      "Den mest brugte mus blandt CS2-pros. 60 grams vægt, 4000 Hz polling og Hero 2-sensoren gør den til det oplagte førstevalg. Over 80 CS2-pros bruger den, herunder donk, device og sh1ro.",
   },
   {
     slug: "razer-viper-v3-pro",
@@ -32,7 +32,7 @@ const picks = [
     slug: "zowie-ec2-dw",
     label: "Bedste ergonomiske",
     begrundelse:
-      "Den trådløse EC2-DW giver klassisk ZOWIE-komfort med moderne trådløs teknologi. Ideel til palm/claw-greb — brugt af jabbi, NertZ og brollan.",
+      "Den trådløse EC2-DW giver klassisk ZOWIE-komfort med moderne trådløs teknologi. Ideel til palm/claw-greb, brugt af jabbi, NertZ og brollan.",
   },
   {
     slug: "razer-deathadder-v3",
@@ -76,7 +76,7 @@ export default function BedsteMusTilCS2() {
       <p className="text-muted-foreground leading-relaxed mb-8 max-w-[65ch]">
         Counter-Strike 2 stiller store krav til din mus. Letvægt, høj polling rate og præcis
         tracking er afgørende for at kunne ramme dine skud. Vi har analyseret hvad over 200
-        CS2-pros bruger og fundet de bedste valg — uanset om du er på budget eller klar til
+        CS2-pros bruger og fundet de bedste valg, uanset om du er på budget eller klar til
         et flagskib.
       </p>
 
@@ -105,7 +105,7 @@ export default function BedsteMusTilCS2() {
                       : "bg-muted text-muted-foreground"
                   )}
                 >
-                  #{i + 1} — {label}
+                  #{i + 1} · {label}
                 </Badge>
                 {mouse.proBrugere.length > 0 && (
                   <Badge variant="outline" className="text-xs border-border/50 text-muted-foreground">

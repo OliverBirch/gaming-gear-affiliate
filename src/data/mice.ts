@@ -1,6 +1,15 @@
 import type { Mouse } from "@/lib/types";
+import { pros } from "./pros";
 
-export const mice: Mouse[] = [
+/**
+ * proBrugere used to be a hand-authored array per mouse. It drifted from the
+ * real data in pros.ts as pros were added across sessions (verified: 7 of 14
+ * mice undercounted, one by 6x), which silently corrupted every popularity
+ * ranking on the site. It is now derived below instead of typed per entry.
+ */
+type MouseSansProBrugere = Omit<Mouse, "proBrugere">;
+
+const rawMice: MouseSansProBrugere[] = [
   {
     slug: "logitech-g-pro-x-superlight-2",
     navn: "G Pro X Superlight 2",
@@ -37,7 +46,6 @@ export const mice: Mouse[] = [
       "Ingen RGB",
       "Kræver software til DPI-justering",
     ],
-    proBrugere: ["donk", "device", "sh1ro", "hunter", "magisk", "w0nderful", "jl", "cadian", "degster", "ax1le", "b1t", "im", "naf", "malbsmd", "kscerato", "art", "jimpphat", "krimbo", "staehr", "hyped", "drop", "zont1x", "grim", "maj3r", "wicadia", "xfl0ud", "afro", "krimz", "fl4mus", "nawwk", "cacanito", "podi", "sdy", "cypher", "faven", "s1ren", "danistzz", "dgt", "buda", "luchov", "naz", "decenty", "coldzera", "venomzera", "nython", "deco", "togs", "vsm", "lucaozy", "zevy", "ricioli", "zmb", "lucas1", "aspas", "cned", "yay", "sacy", "saadhak", "derke", "leaf", "s1mple", "elige", "beyn"],
     offers: [
       {
         retailer: "proshop",
@@ -90,7 +98,6 @@ export const mice: Mouse[] = [
       "Ikke velegnet til palm-greb",
       "Overfladen kan være glat for nogle",
     ],
-    proBrugere: ["zywoo", "saffee", "sense", "meyern", "fns", "boo"],
     offers: [
       {
         retailer: "proshop",
@@ -143,7 +150,6 @@ export const mice: Mouse[] = [
       "Kun 1000 Hz polling rate",
       "Mikro-USB (ikke USB-C)",
     ],
-    proBrugere: ["jabbi", "nertz", "brollan", "sjuush", "stavn", "siuhy", "yekindar", "ztr", "jkaem", "zorte", "hen1", "felps", "qraxs", "flamez"],
     offers: [
       {
         retailer: "computersalg",
@@ -196,7 +202,6 @@ export const mice: Mouse[] = [
       "Kun kablet",
       "Ikke velegnet til fingertip-greb",
     ],
-    proBrugere: [],
     offers: [
       {
         retailer: "proshop",
@@ -249,7 +254,6 @@ export const mice: Mouse[] = [
       "Ikke til venstrehåndede",
       "Kun 1000 Hz polling rate (upgraded i V3 Pro)",
     ],
-    proBrugere: ["spinx", "karrigan", "torzsi", "andu", "hardzao", "nobody", "xeus", "ropz"],
     offers: [
       {
         retailer: "proshop",
@@ -295,7 +299,6 @@ export const mice: Mouse[] = [
       "Svær at få fat i (limited drops)",
       "Lille - kun til små/medium hænder",
     ],
-    proBrugere: [],
     offers: [
       {
         retailer: "maxgaming",
@@ -341,7 +344,6 @@ export const mice: Mouse[] = [
       "Mindre kendt brand",
       "Software kunne være bedre",
     ],
-    proBrugere: ["jdc"],
     offers: [
       {
         retailer: "maxgaming",
@@ -387,7 +389,6 @@ export const mice: Mouse[] = [
       "Ikke til små hænder",
       "Kun sort/hvid farver",
     ],
-    proBrugere: ["sl3nd", "max"],
     offers: [
       {
         retailer: "maxgaming",
@@ -433,7 +434,6 @@ export const mice: Mouse[] = [
       "Byggekvalitet kan variere",
       "Upålidelig software",
     ],
-    proBrugere: ["m0nesy"],
     offers: [
       {
         retailer: "maxgaming",
@@ -478,7 +478,6 @@ export const mice: Mouse[] = [
       "Ikke til palm-greb",
       "Nyere brand med mindre track record",
     ],
-    proBrugere: ["broky", "floppy", "xkacpersky"],
     offers: [
       {
         retailer: "maxgaming",
@@ -525,7 +524,6 @@ export const mice: Mouse[] = [
       "Kun til større hænder",
       "Kræver separat HyperPolling dongle til 8K Hz",
     ],
-    proBrugere: ["alfajer", "pancada"],
     offers: [
       {
         retailer: "maxgaming",
@@ -579,7 +577,6 @@ export const mice: Mouse[] = [
       "Kræver separat HyperPolling dongle til 8K Hz",
       "Ikke til små hænder",
     ],
-    proBrugere: ["smoggy", "johnqt", "twistzz"],
     offers: [
       {
         retailer: "maxgaming",
@@ -633,7 +630,6 @@ export const mice: Mouse[] = [
       "Bedst til mellemstore hænder",
       "Kræver separat 8K dongle",
     ],
-    proBrugere: ["tenz"],
     offers: [
       {
         retailer: "maxgaming",
@@ -687,7 +683,6 @@ export const mice: Mouse[] = [
       "Høj pris",
       "Ingen software til makroer",
     ],
-    proBrugere: ["nats"],
     offers: [
       {
         retailer: "maxgaming",
@@ -706,6 +701,15 @@ export const mice: Mouse[] = [
     ],
   },
 ];
+
+function proBrugereOf(mouseSlug: string): string[] {
+  return pros.filter((p) => p.musSlug === mouseSlug).map((p) => p.slug);
+}
+
+export const mice: Mouse[] = rawMice.map((m) => ({
+  ...m,
+  proBrugere: proBrugereOf(m.slug),
+}));
 
 export function getMouse(slug: string): Mouse | undefined {
   return mice.find((m) => m.slug === slug);

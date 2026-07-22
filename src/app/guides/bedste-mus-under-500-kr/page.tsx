@@ -26,13 +26,13 @@ const picks = [
     slug: "zowie-ec2-dw",
     label: "Bedste ergonomiske i klassen",
     begrundelse:
-      "ZOWIE EC2-DW er i mellemklassen prismæssigt, men giver dig trådløs frihed og ZOWIEs legendariske byggekvalitet. Plug-and-play uden software — ideel til turneringsspillere.",
+      "ZOWIE EC2-DW er i mellemklassen prismæssigt, men giver dig trådløs frihed og ZOWIEs legendariske byggekvalitet. Plug-and-play uden software, ideel til turneringsspillere.",
   },
   {
     slug: "pulsar-x2h",
     label: "Bedst til claw-greb",
     begrundelse:
-      "Pulsar X2H er designet specifikt til claw-greb og har PAW3395 flagskibssensor — samme sensor som i mus til over 1000 kr. Fantastisk værdi for prisen.",
+      "Pulsar X2H er designet specifikt til claw-greb og har PAW3395 flagskibssensor, samme sensor som i mus til over 1000 kr. Fantastisk værdi for prisen.",
   },
   {
     slug: "vaxee-xe-wireless",
@@ -69,7 +69,7 @@ export default function BedsteMusUnder500() {
       </h1>
       <p className="text-muted-foreground leading-relaxed mb-8 max-w-[65ch]">
         Du behøver ikke at bruge en formue på en gaming-mus. Der findes flere glimrende valg
-        under 500 kroner — med sensorer og byggekvalitet der kan matche langt dyrere modeller.
+        under 500 kroner, med sensorer og byggekvalitet der kan matche langt dyrere modeller.
         Her er vores bud på de bedste budget-mus til konkurrencespil.
       </p>
 
@@ -98,7 +98,7 @@ export default function BedsteMusUnder500() {
                       : "bg-muted text-muted-foreground"
                   )}
                 >
-                  #{i + 1} — {label}
+                  #{i + 1} · {label}
                 </Badge>
                 <Badge variant="outline" className="text-xs border-border/50 text-muted-foreground">
                   {mouse.prisNiveau === "budget" ? "Budget" : mouse.prisNiveau === "mid" ? "Mellemklasse" : "Flagship"}

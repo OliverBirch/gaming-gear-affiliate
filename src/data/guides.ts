@@ -48,7 +48,7 @@ export const guides: GuideMeta[] = [
   {
     slug: "traadloes-eller-kablet-mus",
     title: "Trådløs eller kablet mus? Hvad skal du vælge",
-    description: "Trådløs vs kablet gaming-mus — hvad er bedst til dig? Vi sammenligner latency, vægt, batteritid og pris.",
+    description: "Trådløs vs kablet gaming-mus: hvad er bedst til dig? Vi sammenligner latency, vægt, batteritid og pris.",
     emoji: "🔋",
     spil: null,
     kategori: "mice",
