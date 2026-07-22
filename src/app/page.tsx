@@ -1,8 +1,12 @@
 import Link from "next/link";
 import Script from "next/script";
 import { MouseCard } from "@/components/mouse-card";
+import { KeyboardCard } from "@/components/keyboard-card";
+import { MousepadCard } from "@/components/mousepad-card";
 import { ProAvatar } from "@/components/pro-avatar";
 import { mice } from "@/data/mice";
+import { keyboards } from "@/data/keyboards";
+import { mousepads } from "@/data/mousepads";
 import { pros } from "@/data/pros";
 import { esports } from "@/data/esports";
 import { getBrands } from "@/data/brands";
@@ -62,6 +66,44 @@ export default function Home() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {popularMice.map((mouse) => (
             <MouseCard key={mouse.slug} mouse={mouse} />
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-20">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold tracking-tight">
+            Tastaturer
+          </h2>
+          <Link
+            href="/tastaturer"
+            className="text-sm text-primary hover:underline underline-offset-4"
+          >
+            Se alle {keyboards.length} tastaturer &rarr;
+          </Link>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {keyboards.slice(0, 3).map((kb) => (
+            <KeyboardCard key={kb.slug} keyboard={kb} />
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-20">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold tracking-tight">
+            Musemåtter
+          </h2>
+          <Link
+            href="/musemaatter"
+            className="text-sm text-primary hover:underline underline-offset-4"
+          >
+            Se alle {mousepads.length} musemåtter &rarr;
+          </Link>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {mousepads.slice(0, 3).map((mp) => (
+            <MousepadCard key={mp.slug} mousepad={mp} />
           ))}
         </div>
       </section>

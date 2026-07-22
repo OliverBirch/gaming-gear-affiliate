@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { esports } from "@/data/esports";
 import { pros } from "@/data/pros";
 import { mice } from "@/data/mice";
+import { keyboards } from "@/data/keyboards";
+import { mousepads } from "@/data/mousepads";
 import { getBrands } from "@/data/brands";
 import { guides } from "@/data/guides";
 
@@ -16,6 +18,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/transparens`, changeFrequency: "monthly" as const, priority: 0.4 },
     { url: `${BASE}/privatliv`, changeFrequency: "monthly" as const, priority: 0.3 },
     { url: `${BASE}/mus`, changeFrequency: "weekly" as const, priority: 0.7 },
+    { url: `${BASE}/tastaturer`, changeFrequency: "weekly" as const, priority: 0.7 },
+    { url: `${BASE}/musemaatter`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/pros`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/blog`, changeFrequency: "weekly" as const, priority: 0.6 },
     { url: `${BASE}/guides`, changeFrequency: "weekly" as const, priority: 0.7 },
@@ -46,6 +50,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const keyboardPages = keyboards.map((k) => ({
+    url: `${BASE}/tastaturer/${k.slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  const mousepadPages = mousepads.map((mp) => ({
+    url: `${BASE}/musemaatter/${mp.slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   const proPages = pros.map((p) => ({
     url: `${BASE}/pro/${p.slug}`,
     changeFrequency: "weekly" as const,
@@ -69,6 +85,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...esportPages,
     ...teamPages,
     ...mousePages,
+    ...keyboardPages,
+    ...mousepadPages,
     ...proPages,
     ...brandPages,
     ...guidePages,

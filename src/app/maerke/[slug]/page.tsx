@@ -4,8 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
 import { MouseCard } from "@/components/mouse-card";
+import { KeyboardCard } from "@/components/keyboard-card";
+import { MousepadCard } from "@/components/mousepad-card";
 import { getBrand, getBrands } from "@/data/brands";
 import { mice } from "@/data/mice";
+import { keyboards } from "@/data/keyboards";
+import { mousepads } from "@/data/mousepads";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -94,7 +98,59 @@ export default async function BrandPage({ params }: Props) {
         ))}
       </div>
 
-      <div className="mt-12 text-center">
+      {(() => {
+        const brandKeyboards = keyboards.filter(
+          (k) => k.brand.toLowerCase() === brand.navn.toLowerCase()
+        );
+        return brandKeyboards.length > 0 ? (
+          <section className="mt-14 mb-8">
+            <h2 className="text-xl font-bold tracking-tight mb-6">
+              {brand.navn} tastaturer
+            </h2>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {brandKeyboards.map((kb) => (
+                <KeyboardCard key={kb.slug} keyboard={kb} />
+              ))}
+            </div>
+            <div className="mt-6 text-center">
+              <Link
+                href="/tastaturer"
+                className="text-sm text-primary hover:underline underline-offset-4"
+              >
+                Se alle tastaturer &rarr;
+              </Link>
+            </div>
+          </section>
+        ) : null;
+      })()}
+
+      {(() => {
+        const brandMousepads = mousepads.filter(
+          (mp) => mp.brand.toLowerCase() === brand.navn.toLowerCase()
+        );
+        return brandMousepads.length > 0 ? (
+          <section className="mb-14">
+            <h2 className="text-xl font-bold tracking-tight mb-6">
+              {brand.navn} musemåtter
+            </h2>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {brandMousepads.map((mp) => (
+                <MousepadCard key={mp.slug} mousepad={mp} />
+              ))}
+            </div>
+            <div className="mt-6 text-center">
+              <Link
+                href="/musemaatter"
+                className="text-sm text-primary hover:underline underline-offset-4"
+              >
+                Se alle musemåtter &rarr;
+              </Link>
+            </div>
+          </section>
+        ) : null;
+      })()}
+
+      <div className="text-center">
         <Link
           href="/mus"
           className={cn(buttonVariants({ variant: "outline" }))}
