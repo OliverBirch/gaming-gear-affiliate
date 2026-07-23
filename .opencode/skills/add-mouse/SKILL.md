@@ -115,7 +115,13 @@ Typical retailers per price tier:
 
 If completing a stub: read `src/data/mice-todo.ts` for the `MouseStub` entry. This gives you the slug, navn, brand, and which pro needs it.
 
-**Before starting, grep `mice.ts` for the slug.** If a completed entry already exists or the stub appears twice, deduplicate first — edit out the duplicate stub entry or skip if already done.
+**Before starting, run the fuzzy duplicate check:**
+```ts
+import { findDuplicateSuggestions, isSlugTaken } from "@/lib/product-utils";
+```
+Pass the stub slug to `isSlugTaken(existingCatalog)` and `findDuplicateSuggestions(stub.navn, existingCatalog)`. If any existing product scores ≥ 0.5, verify it's actually a new product before proceeding — the stub may already exist under a slightly different slug/name.
+
+If a completed entry already exists or the stub appears twice, deduplicate first — edit out the duplicate stub entry or skip if already done.
 
 **When multiple stubs exist:** Group by brand and launch parallel research agents. Derive variant specs from existing entries where possible (see variant derivation above). Write all entries to `mice.ts` in a single edit pass rather than one at a time.
 

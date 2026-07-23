@@ -1,0 +1,193 @@
+{
+  "brands": [
+    {
+      "slug": "artisan",
+      "navn": "Artisan",
+      "aliases": ["Artisan", "artisan"],
+      "beskrivelse": "Artisan er en japansk producent af premium gaming-musemåtter, kendt for deres håndlavede kvalitet og unikke overfladevarianter. FX-serien er blandt de mest populære valg blandt esports-professionelle.",
+      "kendtFor": "musemåtter, håndlavede overflader",
+      "website": "https://www.artisan-jp.com",
+      "logo": null
+    },
+    {
+      "slug": "asus",
+      "navn": "ASUS",
+      "aliases": ["ASUS", "asus", "Asus"],
+      "beskrivelse": "ASUS er en taiwanesisk elektronikproducent og en af verdens største producenter af gaming-udstyr. Deres ROG (Republic of Gamers) serie leverer premium gaming-produkter på tværs af mus, tastaturer og headsets.",
+      "kendtFor": "gaming-hardware, ROG serie",
+      "website": "https://www.asus.com",
+      "logo": null
+    },
+    {
+      "slug": "aula",
+      "navn": "AULA",
+      "aliases": ["AULA", "aula", "Aula"],
+      "beskrivelse": "AULA er en kinesisk producent af gaming-tastaturer og tilbehør, der tilbyder god værdi for pengene med fokus på mekaniske tastaturer til budget- og mellemklassen.",
+      "kendtFor": "budget gaming-tastaturer",
+      "website": null,
+      "logo": null
+    },
+    {
+      "slug": "corsair",
+      "navn": "Corsair",
+      "aliases": ["Corsair", "corsair"],
+      "beskrivelse": "Corsair er en amerikansk producent af gaming-periferiudstyr og computerkomponenter. Deres produkter spænder fra tastaturer og headsets til musemåtter, og de er kendt for solid byggekvalitet og iCUE-softwareøkosystemet.",
+      "kendtFor": "gaming-tastaturer, headsets, iCUE software",
+      "website": "https://www.corsair.com",
+      "logo": null
+    },
+    {
+      "slug": "finalmouse",
+      "navn": "Finalmouse",
+      "aliases": ["Finalmouse", "finalmouse"],
+      "beskrivelse": "Finalmouse er en amerikansk producent af ultra-lette gaming-mus designet i samarbejde med esports-spillere. Deres mus er kendt for ekstremt lav vægt og honeycomb-design.",
+      "kendtFor": "ultra-lette gaming-mus",
+      "website": "https://www.finalmouse.com",
+      "logo": null
+    },
+    {
+      "slug": "fnatic",
+      "navn": "Fnatic",
+      "aliases": ["Fnatic", "fnatic"],
+      "beskrivelse": "Fnatic er en britisk esports-organisation, der også producerer gaming-udstyr under eget navn. Deres musemåtter er udviklet i samarbejde med deres egne professionelle spillere.",
+      "kendtFor": "esports-udstyr, musemåtter",
+      "website": "https://www.fnatic.com",
+      "logo": null
+    },
+    {
+      "slug": "g-wolves",
+      "navn": "G-Wolves",
+      "aliases": ["G-Wolves", "g-wolves", "G-wolves"],
+      "beskrivelse": "G-Wolves er en kinesisk producent af gaming-mus kendt for letvægtsdesign og innovative former. Deres Hati-serie er populær blandt fps-spillere, der foretrækker symmetriske mus.",
+      "kendtFor": "lette gaming-mus, Hati-serien",
+      "website": null,
+      "logo": null
+    },
+    {
+      "slug": "hyperx",
+      "navn": "HyperX",
+      "aliases": ["HyperX", "hyperx"],
+      "beskrivelse": "HyperX er en gaming-division under HP kendt for deres komfortable gaming-headsets. Cloud-serien er blandt de mest brugte headsets i esports verden, især Cloud II og Cloud III.",
+      "kendtFor": "gaming-headsets, Cloud-serien",
+      "website": "https://www.hyperx.com",
+      "logo": null
+    },
+    {
+      "slug": "keychron",
+      "navn": "Keychron",
+      "aliases": ["Keychron", "keychron"],
+      "beskrivelse": "Keychron er en kinesisk producent af mekaniske tastaturer med fokus på trådløs forbindelse og bred kompatibilitet på tværs af Mac, Windows og mobil. Deres Q- og K-serier er populære blandt både entusiaster og gamere.",
+      "kendtFor": "mekaniske tastaturer, Mac-kompatibilitet",
+      "website": "https://www.keychron.com",
+      "logo": null
+    },
+    {
+      "slug": "lamzu",
+      "navn": "Lamzu",
+      "aliases": ["Lamzu", "lamzu"],
+      "beskrivelse": "Lamzu er en kinesisk producent af gaming-mus, der har opnået stor popularitet for deres Maya- og Atlantis-serie. Deres mus er kendt for letvægtsdesign og konkurrencedygtig ydeevne.",
+      "kendtFor": "gaming-mus, Atlantis-serien",
+      "website": null,
+      "logo": null
+    },
+    {
+      "slug": "logitech",
+      "navn": "Logitech",
+      "aliases": ["Logitech", "logitech"],
+      "beskrivelse": "Logitech er en schweizisk-amerikansk producent af computertilbehør og en af de største spillere inden for gaming-udstyr. Deres G-serie er udviklet specifikt til gamere og esports-professionelle og inkluderer mus, tastaturer og headsets.",
+      "kendtFor": "gaming-mus, G Pro X-serien, Lightspeed",
+      "website": "https://www.logitechg.com",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Logitech_logo.svg/320px-Logitech_logo.svg.png"
+    },
+    {
+      "slug": "ninjutso",
+      "navn": "Ninjutso",
+      "aliases": ["Ninjutso", "ninjutso"],
+      "beskrivelse": "Ninjutso er en kinesisk producent af gaming-mus med fokus på komfort og ydeevne. Deres Sora-serie er kendt for den lave vægt og ergonomiske form.",
+      "kendtFor": "gaming-mus, Sora-serien",
+      "website": null,
+      "logo": null
+    },
+    {
+      "slug": "pulsar",
+      "navn": "Pulsar",
+      "aliases": ["Pulsar", "pulsar"],
+      "beskrivelse": "Pulsar er en koreansk producent af gaming-mus og musemåtter. Deres X2- og Xlite-serie er populære blandt fps-spillere for deres lave vægt og præcise sensorer.",
+      "kendtFor": "gaming-mus, X2-serien, ES-musemåtter",
+      "website": "https://www.pulsar.gg",
+      "logo": null
+    },
+    {
+      "slug": "razer",
+      "navn": "Razer",
+      "aliases": ["Razer", "razer"],
+      "beskrivelse": "Razer er en amerikansk-singaporeansk producent af gaming-udstyr og en af de mest anerkendte brands i esports-verdenen. Deres mus, tastaturer, headsets og musemåtter bruges af tusindvis af professionelle spillere verden over.",
+      "kendtFor": "gaming-mus, BlackShark-headsets, Huntsman-tastaturer",
+      "website": "https://www.razer.com",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Razer_logo.svg/320px-Razer_logo.svg.png"
+    },
+    {
+      "slug": "sony",
+      "navn": "Sony",
+      "aliases": ["Sony", "sony", "SONY"],
+      "beskrivelse": "Sony er en japansk elektronikgigant, der med deres INZONE-serie er trådt ind på gaming-markedet. INZONE-headsettene kombinerer Sonys ekspertise inden for lyd med gaming-funktioner som 360 Reality Audio.",
+      "kendtFor": "INZONE gaming-headsets, lydteknologi",
+      "website": "https://www.sony.com",
+      "logo": null
+    },
+    {
+      "slug": "steelseries",
+      "navn": "SteelSeries",
+      "aliases": ["SteelSeries", "steelseries"],
+      "beskrivelse": "SteelSeries er en dansk producent af gaming-udstyr med hovedsæde i København. De er kendt for deres tastaturer, headsets og musemåtter, og Arctis-serien er blandt de mest populære gaming-headsets på markedet.",
+      "kendtFor": "Arctis-headsets, Apex-tastaturer, QCK-musemåtter",
+      "website": "https://www.steelseries.com",
+      "logo": null
+    },
+    {
+      "slug": "vaxee",
+      "navn": "VAXEE",
+      "aliases": ["VAXEE", "Vaxee", "vaxee"],
+      "beskrivelse": "VAXEE er en taiwanesisk producent af gaming-mus og musemåtter grundlagt af tidligere ZOWIE-medarbejdere. Deres produkter er kendt for enkelhed, holdbarhed og fokus på essentielle egenskaber for konkurrencegaming.",
+      "kendtFor": "gaming-mus, musemåtter, esports-fokus",
+      "website": "https://www.vaxee.co",
+      "logo": null
+    },
+    {
+      "slug": "wlmouse",
+      "navn": "WLmouse",
+      "aliases": ["WLmouse", "wlmouse"],
+      "beskrivelse": "WLmouse er en kinesisk producent af gaming-mus kendt for deres Beast X-serie med ekstremt lav vægt. Deres mus henvender sig til fps-spillere, der prioriterer hurtighed og manøvredygtighed.",
+      "kendtFor": "ultra-lette gaming-mus, Beast X",
+      "website": null,
+      "logo": null
+    },
+    {
+      "slug": "wooting",
+      "navn": "Wooting",
+      "aliases": ["Wooting", "wooting"],
+      "beskrivelse": "Wooting er en hollandsk producent af gaming-tastaturer, der revolutionerede markedet med deres analoge Hall Effect-swiches. Deres 60HE og 80HE tastaturer er blandt de mest populære valg for konkurrencegamere.",
+      "kendtFor": "analoge Hall Effect-tastaturer, 60HE, 80HE",
+      "website": "https://www.wooting.io",
+      "logo": null
+    },
+    {
+      "slug": "xtrfy",
+      "navn": "Xtrfy",
+      "aliases": ["Xtrfy", "xtrfy"],
+      "beskrivelse": "Xtrfy er en svensk producent af gaming-udstyr med fokus på musemåtter og tilbehør. Deres GP4-serie er kendt for gode glideegenskaber og holdbarhed.",
+      "kendtFor": "musemåtter, GP4-serien",
+      "website": "https://www.xtrfy.com",
+      "logo": null
+    },
+    {
+      "slug": "zowie",
+      "navn": "ZOWIE",
+      "aliases": ["ZOWIE", "Zowie", "zowie"],
+      "beskrivelse": "ZOWIE er en taiwanesisk producent af gaming-udstyr under BenQ, der er kendt for deres esports-fokuserede mus og musemåtter. Deres produkter er designet i tæt samarbejde med professionelle spillere og prioriterer funktionalitet frem for RGB og ekstrafunktioner.",
+      "kendtFor": "esports-mus, EC-serien, G-SR-musemåtter",
+      "website": "https://www.zowie.benq.com",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/BenQ_ZOWIE_logo.svg/320px-BenQ_ZOWIE_logo.svg.png"
+    }
+  ]
+}
