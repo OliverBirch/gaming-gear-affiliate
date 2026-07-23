@@ -20,9 +20,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const brand = getBrand(slug);
   if (!brand) return {};
+  const label = brand.antalMus > 0 ? `${brand.navn} mus` : brand.navn;
   return {
-    title: `${brand.navn} mus - se alle modeller og priser`,
-    description: `Se alle ${brand.navn} gaming-mus i vores database. Sammenlign specs, priser og se hvilke pros der bruger ${brand.navn}.`,
+    title: `${label} - se alle modeller og priser`,
+    description: `Se alle ${brand.navn} gaming-produkter i vores database. Sammenlign specs, priser og se hvilke pros der bruger ${brand.navn}.`,
   };
 }
 

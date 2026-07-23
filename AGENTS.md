@@ -32,6 +32,7 @@ MaxGaming uses locale-prefixed URLs. Product pages are split by category (wirele
 |---|---|---|---|
 | Mice | `/dk/tradlose/{slug}` | `/dk/kablet-mus/{slug}` | `/dk/computertilbehor/computermus-tilbehor/gaming-mus` |
 | Headsets | `/dk/tradlose-headset/{slug}` | `/dk/kablet-headset/{slug}` | `/dk/computertilbehor/headset-lyd/gaming-headset` |
+| Keyboards | `/dk/gaming-tastatur/{slug}` | Same (all wired) | `/dk/computertilbehor/tastatur-og-tilbehor/gaming-tastatur` |
 
 **Discovery workflow:** DuckDuckGo `site:maxgaming.dk "product name"` → extract URL pattern → fetch category page (pagination via `?limit=48&page=N`) and grep for product links → fetch product page → extract `og:image` meta tag for product image.
 

@@ -39,10 +39,11 @@ function match(s: string | null | undefined): string | undefined {
 
 function matchHeadset(lower: string): string | undefined {
   if (lower.includes("hyperx")) {
-    if ((lower.includes("cloud ii") || lower.includes("cloud 2")) && (lower.includes("wireless") || lower.includes("trådløs"))) return "hyperx-cloud-ii-wireless";
+    const noStinger = !lower.includes("stinger");
+    if (noStinger && (lower.includes("cloud ii") || lower.includes("cloud 2")) && (lower.includes("wireless") || lower.includes("trådløs"))) return "hyperx-cloud-ii-wireless";
     if ((lower.includes("cloud iii") || lower.includes("cloud 3")) && (lower.includes("wireless") || lower.includes("trådløs"))) return "hyperx-cloud-iii-wireless";
     if (lower.includes("cloud iii") || lower.includes("cloud 3")) return "hyperx-cloud-iii";
-    if (lower.includes("cloud ii") || lower.includes("cloud 2")) return "hyperx-cloud-ii";
+    if (noStinger && (lower.includes("cloud ii") || lower.includes("cloud 2"))) return "hyperx-cloud-ii";
     return undefined;
   }
 
@@ -58,7 +59,7 @@ function matchHeadset(lower: string): string | undefined {
     return undefined;
   }
 
-  if (lower.includes("asus") && (lower.includes("delta") || lower.includes("rog"))) return "asus-rog-delta-ii";
+  if (lower.includes("asus") && lower.includes("delta") && !lower.includes("pelta")) return "asus-rog-delta-ii";
   if (lower.includes("corsair") && lower.includes("hs80")) return "corsair-hs80-rgb-usb";
   if (lower.includes("steelseries") && lower.includes("arctis nova pro") && (lower.includes("wireless") || lower.includes("trådløs"))) return "steelseries-arctis-nova-pro-wireless";
   if (lower.includes("sony") && (lower.includes("inzone h9") || lower.includes("inzone h9"))) return "sony-inzone-h9-ii";

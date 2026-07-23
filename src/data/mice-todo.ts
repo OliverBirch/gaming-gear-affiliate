@@ -24,7 +24,7 @@ export const miceToAdd: MouseStub[] = [
   {
     slug: "vaxee-outset-ax-wireless",
     navn: "OUTSET AX Wireless",
-    brand: "Vaxee",
+    brand: "VAXEE",
     sourcePro: "jamppi",
     sourceUrl: "https://prosettings.net/players/jamppi/",
   },

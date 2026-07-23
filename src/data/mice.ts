@@ -357,7 +357,7 @@ const rawMice: MouseSansProBrugere[] = [
   {
     slug: "vaxee-xe-wireless",
     navn: "XE Wireless",
-    brand: "Vaxee",
+    brand: "VAXEE",
     vaegtGram: 68,
     laengdeMm: 126,
     breddeMm: 63,
@@ -1281,7 +1281,7 @@ const rawMice: MouseSansProBrugere[] = [
   {
     slug: "vaxee-outset-ax-wireless",
     navn: "OUTSET AX Wireless",
-    brand: "Vaxee",
+    brand: "VAXEE",
     vaegtGram: 0, laengdeMm: 0, breddeMm: 0, hoejdeMm: 0,
     formfaktor: "ergonomisk", greb: [], haandStoerrelse: [],
     wireless: false, forbindelse: "", batteritidTimer: null,

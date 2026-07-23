@@ -1,10 +1,5 @@
+import brandRegistry from "./brands.json";
 import { mice } from "./mice";
-
-const brandLogos: Record<string, string> = {
-  logitech: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Logitech_logo.svg/320px-Logitech_logo.svg.png",
-  razer: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Razer_logo.svg/320px-Razer_logo.svg.png",
-  zowie: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/BenQ_ZOWIE_logo.svg/320px-BenQ_ZOWIE_logo.svg.png",
-};
 
 export interface Brand {
   navn: string;
@@ -14,17 +9,34 @@ export interface Brand {
   mestPopulaereMusSlug: string | null;
   mestPopulaereMusNavn: string | null;
   logo: string | null;
+  beskrivelse: string | null;
+}
+
+const registryMap = new Map<string, (typeof brandRegistry.brands)[number]>();
+const aliasToSlug = new Map<string, string>();
+
+for (const entry of brandRegistry.brands) {
+  registryMap.set(entry.slug, entry);
+  for (const alias of entry.aliases) {
+    aliasToSlug.set(alias.toLowerCase(), entry.slug);
+  }
+}
+
+export function normalizeBrandName(raw: string): string {
+  const slug = aliasToSlug.get(raw.toLowerCase());
+  if (!slug) return raw;
+  return registryMap.get(slug)!.navn;
 }
 
 export function getBrands(): Brand[] {
-  const brandMap = new Map<string, { navn: string; antalMus: number; pros: Set<string>; topMouse: { slug: string; navn: string; count: number } }>();
+  const mouseStats = new Map<string, { antalMus: number; pros: Set<string>; topMouse: { slug: string; navn: string; count: number } }>();
 
   for (const m of mice) {
     const key = m.brand.toLowerCase().replace(/\s+/g, "-");
-    if (!brandMap.has(key)) {
-      brandMap.set(key, { navn: m.brand, antalMus: 0, pros: new Set(), topMouse: { slug: m.slug, navn: m.navn, count: m.proBrugere.length } });
+    if (!mouseStats.has(key)) {
+      mouseStats.set(key, { antalMus: 0, pros: new Set(), topMouse: { slug: m.slug, navn: m.navn, count: m.proBrugere.length } });
     }
-    const entry = brandMap.get(key)!;
+    const entry = mouseStats.get(key)!;
     entry.antalMus++;
     for (const pro of m.proBrugere) entry.pros.add(pro);
     if (m.proBrugere.length > entry.topMouse.count) {
@@ -32,15 +44,17 @@ export function getBrands(): Brand[] {
     }
   }
 
-  return Array.from(brandMap.entries()).map(([slug, data]) => {
+  return Array.from(registryMap.values()).map((entry) => {
+    const stats = mouseStats.get(entry.slug);
     return {
-      navn: data.navn,
-      slug,
-      antalMus: data.antalMus,
-      antalPros: data.pros.size,
-      mestPopulaereMusSlug: data.topMouse.slug,
-      mestPopulaereMusNavn: data.topMouse.navn,
-      logo: brandLogos[slug] ?? null,
+      navn: entry.navn,
+      slug: entry.slug,
+      antalMus: stats?.antalMus ?? 0,
+      antalPros: stats?.pros.size ?? 0,
+      mestPopulaereMusSlug: stats?.topMouse.slug ?? null,
+      mestPopulaereMusNavn: stats?.topMouse.navn ?? null,
+      logo: entry.logo ?? null,
+      beskrivelse: entry.beskrivelse ?? null,
     };
   });
 }

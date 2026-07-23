@@ -1,5 +1,20 @@
-import type { Keyboard } from "@/lib/types";
+import type { Keyboard, AffiliateOffer } from "@/lib/types";
 import { getKeyboardProSlugs } from "./pros-peripherals-mapping";
+
+const KB_SEARCH_URLS: Record<string, string> = {
+  proshop: "https://www.proshop.dk/Tastatur",
+  maxgaming: "https://www.maxgaming.dk/dk/computertilbehor/tastatur-og-tilbehor/gaming-tastatur",
+  computersalg: "https://www.computersalg.dk/tastaturer",
+};
+
+function kbOffers(retailers: string[]): AffiliateOffer[] {
+  return retailers.map((r) => ({
+    retailer: r as AffiliateOffer["retailer"],
+    produktUrl: KB_SEARCH_URLS[r] ?? `https://www.maxgaming.dk/dk/search/${encodeURIComponent(r)}`,
+    payoutPct: r === "maxgaming" ? 4.0 : 3.5,
+    inStock: true,
+  }));
+}
 
 const rawKeyboards: Keyboard[] = [
   {
@@ -31,7 +46,7 @@ const rawKeyboards: Keyboard[] = [
       "Kun kablet (ingen trådløs)",
       "Ikke hot-swappable switches",
     ],
-    offers: [],
+    offers: kbOffers(["maxgaming", "proshop"]),
     proBrugere: [],
   },
   {
@@ -63,7 +78,7 @@ const rawKeyboards: Keyboard[] = [
       "Kun kablet",
       "Kan være svær at få fat i",
     ],
-    offers: [],
+    offers: kbOffers(["maxgaming", "proshop"]),
     proBrugere: [],
   },
   {
@@ -95,7 +110,7 @@ const rawKeyboards: Keyboard[] = [
       "Kun kablet",
       "Kræver Razer Synapse software",
     ],
-    offers: [],
+    offers: kbOffers(["maxgaming", "proshop"]),
     proBrugere: [],
   },
   {
@@ -127,7 +142,7 @@ const rawKeyboards: Keyboard[] = [
       "Kun kablet",
       "Ikke hot-swappable",
     ],
-    offers: [],
+    offers: kbOffers(["maxgaming", "proshop"]),
     proBrugere: [],
   },
   {
@@ -159,7 +174,7 @@ const rawKeyboards: Keyboard[] = [
       "OLED dræner batteri",
       "Kræver firmware-opdateringer",
     ],
-    offers: [],
+    offers: kbOffers(["maxgaming", "proshop"]),
     proBrugere: [],
   },
   {
@@ -191,7 +206,7 @@ const rawKeyboards: Keyboard[] = [
       "Mindre kendt for gaming",
       "Byggekvalitet matcher ikke premium-modeller",
     ],
-    offers: [],
+    offers: kbOffers(["maxgaming", "proshop"]),
     proBrugere: [],
   },
   {
@@ -223,7 +238,7 @@ const rawKeyboards: Keyboard[] = [
       "Ikke hot-swappable",
       "Kortere batteritid end konkurrenter",
     ],
-    offers: [],
+    offers: kbOffers(["maxgaming", "proshop"]),
     proBrugere: [],
   },
   {
@@ -255,7 +270,7 @@ const rawKeyboards: Keyboard[] = [
       "Mindre kendt brand",
       "Plastikkonstruktion",
     ],
-    offers: [],
+    offers: kbOffers(["maxgaming", "proshop"]),
     proBrugere: [],
   },
 ];
