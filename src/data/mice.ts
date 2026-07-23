@@ -1329,6 +1329,30 @@ const rawMice: MouseSansProBrugere[] = [
     prisNiveau: "mid", billede: undefined, offers: [],
     beskrivelse: "", fordele: [], ulemper: [],
   },
+  {
+    slug: "razer-deathadder-v3-hyperspeed",
+    navn: "DeathAdder V3 HyperSpeed",
+    brand: "Razer",
+    vaegtGram: 0, laengdeMm: 0, breddeMm: 0, hoejdeMm: 0,
+    formfaktor: "ergonomisk", greb: [], haandStoerrelse: [],
+    wireless: true, forbindelse: "2,4 GHz", batteritidTimer: null,
+    sensor: "", maxDpi: 0, pollingHz: 0,
+    switchType: "mekanisk", knapper: 0, lodMm: 0, softwarePaakraevet: false,
+    prisNiveau: "mid", billede: undefined, offers: [],
+    beskrivelse: "", fordele: [], ulemper: [],
+  },
+  {
+    slug: "zowie-donk-mouse",
+    navn: "ZOWIE donk Mouse",
+    brand: "ZOWIE",
+    vaegtGram: 0, laengdeMm: 0, breddeMm: 0, hoejdeMm: 0,
+    formfaktor: "symmetrisk", greb: [], haandStoerrelse: [],
+    wireless: false, forbindelse: "", batteritidTimer: null,
+    sensor: "", maxDpi: 0, pollingHz: 0,
+    switchType: "mekanisk", knapper: 0, lodMm: 0, softwarePaakraevet: false,
+    prisNiveau: "flagship", billede: undefined, offers: [],
+    beskrivelse: "", fordele: [], ulemper: [],
+  },
 ];
 
 function proBrugereOf(mouseSlug: string): string[] {

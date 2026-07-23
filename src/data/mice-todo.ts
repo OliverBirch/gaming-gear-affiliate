@@ -49,4 +49,18 @@ export const miceToAdd: MouseStub[] = [
     sourcePro: "v1c",
     sourceUrl: "https://prosettings.net/players/v1c/",
   },
+  {
+    slug: "razer-deathadder-v3-hyperspeed",
+    navn: "DeathAdder V3 HyperSpeed",
+    brand: "Razer",
+    sourcePro: "karrigan",
+    sourceUrl: "https://prosettings.net/players/karrigan/",
+  },
+  {
+    slug: "zowie-donk-mouse",
+    navn: "ZOWIE donk Mouse",
+    brand: "ZOWIE",
+    sourcePro: "donk",
+    sourceUrl: "https://prosettings.net/players/donk/",
+  },
 ]
