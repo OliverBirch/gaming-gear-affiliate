@@ -7,11 +7,13 @@ import { MouseCard } from "@/components/mouse-card";
 import { KeyboardCard } from "@/components/keyboard-card";
 import { MousepadCard } from "@/components/mousepad-card";
 import { HeadsetCard } from "@/components/headset-card";
+import { MonitorCard } from "@/components/monitor-card";
 import { getBrand, getBrands } from "@/data/brands";
 import { mice } from "@/data/mice";
 import { keyboards } from "@/data/keyboards";
 import { mousepads } from "@/data/mousepads";
 import { headsets } from "@/data/headsets";
+import { monitors } from "@/data/monitors";
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -183,6 +185,32 @@ export default async function BrandPage({ params }: Props) {
                 className="text-sm font-semibold text-primary hover:underline underline-offset-4"
               >
                 Se alle headsets &rarr;
+              </Link>
+            </div>
+          </section>
+        ) : null;
+      })()}
+
+      {(() => {
+        const brandMonitors = monitors.filter(
+          (m) => m.brand.toLowerCase() === brand.navn.toLowerCase()
+        );
+        return brandMonitors.length > 0 ? (
+          <section className="mb-14">
+            <h2 className="text-xl font-bold tracking-tight mb-6">
+              {brand.navn} skærme
+            </h2>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {brandMonitors.map((m) => (
+                <MonitorCard key={m.slug} monitor={m} />
+              ))}
+            </div>
+            <div className="mt-6 text-center">
+              <Link
+                href="/skaerme"
+                className="text-sm font-semibold text-primary hover:underline underline-offset-4"
+              >
+                Se alle skærme &rarr;
               </Link>
             </div>
           </section>

@@ -68,10 +68,14 @@ For each non-auto-fixable issue, report the type, slug, label, and which skill o
 
 | Issue type | Action |
 |---|---|
-| `stale-pro` | Run `add-pro` skill with the pro's slug. Source: `context.sourceUrl` |
+| `stale-pro` | Run `re-verify-pros` skill with the pro's slug. Source: `context.sourceUrl` |
 | `missing-peripherals` | Run `add-pro` skill step 3 (fetch player detail page for peripherals) |
 | `no-offers` | Research product on Partner-ads/Adtraction. Requires human + browser access |
+| `stub-mouse` | Run `add-mouse` skill for spec research + copy + offers |
+| `feed-stale` | Update prices manually in `prices.json` or wait for Adtraction feed |
 | `missing-price` | Price data comes from Adtraction XML feed → `prices.json`. Requires feed ingestion |
+| `product-stale` | Product verification data is old. Re-verify specs against RTINGS/manufacturer |
+| `unmapped-peripheral` | Add `match()` rule in `pros-peripherals-mapping.ts` for the unmapped text |
 | `empty-description` | Run `add-mouse` skill with the slug to write Danish copy |
 | `empty-fordele` / `empty-ulemper` | Run `add-mouse` skill to write copy |
 | `orphaned-mus` | Run `add-mouse` skill to create the missing mouse entry |
@@ -82,7 +86,9 @@ Run `npm run build`. Fix any type errors or validation failures.
 
 ## Key reference files
 
-- `src/app/admin/page.tsx` — Dashboard with embedded issues JSON
+- `src/app/admin/page.tsx` — Dashboard with embedded issues JSON (now using `src/lib/data-health.ts`)
+- `src/lib/data-health.ts` — Pure health-check functions (also powers admin)
+- `src/data/freshness-tasks.ts` — Ticket definitions (user answers via /api/resolve-ticket → KV)
 - `src/data/mice.ts` — Mouse entries (offer URLs, billede)
 - `src/data/pros.ts` — Pro entries (billede, sidstVerificeret)
 - `src/data/pros-peripherals.json` — Peripheral data

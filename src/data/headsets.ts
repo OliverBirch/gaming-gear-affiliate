@@ -1,4 +1,5 @@
 import type { Headset, AffiliateOffer } from "@/lib/types";
+import { HeadsetSchema } from "@/lib/types";
 import raw from "./headsets.json";
 import { getHeadsetProSlugs } from "./pros-peripherals-mapping";
 
@@ -37,7 +38,7 @@ function buildOffers(
   return offers;
 }
 
-export const headsets: Headset[] = raw.headsets.map((h: any) => ({
+const _builtHeadsets: Headset[] = raw.headsets.map((h: any) => ({
   slug: h.slug,
   navn: h.navn,
   brand: h.brand,
@@ -59,6 +60,10 @@ export const headsets: Headset[] = raw.headsets.map((h: any) => ({
   sidstVerificeret: h.sidstOpdateret ?? "2026-07-22",
   proBrugere: getHeadsetProSlugs(h.slug),
 }));
+
+for (const h of _builtHeadsets) HeadsetSchema.parse(h);
+
+export const headsets: Headset[] = _builtHeadsets;
 
 export function getHeadset(slug: string): Headset | undefined {
   return headsets.find((h) => h.slug === slug);

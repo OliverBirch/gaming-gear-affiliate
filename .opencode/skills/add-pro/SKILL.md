@@ -7,19 +7,31 @@ description: Use when the user types "add pro" or "tilføj pro" or asks to add a
 
 Walkthrough for adding a new esports pro to ProSetups.dk.
 
-## Data source
+**Data sources:**
+- **Gear (mouse, DPI, settings, peripherals):** `https://prosettings.net/lists/{esport}/` + player detail page
+- **Team (hold) + Status:** `https://liquipedia.net/{game}/api.php?action=parse&page={slug}&format=json&prop=text&section=0`
 
-**Single source of truth:** `https://prosettings.net/lists/{esport}/` (pick the right esport page).
+Liquipedia is more accurate for team/roster data than prosettings.net. Use it as the primary source for `hold`. See `src/lib/liquipedia.ts` for the fetch utility (`fetchLiquipediaPro`).
 
-If the player is not listed on prosettings.net → **skip and report**. Do not fall back to other sources.
+If the player is not listed on prosettings.net → **skip and report**. Do not fall back to other sources for gear.
 
-### Per-player detail page
-
-For peripherals (monitor, keyboard, mousepad, headset), open the player's individual page on prosettings.net (click their row in the table).
+**Idempotency:** Running `add-pro` on an existing slug = re-verify. If the pro already exists in `src/data/pros.ts`, follow the diff workflow below instead of creating a duplicate.
 
 ## Step-by-step
 
-### 1. Source the data
+### 0. Fetch team data from Liquipedia
+
+Before sourcing from prosettings, fetch the pro's team from Liquipedia:
+
+```
+GET https://liquipedia.net/{game}/api.php?action=parse&page={slug}&format=json&prop=text&section=0
+```
+
+Where `{game}` = `counterstrike` (cs2), `valorant`, or `rainbowsix` (r6).
+
+From the JSON response, locate the infobox `Team:` field and `Status:` field. This gives the most accurate current team and whether the player is Active/Inactive/Retired.
+
+### 1. Source gear data from prosettings
 
 From the prosettings.net table, extract:
 
@@ -27,8 +39,8 @@ From the prosettings.net table, extract:
 |---|---|---|
 | `navn` | Display name column | Use exact spelling |
 | `slug` | Derived from navn | Lowercase, alphanumeric + hyphens only. Matches the URL-friendly handle. |
-| `hold` | Team column | e.g. "Team Spirit" |
-| `land` | Flag + country | Danish country names: Rusland, Frankrig, Ukraine, Danmark, etc. |
+| `hold` | Liquipedia API | e.g. "Team Spirit" |
+| `land` | Liquipedia API or prosettings flag | Danish country names: Rusland, Frankrig, Ukraine, Danmark, etc. |
 | `musSlug` | Mouse column | Map the mouse name to the internal slug in `mice.ts`. If the mouse doesn't exist → see step 4. |
 | `dpi` | DPI column | Number |
 | `inGameSens` | Sensitivity column | Number (use `.` for decimal) |
@@ -156,6 +168,7 @@ If the preload tag isn't found, fall through the URL chain above. If none work, 
 
 ## Key reference files
 
+- `src/lib/liquipedia.ts` — Liquipedia API integration (fetchLiquipediaPro)
 - `src/lib/types.ts` — Zod schemas (ProSchema, ProSettingsSchema, etc.)
 - `src/data/pros.ts` — Pro data array
 - `src/data/pros-peripherals.json` — Free-text peripheral data

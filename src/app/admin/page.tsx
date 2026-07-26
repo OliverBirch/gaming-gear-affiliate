@@ -3,10 +3,14 @@ import { pros } from "@/data/pros";
 import { mice } from "@/data/mice";
 import { miceToAdd } from "@/data/mice-todo";
 import { headsets } from "@/data/headsets";
+import { keyboards } from "@/data/keyboards";
+import { mousepads } from "@/data/mousepads";
+import { monitors } from "@/data/monitors";
 import { retailers } from "@/data/retailers";
 import { esports } from "@/data/esports";
 import pricesJson from "@/data/prices.json";
 import proPeripheralsRaw from "@/data/pros-peripherals.json";
+import { match as mappingMatch } from "@/data/pros-peripherals-mapping";
 import {
   AlertTriangle,
   Clock,
@@ -18,33 +22,32 @@ import {
   CheckCircle2,
   ArrowUpRight,
   ExternalLink,
+  Package,
+  Percent,
 } from "lucide-react";
-
-const OLD_MAXGAMING = /\/da\/tilbehoer\/mus\//;
-const STALE_DAYS = 90;
-const proPeripherals = proPeripheralsRaw as Record<string, unknown>;
-
-function daysAgo(dateStr: string): number {
-  return Math.floor(
-    (Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24)
-  );
-}
-
-function dateLabel(days: number): string {
-  if (days === 0) return "i dag";
-  if (days === 1) return "1 dag siden";
-  return `${days} dage siden`;
-}
-
-interface DashboardIssue {
-  type: string;
-  severity: "high" | "medium" | "low";
-  autoFixable: boolean;
-  slug: string;
-  label: string;
-  file: string;
-  context: Record<string, unknown>;
-}
+import {
+  STALE_DAYS,
+  daysAgo,
+  dateLabel,
+  checkStalePros,
+  checkNoOffers,
+  checkBrokenUrls,
+  computePriceCoverage,
+  checkMissingPrices,
+  checkMissingImagesMice,
+  checkMissingImagesPros,
+  checkEmptyCopyMice,
+  checkOrphanedMice,
+  checkMissingPeripherals,
+  checkStubMice,
+  checkUnmappedPeripherals,
+  checkFeedAge,
+  getStaleProsByAge,
+  avgAgeByEsport,
+  esportCounts as computeEsportCounts,
+  buildHealthReport,
+  type DashboardIssue,
+} from "@/lib/data-health";
 
 function SourceLink({ file }: { file: string }) {
   const vscodeUrl = `vscode://file/${process.cwd().replace(/\\/g, "/")}/${file}`;
@@ -61,35 +64,40 @@ function SourceLink({ file }: { file: string }) {
 
 export default function AdminDashboardPage() {
   const issues: DashboardIssue[] = [];
+  const OLD_MAXGAMING = /\/da\/tilbehoer\/mus\//;
 
-  const prosWithAge = pros
-    .map((p) => ({ ...p, ageDays: daysAgo(p.sidstVerificeret) }))
-    .sort((a, b) => b.ageDays - a.ageDays);
-
-  const stalePros = prosWithAge.filter((p) => p.ageDays > STALE_DAYS);
-  const avgAgeByEsport: Record<string, { total: number; count: number }> = {};
-  for (const p of prosWithAge) {
-    if (!avgAgeByEsport[p.esport]) avgAgeByEsport[p.esport] = { total: 0, count: 0 };
-    avgAgeByEsport[p.esport].total += p.ageDays;
-    avgAgeByEsport[p.esport].count++;
+  function extractPeripheralValues(
+    peripherals: Record<string, Record<string, string | null | undefined>>,
+    field: string
+  ): Record<string, string | undefined> {
+    const out: Record<string, string | undefined> = {};
+    for (const [proSlug, data] of Object.entries(peripherals)) {
+      const val = data[field];
+      if (val != null) out[proSlug] = String(val);
+    }
+    return out;
   }
 
-  for (const p of stalePros) {
-    const sev = p.ageDays > 180 ? "high" : p.ageDays > 120 ? "medium" : "low";
-    issues.push({
-      type: "stale-pro",
-      severity: sev,
-      autoFixable: false,
-      slug: p.slug,
-      label: `${p.navn} — ${dateLabel(p.ageDays)}`,
-      file: "src/data/pros.ts",
-      context: {
-        esport: p.esport,
-        ageDays: p.ageDays,
-        sourceUrl: `https://prosettings.net/players/${p.slug}/`,
-      },
-    });
-  }
+  const pricedKeys = new Set(Object.keys(pricesJson.overrides));
+  const mouseSlugs = new Set(mice.map((m) => m.slug));
+  const proPeripheralKeys = new Set(Object.keys(proPeripheralsRaw));
+  const peripheralsCast = proPeripheralsRaw as Record<string, Record<string, string | null | undefined>>;
+
+  issues.push(...checkStalePros(pros));
+  issues.push(...checkNoOffers(mice));
+  issues.push(...checkBrokenUrls(mice));
+  issues.push(...checkMissingPrices(mice, pricedKeys));
+  issues.push(...checkMissingImagesMice(mice));
+  issues.push(...checkMissingImagesPros(pros));
+  issues.push(...checkEmptyCopyMice(mice));
+  issues.push(...checkOrphanedMice(pros, mouseSlugs));
+  issues.push(...checkMissingPeripherals(pros, proPeripheralKeys));
+  issues.push(...checkStubMice(mice));
+
+  const coverage = computePriceCoverage(mice, pricedKeys);
+  const staleProsList = getStaleProsByAge(pros);
+  const avgEsportAge = avgAgeByEsport(pros);
+  const esportCountsData = computeEsportCounts(pros);
 
   const allOffers = mice.flatMap((m) =>
     m.offers.map((o) => ({
@@ -98,202 +106,59 @@ export default function AdminDashboardPage() {
       productNavn: m.navn,
     }))
   );
-  const noOfferMice = mice.filter((m) => m.offers.length === 0);
-  for (const m of noOfferMice) {
-    issues.push({
-      type: "no-offers",
-      severity: "high",
-      autoFixable: false,
-      slug: m.slug,
-      label: `${m.navn} — ingen tilbud`,
-      file: "src/data/mice.ts",
-      context: { brand: m.brand },
-    });
-  }
-
   const oldUrlOffers = allOffers.filter((o) => OLD_MAXGAMING.test(o.produktUrl));
-  for (const o of oldUrlOffers) {
-    issues.push({
-      type: "broken-url",
-      severity: "high",
-      autoFixable: true,
-      slug: o.productSlug,
-      label: `${o.productNavn} — maxgaming URL forældet`,
-      file: "src/data/mice.ts",
-      context: {
-        retailer: o.retailer,
-        oldUrl: o.produktUrl,
-        searchTerm: o.productSlug,
-      },
-    });
-  }
-
-  const pricedKeys = new Set(Object.keys(pricesJson.overrides));
-  const offerKeys = allOffers.map((o) => `${o.productSlug}__${o.retailer}`);
-  const covered = offerKeys.filter((k) => pricedKeys.has(k));
-  const coveragePct =
-    offerKeys.length > 0 ? Math.round((covered.length / offerKeys.length) * 100) : 0;
+  const noOfferMice = mice.filter((m) => m.offers.length === 0);
   const miceWithoutPrice = mice.filter(
     (m) =>
       m.offers.length > 0 &&
       !m.offers.some((o) => pricedKeys.has(`${m.slug}__${o.retailer}`))
   );
-  for (const m of miceWithoutPrice) {
-    issues.push({
-      type: "missing-price",
-      severity: "medium",
-      autoFixable: false,
-      slug: m.slug,
-      label: `${m.navn} — ingen pris-data`,
-      file: "src/data/mice.ts",
-      context: {
-        retailers: m.offers.map((o) => o.retailer),
-      },
-    });
-  }
-
   const miceNoImage = mice.filter((m) => !m.billede);
-  for (const m of miceNoImage) {
-    const maxgamingOffer = m.offers.find((o) => o.retailer === "maxgaming");
-    issues.push({
-      type: "missing-image",
-      severity: "low",
-      autoFixable: !!maxgamingOffer,
-      slug: m.slug,
-      label: `${m.navn} — intet billede`,
-      file: "src/data/mice.ts",
-      context: {
-        hasMaxgaming: !!maxgamingOffer,
-        maxgamingUrl: maxgamingOffer?.produktUrl ?? null,
-      },
-    });
-  }
-
   const prosNoImage = pros.filter((p) => !p.billede);
-  for (const p of prosNoImage) {
-    issues.push({
-      type: "missing-pro-image",
-      severity: "low",
-      autoFixable: true,
-      slug: p.slug,
-      label: `${p.navn} — intet billede`,
-      file: "src/data/pros.ts",
-      context: {
-        sourceUrl: `https://prosettings.net/players/${p.slug}/`,
-      },
-    });
-  }
-
   const miceEmptyDesc = mice.filter(
     (m) => !m.beskrivelse || m.beskrivelse.length < 10
   );
-  for (const m of miceEmptyDesc) {
-    issues.push({
-      type: "empty-description",
-      severity: "medium",
-      autoFixable: false,
-      slug: m.slug,
-      label: `${m.navn} — tom beskrivelse`,
-      file: "src/data/mice.ts",
-      context: { brand: m.brand },
-    });
-  }
-
   const miceEmptyFordele = mice.filter((m) => m.fordele.length === 0);
-  for (const m of miceEmptyFordele) {
-    issues.push({
-      type: "empty-fordele",
-      severity: "medium",
-      autoFixable: false,
-      slug: m.slug,
-      label: `${m.navn} — ingen fordele`,
-      file: "src/data/mice.ts",
-      context: { brand: m.brand },
-    });
-  }
-
   const miceEmptyUlemper = mice.filter((m) => m.ulemper.length === 0);
-  for (const m of miceEmptyUlemper) {
-    issues.push({
-      type: "empty-ulemper",
-      severity: "medium",
-      autoFixable: false,
-      slug: m.slug,
-      label: `${m.navn} — ingen ulemper`,
-      file: "src/data/mice.ts",
-      context: { brand: m.brand },
-    });
-  }
 
-  const esportCounts: Record<string, number> = {};
-  for (const p of pros) esportCounts[p.esport] = (esportCounts[p.esport] || 0) + 1;
-
-  const mouseSlugs = new Set(mice.map((m) => m.slug));
   const orphanedSlugs = [
     ...new Set(
       pros.map((p) => p.musSlug).filter((s) => !mouseSlugs.has(s))
     ),
   ];
-  for (const slug of orphanedSlugs) {
-    const users = pros.filter((p) => p.musSlug === slug).map((p) => p.slug);
-    issues.push({
-      type: "orphaned-mus",
-      severity: "high",
-      autoFixable: false,
-      slug,
-      label: `${slug} — mus findes ikke i kataloget`,
-      file: "src/data/mice.ts",
-      context: { usedBy: users },
-    });
-  }
-
-  const proPeripheralKeys = new Set(Object.keys(proPeripherals));
   const prosWithoutPeripherals = pros.filter(
     (p) => !proPeripheralKeys.has(p.slug)
   );
-  for (const p of prosWithoutPeripherals.slice(0, 50)) {
-    issues.push({
-      type: "missing-peripherals",
-      severity: "low",
-      autoFixable: false,
-      slug: p.slug,
-      label: `${p.navn} — ingen periferi-data`,
-      file: "src/data/pros-peripherals.json",
-      context: {
-        esport: p.esport,
-        sourceUrl: `https://prosettings.net/players/${p.slug}/`,
-      },
-    });
-  }
-  if (prosWithoutPeripherals.length > 50) {
-    issues.push({
-      type: "missing-peripherals-truncated",
-      severity: "low",
-      autoFixable: false,
-      slug: "…",
-      label: `+${prosWithoutPeripherals.length - 50} flere pros uden periferi-data`,
-      file: "src/data/pros-peripherals.json",
-      context: { total: prosWithoutPeripherals.length },
-    });
-  }
 
   const lastFeedDate = daysAgo(pricesJson.scrapedAt);
+  const feedCheck = checkFeedAge(pricesJson.scrapedAt);
+  const stubMice = checkStubMice(mice);
 
-  const topStale = stalePros.slice(0, 10);
+  const topStale = staleProsList.slice(0, 10);
   const topOldUrls = oldUrlOffers.slice(0, 5);
   const topNoPrice = miceWithoutPrice.slice(0, 5);
 
-  const issuesJson = JSON.stringify({
-    generatedAt: new Date().toISOString(),
-    summary: {
-      totalIssues: issues.length,
-      high: issues.filter((i) => i.severity === "high").length,
-      medium: issues.filter((i) => i.severity === "medium").length,
-      low: issues.filter((i) => i.severity === "low").length,
-      autoFixable: issues.filter((i) => i.autoFixable).length,
-    },
-    issues,
-  });
+  const keyboardValues = extractPeripheralValues(peripheralsCast, "keyboard");
+  const mousepadValues = extractPeripheralValues(peripheralsCast, "mousepad");
+  const headsetValues = extractPeripheralValues(peripheralsCast, "headset");
+
+  const keyboardUnmapped = checkUnmappedPeripherals(
+    keyboardValues,
+    (t) => mappingMatch(t),
+    "keyboard"
+  );
+  const mousepadUnmapped = checkUnmappedPeripherals(
+    mousepadValues,
+    (t) => mappingMatch(t),
+    "mousepad"
+  );
+  const headsetUnmapped = checkUnmappedPeripherals(
+    headsetValues,
+    (t) => mappingMatch(t),
+    "headset"
+  );
+
+  const reportJson = JSON.stringify(buildHealthReport(issues));
 
   const StatCard = ({
     label,
@@ -386,7 +251,7 @@ export default function AdminDashboardPage() {
       <script
         type="application/json"
         id="issues-data"
-        dangerouslySetInnerHTML={{ __html: issuesJson }}
+        dangerouslySetInnerHTML={{ __html: reportJson }}
       />
 
       <div className="flex items-center justify-between mb-8">
@@ -394,10 +259,17 @@ export default function AdminDashboardPage() {
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1">
             Dashboard
           </h1>
-      <p className="text-muted-foreground text-sm">
-          Pris-feed opdateret {dateLabel(lastFeedDate)} &middot; {pros.length}{" "}
-          pros &middot; {mice.length} mus &middot; {headsets.length} headsets &middot; {retailers.length}{" "}
-          retailers &middot; {issues.length} issues
+          <p className="text-muted-foreground text-sm">
+            Pris-feed opdateret {dateLabel(lastFeedDate)}
+            {feedCheck.stale && (
+              <span className="text-amber-500 font-medium ml-1">(forældet)</span>
+            )}
+            {" "}&middot; {pros.length}{" "}
+            pros &middot; {mice.length} mus &middot; {headsets.length} headsets &middot;{" "}
+            {keyboards.length} keyboards &middot; {mousepads.length} mousepads &middot;{" "}
+            {monitors.length} skærme &middot;{" "}
+            {retailers.length}{" "}
+            retailers &middot; {issues.length} issues
           </p>
         </div>
         {miceToAdd.length > 0 && (
@@ -417,21 +289,21 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
         <StatCard
           label={`Stale pros (>${STALE_DAYS}d)`}
-          value={stalePros.length}
+          value={staleProsList.length}
           icon={Clock}
-          warn={stalePros.length > 0}
+          warn={staleProsList.length > 0}
         />
         <StatCard
-          label="Mus uden billede"
-          value={miceNoImage.length}
-          icon={ImageOff}
-          warn={miceNoImage.length > 0}
+          label="Stub-mus"
+          value={stubMice.length}
+          icon={Package}
+          warn={stubMice.length > 0}
         />
         <StatCard
           label="Pris-dækning"
-          value={`${coveragePct}%`}
-          icon={ShoppingCart}
-          warn={coveragePct < 80}
+          value={`${coverage.pct}%`}
+          icon={Percent}
+          warn={coverage.pct < 80}
         />
         <StatCard
           label="Gamle URLs"
@@ -454,7 +326,7 @@ export default function AdminDashboardPage() {
               Gennemsnitlig alder pr. esport
             </h3>
             <div className="space-y-1.5">
-              {Object.entries(avgAgeByEsport)
+              {Object.entries(avgEsportAge)
                 .sort(([, a], [, b]) => b.total / b.count - a.total / a.count)
                 .map(([slug, data]) => {
                   const avg = Math.round(data.total / data.count);
@@ -504,9 +376,9 @@ export default function AdminDashboardPage() {
               ])}
               empty="Alle pros er opdaterede"
             />
-            {stalePros.length > 10 && (
+            {staleProsList.length > 10 && (
               <p className="text-xs text-muted-foreground mt-2">
-                +{stalePros.length - 10} flere stale pros ikke vist
+                +{staleProsList.length - 10} flere stale pros ikke vist
               </p>
             )}
           </div>
@@ -615,7 +487,7 @@ export default function AdminDashboardPage() {
           Indholdskvalitet
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
           <div className="rounded-lg border border-border/50 p-4">
             <div className="flex items-center gap-2 mb-2">
               <ImageOff className="h-4 w-4 text-muted-foreground" />
@@ -668,6 +540,46 @@ export default function AdminDashboardPage() {
             </p>
           </div>
 
+          <div className="rounded-lg border border-border/50 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Package className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Stub-mus</span>
+            </div>
+            <p className="text-2xl font-bold tabular-nums">
+              {stubMice.length}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              af {mice.length} mus
+            </p>
+          </div>
+        </div>
+
+        {stubMice.length > 0 && (
+          <div className="mb-4">
+            <h3 className="text-sm font-medium text-muted-foreground mb-2">
+              Stub-mus der mangler data ({stubMice.length})
+            </h3>
+            <Table
+              headers={["Mus", "Mærke"]}
+              sourceFile="src/data/mice.ts"
+              rows={stubMice.map((s) => [
+                <Link
+                  key={s.slug}
+                  href={`/mus/${s.slug}`}
+                  className="text-primary hover:underline underline-offset-4"
+                >
+                  {s.label.replace(/ — stub.*$/, "")}
+                </Link>,
+                <span key="b" className="text-muted-foreground text-xs">
+                  {String(s.context.brand ?? "")}
+                </span>,
+              ])}
+              empty="Ingen stub-mus"
+            />
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {miceEmptyFordele.length > 0 && (
             <div>
               <h3 className="text-sm font-medium text-muted-foreground mb-2">
@@ -714,6 +626,124 @@ export default function AdminDashboardPage() {
         </div>
       </section>
 
+      {/* Periferi-mapping dækning */}
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+          <Link2 className="h-5 w-5 text-muted-foreground" />
+          Periferi-mapping dækning
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="rounded-lg border border-border/50 p-4">
+            <h3 className="text-sm font-medium mb-2 text-muted-foreground">
+              Keyboards ({keyboards.length} i katalog)
+            </h3>
+            <p
+              className={`text-2xl font-bold tabular-nums ${
+                keyboardUnmapped.pct < 50 ? "text-amber-500" : ""
+              }`}
+            >
+              {keyboardUnmapped.pct}%
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              {keyboardUnmapped.mapped} / {keyboardUnmapped.total} pros matchet
+            </p>
+            {keyboardUnmapped.topUnmapped.length > 0 && (
+              <div className="mt-3 space-y-1">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70">
+                  Top umatchede
+                </p>
+                {keyboardUnmapped.topUnmapped.slice(0, 5).map((t) => (
+                  <div
+                    key={t.text}
+                    className="flex items-center justify-between text-xs"
+                  >
+                    <span className="truncate mr-2 max-w-[180px]">
+                      {t.text}
+                    </span>
+                    <span className="tabular-nums text-muted-foreground shrink-0">
+                      {t.count}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="rounded-lg border border-border/50 p-4">
+            <h3 className="text-sm font-medium mb-2 text-muted-foreground">
+              Mousepads ({mousepads.length} i katalog)
+            </h3>
+            <p
+              className={`text-2xl font-bold tabular-nums ${
+                mousepadUnmapped.pct < 50 ? "text-amber-500" : ""
+              }`}
+            >
+              {mousepadUnmapped.pct}%
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              {mousepadUnmapped.mapped} / {mousepadUnmapped.total} pros matchet
+            </p>
+            {mousepadUnmapped.topUnmapped.length > 0 && (
+              <div className="mt-3 space-y-1">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70">
+                  Top umatchede
+                </p>
+                {mousepadUnmapped.topUnmapped.slice(0, 5).map((t) => (
+                  <div
+                    key={t.text}
+                    className="flex items-center justify-between text-xs"
+                  >
+                    <span className="truncate mr-2 max-w-[180px]">
+                      {t.text}
+                    </span>
+                    <span className="tabular-nums text-muted-foreground shrink-0">
+                      {t.count}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="rounded-lg border border-border/50 p-4">
+            <h3 className="text-sm font-medium mb-2 text-muted-foreground">
+              Headsets ({headsets.length} i katalog)
+            </h3>
+            <p
+              className={`text-2xl font-bold tabular-nums ${
+                headsetUnmapped.pct < 50 ? "text-amber-500" : ""
+              }`}
+            >
+              {headsetUnmapped.pct}%
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              {headsetUnmapped.mapped} / {headsetUnmapped.total} pros matchet
+            </p>
+            {headsetUnmapped.topUnmapped.length > 0 && (
+              <div className="mt-3 space-y-1">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground/70">
+                  Top umatchede
+                </p>
+                {headsetUnmapped.topUnmapped.slice(0, 5).map((t) => (
+                  <div
+                    key={t.text}
+                    className="flex items-center justify-between text-xs"
+                  >
+                    <span className="truncate mr-2 max-w-[180px]">
+                      {t.text}
+                    </span>
+                    <span className="tabular-nums text-muted-foreground shrink-0">
+                      {t.count}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* Pro Coverage */}
       <section className="mb-10">
         <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
@@ -727,7 +757,7 @@ export default function AdminDashboardPage() {
               Pros pr. esport
             </h3>
             <div className="space-y-1.5">
-              {Object.entries(esportCounts)
+              {Object.entries(esportCountsData)
                 .sort(([, a], [, b]) => b - a)
                 .map(([slug, count]) => {
                   const esport = esports.find((e) => e.slug === slug);

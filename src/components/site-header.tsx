@@ -5,6 +5,12 @@ import Link from "next/link";
 import { esports } from "@/data/esports";
 import { useState } from "react";
 
+const SHORT_ESPORT: Record<string, string> = {
+  cs2: "CS2",
+  valorant: "Valorant",
+  r6: "R6",
+};
+
 function ChevronDown() {
   return (
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0">
@@ -27,13 +33,14 @@ function DropdownItem({ href, children, close }: { href: string; children: React
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const activeEsports = esports.filter((e) => e.aktiv);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
         <Link href="/" className="shrink-0">
           <Image
-            src="/images/logos/PROSETUPS transparent.png"
+            src="/images/logos/prosetups-logo.png"
             alt="ProSetups.dk"
             width={907}
             height={131}
@@ -42,18 +49,18 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
+        <nav className="hidden sm:flex items-center gap-5 text-sm text-muted-foreground">
           <Link href="/pros" className="font-medium text-foreground hover:text-primary transition-colors duration-200">
             Pros
           </Link>
 
-          {esports.filter((e) => e.aktiv).map((e) => (
+          {activeEsports.map((e) => (
             <Link
               key={e.slug}
               href={`/${e.slug}`}
               className="hover:text-primary transition-colors duration-200"
             >
-              {e.navn}
+              {SHORT_ESPORT[e.slug] ?? e.navn}
             </Link>
           ))}
 
@@ -70,24 +77,18 @@ export function SiteHeader() {
                 <DropdownItem href="/tastaturer">Tastaturer</DropdownItem>
                 <DropdownItem href="/musemaatter">Musemåtter</DropdownItem>
                 <DropdownItem href="/headset">Headsets</DropdownItem>
+                <DropdownItem href="/skaerme">Skærme</DropdownItem>
               </div>
             </div>
           </div>
 
-          <div className="relative group">
-            <Link
-              href="/guides"
-              className="flex items-center gap-1 hover:text-primary transition-colors duration-200"
-            >
-              Guides <ChevronDown />
-            </Link>
-            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto">
-              <div className="w-44 rounded-xl border border-border/50 bg-card p-1.5 shadow-lg">
-                <DropdownItem href="/find-mus">Find mus</DropdownItem>
-                <DropdownItem href="/guides">Købsguides</DropdownItem>
-              </div>
-            </div>
-          </div>
+          <Link href="/find-mus" className="hover:text-primary transition-colors duration-200">
+            Find mus
+          </Link>
+
+          <Link href="/guides" className="hover:text-primary transition-colors duration-200">
+            Guides
+          </Link>
         </nav>
 
         <button
@@ -123,14 +124,14 @@ export function SiteHeader() {
             >
               Pros
             </Link>
-            {esports.filter((e) => e.aktiv).map((e) => (
+            {activeEsports.map((e) => (
               <Link
                 key={e.slug}
                 href={`/${e.slug}`}
                 className="py-3 hover:text-primary transition-colors duration-200"
                 onClick={() => setOpen(false)}
               >
-                {e.navn}
+                {SHORT_ESPORT[e.slug] ?? e.navn}
               </Link>
             ))}
             <details className="group">
@@ -143,18 +144,23 @@ export function SiteHeader() {
                 <DropdownItem href="/tastaturer" close={() => setOpen(false)}>Tastaturer</DropdownItem>
                 <DropdownItem href="/musemaatter" close={() => setOpen(false)}>Musemåtter</DropdownItem>
                 <DropdownItem href="/headset" close={() => setOpen(false)}>Headsets</DropdownItem>
+                <DropdownItem href="/skaerme" close={() => setOpen(false)}>Skærme</DropdownItem>
               </div>
             </details>
-            <details className="group">
-              <summary className="py-3 list-none [&::-webkit-details-marker]:hidden flex items-center justify-between cursor-pointer hover:text-primary transition-colors duration-200">
-                Guides
-                <ChevronDown />
-              </summary>
-              <div className="flex flex-col pl-4 border-l border-border/50 ml-1 mb-2">
-                <DropdownItem href="/find-mus" close={() => setOpen(false)}>Find mus</DropdownItem>
-                <DropdownItem href="/guides" close={() => setOpen(false)}>Købsguides</DropdownItem>
-              </div>
-            </details>
+            <Link
+              href="/find-mus"
+              className="py-3 hover:text-primary transition-colors duration-200"
+              onClick={() => setOpen(false)}
+            >
+              Find mus
+            </Link>
+            <Link
+              href="/guides"
+              className="py-3 hover:text-primary transition-colors duration-200"
+              onClick={() => setOpen(false)}
+            >
+              Guides
+            </Link>
           </nav>
         </div>
       )}

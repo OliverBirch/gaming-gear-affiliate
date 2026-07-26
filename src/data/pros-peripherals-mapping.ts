@@ -3,7 +3,7 @@ import prosPeripherals from "./pros-peripherals.json";
 
 const raw = prosPeripherals as Record<string, ProPeripherals>;
 
-function match(s: string | null | undefined): string | undefined {
+export function match(s: string | null | undefined): string | undefined {
   if (!s) return undefined;
 
   const lower = s.toLowerCase();
@@ -96,3 +96,27 @@ export function getHeadsetSlug(proSlug: string): string | undefined {
 export function getHeadsetProSlugs(headsetSlug: string): string[] {
   return Object.keys(raw).filter((proSlug) => getHeadsetSlug(proSlug) === headsetSlug);
 }
+
+function matchMonitor(lower: string): string | undefined {
+  if (lower.includes("xl2586x+") || lower.includes("xl2586x")) return "zowie-xl2586x-plus";
+  if (lower.includes("xl2566k")) return "zowie-xl2566k";
+  if (lower.includes("xl2546k")) return "zowie-xl2546k";
+  if (lower.includes("pg27aqdm")) return "asus-rog-swift-pg27aqdm";
+  if (lower.includes("aw2524h")) return "alienware-aw2524h";
+  if (lower.includes("xl2566x+") || lower.includes("xl2566x")) return "zowie-xl2566k";
+  if (lower.includes("xl2746k")) return "zowie-xl2566k";
+  if (lower.includes("pg27aq") && !lower.includes("pg27aqdm")) return "asus-rog-swift-pg27aqdm";
+  return undefined;
+}
+
+export function getMonitorSlug(proSlug: string): string | undefined {
+  const peri = raw[proSlug];
+  if (!peri) return undefined;
+  return matchMonitor(peri.monitor?.toLowerCase() ?? "");
+}
+
+export function getMonitorProSlugs(monitorSlug: string): string[] {
+  return Object.keys(raw).filter((proSlug) => getMonitorSlug(proSlug) === monitorSlug);
+}
+
+export { matchMonitor };

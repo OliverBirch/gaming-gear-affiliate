@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, ListChecks, ShoppingCart } from "lucide-react";
+import { LayoutDashboard, ListChecks, HelpCircle } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -23,6 +23,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               <ListChecks className="h-4 w-4" />
               Opgaver
+            </Link>
+            <Link
+              href="/admin/tickets"
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <HelpCircle className="h-4 w-4" />
+              Tickets
             </Link>
           </div>
 

@@ -1,0 +1,163 @@
+{
+  "monitors": [
+    {
+      "slug": "zowie-xl2586x-plus",
+      "navn": "XL2586X+",
+      "brand": "ZOWIE",
+      "stoerrelseTommer": 24.1,
+      "oploesning": "1920x1080",
+      "opdateringsHz": 360,
+      "paneltype": "TN",
+      "responstidMs": 0.5,
+      "adaptiveSync": "ingen",
+      "buet": false,
+      "prisNiveau": "flagship",
+      "billede": null,
+      "priser": {
+        "maxgaming": 4999,
+        "proshop": 5199
+      },
+      "beskrivelse": "ZOWIE XL2586X+ er den seneste 360 Hz TN-skærm designet til konkurrencegaming. Med en lynhurtig responstid på 0,5 ms og DyAc+ teknologi er den det foretrukne valg blandt CS2- og Valorant-pros, der prioriterer bevægelsesklarhed og minimal input lag over alt andet.",
+      "fordele": [
+        "360 Hz opdateringshastighed",
+        "0,5 ms responstid for maksimal bevægelsesklarhed",
+        "DyAc+ teknologi reducerer motion blur",
+        "Populær blandt esports-professionelle"
+      ],
+      "ulemper": [
+        "Høj pris",
+        "TN-panel med smallere betragtningsvinkler",
+        "Kun Full HD opløsning"
+      ],
+      "udstyrskilde": "turneringsudstyr",
+      "sidstOpdateret": "2026-07-22"
+    },
+    {
+      "slug": "zowie-xl2566k",
+      "navn": "XL2566K",
+      "brand": "ZOWIE",
+      "stoerrelseTommer": 24.5,
+      "oploesning": "1920x1080",
+      "opdateringsHz": 360,
+      "paneltype": "TN",
+      "responstidMs": 0.5,
+      "adaptiveSync": "ingen",
+      "buet": false,
+      "prisNiveau": "flagship",
+      "billede": null,
+      "priser": {
+        "maxgaming": 4499,
+        "proshop": 4699
+      },
+      "beskrivelse": "ZOWIE XL2566K er forgængeren til XL2586X+ og stadig en af de mest udbredte skærme i turneringssammenhæng. Med 360 Hz, DyAc+ og det klassiske ZOWIE-design med S-Switch til hurtig profilskift er den et gennemtestet valg til konkurrencespillere.",
+      "fordele": [
+        "360 Hz med lav input lag",
+        "DyAc+ teknologi",
+        "S-Switch til hurtig profilskift",
+        "Pålidelig og gennemtestet i turneringsbrug"
+      ],
+      "ulemper": [
+        "Høj pris",
+        "TN-panel",
+        "Ingen indbygget højttaler"
+      ],
+      "udstyrskilde": "turneringsudstyr",
+      "sidstOpdateret": "2026-07-22"
+    },
+    {
+      "slug": "zowie-xl2546k",
+      "navn": "XL2546K",
+      "brand": "ZOWIE",
+      "stoerrelseTommer": 24.5,
+      "oploesning": "1920x1080",
+      "opdateringsHz": 240,
+      "paneltype": "TN",
+      "responstidMs": 0.5,
+      "adaptiveSync": "ingen",
+      "buet": false,
+      "prisNiveau": "mid",
+      "billede": null,
+      "priser": {
+        "maxgaming": 3299,
+        "proshop": 3499
+      },
+      "beskrivelse": "ZOWIE XL2546K er standarden inden for turneringsskærme til Counter-Strike. Med 240 Hz, DyAc+ og det ikoniske design har den været den mest udbredte skærm på LAN-turneringer i flere år. XL2546K byder på forbedret kontrast og S-Switch til nem profilskift.",
+      "fordele": [
+        "240 Hz med DyAc+",
+        "Standard turneringsskærm i CS2",
+        "S-Switch med profilskift",
+        "God kontrast for et TN-panel"
+      ],
+      "ulemper": [
+        "TN-panel",
+        "240 Hz er ikke længere top-of-the-line",
+        "Ingen USB-C"
+      ],
+      "udstyrskilde": "turneringsudstyr",
+      "sidstOpdateret": "2026-07-22"
+    },
+    {
+      "slug": "asus-rog-swift-pg27aqdm",
+      "navn": "ROG Swift PG27AQDM",
+      "brand": "ASUS",
+      "stoerrelseTommer": 27,
+      "oploesning": "2560x1440",
+      "opdateringsHz": 240,
+      "paneltype": "OLED",
+      "responstidMs": 0.03,
+      "adaptiveSync": "g-sync",
+      "buet": false,
+      "prisNiveau": "flagship",
+      "billede": null,
+      "priser": {
+        "maxgaming": 7499,
+        "proshop": 7799
+      },
+      "beskrivelse": "ASUS ROG Swift PG27AQDM er en 27 tommer OLED gaming-skærm med 240 Hz og 0,03 ms responstid. OLED-panelet leverer perfekt sortniveau og enestående farvegengivelse, hvilket gør den til et populært valg blandt pros, der prioriterer billedkvalitet ved siden af performance. Den bruges blandt andet af CS2-pros som jL.",
+      "fordele": [
+        "Fremragende OLED-billedkvalitet",
+        "0,03 ms responstid",
+        "240 Hz med G-Sync",
+        "God til både gaming og daglig brug"
+      ],
+      "ulemper": [
+        "Meget høj pris",
+        "Risiko for burn-in ved langvarig statisk brug",
+        "Kun 27 tommer for OLED-klassen"
+      ],
+      "udstyrskilde": "spillerens-valg",
+      "sidstOpdateret": "2026-07-22"
+    },
+    {
+      "slug": "alienware-aw2524h",
+      "navn": "AW2524H",
+      "brand": "Alienware",
+      "stoerrelseTommer": 25,
+      "oploesning": "1920x1080",
+      "opdateringsHz": 500,
+      "paneltype": "IPS",
+      "responstidMs": 0.5,
+      "adaptiveSync": "g-sync",
+      "buet": false,
+      "prisNiveau": "flagship",
+      "billede": null,
+      "priser": {
+        "maxgaming": 5999
+      },
+      "beskrivelse": "Alienware AW2524H er en af de hurtigste IPS-skærme på markedet med 500 Hz opdateringshastighed. Den kombinerer IPS-panelets bedre farver og betragtningsvinkler med en ekstrem høj opdateringshastighed, hvilket gør den til et fremragende valg for pros, der vil have både hastighed og billedkvalitet.",
+      "fordele": [
+        "500 Hz opdateringshastighed",
+        "IPS-panel med gode farver",
+        "G-Sync kompatibel",
+        "Lav input lag"
+      ],
+      "ulemper": [
+        "Meget høj pris",
+        "Kun Full HD",
+        "25 tommer kan føles lille"
+      ],
+      "udstyrskilde": "spillerens-valg",
+      "sidstOpdateret": "2026-07-22"
+    }
+  ]
+}
