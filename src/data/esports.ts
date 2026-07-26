@@ -9,6 +9,7 @@ export const esports: Esport[] = [
     beskrivelse:
       "Counter-Strike 2 er en taktisk first-person shooter, hvor præcision og konsistens er alt. Pros foretrækker letvægtsmus med minimal vægt og høj polling rate til hurtige flick shots og præcist aim.",
     heroImage: "/images/esports/cs2.jpg",
+    decal: "/images/esports/decals/cs2-decal.png",
     musProfil: {
       vaegtVigtighed: 5,
       knapBehov: "minimal",
@@ -24,6 +25,7 @@ export const esports: Esport[] = [
     beskrivelse:
       "Valorant er en taktisk hero-shooter, hvor præcision og reaktionstid er afgørende. Pros bruger typisk letvægtsmus med lave eDPI-værdier for præcist crosshair-placement.",
     heroImage: "/images/esports/valorant.jpg",
+    decal: "/images/esports/decals/valorant-decal.svg",
     musProfil: {
       vaegtVigtighed: 4,
       knapBehov: "minimal",
@@ -39,6 +41,7 @@ export const esports: Esport[] = [
     beskrivelse:
       "Rainbow Six Siege er en taktisk first-person shooter, hvor holdbaserede angreb og forsvar kræver præcision og kommunikation. Pros bruger ofte lav DPI med en unik multiplikator for at opnå pixel-præcist aim gennem små sprækker og huller.",
     heroImage: "/images/esports/r6.jpg",
+    decal: "/images/esports/decals/r6-decal.svg",
     musProfil: {
       vaegtVigtighed: 5,
       knapBehov: "minimal",

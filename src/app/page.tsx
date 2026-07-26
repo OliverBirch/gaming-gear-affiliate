@@ -159,16 +159,24 @@ export default function Home() {
                 <Link
                   key={e.slug}
                   href={`/${e.slug}`}
-                  className="group rounded-xl border border-border/50 bg-card p-7 hover:border-primary/30 transition-all duration-200"
+                  className="group flex flex-col items-center rounded-xl border border-border/50 bg-card p-7 text-center hover:border-primary/30 transition-all duration-200"
                 >
-                  <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
-                    {e.navn}
-                  </h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                    {e.beskrivelse}
-                  </p>
+                  {e.decal && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={e.decal}
+                      alt=""
+                      className="mb-4 h-12 w-auto object-contain"
+                    />
+                  )}
+                  {/* Visually hidden, not removed: the decal already renders the
+                      game's wordmark, so showing this heading too would repeat
+                      the name on screen. Kept in the DOM (not display:none) so
+                      it still counts as real, crawlable heading text for SEO
+                      and is announced to screen readers. */}
+                  <h3 className="sr-only">{e.navn}</h3>
                   <span className="mt-4 inline-block text-sm font-medium text-primary">
-                    {count} pros &rarr;
+                    data fra {count} pros &rarr;
                   </span>
                 </Link>
               );

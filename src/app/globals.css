@@ -141,10 +141,17 @@
   margin: 0;
   -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
   text-transform: uppercase;
-  border-radius: 99rem;
+  border-radius: var(--radius-lg);
   border-width: 2px;
-  height: auto;
-  padding: 0.8rem 3rem;
+  /* Transparent to match every other solid/default-variant button on the
+     site (their base recipe is border-transparent) — the 2px width is kept
+     only so box-sizing/padding math stays identical, not for a visible ring. */
+  border-color: transparent;
+  /* No fixed height/vertical padding here on purpose — the button's height
+     comes from the standard Tailwind size classes (h-8/h-9/etc, same as
+     every other button on the site) so this variant lines up with its
+     siblings instead of rendering taller. */
+  padding: 0 2.5rem;
   z-index: 0;
   overflow: hidden;
   position: relative;
@@ -156,17 +163,25 @@
   outline: auto;
 }
 .btn-main .btn-main-text-container {
+  /* No mix-blend-mode here: that trick only yields true white text when
+     blended against a pure-black background. Against the coral --primary
+     background it produced an off-color instead of white, so the text
+     color comes straight from --primary-foreground (white) instead. */
   overflow: hidden;
   position: relative;
   display: block;
-  mix-blend-mode: difference;
 }
 .btn-main .btn-main-text {
   display: block;
   position: relative;
+  /* Matches the 0.2s ease on the :before/:after sweep so the text darkens
+     in step with the button turning white, instead of staying white and
+     disappearing into the sweep. */
+  transition: color 0.2s ease;
 }
 .btn-main:hover .btn-main-text {
   animation: btn-main-move-up-alternate 0.3s forwards;
+  color: var(--background);
 }
 @keyframes btn-main-move-up-alternate {
   0% {

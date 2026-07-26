@@ -17,6 +17,7 @@ export const EsportSchema = z.object({
   aktiv: z.boolean(),
   beskrivelse: z.string(),
   heroImage: z.string().optional(),
+  decal: z.string().optional(),
 });
 
 export type Esport = z.infer<typeof EsportSchema>;
