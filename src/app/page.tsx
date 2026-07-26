@@ -92,11 +92,13 @@ export default function Home() {
             <Link
               href="/pros"
               className={cn(
-                buttonVariants({ size: "lg" }),
+                buttonVariants({ variant: "cta", size: "lg" }),
                 "active:scale-[0.98] transition-transform duration-150"
               )}
             >
-              Se alle pros &rarr;
+              <span className="btn-main-text-container">
+                <span className="btn-main-text">Se alle pros &rarr;</span>
+              </span>
             </Link>
             <Link
               href="/find-mus"

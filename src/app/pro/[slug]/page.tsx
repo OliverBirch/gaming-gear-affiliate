@@ -185,11 +185,15 @@ export default async function ProPage({ params }: Props) {
               <Link
                 href={`/mus/${mouse.slug}`}
                 className={cn(
-                  buttonVariants({}),
+                  buttonVariants({ variant: "cta" }),
                   "active:scale-[0.98] transition-transform duration-150 gap-1.5"
                 )}
               >
-                {hasPrice ? `Se bedste pris (fra ${lowestPrice} kr.)` : "Se bedste pris"}
+                <span className="btn-main-text-container">
+                  <span className="btn-main-text">
+                    {hasPrice ? `Se bedste pris (fra ${lowestPrice} kr.)` : "Se bedste pris"}
+                  </span>
+                </span>
               </Link>
             )}
           </div>

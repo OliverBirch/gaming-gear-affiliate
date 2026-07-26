@@ -109,11 +109,15 @@ export default async function MusPage({ params }: Props) {
               <a
                 href="#priser"
                 className={cn(
-                  buttonVariants({ size: "lg" }),
+                  buttonVariants({ variant: "cta", size: "lg" }),
                   "gap-1.5 active:scale-[0.98] transition-transform duration-150"
                 )}
               >
-                {hasPrice ? `Sammenlign priser (fra ${lowestPrice} kr.)` : "Sammenlign priser"}
+                <span className="btn-main-text-container">
+                  <span className="btn-main-text">
+                    {hasPrice ? `Sammenlign priser (fra ${lowestPrice} kr.)` : "Sammenlign priser"}
+                  </span>
+                </span>
               </a>
             )}
             {mouse.proBrugere.length > 0 && (

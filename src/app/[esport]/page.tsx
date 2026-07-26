@@ -160,8 +160,10 @@ export default async function EsportPage({ params }: Props) {
         />
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
-          <a href="#pros" className={cn(buttonVariants({ size: "lg" }), "gap-2 active:scale-[0.98] transition-transform duration-150")}>
-            Se alle pros &darr;
+          <a href="#pros" className={cn(buttonVariants({ variant: "cta", size: "lg" }), "gap-2 active:scale-[0.98] transition-transform duration-150")}>
+            <span className="btn-main-text-container">
+              <span className="btn-main-text">Se alle pros &darr;</span>
+            </span>
           </a>
           <Link href="/find-mus" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>Find din mus</Link>
         </div>

@@ -248,9 +248,11 @@ export default function BedsteMusTilCS2() {
         </p>
         <Link
           href="/find-mus"
-          className={cn(buttonVariants({ size: "lg" }), "active:scale-[0.98] transition-transform duration-150")}
+          className={cn(buttonVariants({ variant: "cta", size: "lg" }), "active:scale-[0.98] transition-transform duration-150")}
         >
-          Find din mus
+          <span className="btn-main-text-container">
+            <span className="btn-main-text">Find din mus</span>
+          </span>
         </Link>
       </div>
 

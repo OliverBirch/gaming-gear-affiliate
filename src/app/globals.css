@@ -112,3 +112,100 @@
  * The previous ad-hoc body gradient plus body::before grain lived here and was
  * removed so the two do not stack.
  */
+
+/*
+ * "cta" button variant (src/components/ui/button.tsx): pill CTA with a
+ * diagonal skew wipe on hover and a mix-blend-mode text flip. Colors follow
+ * --primary / --primary-foreground so it stays in sync with the brand theme.
+ * Unlayered on purpose — Tailwind v4 utilities live in @layer, so these plain
+ * rules win the cascade without needing !important.
+ */
+.btn-main,
+.btn-main *,
+.btn-main :after,
+.btn-main :before,
+.btn-main:after,
+.btn-main:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+.btn-main {
+  -webkit-tap-highlight-color: transparent;
+  background-color: var(--primary);
+  background-image: none;
+  color: var(--primary-foreground);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: 900;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+  text-transform: uppercase;
+  border-radius: 99rem;
+  border-width: 2px;
+  height: auto;
+  padding: 0.8rem 3rem;
+  z-index: 0;
+  overflow: hidden;
+  position: relative;
+}
+.btn-main:disabled {
+  cursor: default;
+}
+.btn-main:focus-visible {
+  outline: auto;
+}
+.btn-main .btn-main-text-container {
+  overflow: hidden;
+  position: relative;
+  display: block;
+  mix-blend-mode: difference;
+}
+.btn-main .btn-main-text {
+  display: block;
+  position: relative;
+}
+.btn-main:hover .btn-main-text {
+  animation: btn-main-move-up-alternate 0.3s forwards;
+}
+@keyframes btn-main-move-up-alternate {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(80%);
+  }
+  51% {
+    transform: translateY(-80%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.btn-main:after,
+.btn-main:before {
+  --skew: 0.2;
+  background: var(--primary-foreground);
+  content: "";
+  display: block;
+  height: 102%;
+  left: calc(-50% - 50% * var(--skew));
+  pointer-events: none;
+  position: absolute;
+  top: -104%;
+  transform: skew(calc(150deg * var(--skew))) translateY(var(--progress, 0));
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+.btn-main:after {
+  --progress: 0%;
+  left: calc(50% + 50% * var(--skew));
+  top: 102%;
+  z-index: -1;
+}
+.btn-main:hover:before {
+  --progress: 100%;
+}
+.btn-main:hover:after {
+  --progress: -102%;
+}

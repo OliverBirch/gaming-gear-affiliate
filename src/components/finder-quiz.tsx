@@ -244,8 +244,10 @@ export default function FinderQuiz() {
         <p className="text-sm text-muted-foreground/70 mb-8">
           Vi sammenligner priser fra Proshop, MaxGaming, Computersalg og Coolshop.
         </p>
-        <button onClick={next} className={cn(buttonVariants({ size: "lg" }), "text-base px-10")}>
-          Kom i gang
+        <button onClick={next} className={cn(buttonVariants({ variant: "cta", size: "lg" }), "text-base px-10")}>
+          <span className="btn-main-text-container">
+            <span className="btn-main-text">Kom i gang</span>
+          </span>
         </button>
       </div>
     );
