@@ -14,7 +14,7 @@
 - Replace with local images in `public/images/brands/`
 
 ### Site logo
-- `public/images/logos/PROSETUPS transparent.png` — filename contains spaces, rename for cleaner URLs
+- `public/images/logos/prosetups-logo.png` — used in site header
 
 ## Launch blockers
 

@@ -10,7 +10,7 @@ import { getPro } from "@/data/pros";
 import { getMouse } from "@/data/mice";
 import { bestOffers } from "@/lib/affiliate";
 import { getProPeripherals } from "@/data/pros-peripherals";
-import { getKeyboardSlug, getMousepadSlug, getHeadsetSlug } from "@/data/pros-peripherals-mapping";
+import { getKeyboardSlug, getMousepadSlug, getHeadsetSlug, getMonitorSlug } from "@/data/pros-peripherals-mapping";
 import { ProAvatar } from "@/components/pro-avatar";
 
 
@@ -102,8 +102,9 @@ export default async function ProPage({ params }: Props) {
           const keyboardSlug = getKeyboardSlug(pro.slug);
           const mousepadSlug = getMousepadSlug(pro.slug);
           const headsetSlug = getHeadsetSlug(pro.slug);
+          const monitorSlug = getMonitorSlug(pro.slug);
           const items: [string, string | null, string | undefined][] = [
-            ["Skærm", peri?.monitor ?? null, undefined],
+            ["Skærm", peri?.monitor ?? null, monitorSlug],
             ["Tastatur", peri?.keyboard ?? null, keyboardSlug],
             ["Musemåtte", peri?.mousepad ?? null, mousepadSlug],
             ["Headset", peri?.headset ?? null, headsetSlug],
@@ -125,6 +126,7 @@ export default async function ProPage({ params }: Props) {
                               label === "Tastatur" ? `/tastaturer/${slug}` :
                               label === "Musemåtte" ? `/musemaatter/${slug}` :
                               label === "Headset" ? `/headset/${slug}` :
+                              label === "Skærm" ? `/skaerme/${slug}` :
                               `/mus/${slug}`
                             }
                             className="text-primary hover:underline underline-offset-4"

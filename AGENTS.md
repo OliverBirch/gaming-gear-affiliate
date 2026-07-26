@@ -44,8 +44,19 @@ Category pages are JS-rendered so product links don't appear in static HTML. Pro
 - Use the `add-pro` skill to add pros — it handles pros.ts, peripherals, images, and stub mouse creation.
 - Use the `add-mouse` skill to create mice or complete stubs — it sources specs from RTINGS, copy from reviews, and offers from affiliate portals.
 - Unknown mice encountered during pro creation are tracked in `src/data/mice-todo.ts`. Visit `/admin/todo` to see the backlog.
-- Pro data source is always `prosettings.net`. Mouse specs come from RTINGS → Techpowerup → manufacturer.
+- Pro gear source is always `prosettings.net`. Mouse specs come from RTINGS → Techpowerup → manufacturer.
+- Pro team/hold source is **Liquipedia API** (`src/lib/liquipedia.ts`), not prosettings.net. Liquipedia is more accurate for roster tracking with full transfer history and covers CS2, Valorant, and R6.
 - `add-headset` skill mirrors `add-mouse` but for headsets (same flow: research specs → write Danish copy → find MaxGaming URL → add to JSON).
+
+## Liquipedia API for team data
+
+Liquipedia is the primary source for pro team/roster data. Use the fetch utility in `src/lib/liquipedia.ts`:
+
+- **CS2:** `https://liquipedia.net/counterstrike/api.php?action=parse&page={slug}&format=json&prop=text&section=0`
+- **Valorant:** `https://liquipedia.net/valorant/api.php?action=parse&page={slug}&format=json&prop=text&section=0`
+- **R6:** `https://liquipedia.net/rainbowsix/api.php?action=parse&page={slug}&format=json&prop=text&section=0`
+
+The infobox contains structured `Team:`, `Status:`, `Nationality:`, and `History` fields. Liquipedia content is CC-BY-SA licensed — credit via the `kilde` field alongside prosettings.net.
 
 ## Peripheral mapping gotchas
 - `src/data/pros-peripherals-mapping.ts` uses substring matching to link free-text peripheral names to catalog slugs.
@@ -75,3 +86,49 @@ When adding a new peripheral category (e.g. headsets, monitors) to the site:
 - Use `rel="sponsored nofollow"` on all outbound affiliate links.
 - Route through `/api/redirect` for click logging.
 - Prices resolve via: static `offers[].prisDkk` → `prices.json` overrides → no price shown.
+
+## Data freshness (weekly cadence)
+
+Keeping pro gear data and prices current is the site's primary value. Follow this routine:
+
+### Weekly checklist (15–40 min)
+
+1. **Open** `/admin` — scan high-severity issues
+2. **Fix auto-fixable:** run `fix-issues` skill for `broken-url`, `missing-image`, `missing-pro-image`
+3. **Re-verify stale pros:** run `re-verify-pros` skill — priority tier-1 first (`src/data/freshness-priority.ts`), then oldest stale from admin
+4. **Complete 1 stub mouse** if any exist in `mice-todo.ts` (use `add-mouse` skill)
+5. **Spot-check prices:** update top 5 mouse prices into `prices.json` if feed isn't live yet
+6. **Run `npm run build`** — verifies Zod validation passes
+
+### When admin flags issues
+
+| Issue type | Severity | Skill |
+|---|---|---|
+| `stale-pro` | high/med | `re-verify-pros` |
+| `stub-mouse` | high | `add-mouse` |
+| `no-offers` | high | Research product + add offers |
+| `broken-url` | high | `fix-issues` (auto-fixable) |
+| `missing-price` | medium | `prices.json` override |
+| `feed-stale` | medium | Refresh `prices.json.scrapedAt` |
+| `orphaned-mus` | high | `add-mouse` (create missing mouse) |
+| `missing-image` | low | `fix-issues` (auto-fixable) |
+| `empty-description` / `empty-fordele` / `empty-ulemper` | medium | `add-mouse` |
+| `missing-peripherals` | low | `add-pro` step 3 |
+| `product-stale` | low | Re-verify product specs |
+| `unmapped-peripheral` | low | Add `match()` rule in mapping |
+
+### Validation layers
+
+1. **TypeScript** — `next build` checks all types
+2. **Zod parse** — Runs at module level in `mice.ts`, `keyboards.ts`, `mousepads.ts`, `headsets.ts` (build fails if data doesn't match schema)
+3. **CopyPoints** — Zod refine rejects `$` + digit in `fordele`/`ulemper`/`beskrivelse`
+4. **JSON validation** — `npm run validate-data` checks `prices.json`, CopyPoints in JSON files, required fields
+5. **Admin health** — `/admin` generates a full issue report at build time (SSG)
+
+### Key reference files for freshness
+
+- `src/lib/data-health.ts` — Pure health-check functions (stale, offers, prices, copy, stubs, mapping)
+- `src/data/freshness-priority.ts` — Tier-1 CS2/Valorant/R6 priority lists
+- `scripts/validate-data.mjs` — Standalone JSON validation (CopyPoints, schema checks)
+- `scripts/scrape.mjs` — **Deprecated** (wrong schema, DO NOT USE)
+- `.opencode/skills/re-verify-pros/SKILL.md` — Batch re-verify workflow

@@ -1353,16 +1353,77 @@ const rawMice: MouseSansProBrugere[] = [
     prisNiveau: "flagship", billede: undefined, offers: [],
     beskrivelse: "", fordele: [], ulemper: [],
   },
+  // STUB — needs completion. Tracked in mice-todo.ts
+  {
+    slug: "endgame-gear-op1-8k-v2",
+    navn: "OP1 8k V2",
+    brand: "Endgame Gear",
+    vaegtGram: 0, laengdeMm: 0, breddeMm: 0, hoejdeMm: 0,
+    formfaktor: "symmetrisk", greb: [], haandStoerrelse: [],
+    wireless: false, forbindelse: "", batteritidTimer: null,
+    sensor: "", maxDpi: 0, pollingHz: 0,
+    switchType: "mekanisk", knapper: 0, lodMm: 0, softwarePaakraevet: false,
+    prisNiveau: "mid", billede: undefined, offers: [],
+    beskrivelse: "", fordele: [], ulemper: [],
+  },
+  // STUB — needs completion. Tracked in mice-todo.ts
+  {
+    slug: "vaxee-np01s-v2-wireless",
+    navn: "ZYGEN NP-01S V2 Wireless",
+    brand: "VAXEE",
+    vaegtGram: 0, laengdeMm: 0, breddeMm: 0, hoejdeMm: 0,
+    formfaktor: "symmetrisk", greb: [], haandStoerrelse: [],
+    wireless: false, forbindelse: "", batteritidTimer: null,
+    sensor: "", maxDpi: 0, pollingHz: 0,
+    switchType: "mekanisk", knapper: 0, lodMm: 0, softwarePaakraevet: false,
+    prisNiveau: "mid", billede: undefined, offers: [],
+    beskrivelse: "", fordele: [], ulemper: [],
+  },
+  // STUB — needs completion. Tracked in mice-todo.ts
+  {
+    slug: "zowie-ec1-c",
+    navn: "EC1-C",
+    brand: "ZOWIE",
+    vaegtGram: 0, laengdeMm: 0, breddeMm: 0, hoejdeMm: 0,
+    formfaktor: "ergonomisk", greb: [], haandStoerrelse: [],
+    wireless: false, forbindelse: "", batteritidTimer: null,
+    sensor: "", maxDpi: 0, pollingHz: 0,
+    switchType: "mekanisk", knapper: 0, lodMm: 0, softwarePaakraevet: false,
+    prisNiveau: "mid", billede: undefined, offers: [],
+    beskrivelse: "", fordele: [], ulemper: [],
+  },
+  // STUB — needs completion. Tracked in mice-todo.ts
+  {
+    slug: "vaxee-xe-v2",
+    navn: "XE V2",
+    brand: "VAXEE",
+    vaegtGram: 0, laengdeMm: 0, breddeMm: 0, hoejdeMm: 0,
+    formfaktor: "symmetrisk", greb: [], haandStoerrelse: [],
+    wireless: false, forbindelse: "", batteritidTimer: null,
+    sensor: "", maxDpi: 0, pollingHz: 0,
+    switchType: "mekanisk", knapper: 0, lodMm: 0, softwarePaakraevet: false,
+    prisNiveau: "mid", billede: undefined, offers: [],
+    beskrivelse: "", fordele: [], ulemper: [],
+  },
 ];
 
 function proBrugereOf(mouseSlug: string): string[] {
   return pros.filter((p) => p.musSlug === mouseSlug).map((p) => p.slug);
 }
 
-export const mice: Mouse[] = rawMice.map((m) => ({
+import { MouseSchema } from "@/lib/types";
+
+const _built: Mouse[] = rawMice.map((m) => ({
   ...m,
   proBrugere: proBrugereOf(m.slug),
 }));
+
+// Zod validation at module level — fails build if data is invalid
+for (const m of _built) {
+  MouseSchema.parse(m);
+}
+
+export const mice: Mouse[] = _built;
 
 export function getMouse(slug: string): Mouse | undefined {
   return mice.find((m) => m.slug === slug);

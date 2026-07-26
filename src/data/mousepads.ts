@@ -1,4 +1,5 @@
 import type { Mousepad, AffiliateOffer } from "@/lib/types";
+import { MousepadSchema } from "@/lib/types";
 import raw from "./mousepads.json";
 import { getMousepadProSlugs } from "./pros-peripherals-mapping";
 
@@ -57,7 +58,7 @@ const TYPE_MAP: Record<string, "speed" | "control" | "hybrid"> = {
   balanced: "hybrid",
 };
 
-export const mousepads: Mousepad[] = raw.mousepads.map((m: any) => ({
+const _builtPads: Mousepad[] = raw.mousepads.map((m: any) => ({
   slug: m.slug,
   brand: m.brand,
   model: m.model,
@@ -82,6 +83,10 @@ export const mousepads: Mousepad[] = raw.mousepads.map((m: any) => ({
   sidstVerificeret: m.sidstOpdateret ?? "2026-07-22",
   proBrugere: getMousepadProSlugs(m.slug),
 }));
+
+for (const p of _builtPads) MousepadSchema.parse(p);
+
+export const mousepads: Mousepad[] = _builtPads;
 
 export function getMousepad(slug: string): Mousepad | undefined {
   return mousepads.find((m) => m.slug === slug);

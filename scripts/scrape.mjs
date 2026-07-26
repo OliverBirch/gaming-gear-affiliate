@@ -74,6 +74,13 @@ function extractPrice(html, retailer) {
 }
 
 // --- Prices ---
+//
+// NOTE: This scraper is deprecated. The live prices.json uses the schema
+// { scrapedAt: string, overrides: { "productSlug__retailer": { prisDkk: number } } }
+// which this script does NOT produce (it writes { scrapedAt, prices: { key: number } }).
+// Do not run this script. Prices are intended to come from Adtraction/Partner-ads XML
+// feeds writing into the prices.json overrides format. The scrape.mjs is retained
+// as reference only — its URL list is stale and the output schema is wrong.
 
 const mice = [
   {

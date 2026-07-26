@@ -63,4 +63,32 @@ export const miceToAdd: MouseStub[] = [
     sourcePro: "donk",
     sourceUrl: "https://prosettings.net/players/donk/",
   },
+  {
+    slug: "endgame-gear-op1-8k-v2",
+    navn: "OP1 8k V2",
+    brand: "Endgame Gear",
+    sourcePro: "magixx",
+    sourceUrl: "https://prosettings.net/players/magixx/",
+  },
+  {
+    slug: "vaxee-np01s-v2-wireless",
+    navn: "ZYGEN NP-01S V2 Wireless",
+    brand: "VAXEE",
+    sourcePro: "chopper",
+    sourceUrl: "https://prosettings.net/players/chopper/",
+  },
+  {
+    slug: "zowie-ec1-c",
+    navn: "EC1-C",
+    brand: "ZOWIE",
+    sourcePro: "xertion",
+    sourceUrl: "https://prosettings.net/players/xertion/",
+  },
+  {
+    slug: "vaxee-xe-v2",
+    navn: "XE V2",
+    brand: "VAXEE",
+    sourcePro: "mezii",
+    sourceUrl: "https://prosettings.net/players/mezii/",
+  },
 ]

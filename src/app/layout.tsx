@@ -16,10 +16,10 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: {
     template: "%s - ProSetups.dk",
-    default: "ProSetups.dk - Hvilken mus bruger pros i dansk esport?",
+    default: "ProSetups.dk - Hvilket gear bruger pros i esport?",
   },
   description:
-    "Se hvilken gaming-mus dine favorit CS2-pros bruger. Find den bedste mus til dit spil med vores finder-værktøj. Priser fra Proshop, MaxGaming og Computersalg.",
+    "Se præcis hvilket gear CS2-, Valorant- og R6-pros bruger. Settings, eDPI og danske priser.",
   metadataBase: new URL("https://prosetups.dk"),
   alternates: {
     languages: {
@@ -92,7 +92,7 @@ gtag('config', 'G-XXXXXXXXXX');`,
               name: "ProSetups.dk",
               url: "https://prosetups.dk",
               description:
-                "Dansk esport-mus guide med pro-data, settings og affiliate-priser.",
+                "Dansk pro-setup guide med esport-gear, settings og affiliate-priser.",
             }),
           }}
         />

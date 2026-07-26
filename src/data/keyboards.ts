@@ -1,4 +1,5 @@
 import type { Keyboard, AffiliateOffer } from "@/lib/types";
+import { KeyboardSchema } from "@/lib/types";
 import { getKeyboardProSlugs } from "./pros-peripherals-mapping";
 
 const KB_SEARCH_URLS: Record<string, string> = {
@@ -275,10 +276,14 @@ const rawKeyboards: Keyboard[] = [
   },
 ];
 
-export const keyboards: Keyboard[] = rawKeyboards.map((k) => ({
+const _builtKeyboards: Keyboard[] = rawKeyboards.map((k) => ({
   ...k,
   proBrugere: getKeyboardProSlugs(k.slug),
 }));
+
+for (const k of _builtKeyboards) KeyboardSchema.parse(k);
+
+export const keyboards: Keyboard[] = _builtKeyboards;
 
 export function getKeyboard(slug: string): Keyboard | undefined {
   return keyboards.find((k) => k.slug === slug);
