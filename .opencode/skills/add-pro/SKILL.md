@@ -99,6 +99,16 @@ if (lower.includes("wooting") && lower.includes("80he")) return "wooting-80he";
 
 If peripherals are missing from prosettings → **warn but proceed** with what's available.
 
+### 3b. Team logo
+
+If the pro's `hold` doesn't resolve to an existing logo via `getTeamLogo()`:
+1. Find the team on ProSettings.net at `https://prosettings.net/teams/{slug}/`
+2. Add the mapping to `scripts/fetch-team-logos.mjs` (key + pslug + out)
+3. Add the entry to `src/data/team-logos.ts`
+4. Run `node scripts/fetch-team-logos.mjs`
+
+If the team isn't on ProSettings.net, generate a monogram via `scripts/_gen-team-monograms.mjs`.
+
 ### 4. Unknown mouse
 
 If the pro's mouse slug does not exist in `src/data/mice.ts`:

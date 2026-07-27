@@ -48,6 +48,13 @@ Category pages are JS-rendered so product links don't appear in static HTML. Pro
 - Pro team/hold source is **Liquipedia API** (`src/lib/liquipedia.ts`), not prosettings.net. Liquipedia is more accurate for roster tracking with full transfer history and covers CS2, Valorant, and R6.
 - `add-headset` skill mirrors `add-mouse` but for headsets (same flow: research specs → write Danish copy → find MaxGaming URL → add to JSON).
 
+## Team logos
+- Team logos are sourced from **ProSettings.net** CDN (`prosettings.net/wp-content/uploads/{slug}.svg` or `.png`).
+- Download via `node scripts/fetch-team-logos.mjs`. Run after adding new teams or when logos appear stale.
+- `src/data/team-logos.ts` maps normalized hold names → local file paths in `public/images/teams/`.
+- Missing teams fall back to monogram placeholders from `scripts/_gen-team-monograms.mjs`.
+- To add a logo: find the team's ProSettings slug from `https://prosettings.net/teams/{slug}/`, add the mapping to `fetch-team-logos.mjs` and `team-logos.ts`, then re-run the fetch script.
+
 ## Liquipedia API for team data
 
 Liquipedia is the primary source for pro team/roster data. Use the fetch utility in `src/lib/liquipedia.ts`:

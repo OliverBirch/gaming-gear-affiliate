@@ -62,6 +62,14 @@ Sort by severity (high → medium → low), then by auto-fixable first.
    - `https://prosettings.net/wp-content/uploads/{slug}-220x220-fitcontain-q99-gb283-s1.png`
    - `https://prosettings.net/wp-content/uploads/{slug}-1-220x220-fitcontain-q99-gb283-s1.png`
 
+#### `missing-team-logo` (team logo not found in ProSettings CDN)
+
+1. Find the team on ProSettings.net at `https://prosettings.net/teams/{slug}/` (derive slug from team name)
+2. Add the mapping to `scripts/fetch-team-logos.mjs` (add to TEAMS array)
+3. Add the entry to `src/data/team-logos.ts` (with correct extension — `.svg` or `.png`)
+4. Run `node scripts/fetch-team-logos.mjs`
+5. If team not on ProSettings → generate monogram via `scripts/_gen-team-monograms.mjs`
+
 ### 4. Report needs-human issues
 
 For each non-auto-fixable issue, report the type, slug, label, and which skill or action is needed:
@@ -79,6 +87,7 @@ For each non-auto-fixable issue, report the type, slug, label, and which skill o
 | `empty-description` | Run `add-mouse` skill with the slug to write Danish copy |
 | `empty-fordele` / `empty-ulemper` | Run `add-mouse` skill to write copy |
 | `orphaned-mus` | Run `add-mouse` skill to create the missing mouse entry |
+| `missing-team-logo` | Run the auto-fixable `missing-team-logo` steps above (fetch from ProSettings.net CDN) |
 
 ### 5. Verify
 
@@ -94,3 +103,6 @@ Run `npm run build`. Fix any type errors or validation failures.
 - `src/data/pros-peripherals.json` — Peripheral data
 - `.opencode/skills/add-pro/SKILL.md` — Pro creation/update workflow
 - `.opencode/skills/add-mouse/SKILL.md` — Mouse creation/completion workflow
+- `scripts/fetch-team-logos.mjs` — Team logo download from ProSettings CDN
+- `src/data/team-logos.ts` — Team logo path mappings
+- `scripts/_gen-team-monograms.mjs` — Monogram fallback generation

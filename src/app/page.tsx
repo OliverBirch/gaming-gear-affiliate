@@ -16,16 +16,29 @@ import { guides } from "@/data/guides";
 import {
   PRIORITY_CS2,
   PRIORITY_VALORANT,
-  PRIORITY_R6,
 } from "@/data/freshness-priority";
 import { getHeadsetProSlugs } from "@/data/pros-peripherals-mapping";
+import { getProPeripherals } from "@/data/pros-peripherals";
 import { MousePointer, Keyboard, Square, Headphones } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { monitors } from "@/data/monitors";
 import { HeroLowPoly } from "@/components/hero-low-poly";
 import { HeroStatsBand } from "@/components/hero-stats-band";
 import { HeroFeaturedPros } from "@/components/hero-featured-pros";
+
+/** Count linked gear slots across pros (mouse + optional peripherals). */
+function countSetups() {
+  let n = 0;
+  for (const p of pros) {
+    n += 1; // mouse
+    const peri = getProPeripherals(p.slug);
+    if (p.tastaturSlug || peri?.keyboard) n += 1;
+    if (p.musemaatteSlug || peri?.mousepad) n += 1;
+    if (peri?.headset) n += 1;
+    if (peri?.monitor) n += 1;
+  }
+  return n;
+}
 
 function firstExisting(
   slugs: string[],
@@ -45,22 +58,15 @@ function pickFeaturedPros() {
   const bySlug = new Map(pros.map((p) => [p.slug, p]));
   const picked = [
     ...firstExisting(PRIORITY_CS2, bySlug, 3),
-    ...firstExisting(PRIORITY_VALORANT, bySlug, 2),
-    ...firstExisting(PRIORITY_R6, bySlug, 1),
+    ...firstExisting(PRIORITY_VALORANT, bySlug, 1),
   ];
 
-  // Prefer one R6 name if priority list is out of date
-  if (!picked.some((p) => p.esport === "r6")) {
-    const r6 = pros.find((p) => p.esport === "r6");
-    if (r6) picked.push(r6);
-  }
-
   for (const p of pros) {
-    if (picked.length >= 6) break;
+    if (picked.length >= 4) break;
     if (picked.some((x) => x.slug === p.slug)) continue;
     picked.push(p);
   }
-  return picked.slice(0, 6);
+  return picked.slice(0, 4);
 }
 
 export default function Home() {
@@ -81,107 +87,88 @@ export default function Home() {
   )[0];
 
   const activeEsports = esports.filter((e) => e.aktiv);
-  const totalProducts = mice.length + keyboards.length + mousepads.length + headsets.length + monitors.length;
-  const priorityProRows = featuredPros.slice(0, 5);
+  const setupCount = countSetups();
 
   return (
-    <>
+    <div className="overflow-x-clip">
       <div className="mx-auto max-w-5xl px-4">
-        <section className="pt-20 pb-8 text-center">
-          <h1 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
-            Se hvilket gear dine{" "}
-            <span className="text-primary">favorit-pros</span> bruger
-          </h1>
-
-          <p className="mb-8 text-muted-foreground max-w-2xl mx-auto">
-            {pros.length}+ pros — se deres foretrukne mus, tastaturer, headsets og musemåtter.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              href="/mus"
-              className={cn(buttonVariants({ variant: "outline", size: "default" }))}
-            >
-              <MousePointer className="size-4" />
-              Mus
-            </Link>
-            <Link
-              href="/tastaturer"
-              className={cn(buttonVariants({ variant: "outline", size: "default" }))}
-            >
-              <Keyboard className="size-4" />
-              Tastaturer
-            </Link>
-            <Link
-              href="/musemaatter"
-              className={cn(buttonVariants({ variant: "outline", size: "default" }))}
-            >
-              <Square className="size-4" />
-              Musemåtter
-            </Link>
-            <Link
-              href="/headset"
-              className={cn(buttonVariants({ variant: "outline", size: "default" }))}
-            >
-              <Headphones className="size-4" />
-              Headsets
-            </Link>
-          </div>
-        </section>
-
-        <div className="relative mb-20">
+        <section className="relative mb-8 sm:mb-12 pt-16 sm:pt-20 pb-14 sm:pb-16 text-center">
+          {/*
+            Full-bleed atmosphere: breaks out of max-w-5xl, soft-masked so
+            there is no hard rectangle against GrainGradient.
+            Parent overflow-x-clip prevents 100vw scrollbar without cutting
+            vertical fade (clip only on x).
+          */}
           <div
-            className="absolute inset-y-0 -left-4 -right-4 pointer-events-none overflow-hidden"
+            className="pointer-events-none absolute inset-y-0 left-1/2 z-0 w-[100vw] max-w-none -translate-x-1/2 [mask-image:linear-gradient(to_bottom,transparent_0%,transparent_45%,black_55%,black_80%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,transparent_45%,black_55%,black_80%,transparent_100%)]"
             aria-hidden="true"
           >
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.717_0.176_22.6/0.1)_0%,transparent_70%)]" />
-            <HeroLowPoly className="w-full h-full" />
-          </div>
-
-          <div className="relative z-10 mb-10">
-            <HeroStatsBand
-              proCount={pros.length}
-              productCount={totalProducts}
-              esports={esports}
-            />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_42%,oklch(0.717_0.176_22.6/0.15)_0%,oklch(0.717_0.176_22.6/0.04)_50%,transparent_74%)]" />
+            <HeroLowPoly className="absolute inset-0 h-full w-full" />
           </div>
 
           <div className="relative z-10">
-            <HeroFeaturedPros pros={priorityProRows} />
-          </div>
-        </div>
+            <h1 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+              Se hvilket gear dine{" "}
+              <span className="text-primary">favorit-pros</span> bruger
+            </h1>
 
-        <section className="mb-20">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold tracking-tight">
-              Popul&aelig;re pros
-            </h2>
-            <Link
-              href="/pros"
-              className="text-sm font-semibold text-primary hover:underline underline-offset-4"
-            >
-              Se alle {pros.length}&nbsp;pros &rarr;
-            </Link>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredPros.map((pro) => (
+            <p className="mb-8 text-muted-foreground max-w-2xl mx-auto">
+              {pros.length}+ pros — se deres foretrukne mus, tastaturer, headsets og musemåtter.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3 mb-12 sm:mb-14">
               <Link
-                key={pro.slug}
-                href={`/pro/${pro.slug}`}
-                className="group flex items-center gap-4 rounded-lg border border-border/50 bg-card p-4 hover:border-primary/30 hover:bg-card/80 transition-all duration-200"
+                href="/mus"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "default" }),
+                  "rounded-full"
+                )}
               >
-                <ProAvatar navn={pro.navn} slug={pro.slug} />
-                <div className="min-w-0">
-                  <div className="font-semibold truncate group-hover:text-primary transition-colors duration-200">
-                    {pro.navn}
-                  </div>
-                  <div className="text-xs text-muted-foreground truncate">
-                    {pro.hold} &middot; {pro.settings.dpi} DPI &middot;{" "}
-                    {pro.settings.edpi} eDPI
-                  </div>
-                </div>
+                <MousePointer className="size-4" />
+                Mus
               </Link>
-            ))}
+              <Link
+                href="/tastaturer"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "default" }),
+                  "rounded-full"
+                )}
+              >
+                <Keyboard className="size-4" />
+                Tastaturer
+              </Link>
+              <Link
+                href="/musemaatter"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "default" }),
+                  "rounded-full"
+                )}
+              >
+                <Square className="size-4" />
+                Musemåtter
+              </Link>
+              <Link
+                href="/headset"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "default" }),
+                  "rounded-full"
+                )}
+              >
+                <Headphones className="size-4" />
+                Headsets
+              </Link>
+            </div>
+
+            <div className="mb-10 sm:mb-12">
+              <HeroStatsBand
+                proCount={pros.length}
+                setupCount={setupCount}
+                esports={esports}
+              />
+            </div>
+
+            <HeroFeaturedPros pros={featuredPros} />
           </div>
         </section>
 
@@ -223,6 +210,40 @@ export default function Home() {
                 </Link>
               );
             })}
+          </div>
+        </section>
+
+        <section className="mb-20">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold tracking-tight">
+              Popul&aelig;re pros
+            </h2>
+            <Link
+              href="/pros"
+              className="text-sm font-semibold text-primary hover:underline underline-offset-4"
+            >
+              Se alle {pros.length}&nbsp;pros &rarr;
+            </Link>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredPros.map((pro) => (
+              <Link
+                key={pro.slug}
+                href={`/pro/${pro.slug}`}
+                className="group flex items-center gap-4 rounded-lg border border-border/50 bg-card p-4 hover:border-primary/30 hover:bg-card/80 transition-all duration-200"
+              >
+                <ProAvatar navn={pro.navn} slug={pro.slug} />
+                <div className="min-w-0">
+                  <div className="font-semibold truncate group-hover:text-primary transition-colors duration-200">
+                    {pro.navn}
+                  </div>
+                  <div className="text-xs text-muted-foreground truncate">
+                    {pro.hold} &middot; {pro.settings.dpi} DPI &middot;{" "}
+                    {pro.settings.edpi} eDPI
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
 
@@ -375,6 +396,6 @@ export default function Home() {
           }),
         }}
       />
-    </>
+    </div>
   );
 }

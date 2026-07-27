@@ -162,6 +162,56 @@ export function buildShareSegments(esportPros: Pro[]): {
   return { segments, uniqueCount: sorted.length, totalPros: total };
 }
 
+export function buildGearShareSegments(
+  esportPros: Pro[],
+  getSlug: (proSlug: string) => string | undefined,
+  catalog: { slug: string; navn: string }[],
+  itemLabel: string,
+  shareLimit = 8
+): {
+  segments: ShareSegment[];
+  uniqueCount: number;
+  totalPros: number;
+} {
+  const counts = new Map<string, number>();
+  for (const p of esportPros) {
+    const slug = getSlug(p.slug);
+    if (!slug) continue;
+    counts.set(slug, (counts.get(slug) ?? 0) + 1);
+  }
+
+  const sorted = Array.from(counts.entries())
+    .map(([slug, count]) => {
+      const item = catalog.find((c) => c.slug === slug);
+      return { slug, navn: item?.navn ?? slug, count };
+    })
+    .filter((m) => m.count > 0)
+    .sort((a, b) => b.count - a.count);
+
+  const total = esportPros.length;
+  const top = sorted.slice(0, shareLimit);
+  const other = sorted.slice(shareLimit);
+  const otherCount = other.reduce((s, m) => s + m.count, 0);
+
+  const segments: ShareSegment[] = top.map((m) => ({
+    slug: m.slug,
+    navn: m.navn,
+    count: m.count,
+    pct: Math.round((m.count / total) * 100),
+  }));
+
+  if (otherCount > 0) {
+    segments.push({
+      slug: "__andre__",
+      navn: "Andre",
+      count: otherCount,
+      pct: Math.round((otherCount / total) * 100),
+    });
+  }
+
+  return { segments, uniqueCount: sorted.length, totalPros: total };
+}
+
 function countBySlug<T>(
   esportPros: Pro[],
   getSlug: (proSlug: string) => string | undefined,
