@@ -176,7 +176,7 @@ export default function Home() {
                       and is announced to screen readers. */}
                   <h3 className="sr-only">{e.navn}</h3>
                   <span className="mt-4 inline-block text-sm font-medium text-primary">
-                    data fra {count} pros &rarr;
+                    data fra {count}&nbsp;pros &rarr;
                   </span>
                 </Link>
               );
