@@ -22,6 +22,10 @@ import { getHeadsetProSlugs } from "@/data/pros-peripherals-mapping";
 import { MousePointer, Keyboard, Square, Headphones } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { monitors } from "@/data/monitors";
+import { HeroLowPoly } from "@/components/hero-low-poly";
+import { HeroStatsBand } from "@/components/hero-stats-band";
+import { HeroFeaturedPros } from "@/components/hero-featured-pros";
 
 function firstExisting(
   slugs: string[],
@@ -77,11 +81,13 @@ export default function Home() {
   )[0];
 
   const activeEsports = esports.filter((e) => e.aktiv);
+  const totalProducts = mice.length + keyboards.length + mousepads.length + headsets.length + monitors.length;
+  const priorityProRows = featuredPros.slice(0, 5);
 
   return (
     <>
       <div className="mx-auto max-w-5xl px-4">
-        <section className="mb-12 pt-20 pb-8 text-center">
+        <section className="pt-20 pb-8 text-center">
           <h1 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
             Se hvilket gear dine{" "}
             <span className="text-primary">favorit-pros</span> bruger
@@ -122,6 +128,28 @@ export default function Home() {
             </Link>
           </div>
         </section>
+
+        <div className="relative mb-20">
+          <div
+            className="absolute inset-y-0 -left-4 -right-4 pointer-events-none overflow-hidden"
+            aria-hidden="true"
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,oklch(0.717_0.176_22.6/0.1)_0%,transparent_70%)]" />
+            <HeroLowPoly className="w-full h-full" />
+          </div>
+
+          <div className="relative z-10 mb-10">
+            <HeroStatsBand
+              proCount={pros.length}
+              productCount={totalProducts}
+              esports={esports}
+            />
+          </div>
+
+          <div className="relative z-10">
+            <HeroFeaturedPros pros={priorityProRows} />
+          </div>
+        </div>
 
         <section className="mb-20">
           <div className="flex items-center justify-between mb-8">
