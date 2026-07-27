@@ -19,7 +19,8 @@ import {
 } from "@/data/freshness-priority";
 import { getHeadsetProSlugs } from "@/data/pros-peripherals-mapping";
 import { getProPeripherals } from "@/data/pros-peripherals";
-import { MousePointer, Keyboard, Square, Headphones } from "lucide-react";
+import { getTeamLogo } from "@/data/team-logos";
+import { Mouse, Keyboard, Square, Headphones } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { HeroLowPoly } from "@/components/hero-low-poly";
@@ -57,16 +58,11 @@ function firstExisting(
 function pickFeaturedPros() {
   const bySlug = new Map(pros.map((p) => [p.slug, p]));
   const picked = [
-    ...firstExisting(PRIORITY_CS2, bySlug, 3),
-    ...firstExisting(PRIORITY_VALORANT, bySlug, 1),
+    ...firstExisting(PRIORITY_CS2, bySlug, 6),
+    ...firstExisting(PRIORITY_VALORANT, bySlug, 3),
   ];
 
-  for (const p of pros) {
-    if (picked.length >= 4) break;
-    if (picked.some((x) => x.slug === p.slug)) continue;
-    picked.push(p);
-  }
-  return picked.slice(0, 4);
+  return picked.slice(0, 9);
 }
 
 export default function Home() {
@@ -122,17 +118,17 @@ export default function Home() {
                 href="/mus"
                 className={cn(
                   buttonVariants({ variant: "outline", size: "default" }),
-                  "rounded-full"
+                  "rounded-full shadow-[0_0_15px_oklch(0.717_0.176_22.6/0.12)]"
                 )}
               >
-                <MousePointer className="size-4" />
+                <Mouse className="size-4" />
                 Mus
               </Link>
               <Link
                 href="/tastaturer"
                 className={cn(
                   buttonVariants({ variant: "outline", size: "default" }),
-                  "rounded-full"
+                  "rounded-full shadow-[0_0_15px_oklch(0.717_0.176_22.6/0.12)]"
                 )}
               >
                 <Keyboard className="size-4" />
@@ -142,7 +138,7 @@ export default function Home() {
                 href="/musemaatter"
                 className={cn(
                   buttonVariants({ variant: "outline", size: "default" }),
-                  "rounded-full"
+                  "rounded-full shadow-[0_0_15px_oklch(0.717_0.176_22.6/0.12)]"
                 )}
               >
                 <Square className="size-4" />
@@ -152,7 +148,7 @@ export default function Home() {
                 href="/headset"
                 className={cn(
                   buttonVariants({ variant: "outline", size: "default" }),
-                  "rounded-full"
+                  "rounded-full shadow-[0_0_15px_oklch(0.717_0.176_22.6/0.12)]"
                 )}
               >
                 <Headphones className="size-4" />
@@ -233,15 +229,15 @@ export default function Home() {
                 className="group flex items-center gap-4 rounded-lg border border-border/50 bg-card p-4 hover:border-primary/30 hover:bg-card/80 transition-all duration-200"
               >
                 <ProAvatar navn={pro.navn} slug={pro.slug} />
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className="font-semibold truncate group-hover:text-primary transition-colors duration-200">
                     {pro.navn}
                   </div>
                   <div className="text-xs text-muted-foreground truncate">
-                    {pro.hold} &middot; {pro.settings.dpi} DPI &middot;{" "}
-                    {pro.settings.edpi} eDPI
+                    {esports.find((e) => e.slug === pro.esport)?.navn ?? pro.esport}
                   </div>
                 </div>
+                {(() => { const logo = getTeamLogo(pro.hold); return logo ? <img src={logo} alt="" className="size-10 object-contain shrink-0" /> : null; })()}
               </Link>
             ))}
           </div>

@@ -12,6 +12,10 @@ import {
   CheckCircle2,
   Send,
   Loader2,
+  ImageOff,
+  MousePointer,
+  ShoppingCart,
+  PackageOpen,
 } from "lucide-react";
 
 const ICONS: Record<FreshnessTicket["type"], React.ComponentType<{ className?: string }>> = {
@@ -19,6 +23,10 @@ const ICONS: Record<FreshnessTicket["type"], React.ComponentType<{ className?: s
   "team-change": Users,
   "retired-pro": UserX,
   "free-agent": HelpCircle,
+  "missing-pro-image": ImageOff,
+  "stub-mouse-created": MousePointer,
+  "no-mouse-offers": ShoppingCart,
+  "peripheral-missing": PackageOpen,
 };
 
 const LABELS: Record<FreshnessTicket["type"], string> = {
@@ -26,6 +34,10 @@ const LABELS: Record<FreshnessTicket["type"], string> = {
   "team-change": "Team change",
   "retired-pro": "Retired pro",
   "free-agent": "Free agent",
+  "missing-pro-image": "Missing pro image",
+  "stub-mouse-created": "Mouse stub",
+  "no-mouse-offers": "No offers",
+  "peripheral-missing": "Missing peripherals",
 };
 
 function TicketCard({
@@ -136,6 +148,41 @@ function TicketCard({
             >
               Liquipedia <ArrowUpRight className="h-2.5 w-2.5" />
             </a>
+          </div>
+        )}
+        {ticket.context.sourceUrl && (
+          <div className="flex gap-2 text-xs">
+            <span className="text-muted-foreground shrink-0 w-28">Kilde:</span>
+            <a
+              href={ticket.context.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline inline-flex items-center gap-0.5"
+            >
+              ProSettings <ArrowUpRight className="h-2.5 w-2.5" />
+            </a>
+          </div>
+        )}
+        {ticket.context.proSlug && (
+          <div className="flex gap-2 text-xs">
+            <span className="text-muted-foreground shrink-0 w-28">Pro:</span>
+            <Link href={`/pro/${ticket.context.proSlug}`} className="font-medium text-primary hover:underline">
+              {ticket.context.proSlug}
+            </Link>
+          </div>
+        )}
+        {ticket.context.mouseNavn && (
+          <div className="flex gap-2 text-xs">
+            <span className="text-muted-foreground shrink-0 w-28">Mus:</span>
+            <span className="font-medium">{ticket.context.mouseNavn}</span>
+          </div>
+        )}
+        {ticket.context.sourcePro && (
+          <div className="flex gap-2 text-xs">
+            <span className="text-muted-foreground shrink-0 w-28">Udløst af:</span>
+            <Link href={`/pro/${ticket.context.sourcePro}`} className="font-medium text-primary hover:underline">
+              {ticket.context.sourcePro}
+            </Link>
           </div>
         )}
       </div>

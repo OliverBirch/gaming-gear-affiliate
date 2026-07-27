@@ -171,7 +171,7 @@ If RTINGS wasn't available and specs came from manufacturer → warn: "Specs are
 ## Edge cases
 
 ### Mouse not on any retailer
-Can't add offers. Add the mouse with empty `offers: []` and warn.
+Can't add offers. Add the mouse with empty `offers: []` and warn. **Create a `no-mouse-offers` ticket** in `src/data/freshness-tasks.ts` so the gap is tracked in `/admin/tickets`.
 
 ### Mouse not on RTINGS or Techpowerup
 Use manufacturer specs. Warn that specs are unverified.

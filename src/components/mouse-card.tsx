@@ -25,7 +25,7 @@ const haandLabels: Record<string, string> = {
   stor: "Stor",
 };
 
-export function MouseCard({ mouse, rank }: { mouse: Mouse; rank?: number }) {
+export function MouseCard({ mouse, rank, className }: { mouse: Mouse; rank?: number; className?: string }) {
   const resolvedOffers = bestOffers(mouse);
   const lowestPrice = resolvedOffers.reduce((min, o) => {
     if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
@@ -34,7 +34,7 @@ export function MouseCard({ mouse, rank }: { mouse: Mouse; rank?: number }) {
   const hasPrice = lowestPrice !== Infinity;
 
   return (
-    <div className="group relative rounded-xl border border-border/50 bg-card p-5 flex flex-col hover:border-primary/30 hover:-translate-y-[1px] transition-all duration-200">
+    <div className={cn("group relative rounded-xl border border-border/50 bg-card p-5 flex flex-col hover:border-primary/30 hover:-translate-y-[1px] transition-all duration-200", className)}>
       <Link
         href={`/mus/${mouse.slug}`}
         className="relative mb-4 h-40 w-full overflow-hidden rounded-lg bg-[#0d0d0d]"

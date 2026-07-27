@@ -210,8 +210,8 @@ export function EsportProsTable({ rows }: Props) {
               <div className="flex items-center justify-between px-6 py-3 border-t border-border/50">
                 <span className="text-xs text-muted-foreground tabular-nums">Side {safePage} af {totalPages}</span>
                 <div className="flex gap-2">
-                  <button type="button" disabled={safePage <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} className="rounded-lg border border-border/50 bg-card px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-border transition-colors disabled:opacity-30 disabled:pointer-events-none">&larr; Forrige</button>
-                  <button type="button" disabled={safePage >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))} className="rounded-lg border border-border/50 bg-card px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-border transition-colors disabled:opacity-30 disabled:pointer-events-none">Næste &rarr;</button>
+                  <button type="button" disabled={safePage <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} className="rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs text-primary font-medium hover:border-primary hover:bg-primary/20 transition-colors disabled:opacity-30 disabled:pointer-events-none">&larr; Forrige</button>
+                  <button type="button" disabled={safePage >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))} className="rounded-lg border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs text-primary font-medium hover:border-primary hover:bg-primary/20 transition-colors disabled:opacity-30 disabled:pointer-events-none">Næste &rarr;</button>
                 </div>
               </div>
             )}

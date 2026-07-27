@@ -176,6 +176,37 @@ If the preload tag isn't found, fall through the URL chain above. If none work, 
 - Run `npm run build` — Zod validation catches missing required fields or type errors.
 - Check the pro renders at `/pro/{slug}`.
 
+### 7. Create tickets for incomplete data
+
+After adding the pro, review what's incomplete. For any gap, append a `FreshnessTicket` to `src/data/freshness-tasks.ts` so it shows up in `/admin/tickets`:
+
+| Gap | Ticket type | What to include |
+|-----|------------|-----------------|
+| Pro image couldn't be downloaded | `missing-pro-image` | `proSlug`, `sourceUrl` |
+| Mouse doesn't exist, stub created | `stub-mouse-created` | `mouseSlug`, `mouseNavn`, `sourcePro` |
+| Mouse has no offers | `no-mouse-offers` | `mouseSlug`, `mouseNavn` |
+| Peripherals entry is missing or has null keys | `peripheral-missing` | `proSlug`, which fields are null |
+
+Example ticket:
+```ts
+{
+  id: "nilo-missing-image-2026-07-27",
+  type: "missing-pro-image",
+  slug: "nilo",
+  label: "nilo — pro image could not be downloaded",
+  question: "nilo's player image could not be downloaded from prosettings.net CDN. Needs manual sourcing.",
+  context: {
+    esport: "cs2",
+    proSlug: "nilo",
+    sourceUrl: "https://prosettings.net/players/nilo/",
+    instructions: "Manually find nilo's image, save to public/images/pros/nilo.png, then resolve this ticket with the source URL.",
+  },
+  createdAt: "2026-07-27",
+}
+```
+
+Use a unique `id` format: `{slug}-{ticket-type-sep}-{date}` e.g. `nilo-missing-image-2026-07-27`.
+
 ## Key reference files
 
 - `src/lib/liquipedia.ts` — Liquipedia API integration (fetchLiquipediaPro)

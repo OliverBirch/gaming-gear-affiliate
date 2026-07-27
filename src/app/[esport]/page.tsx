@@ -443,14 +443,11 @@ export default async function EsportPage({ params }: Props) {
                   .map((m) => mice.find((x) => x.slug === m.slug))
                   .filter((m): m is NonNullable<typeof m> => m != null);
                 return (
-                  <div
-                    key={tier.niveau}
-                    className="rounded-xl border border-border/50 bg-card p-5"
-                  >
-                    <div className="flex items-center justify-between mb-4">
+                  <div key={tier.niveau}>
+                    <div className="flex items-center justify-between mb-3 px-1">
                       <h3 className="text-lg font-semibold">{tier.label}</h3>
-                      <span className="text-xs text-muted-foreground tabular-nums">
-                        {tier.pros} / {tier.totalPros} pros
+                      <span className="text-xs text-muted-foreground">
+                        {({ budget: "Under 500 kr.", mid: "500-1000 kr.", flagship: "1000+ kr." } as Record<string, string>)[tier.niveau]}
                       </span>
                     </div>
                     {tierMice.length > 0 ? (

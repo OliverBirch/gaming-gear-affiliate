@@ -47,6 +47,7 @@ Category pages are JS-rendered so product links don't appear in static HTML. Pro
 - Pro gear source is always `prosettings.net`. Mouse specs come from RTINGS → Techpowerup → manufacturer.
 - Pro team/hold source is **Liquipedia API** (`src/lib/liquipedia.ts`), not prosettings.net. Liquipedia is more accurate for roster tracking with full transfer history and covers CS2, Valorant, and R6.
 - `add-headset` skill mirrors `add-mouse` but for headsets (same flow: research specs → write Danish copy → find MaxGaming URL → add to JSON).
+- **Incomplete data tickets:** When creating pros or products with missing data (no image, stub mouse, no offers, missing peripherals), append a `FreshnessTicket` to `src/data/freshness-tasks.ts`. Tickets appear in `/admin/tickets` for manual follow-up. See the ticket types: `missing-pro-image`, `stub-mouse-created`, `no-mouse-offers`, `peripheral-missing`.
 
 ## Team logos
 - Team logos are sourced from **ProSettings.net** CDN (`prosettings.net/wp-content/uploads/{slug}.svg` or `.png`).
