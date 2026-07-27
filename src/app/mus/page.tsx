@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { MouseCard } from "@/components/mouse-card";
+import { CategoryStatsSection } from "@/components/category-stats-section";
 import { mice } from "@/data/mice";
+import { computeMusStats } from "@/lib/category-stats";
 
 export const metadata: Metadata = {
   title: "Alle gaming-mus - ProSetups.dk",
@@ -13,6 +15,7 @@ export default function MusPage() {
   const sorted = [...mice].sort(
     (a, b) => b.proBrugere.length - a.proBrugere.length
   );
+  const stats = computeMusStats();
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
@@ -20,6 +23,8 @@ export default function MusPage() {
       <p className="text-muted-foreground mb-10">
         {mice.length} mus i databasen sorteret efter popularitet blandt pros
       </p>
+
+      <CategoryStatsSection stats={stats} linkPrefix="mus" itemLabel="mus" />
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {sorted.map((mouse) => (

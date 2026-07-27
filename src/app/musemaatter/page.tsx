@@ -1,7 +1,9 @@
 ﻿import type { Metadata } from "next";
 import Script from "next/script";
 import { MousepadCard } from "@/components/mousepad-card";
+import { CategoryStatsSection } from "@/components/category-stats-section";
 import { mousepads } from "@/data/mousepads";
+import { computeMousepadStats } from "@/lib/category-stats";
 
 export const metadata: Metadata = {
   title: "Alle musemåtter - ProSetups.dk",
@@ -10,15 +12,22 @@ export const metadata: Metadata = {
 };
 
 export default function MusemaatterPage() {
+  const sorted = [...mousepads].sort(
+    (a, b) => b.proBrugere.length - a.proBrugere.length
+  );
+  const stats = computeMousepadStats();
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
       <h1 className="text-4xl font-bold tracking-tight mb-2">Alle musemåtter</h1>
       <p className="text-muted-foreground mb-10">
-        {mousepads.length} musemåtter i databasen
+        {mousepads.length} musemåtter i databasen sorteret efter popularitet blandt pros
       </p>
 
+      <CategoryStatsSection stats={stats} linkPrefix="musemaatter" itemLabel="musemåtter" />
+
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {mousepads.map((mousepad) => (
+        {sorted.map((mousepad) => (
           <MousepadCard key={mousepad.slug} mousepad={mousepad} />
         ))}
       </div>

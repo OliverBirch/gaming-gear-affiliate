@@ -19,6 +19,7 @@ import {
   PRIORITY_R6,
 } from "@/data/freshness-priority";
 import { getHeadsetProSlugs } from "@/data/pros-peripherals-mapping";
+import { MousePointer, Keyboard, Square, Headphones } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -80,31 +81,44 @@ export default function Home() {
   return (
     <>
       <div className="mx-auto max-w-5xl px-4">
-        <section className="mb-24 pt-20 pb-16 text-center">
+        <section className="mb-12 pt-20 pb-8 text-center">
           <h1 className="mb-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
             Se hvilket gear dine{" "}
             <span className="text-primary">favorit-pros</span> bruger
           </h1>
-          <p className="mb-10 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            CS2, Valorant og R6 — mus, settings og eDPI, plus hvor du k&oslash;ber det billigst i Danmark.
+
+          <p className="mb-8 text-muted-foreground max-w-2xl mx-auto">
+            {pros.length}+ pros — se deres foretrukne mus, tastaturer, headsets og musemåtter.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+
+          <div className="flex flex-wrap justify-center gap-3">
             <Link
-              href="/pros"
-              className={cn(
-                buttonVariants({ variant: "cta", size: "lg" }),
-                "active:scale-[0.98] transition-transform duration-150"
-              )}
+              href="/mus"
+              className={cn(buttonVariants({ variant: "outline", size: "default" }))}
             >
-              <span className="btn-main-text-container">
-                <span className="btn-main-text">Se alle pros &rarr;</span>
-              </span>
+              <MousePointer className="size-4" />
+              Mus
             </Link>
             <Link
-              href="/find-mus"
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+              href="/tastaturer"
+              className={cn(buttonVariants({ variant: "outline", size: "default" }))}
             >
-              Find din mus
+              <Keyboard className="size-4" />
+              Tastaturer
+            </Link>
+            <Link
+              href="/musemaatter"
+              className={cn(buttonVariants({ variant: "outline", size: "default" }))}
+            >
+              <Square className="size-4" />
+              Musemåtter
+            </Link>
+            <Link
+              href="/headset"
+              className={cn(buttonVariants({ variant: "outline", size: "default" }))}
+            >
+              <Headphones className="size-4" />
+              Headsets
             </Link>
           </div>
         </section>

@@ -187,6 +187,7 @@ export const HeadsetSchema = z.object({
   beskrivelse: z.string(),
   fordele: CopyPoints,
   ulemper: CopyPoints,
+  proBrugere: z.array(z.string()),
   kilde: z.string(),
   sidstVerificeret: z.string(),
 });

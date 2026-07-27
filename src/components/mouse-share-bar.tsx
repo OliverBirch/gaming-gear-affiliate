@@ -9,6 +9,8 @@ interface Props {
   uniqueCount: number;
   totalPros: number;
   compact?: boolean;
+  linkPrefix?: string;
+  itemLabel?: string;
 }
 
 const SEGMENT_COLORS = [
@@ -28,6 +30,8 @@ export function MouseShareBar({
   uniqueCount,
   totalPros,
   compact = false,
+  linkPrefix = "/mus",
+  itemLabel = "mus",
 }: Props) {
   const [hovered, setHovered] = useState<number | null>(null);
 
@@ -94,7 +98,7 @@ export function MouseShareBar({
 
       {compact ? (
         <div className="mt-2 text-xs text-muted-foreground text-center">
-          {uniqueCount} mus i meta &middot;{" "}
+          {uniqueCount} {itemLabel} i meta &middot;{" "}
           {segments[0].navn} {segments[0].pct}% &middot;&nbsp;
           {segments[1] && `${segments[1].navn} ${segments[1].pct}%`}
         </div>
@@ -111,7 +115,7 @@ export function MouseShareBar({
               />
               {seg.slug !== "__andre__" ? (
                 <Link
-                  href={`/mus/${seg.slug}`}
+                  href={`${linkPrefix}/${seg.slug}`}
                   className="hover:text-primary transition-colors truncate"
                 >
                   {seg.navn}

@@ -1,7 +1,9 @@
 ﻿import type { Metadata } from "next";
 import Script from "next/script";
 import { KeyboardCard } from "@/components/keyboard-card";
+import { CategoryStatsSection } from "@/components/category-stats-section";
 import { keyboards } from "@/data/keyboards";
+import { computeKeyboardStats } from "@/lib/category-stats";
 
 export const metadata: Metadata = {
   title: "Alle gaming-tastaturer - ProSetups.dk",
@@ -10,15 +12,22 @@ export const metadata: Metadata = {
 };
 
 export default function TastaturerPage() {
+  const sorted = [...keyboards].sort(
+    (a, b) => b.proBrugere.length - a.proBrugere.length
+  );
+  const stats = computeKeyboardStats();
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
       <h1 className="text-4xl font-bold tracking-tight mb-2">Alle tastaturer</h1>
       <p className="text-muted-foreground mb-10">
-        {keyboards.length} tastaturer i databasen sorteret efter prisniveau
+        {keyboards.length} tastaturer i databasen sorteret efter popularitet blandt pros
       </p>
 
+      <CategoryStatsSection stats={stats} linkPrefix="tastaturer" itemLabel="tastaturer" />
+
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {keyboards.map((keyboard) => (
+        {sorted.map((keyboard) => (
           <KeyboardCard key={keyboard.slug} keyboard={keyboard} />
         ))}
       </div>

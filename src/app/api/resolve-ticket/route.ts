@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { kv } from "@vercel/kv";
+import { redisGet, redisSet } from "@/lib/redis";
 import type { TicketState } from "@/data/freshness-tasks";
-
-/** In-memory fallback when Vercel KV isn't configured (dev mode). */
-const fallbackStore = new Map<string, TicketState>();
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,11 +18,7 @@ export async function POST(request: NextRequest) {
       appliedAt: null,
     };
 
-    try {
-      await kv.set(`ticket:${ticketId}`, state);
-    } catch {
-      fallbackStore.set(ticketId, state);
-    }
+    await redisSet(`ticket:${ticketId}`, state);
 
     return NextResponse.json({ ok: true, ticketId, answer: answer.trim() });
   } catch {

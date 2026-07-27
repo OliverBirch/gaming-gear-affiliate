@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { HeadsetCard } from "@/components/headset-card";
+import { CategoryStatsSection } from "@/components/category-stats-section";
 import { headsets } from "@/data/headsets";
+import { computeHeadsetStats } from "@/lib/category-stats";
 
 export const metadata: Metadata = {
   title: "Alle gaming-headsets - ProSetups.dk",
@@ -10,15 +12,22 @@ export const metadata: Metadata = {
 };
 
 export default function HeadsetListPage() {
+  const sorted = [...headsets].sort(
+    (a, b) => b.proBrugere.length - a.proBrugere.length
+  );
+  const stats = computeHeadsetStats();
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
       <h1 className="text-4xl font-bold tracking-tight mb-2">Alle headsets</h1>
       <p className="text-muted-foreground mb-10">
-        {headsets.length} headsets i databasen sorteret efter prisniveau
+        {headsets.length} headsets i databasen sorteret efter popularitet blandt pros
       </p>
 
+      <CategoryStatsSection stats={stats} linkPrefix="headset" itemLabel="headsets" />
+
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {headsets.map((headset) => (
+        {sorted.map((headset) => (
           <HeadsetCard key={headset.slug} headset={headset} />
         ))}
       </div>
