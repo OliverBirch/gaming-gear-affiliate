@@ -187,7 +187,9 @@ After adding the pro, review what's incomplete. For any gap, append a `Freshness
 | Mouse has no offers | `no-mouse-offers` | `mouseSlug`, `mouseNavn` |
 | Peripherals entry is missing or has null keys | `peripheral-missing` | `proSlug`, which fields are null |
 
-Example ticket:
+**Ticket instructions must be specific.** Tell the human exactly what format, size, and destination is needed:
+
+Example `missing-pro-image` ticket:
 ```ts
 {
   id: "nilo-missing-image-2026-07-27",
@@ -199,7 +201,45 @@ Example ticket:
     esport: "cs2",
     proSlug: "nilo",
     sourceUrl: "https://prosettings.net/players/nilo/",
-    instructions: "Manually find nilo's image, save to public/images/pros/nilo.png, then resolve this ticket with the source URL.",
+    instructions: "Download nilo's player photo (square, min 220x220px). Save as public/images/pros/nilo.png. Acceptable sources: prosettings.net HTML page (right-click → save), Liquipedia, HLTV, or the player's social media. Then resolve this ticket with the source URL used.",
+  },
+  createdAt: "2026-07-27",
+}
+```
+
+Example `stub-mouse-created` ticket:
+```ts
+{
+  id: "lamzu-thorn-v2-stub-2026-07-27",
+  type: "stub-mouse-created",
+  slug: "ara",
+  label: "lamzu-thorn-v2 — mouse stub needs completion",
+  question: "ara uses a Lamzu Thorn V2 which does not exist in the mouse catalog. A stub was created. Run add-mouse to complete it.",
+  context: {
+    esport: "valorant",
+    mouseSlug: "lamzu-thorn-v2",
+    mouseNavn: "Thorn V2",
+    sourcePro: "ara",
+    sourceUrl: "https://prosettings.net/players/ara/",
+    instructions: "Run add-mouse skill for 'lamzu-thorn-v2'. Sources: RTINGS → Techpowerup → Lamzu product page. Fill in specs (weight, dimensions, sensor, polling rate, switch type), write Danish copy (beskrivelse, fordele, ulemper), find MaxGaming/proshop.dk offers, download product image from MaxGaming CDN. Then resolve this ticket when complete.",
+  },
+  createdAt: "2026-07-27",
+}
+```
+
+Example `peripheral-missing` ticket:
+```ts
+{
+  id: "pro-slug-peripheral-missing-2026-07-27",
+  type: "peripheral-missing",
+  slug: "pro-slug",
+  label: "pro-slug — peripheral data incomplete",
+  question: "pro-slug is missing keyboard data in pros-peripherals.json. Needs manual research.",
+  context: {
+    esport: "cs2",
+    proSlug: "pro-slug",
+    sourceUrl: "https://prosettings.net/players/pro-slug/",
+    instructions: "Visit prosettings.net/players/pro-slug/ and find the missing peripheral (keyboard). Add it to src/data/pros-peripherals.json under the proSlug key. Then resolve this ticket.",
   },
   createdAt: "2026-07-27",
 }

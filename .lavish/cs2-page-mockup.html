@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CS2 hub mockup — ProSetups.dk</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-bg: oklch(0.13 0.015 30);
+      --color-fg: oklch(0.92 0.01 30);
+      --color-card: oklch(0.18 0.015 30);
+      --color-muted: oklch(0.65 0.02 30);
+      --color-border: oklch(0.28 0.015 30);
+      --color-primary: oklch(0.717 0.176 22.6);
+      --color-primary-fg: #fff;
+      --font-sans: "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+    }
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-fg);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .mock-note {
+      border: 1px dashed color-mix(in oklch, var(--color-primary) 50%, transparent);
+      background: color-mix(in oklch, var(--color-primary) 8%, transparent);
+    }
+    .share-seg { height: 10px; }
+    .rank-1 { box-shadow: 0 0 0 1px color-mix(in oklch, var(--color-primary) 40%, transparent); }
+  </style>
+</head>
+<body class="min-h-screen antialiased">
+  <!-- Intro strip for reviewers -->
+  <div class="border-b border-border bg-card/80 px-4 py-3">
+    <div class="mx-auto max-w-5xl flex flex-wrap items-center gap-3 justify-between">
+      <div>
+        <p class="text-xs font-bold text-primary tracking-wider uppercase">Wireframe mockup · not production</p>
+        <p class="text-sm text-muted mt-0.5">Proposed <strong class="text-fg">/cs2</strong> hub order: identity → meta → directory → shop → other gear <span class="text-muted">(no mid-page stars strip)</span></p>
+      </div>
+      <div class="flex gap-2 text-xs">
+        <span class="rounded-full px-2.5 py-1 bg-primary/15 text-primary font-medium">1 Hero</span>
+        <span class="rounded-full px-2.5 py-1 bg-primary/15 text-primary font-medium">2 Meta</span>
+        <span class="rounded-full px-2.5 py-1 bg-primary/15 text-primary font-medium">3 Pros</span>
+        <span class="rounded-full px-2.5 py-1 bg-primary/15 text-primary font-medium">4 Shop</span>
+        <span class="rounded-full px-2.5 py-1 bg-primary/15 text-primary font-medium">5 Gear</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fake site chrome -->
+  <header class="border-b border-border/60 px-4 py-3">
+    <div class="mx-auto max-w-5xl flex items-center justify-between">
+      <div class="font-bold tracking-tight">Pro<span class="text-primary">Setups</span><span class="text-muted text-sm font-normal">.dk</span></div>
+      <nav class="hidden sm:flex gap-5 text-sm text-muted">
+        <span class="text-fg">CS2</span>
+        <span>Valorant</span>
+        <span>Mus</span>
+        <span>Pros</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 pb-24">
+
+    <!-- ═══ 1. HERO ═══ -->
+    <section class="relative pt-12 pb-10 border-b border-border/40">
+      <p class="section-label">① Hero — identity + trust + 2 CTAs</p>
+      <nav class="mb-4 text-sm text-muted">Forside / <span class="text-fg">Counter-Strike 2</span></nav>
+
+      <div class="relative overflow-hidden rounded-2xl border border-border/50 bg-card p-6 sm:p-8 mb-2">
+        <!-- atmospheric blob -->
+        <div class="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-primary/10 blur-3xl"></div>
+        <div class="pointer-events-none absolute right-8 top-6 text-[72px] font-black text-fg/5 select-none leading-none">CS2</div>
+
+        <h1 class="relative text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight max-w-[18ch] mb-3">
+          CS2 <span class="text-primary">Pro-setups</span>
+        </h1>
+        <p class="relative text-base text-muted max-w-[55ch] leading-relaxed mb-5">
+          Se præcis hvilken mus CS2-pros bruger — verificeret, med danske priser.
+        </p>
+        <p class="relative text-xs text-muted mb-6">
+          <span class="text-fg font-medium">87 pros</span> tracket
+          · sidst verificeret <span class="text-fg">24. jul. 2026</span>
+          · typisk 400–800 DPI · trådløs letvægt
+        </p>
+        <div class="relative flex flex-wrap gap-3">
+          <a href="#pros" class="inline-flex items-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-fg hover:opacity-90">
+            Find pro ↓
+          </a>
+          <a href="#mus" class="inline-flex items-center rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-fg hover:border-primary/40">
+            Mest brugte mus
+          </a>
+        </div>
+      </div>
+      <p class="text-xs text-muted mock-note rounded-lg px-3 py-2 mt-3">
+        No 5 equal category pills here. Primary job = find a pro or see mouse meta.
+      </p>
+    </section>
+
+    <!-- ═══ 2. META MICE ═══ -->
+    <section id="mus" class="py-10 border-b border-border/40 scroll-mt-8">
+      <p class="section-label">② Meta answer — 5-second “what do pros use?”</p>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold tracking-tight">Mest brugte mus</h2>
+        <span class="text-xs font-semibold text-primary">Se alle mus →</span>
+      </div>
+
+      <div class="grid gap-3 sm:grid-cols-3 mb-5">
+        <!-- rank cards -->
+        <div class="rank-1 rounded-xl border border-border/50 bg-card p-4">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-xs font-bold text-primary">#1</span>
+            <span class="text-xs tabular-nums text-muted">34%</span>
+          </div>
+          <div class="h-16 rounded-lg bg-bg/80 mb-3 flex items-center justify-center text-muted text-xs">mouse img</div>
+          <div class="text-sm font-semibold truncate">G Pro X Superlight 2</div>
+          <div class="text-xs text-muted mt-0.5">30 pros · fra 999 kr</div>
+        </div>
+        <div class="rounded-xl border border-border/50 bg-card p-4">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-xs font-bold text-muted">#2</span>
+            <span class="text-xs tabular-nums text-muted">18%</span>
+          </div>
+          <div class="h-16 rounded-lg bg-bg/80 mb-3 flex items-center justify-center text-muted text-xs">mouse img</div>
+          <div class="text-sm font-semibold truncate">Viper V3 Pro</div>
+          <div class="text-xs text-muted mt-0.5">16 pros · fra 1.099 kr</div>
+        </div>
+        <div class="rounded-xl border border-border/50 bg-card p-4">
+          <div class="flex items-start justify-between mb-3">
+            <span class="text-xs font-bold text-muted">#3</span>
+            <span class="text-xs tabular-nums text-muted">11%</span>
+          </div>
+          <div class="h-16 rounded-lg bg-bg/80 mb-3 flex items-center justify-center text-muted text-xs">mouse img</div>
+          <div class="text-sm font-semibold truncate">ZOWIE EC2-DW</div>
+          <div class="text-xs text-muted mt-0.5">10 pros · fra 1.249 kr</div>
+        </div>
+      </div>
+
+      <!-- share bar -->
+      <div class="flex h-2.5 w-full overflow-hidden rounded-full mb-2">
+        <div class="share-seg bg-primary" style="width:34%"></div>
+        <div class="share-seg bg-primary/70" style="width:18%"></div>
+        <div class="share-seg bg-primary/50" style="width:11%"></div>
+        <div class="share-seg bg-primary/35" style="width:9%"></div>
+        <div class="share-seg bg-border" style="width:28%"></div>
+      </div>
+      <p class="text-xs text-muted">12 unikke mus · 87 pros · resterende i “Andre”</p>
+    </section>
+
+    <!-- ═══ 3. PRO DIRECTORY ═══ -->
+    <section id="pros" class="py-10 border-b border-border/40 scroll-mt-8">
+      <p class="section-label">③ Core product — directory right after meta (no separate stars strip)</p>
+      <div class="flex flex-wrap items-end justify-between gap-3 mb-4">
+        <h2 class="text-xl font-bold tracking-tight">CS2 Pros</h2>
+        <p class="text-xs text-muted">87 spillere · klik for fuldt setup</p>
+      </div>
+
+      <!-- search + filters -->
+      <div class="flex flex-col sm:flex-row gap-3 mb-4">
+        <input
+          type="search"
+          placeholder="Søg spiller… (fx ZywOo)"
+          class="flex-1 rounded-lg border border-border bg-card px-3 py-2 text-sm text-fg placeholder:text-muted outline-none focus:border-primary/50"
+          readonly
+        />
+        <div class="flex gap-2">
+          <div class="rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted min-w-[7rem]">Hold ▾</div>
+          <div class="rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted min-w-[7rem]">Mus ▾</div>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto rounded-xl border border-border/50 bg-card">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border/50 text-left text-xs text-muted">
+              <th class="px-4 py-3 font-medium">Spiller</th>
+              <th class="px-4 py-3 font-medium">Mus</th>
+              <th class="px-4 py-3 font-medium hidden lg:table-cell">Tastatur</th>
+              <th class="px-4 py-3 font-medium hidden lg:table-cell">Headset</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border/40">
+            <tr class="hover:bg-bg/40">
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-2">
+                  <div class="h-7 w-7 rounded-full bg-primary/15 text-[10px] font-bold text-primary flex items-center justify-center">Zy</div>
+                  <div>
+                    <div class="font-medium">ZywOo</div>
+                    <div class="text-xs text-muted">Vitality</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-primary">G Pro X Superlight 2</td>
+              <td class="px-4 py-3 text-muted hidden lg:table-cell">G Pro X TKL</td>
+              <td class="px-4 py-3 text-muted hidden lg:table-cell">G Pro X 2</td>
+            </tr>
+            <tr class="hover:bg-bg/40">
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-2">
+                  <div class="h-7 w-7 rounded-full bg-primary/15 text-[10px] font-bold text-primary flex items-center justify-center">m0</div>
+                  <div>
+                    <div class="font-medium">m0NESY</div>
+                    <div class="text-xs text-muted">Falcons</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-primary">Viper V3 Pro</td>
+              <td class="px-4 py-3 text-muted hidden lg:table-cell">Huntsman V3 Pro TKL</td>
+              <td class="px-4 py-3 text-muted hidden lg:table-cell">BlackShark V2 Pro</td>
+            </tr>
+            <tr class="hover:bg-bg/40">
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-2">
+                  <div class="h-7 w-7 rounded-full bg-primary/15 text-[10px] font-bold text-primary flex items-center justify-center">do</div>
+                  <div>
+                    <div class="font-medium">donk</div>
+                    <div class="text-xs text-muted">Spirit</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-primary">G Pro X Superlight 2</td>
+              <td class="px-4 py-3 text-muted hidden lg:table-cell">—</td>
+              <td class="px-4 py-3 text-muted hidden lg:table-cell">—</td>
+            </tr>
+            <tr class="hover:bg-bg/40 opacity-60">
+              <td class="px-4 py-3 text-muted" colspan="4">… 15 pr. side · pagination som i dag …</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-muted mock-note rounded-lg px-3 py-2 mt-4">
+        Existing EsportProsTable + search field. This is the moat — raise it above peripheral catalogs.
+      </p>
+    </section>
+
+    <!-- ═══ 4. SHOP TIERS ═══ -->
+    <section class="py-10 border-b border-border/40">
+      <p class="section-label">④ Shop layer — tiers after trust + directory</p>
+      <div class="flex flex-wrap items-end justify-between gap-2 mb-5">
+        <div>
+          <h2 class="text-lg font-bold tracking-tight">Find en mus i dit budget</h2>
+          <p class="text-sm text-muted mt-1">Baseret på hvad CS2-pros faktisk bruger</p>
+        </div>
+        <span class="text-xs font-semibold text-primary">Guide: bedste mus til CS2 →</span>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        <div class="rounded-xl border border-border/50 bg-card p-4">
+          <div class="flex justify-between mb-3">
+            <h3 class="font-semibold">Budget</h3>
+            <span class="text-xs text-muted">12 pros</span>
+          </div>
+          <ul class="space-y-2 text-sm">
+            <li class="flex justify-between"><span class="text-muted">1. DeathAdder V3 …</span><span class="tabular-nums text-muted">5</span></li>
+            <li class="flex justify-between"><span class="text-muted">2. …</span><span class="tabular-nums text-muted">3</span></li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-primary/30 bg-card p-4">
+          <div class="flex justify-between mb-3">
+            <h3 class="font-semibold">Mellemklasse</h3>
+            <span class="text-xs text-muted">28 pros</span>
+          </div>
+          <ul class="space-y-2 text-sm">
+            <li class="flex justify-between"><span class="text-muted">1. …</span><span class="tabular-nums text-muted">—</span></li>
+            <li class="flex justify-between"><span class="text-muted">2. …</span><span class="tabular-nums text-muted">—</span></li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-border/50 bg-card p-4">
+          <div class="flex justify-between mb-3">
+            <h3 class="font-semibold">Flagship</h3>
+            <span class="text-xs text-muted">47 pros</span>
+          </div>
+          <ul class="space-y-2 text-sm">
+            <li class="flex justify-between"><span class="text-muted">1. Superlight 2</span><span class="tabular-nums text-muted">30</span></li>
+            <li class="flex justify-between"><span class="text-muted">2. Viper V3 Pro</span><span class="tabular-nums text-muted">16</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 5. OTHER GEAR (tabs) ═══ -->
+    <section class="py-10 border-b border-border/40">
+      <p class="section-label">⑤ Rest of setup — one panel, not four full page sections</p>
+      <h2 class="text-lg font-bold tracking-tight mb-4">Resten af setuppet</h2>
+
+      <!-- fake tabs -->
+      <div class="flex flex-wrap gap-1 mb-5 border-b border-border/50 pb-px">
+        <button class="px-3 py-2 text-sm font-semibold text-primary border-b-2 border-primary -mb-px">Tastaturer</button>
+        <button class="px-3 py-2 text-sm text-muted">Musemåtter</button>
+        <button class="px-3 py-2 text-sm text-muted">Headsets</button>
+        <button class="px-3 py-2 text-sm text-muted">Skærme</button>
+      </div>
+
+      <div class="flex items-center justify-between mb-3">
+        <p class="text-xs text-muted">Top blandt CS2-pros</p>
+        <span class="text-xs font-semibold text-primary">Se alle tastaturer →</span>
+      </div>
+
+      <div class="flex h-2 w-full overflow-hidden rounded-full mb-4">
+        <div class="bg-primary" style="width:40%"></div>
+        <div class="bg-primary/60" style="width:22%"></div>
+        <div class="bg-primary/35" style="width:15%"></div>
+        <div class="bg-border" style="width:23%"></div>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-3">
+        <div class="rounded-xl border border-border/50 bg-card p-4 h-28 flex items-end">
+          <div>
+            <div class="text-sm font-semibold">G Pro X TKL</div>
+            <div class="text-xs text-muted">18 pros</div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border/50 bg-card p-4 h-28 flex items-end">
+          <div>
+            <div class="text-sm font-semibold">Wooting 60HE</div>
+            <div class="text-xs text-muted">12 pros</div>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border/50 bg-card p-4 h-28 flex items-end">
+          <div>
+            <div class="text-sm font-semibold">Huntsman V3 Pro</div>
+            <div class="text-xs text-muted">9 pros</div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 flex justify-end">
+        <span class="text-xs font-semibold text-primary">Se alle tastaturer →</span>
+      </div>
+      <p class="text-xs text-muted mock-note rounded-lg px-3 py-2 mt-4">
+        Active tab drives the “Se alle …” label: /tastaturer · /musemaatter · /headset · /skaerme (same as today’s section headers).
+      </p>
+    </section>
+
+    <!-- ═══ 6. FOOTER ═══ -->
+    <section class="py-10">
+      <p class="section-label">⑥ Hub exits — teams (optional here) + guides + FAQ</p>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-xl border border-border/50 bg-card p-5">
+          <h3 class="font-semibold mb-3">Hold</h3>
+          <p class="text-xs text-muted mb-3">Team logos live at bottom / own routes — not a mid-page “stars” block.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="rounded-md border border-border/50 px-2 py-1 text-xs">Vitality</span>
+            <span class="rounded-md border border-border/50 px-2 py-1 text-xs">Falcons</span>
+            <span class="rounded-md border border-border/50 px-2 py-1 text-xs">G2</span>
+            <span class="text-xs text-primary self-center">Alle hold →</span>
+          </div>
+        </div>
+        <div class="rounded-xl border border-border/50 bg-card p-5">
+          <h3 class="font-semibold mb-3">Guides & finder</h3>
+          <ul class="space-y-2 text-sm">
+            <li class="text-primary">Bedste mus til CS2 →</li>
+            <li class="text-primary">Find din mus (quiz) →</li>
+            <li class="text-primary">Greb-guide →</li>
+          </ul>
+        </div>
+        <div class="rounded-xl border border-border/50 bg-card p-5">
+          <h3 class="font-semibold mb-3">FAQ (kort)</h3>
+          <ul class="space-y-2 text-sm text-muted">
+            <li>Hvilken mus bruger flest CS2-pros?</li>
+            <li>Hvor ofte opdateres data?</li>
+            <li>Hvor køber jeg i Danmark?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison strip -->
+    <section class="rounded-2xl border border-border/50 bg-card p-6 mb-8">
+      <h2 class="text-sm font-bold tracking-wider uppercase text-primary mb-4">Current vs proposed scroll</h2>
+      <div class="grid md:grid-cols-2 gap-6 text-sm">
+        <div>
+          <p class="font-semibold mb-2 text-muted">Current /cs2</p>
+          <ol class="list-decimal list-inside space-y-1.5 text-muted">
+            <li>Hero + top 3 mus + 5 category pills</li>
+            <li>Price tier carousels</li>
+            <li>Keyboards block</li>
+            <li>Mousepads block</li>
+            <li>Headsets block</li>
+            <li>Monitors block</li>
+            <li class="text-fg font-medium">Pros table ← late</li>
+            <li>Team text chips</li>
+          </ol>
+        </div>
+        <div>
+          <p class="font-semibold mb-2 text-primary">Proposed /cs2</p>
+          <ol class="list-decimal list-inside space-y-1.5">
+            <li>Hero (2 CTAs only)</li>
+            <li>Top 3 mus + share</li>
+            <li class="text-primary font-semibold">Pros table ← core</li>
+            <li>Budget tiers + CS2 guide</li>
+            <li>Tabbed other gear</li>
+            <li>Teams + guides + FAQ (footer)</li>
+          </ol>
+          <p class="text-xs text-muted mt-2">Removed mid-page “kendte spillere / hold” strip per review.</p>
+        </div>
+      </div>
+    </section>
+
+    <p class="text-center text-xs text-muted pb-8">
+      Annotate freely in Lavish — what to keep, cut, or reorder.
+    </p>
+  </main>
+</body>
+</html>

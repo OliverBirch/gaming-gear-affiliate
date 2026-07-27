@@ -187,6 +187,11 @@ function TicketCard({
         )}
       </div>
 
+      <div className="mb-4 rounded-md bg-muted/30 border border-border/30 p-3.5">
+        <p className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wider">Instruktioner</p>
+        <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">{ticket.context.instructions}</p>
+      </div>
+
       {isPending && (
         <div className="border-t border-border/30 pt-3">
           <div className="flex items-center gap-2">
@@ -199,7 +204,7 @@ function TicketCard({
                   onResolve(ticket.id, answer);
                 }
               }}
-              placeholder={ticket.context.instructions.slice(0, 60) + "…"}
+              placeholder="Skriv dit svar her…"
               className="flex-1 rounded-md border border-border/50 bg-background px-3 py-2 text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-amber-500/30"
             />
             <button
