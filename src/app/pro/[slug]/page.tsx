@@ -2,20 +2,170 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 import Script from "next/script";
+import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getPro } from "@/data/pros";
 import { getMouse } from "@/data/mice";
+import { getKeyboard } from "@/data/keyboards";
+import { getMousepad } from "@/data/mousepads";
+import { getHeadset } from "@/data/headsets";
+import { getMonitor } from "@/data/monitors";
 import { bestOffers } from "@/lib/affiliate";
+import type { OfferableProduct } from "@/lib/types";
 import { getProPeripherals } from "@/data/pros-peripherals";
-import { getKeyboardSlug, getMousepadSlug, getHeadsetSlug, getMonitorSlug } from "@/data/pros-peripherals-mapping";
+import {
+  getKeyboardSlug,
+  getMousepadSlug,
+  getHeadsetSlug,
+  getMonitorSlug,
+} from "@/data/pros-peripherals-mapping";
+import { getTeamLogo } from "@/data/team-logos";
 import { ProAvatar } from "@/components/pro-avatar";
-
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+function lowestPriceDkk(product: OfferableProduct): number | null {
+  const prices = bestOffers(product)
+    .map((o) => o.prisDkk)
+    .filter((p): p is number => p != null);
+  if (prices.length === 0) return null;
+  return Math.min(...prices);
+}
+
+type GearCard = {
+  slot: string;
+  href?: string;
+  navn: string;
+  brand?: string;
+  billede?: string | null;
+  badges?: string[];
+  prisDkk?: number | null;
+  featured?: boolean;
+};
+
+function GearItemCard({ item }: { item: GearCard }) {
+  const cardClass = cn(
+    "rounded-xl border border-border/50 bg-card p-5",
+    item.featured && "sm:col-span-2",
+    item.href &&
+      "group hover:border-primary/30 hover:-translate-y-px transition-all duration-200"
+  );
+
+  const content = (
+    <div
+      className={cn(
+        item.featured && "sm:grid sm:grid-cols-[200px_1fr] sm:gap-6 sm:items-start"
+      )}
+    >
+      <div>
+        <div className="mb-1 flex items-center justify-between gap-2 sm:hidden">
+          <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            {item.slot}
+          </span>
+          {item.prisDkk != null && (
+            <span className="text-xs font-semibold tabular-nums text-primary">
+              fra {item.prisDkk} kr.
+            </span>
+          )}
+        </div>
+        <div
+          className={cn(
+            "relative w-full overflow-hidden rounded-lg bg-gradient-to-br from-primary/[0.04] to-primary/[0.02]",
+            item.featured ? "h-36 sm:h-40" : "h-24"
+          )}
+        >
+          {item.billede ? (
+            <Image
+              src={item.billede}
+              alt={item.navn}
+              fill
+              className="object-contain p-3"
+              sizes={item.featured ? "400px" : "200px"}
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <div className="text-3xl font-bold text-primary/10">
+                {item.navn.charAt(0).toUpperCase()}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className={cn(!item.featured && "mt-3")}>
+        <div className="mb-1 hidden items-center justify-between gap-2 sm:flex">
+          <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            {item.slot}
+          </span>
+          {item.prisDkk != null && (
+            <span className="text-xs font-semibold tabular-nums text-primary">
+              fra {item.prisDkk} kr.
+            </span>
+          )}
+        </div>
+        <div
+          className={cn(
+            "font-semibold leading-snug",
+            item.featured ? "text-xl" : "text-base",
+            item.href && "group-hover:text-primary transition-colors"
+          )}
+        >
+          {item.navn}
+        </div>
+        {item.brand && (
+          <div className="mt-0.5 text-xs sm:text-sm text-muted-foreground">{item.brand}</div>
+        )}
+        {item.badges && item.badges.length > 0 && (
+          <div className="mt-2.5 flex flex-wrap gap-1.5">
+            {item.badges.slice(0, item.featured ? 4 : 3).map((b) => (
+              <Badge
+                key={b}
+                variant="outline"
+                className="border-border/50 text-muted-foreground font-normal"
+              >
+                {b}
+              </Badge>
+            ))}
+          </div>
+        )}
+        {item.href && item.featured && (
+          <div className="mt-4 sm:mt-5">
+            <span
+              className={cn(
+                buttonVariants({ variant: "cta", size: "sm" }),
+                "pointer-events-none"
+              )}
+            >
+              <span className="btn-main-text-container">
+                <span className="btn-main-text">
+                  {item.prisDkk != null
+                    ? `Se bedste pris (fra ${item.prisDkk} kr.)`
+                    : "Se produkt"}
+                </span>
+              </span>
+            </span>
+          </div>
+        )}
+        {!item.href && (
+          <p className="mt-2 text-xs text-muted-foreground">Ikke i katalog endnu</p>
+        )}
+      </div>
+    </div>
+  );
+
+  if (item.href) {
+    return (
+      <Link href={item.href} className={cardClass}>
+        {content}
+      </Link>
+    );
+  }
+
+  return <div className={cardClass}>{content}</div>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -23,8 +173,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const pro = getPro(slug);
   if (!pro) return {};
   return {
-    title: `${pro.navn} - mus, tastatur og settings`,
-    description: `Se ${pro.navn}s gaming-mus, tastatur, musemåtte, DPI og settings. Få den bedste pris på ${pro.navn}s udstyr hos danske forhandlere.`,
+    title: `${pro.navn} setup — mus, DPI og priser i DK`,
+    description: `Se ${pro.navn}s gaming-mus, DPI, in-game sens og øvrige udstyr. Find bedste pris hos danske forhandlere.`,
   };
 }
 
@@ -36,172 +186,188 @@ export default async function ProPage({ params }: Props) {
   const mouse = getMouse(pro.musSlug);
   if (!mouse) notFound();
 
-  const allOffers = bestOffers(mouse);
-  const lowestPrice = allOffers.reduce((min, o) => {
-    if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
-    return min;
-  }, Infinity);
-  const hasPrice = lowestPrice !== Infinity;
+  const peri = getProPeripherals(pro.slug);
+  const keyboardSlug = getKeyboardSlug(pro.slug);
+  const mousepadSlug = getMousepadSlug(pro.slug);
+  const headsetSlug = getHeadsetSlug(pro.slug);
+  const monitorSlug = getMonitorSlug(pro.slug);
+
+  const keyboard = keyboardSlug ? getKeyboard(keyboardSlug) : undefined;
+  const mousepad = mousepadSlug ? getMousepad(mousepadSlug) : undefined;
+  const headset = headsetSlug ? getHeadset(headsetSlug) : undefined;
+  const monitor = monitorSlug ? getMonitor(monitorSlug) : undefined;
+
+  const teamLogo = getTeamLogo(pro.hold);
+  const teamHref = pro.hold
+    ? `/${pro.esport}/hold/${pro.hold.toLowerCase().replace(/\s+/g, "-")}`
+    : null;
+  const verifiedLabel = new Date(pro.sidstVerificeret).toLocaleDateString("da-DK");
+
+  const gear: GearCard[] = [
+    {
+      slot: "Mus",
+      href: `/mus/${mouse.slug}`,
+      navn: mouse.navn,
+      brand: mouse.brand,
+      billede: mouse.billede,
+      badges: [
+        `${mouse.vaegtGram}g`,
+        mouse.sensor,
+        mouse.wireless ? "Trådløs" : "Kablet",
+      ],
+      prisDkk: lowestPriceDkk(mouse),
+      featured: true,
+    },
+  ];
+
+  if (keyboard || peri?.keyboard) {
+    gear.push({
+      slot: "Tastatur",
+      href: keyboard ? `/tastaturer/${keyboard.slug}` : undefined,
+      navn: keyboard?.navn ?? peri!.keyboard!,
+      brand: keyboard?.brand,
+      billede: keyboard?.billede,
+      badges: keyboard
+        ? [keyboard.formfaktor, keyboard.switchType, ...(keyboard.wireless ? ["Trådløs"] : [])]
+        : undefined,
+      prisDkk: keyboard ? lowestPriceDkk(keyboard) : null,
+    });
+  }
+
+  if (mousepad || peri?.mousepad) {
+    const padNavn = mousepad
+      ? [mousepad.brand, mousepad.model, mousepad.variant].filter(Boolean).join(" ")
+      : peri!.mousepad!;
+    gear.push({
+      slot: "Musemåtte",
+      href: mousepad ? `/musemaatter/${mousepad.slug}` : undefined,
+      navn: padNavn,
+      brand: mousepad?.brand,
+      billede: mousepad?.billede,
+      badges: mousepad ? [mousepad.type, mousepad.materiale] : undefined,
+      prisDkk: mousepad ? lowestPriceDkk(mousepad) : null,
+    });
+  }
+
+  if (headset || peri?.headset) {
+    gear.push({
+      slot: "Headset",
+      href: headset ? `/headset/${headset.slug}` : undefined,
+      navn: headset?.navn ?? peri!.headset!,
+      brand: headset?.brand,
+      billede: headset?.billede,
+      badges: headset
+        ? [`${headset.vaegtGram}g`, headset.wireless ? "Trådløs" : "Kablet"]
+        : undefined,
+      prisDkk: headset ? lowestPriceDkk(headset) : null,
+    });
+  }
+
+  if (monitor || peri?.monitor) {
+    gear.push({
+      slot: "Skærm",
+      href: monitor ? `/skaerme/${monitor.slug}` : undefined,
+      navn: monitor?.navn ?? peri!.monitor!,
+      brand: monitor?.brand,
+      billede: monitor?.billede,
+      badges: monitor
+        ? [`${monitor.stoerrelseTommer}"`, monitor.oploesning, `${monitor.opdateringsHz} Hz`]
+        : undefined,
+      prisDkk: monitor ? lowestPriceDkk(monitor) : null,
+    });
+  }
+
+  const knowsAbout = [
+    {
+      "@type": "Product" as const,
+      name: mouse.navn,
+      brand: { "@type": "Brand" as const, name: mouse.brand },
+    },
+    ...(keyboard
+      ? [
+          {
+            "@type": "Product" as const,
+            name: keyboard.navn,
+            brand: { "@type": "Brand" as const, name: keyboard.brand },
+          },
+        ]
+      : []),
+    ...(headset
+      ? [
+          {
+            "@type": "Product" as const,
+            name: headset.navn,
+            brand: { "@type": "Brand" as const, name: headset.brand },
+          },
+        ]
+      : []),
+  ];
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <Link
-        href={`/${pro.esport}`}
-        className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors"
-      >
-        &larr; Tilbage til {pro.esport.toUpperCase()}
-      </Link>
+    <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12">
+      <nav className="mb-6 text-sm text-muted-foreground">
+        <Link href="/" className="hover:text-primary transition-colors">
+          Forside
+        </Link>
+        <span className="mx-2">/</span>
+        <Link href={`/${pro.esport}`} className="hover:text-primary transition-colors">
+          {pro.esport.toUpperCase()}
+        </Link>
+        <span className="mx-2">/</span>
+        <span className="text-foreground">{pro.navn}</span>
+      </nav>
 
-      <div className="mb-10">
-        <div className="flex items-center gap-5 mb-2">
-          <ProAvatar navn={pro.navn} slug={pro.slug} size="lg" />
-          <div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">{pro.navn}</h1>
-            <p className="text-muted-foreground">
-              {pro.hold ? (
-                <Link href={`/${pro.esport}/hold/${pro.hold.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-primary transition-colors">
-                  {pro.hold}
-                </Link>
-              ) : "-"} &middot; {pro.land} &middot;{" "}
-              {new Date(pro.sidstVerificeret).toLocaleDateString("da-DK")}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid gap-8 sm:grid-cols-2 mb-8">
-        <div className="rounded-xl border border-border/50 bg-card p-7">
-          <h2 className="mb-5 text-lg font-semibold">Settings</h2>
-          <table className="w-full text-sm">
-            <tbody>
-              {[
-                ["Mus", mouse.navn],
-                ["DPI", `${pro.settings.dpi}`],
-                ["In-game sens", `${pro.settings.inGameSens}`],
-                ["eDPI", `${pro.settings.edpi}`],
-                [
-                  "Polling rate",
-                  pro.settings.pollingHz ? `${pro.settings.pollingHz} Hz` : "-",
-                ],
-              ].map(([label, value]) => (
-                <tr key={label} className="border-b border-border/50 last:border-0">
-                  <td className="py-2.5 text-muted-foreground pr-4">{label}</td>
-                  <td className="py-2.5 font-medium">{value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="mt-5 text-xs text-muted-foreground">
-            Kilde: {pro.kilde} &middot; Sidst verificeret{" "}
-            {new Date(pro.sidstVerificeret).toLocaleDateString("da-DK")}
-          </p>
-        </div>
-
-        {(() => {
-          const peri = getProPeripherals(pro.slug);
-          const keyboardSlug = getKeyboardSlug(pro.slug);
-          const mousepadSlug = getMousepadSlug(pro.slug);
-          const headsetSlug = getHeadsetSlug(pro.slug);
-          const monitorSlug = getMonitorSlug(pro.slug);
-          const items: [string, string | null, string | undefined][] = [
-            ["Skærm", peri?.monitor ?? null, monitorSlug],
-            ["Tastatur", peri?.keyboard ?? null, keyboardSlug],
-            ["Musemåtte", peri?.mousepad ?? null, mousepadSlug],
-            ["Headset", peri?.headset ?? null, headsetSlug],
-          ];
-          const hasAny = items.some(([, v]) => v !== null);
-          if (!hasAny) return null;
-          return (
-            <div className="rounded-xl border border-border/50 bg-card p-7">
-              <h2 className="mb-5 text-lg font-semibold">Periferiudstyr</h2>
-              <table className="w-full text-sm">
-                <tbody>
-                  {items.map(([label, value, slug]) => (
-                    <tr key={label} className="border-b border-border/50 last:border-0">
-                      <td className="py-2.5 text-muted-foreground pr-4 w-[1%] whitespace-nowrap">{label}</td>
-                      <td className="py-2.5 font-medium">
-                        {slug && value ? (
-                          <Link
-                            href={
-                              label === "Tastatur" ? `/tastaturer/${slug}` :
-                              label === "Musemåtte" ? `/musemaatter/${slug}` :
-                              label === "Headset" ? `/headset/${slug}` :
-                              label === "Skærm" ? `/skaerme/${slug}` :
-                              `/mus/${slug}`
-                            }
-                            className="text-primary hover:underline underline-offset-4"
-                          >
-                            {value}
-                          </Link>
-                        ) : (
-                          value ?? "-"
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <p className="mt-5 text-xs text-muted-foreground">
-                Kilde: ProSettings.net
-              </p>
-            </div>
-          );
-        })()}
-
-        <div className="rounded-xl border border-border/50 bg-card p-7">
-          <div className="relative mb-4 h-40 w-full overflow-hidden rounded-lg bg-gradient-to-br from-primary/[0.04] to-primary/[0.02]">
-            {mouse.billede ? (
-              <Image
-                src={mouse.billede}
-                alt={mouse.navn}
-                fill
-                className="object-contain p-4"
-                sizes="300px"
-              />
-            ) : (
-              <div className="flex h-full items-center justify-center">
-                <div className="text-5xl font-bold text-primary/10">
-                  {mouse.navn.charAt(0).toUpperCase()}
-                </div>
-              </div>
-            )}
-          </div>
-          <Link
-            href={`/mus/${mouse.slug}`}
-            className="text-xl font-semibold block mb-3 hover:text-primary transition-colors"
-          >
-            {mouse.navn}
-          </Link>
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            <Badge className="bg-primary/15 text-primary hover:bg-primary/20">{mouse.vaegtGram}g</Badge>
-            <Badge variant="outline" className="border-border/50 text-muted-foreground">{mouse.sensor}</Badge>
-            {mouse.wireless && <Badge variant="outline" className="border-border/50 text-muted-foreground">Tr&aring;dl&oslash;s</Badge>}
-          </div>
-          <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-            {mouse.beskrivelse}
-          </p>
-          <div className="flex gap-3">
-            {allOffers.length > 0 && (
+      <header className="mb-8 flex flex-wrap items-start gap-5">
+        <ProAvatar navn={pro.navn} slug={pro.slug} size="lg" />
+        <div className="min-w-0 flex-1">
+          <div className="mb-2 flex flex-wrap items-center gap-2">
+            <Badge
+              variant="outline"
+              className="border-border/50 text-muted-foreground uppercase tracking-wide"
+            >
+              {pro.esport}
+            </Badge>
+            {pro.hold && teamHref && (
               <Link
-                href={`/mus/${mouse.slug}`}
-                className={cn(
-                  buttonVariants({ variant: "cta" }),
-                  "active:scale-[0.98] transition-transform duration-150 gap-1.5"
-                )}
+                href={teamHref}
+                className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-card px-2.5 py-0.5 text-sm text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors"
               >
-                <span className="btn-main-text-container">
-                  <span className="btn-main-text">
-                    {hasPrice ? `Se bedste pris (fra ${lowestPrice} kr.)` : "Se bedste pris"}
-                  </span>
-                </span>
+                {teamLogo ? (
+                  // Team logos are mixed svg/png from public; match home page pattern
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={teamLogo} alt="" className="size-4 object-contain" />
+                ) : null}
+                {pro.hold}
               </Link>
             )}
           </div>
-        </div>
-      </div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
+            {pro.navn}
+          </h1>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            {[pro.land, `Verificeret ${verifiedLabel}`].filter(Boolean).join(" · ")}
+          </p>
+          <p className="mt-2 text-sm tabular-nums text-muted-foreground">
+            <span className="text-foreground font-medium">{pro.settings.dpi}</span>
+            {" "}DPI
+            <span className="mx-2 text-border">·</span>
+            <span className="text-foreground font-medium">{pro.settings.inGameSens}</span>
+            {" "}sens
 
-      <div className="text-center pb-12">
-      </div>
+          </p>
+        </div>
+      </header>
+
+      <section className="mb-12">
+        <h2 className="mb-5 text-lg font-semibold">Udstyr</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {gear.map((item) => (
+            <GearItemCard key={item.slot} item={item} />
+          ))}
+        </div>
+        <p className="mt-4 text-xs text-muted-foreground">
+        </p>
+      </section>
 
       <Script
         id="schema-breadcrumb"
@@ -212,8 +378,18 @@ export default async function ProPage({ params }: Props) {
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Alle pros", item: "https://prosetups.dk/pros" },
-              { "@type": "ListItem", position: 3, name: pro.navn, item: `https://prosetups.dk/pro/${pro.slug}` },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: pro.esport.toUpperCase(),
+                item: `https://prosetups.dk/${pro.esport}`,
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: pro.navn,
+                item: `https://prosetups.dk/pro/${pro.slug}`,
+              },
             ],
           }),
         }}
@@ -227,11 +403,7 @@ export default async function ProPage({ params }: Props) {
             "@type": "Person",
             name: pro.navn,
             affiliation: pro.hold,
-            knowsAbout: {
-              "@type": "Product",
-              name: mouse.navn,
-              brand: { "@type": "Brand", name: mouse.brand },
-            },
+            knowsAbout,
           }),
         }}
       />

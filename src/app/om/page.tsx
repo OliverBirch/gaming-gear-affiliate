@@ -19,8 +19,8 @@ export default function OmPage() {
         </p>
         <p>
           Vores data stammer fra offentligt tilgængelige kilder som
-          prosettings.net og Liquipedia. Vi krediterer altid kilden og viser
-          dato for sidste verificering, fordi pro-gear skifter.
+           prosettings.net og Liquipedia. Vi viser dato for sidste
+           verificering, fordi pro-gear skifter.
         </p>
         <p>
           Vi tester ikke selv mus fysisk. Vores værdi ligger i at syntetisere

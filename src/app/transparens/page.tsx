@@ -33,7 +33,7 @@ export default function TransparensPage() {
           </h2>
           <p>
             Vores pro-data (mus, DPI, settings) stammer primært fra
-            prosettings.net og Liquipedia. Alle data er krediteret med kilde og
+            prosettings.net og Liquipedia. Alle data er krediteret med
             verificeringsdato. Pro-gear skifter med roster-moves og nye
             product-launches. Vi bestræber os på at holde data opdateret.
           </p>
