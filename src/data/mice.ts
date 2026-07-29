@@ -113,6 +113,12 @@ const rawMice: MouseSansProBrugere[] = [
         payoutPct: 4.0,
         inStock: true,
       },
+      {
+        retailer: "ultrashop",
+        produktUrl: "https://www.ultrashop.dk/da/mus-gaming/111865-viper-v3-pro-mouse-gaming-8886419334491.html",
+        payoutPct: 3.0,
+        inStock: true,
+      },
     ],
   },
   {
