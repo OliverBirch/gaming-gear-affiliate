@@ -3,6 +3,33 @@ import { HeadsetSchema } from "@/lib/types";
 import raw from "./headsets.json";
 import { getHeadsetProSlugs } from "./pros-peripherals-mapping";
 
+/**
+ * Shape of a row in headsets.json. Declared explicitly rather than inferred:
+ * JSON widens enum-ish fields to `string`, and HeadsetSchema.parse below is
+ * what actually guarantees the narrower types at build time.
+ */
+type RawHeadset = {
+  slug: string;
+  navn: string;
+  brand: string;
+  wireless: boolean;
+  forbindelse: string;
+  batteritidTimer?: number | null;
+  vaegtGram: number;
+  driverStoerrelseMm?: number | null;
+  mikrofon: boolean;
+  aftagelig?: boolean | null;
+  surroundSound: boolean;
+  prisNiveau: Headset["prisNiveau"];
+  billede?: string | null;
+  priser?: Record<string, number | null | undefined> | null;
+  beskrivelse: string;
+  fordele: string[];
+  ulemper: string[];
+  udstyrskilde?: string | null;
+  sidstOpdateret?: string | null;
+};
+
 const SEARCH_URLS: Record<string, string> = {
   maxgaming: "https://www.maxgaming.dk/dk/computertilbehor/headset-lyd/gaming-headset",
   proshop: "https://www.proshop.dk/Headset",
@@ -12,7 +39,7 @@ const SEARCH_URLS: Record<string, string> = {
 
 function buildOffers(
   slug: string,
-  priser: Record<string, number> | null
+  priser: Record<string, number | null | undefined> | null
 ): AffiliateOffer[] {
   if (!priser) return [];
   const offers: AffiliateOffer[] = [];
@@ -38,7 +65,7 @@ function buildOffers(
   return offers;
 }
 
-const _builtHeadsets: Headset[] = raw.headsets.map((h: any) => ({
+const _builtHeadsets: Headset[] = (raw.headsets as RawHeadset[]).map((h) => ({
   slug: h.slug,
   navn: h.navn,
   brand: h.brand,
@@ -56,8 +83,8 @@ const _builtHeadsets: Headset[] = raw.headsets.map((h: any) => ({
   beskrivelse: h.beskrivelse,
   fordele: h.fordele,
   ulemper: h.ulemper,
-  kilde: h.udstyrskilde ?? "spillerens-valg",
-  sidstVerificeret: h.sidstOpdateret ?? "2026-07-22",
+  kilde: h.udstyrskilde ?? null,
+  sidstVerificeret: h.sidstOpdateret ?? null,
   proBrugere: getHeadsetProSlugs(h.slug),
 }));
 

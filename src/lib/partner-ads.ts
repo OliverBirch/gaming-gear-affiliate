@@ -59,11 +59,6 @@ export function getPartnerAdsDeeplinkId(retailer: RetailerSlug): string | null {
   return id || null;
 }
 
-/** @deprecated Use getPartnerAdsDeeplinkId — name kept for call sites / docs. */
-export function getPartnerAdsBannerId(retailer: RetailerSlug): string | null {
-  return getPartnerAdsDeeplinkId(retailer);
-}
-
 export function isPartnerAdsConfigured(retailer: RetailerSlug): boolean {
   return Boolean(getPartnerAdsPartnerId() && getPartnerAdsDeeplinkId(retailer));
 }

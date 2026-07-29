@@ -1,4 +1,4 @@
-import type { Mouse, Headset, Keyboard, Mousepad } from "@/lib/types";
+import type { Mouse } from "@/lib/types";
 
 export const STALE_DAYS = 90;
 export const OLD_MAXGAMING = /\/da\/tilbehoer\/mus\//;
@@ -320,8 +320,7 @@ export interface UnmappedResult {
 
 export function checkUnmappedPeripherals(
   prosPeripherals: Record<string, string | undefined>,
-  mappingFn: (text: string) => string | undefined,
-  fieldName: string
+  mappingFn: (text: string) => string | undefined
 ): UnmappedResult {
   const textCounts = new Map<string, number>();
   let total = 0;
@@ -403,7 +402,7 @@ export function esportCounts(
 // ─── Product-level staleness for non-mice categories ──────────────
 
 export function checkProductStaleness(
-  products: Array<{ slug: string; navn: string; sidstVerificeret?: string }>,
+  products: Array<{ slug: string; navn: string; sidstVerificeret?: string | null }>,
   category: string,
   staleDays = 180
 ): DashboardIssue[] {
@@ -424,30 +423,6 @@ export function checkProductStaleness(
         lastVerified: p.sidstVerificeret ?? null,
         ageDays: p.sidstVerificeret ? daysAgo(p.sidstVerificeret) : null,
       },
-    }));
-}
-
-// ─── Offer health for any catalog ─────────────────────────────────
-
-export function checkOfferHealth(
-  products: Array<{
-    slug: string;
-    navn: string;
-    brand?: string;
-    offers: Array<{ retailer: string }>;
-  }>,
-  category: string
-): DashboardIssue[] {
-  return products
-    .filter((p) => p.offers.length === 0)
-    .map((p) => ({
-      type: "no-offers" as const,
-      severity: "high" as const,
-      autoFixable: false,
-      slug: p.slug,
-      label: `${p.navn} — ingen tilbud`,
-      file: `src/data/${category}.ts`,
-      context: { brand: p.brand },
     }));
 }
 

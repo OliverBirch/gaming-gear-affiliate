@@ -90,7 +90,7 @@ export default async function SkaermPage({ params }: Props) {
               {monitor.brand} {monitor.navn}
             </h1>
             <div className="flex flex-wrap gap-2 mb-4">
-              <Badge variant="secondary">{monitor.stoerrelseTommer}"</Badge>
+              <Badge variant="secondary">{monitor.stoerrelseTommer}&quot;</Badge>
               <Badge variant="secondary">{monitor.oploesning}</Badge>
               <Badge variant="secondary">{monitor.opdateringsHz} Hz</Badge>
               <Badge variant="secondary">{paneltypeLabels[monitor.paneltype]}</Badge>

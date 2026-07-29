@@ -27,9 +27,11 @@ import {
 } from "lucide-react";
 import {
   STALE_DAYS,
+  OLD_MAXGAMING,
   daysAgo,
   dateLabel,
   checkStalePros,
+  checkProductStaleness,
   checkNoOffers,
   checkBrokenUrls,
   computePriceCoverage,
@@ -62,9 +64,96 @@ function SourceLink({ file }: { file: string }) {
   );
 }
 
+function StatCard({
+  label,
+  value,
+  icon: Icon,
+  warn,
+}: {
+  label: string;
+  value: string | number;
+  icon: React.ComponentType<{ className?: string }>;
+  warn?: boolean;
+}) {
+  return (
+    <div className="rounded-lg border border-border/50 bg-card p-4">
+      <div className="flex items-center gap-2 mb-1">
+        <Icon
+          className={`h-4 w-4 ${warn ? "text-amber-500" : "text-muted-foreground"}`}
+        />
+        <span className="text-xs text-muted-foreground uppercase tracking-wider">
+          {label}
+        </span>
+      </div>
+      <p
+        className={`text-2xl font-bold tabular-nums ${warn ? "text-amber-500" : ""}`}
+      >
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function Table({
+  headers,
+  rows,
+  empty,
+  sourceFile,
+}: {
+  headers: string[];
+  rows: React.ReactNode[][];
+  empty: string;
+  sourceFile?: string;
+}) {
+  return (
+    <div className="rounded-lg border border-border/50 overflow-hidden">
+      {rows.length === 0 ? (
+        <div className="px-5 py-4 text-sm text-muted-foreground italic flex items-center gap-1.5">
+          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+          {empty}
+        </div>
+      ) : (
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-border/50 bg-muted/50">
+              {headers.map((h, i) => (
+                <th
+                  key={i}
+                  className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider"
+                >
+                  {h}
+                </th>
+              ))}
+              {sourceFile && <th className="text-right px-4 py-2.5 w-12" />}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, ri) => (
+              <tr
+                key={ri}
+                className="border-b border-border/50 last:border-0 hover:bg-muted/30 transition-colors"
+              >
+                {row.map((cell, ci) => (
+                  <td key={ci} className="px-4 py-2.5">
+                    {cell}
+                  </td>
+                ))}
+                {sourceFile && (
+                  <td className="px-4 py-2.5 text-right">
+                    <SourceLink file={sourceFile} />
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
 export default function AdminDashboardPage() {
   const issues: DashboardIssue[] = [];
-  const OLD_MAXGAMING = /\/da\/tilbehoer\/mus\//;
 
   function extractPeripheralValues(
     peripherals: Record<string, Record<string, string | null | undefined>>,
@@ -93,6 +182,17 @@ export default function AdminDashboardPage() {
   issues.push(...checkOrphanedMice(pros, mouseSlugs));
   issues.push(...checkMissingPeripherals(pros, proPeripheralKeys));
   issues.push(...checkStubMice(mice));
+  // Non-mice catalogs: surfaces "aldrig verificeret" for products whose
+  // sidstVerificeret is null, instead of silently assuming a date.
+  issues.push(...checkProductStaleness(keyboards, "keyboards"));
+  issues.push(...checkProductStaleness(headsets, "headsets"));
+  issues.push(...checkProductStaleness(monitors, "monitors"));
+  issues.push(
+    ...checkProductStaleness(
+      mousepads.map((m) => ({ ...m, navn: `${m.brand} ${m.model}` })),
+      "mousepads"
+    )
+  );
 
   const coverage = computePriceCoverage(mice, pricedKeys);
   const staleProsList = getStaleProsByAge(pros);
@@ -142,109 +242,17 @@ export default function AdminDashboardPage() {
   const mousepadValues = extractPeripheralValues(peripheralsCast, "mousepad");
   const headsetValues = extractPeripheralValues(peripheralsCast, "headset");
 
-  const keyboardUnmapped = checkUnmappedPeripherals(
-    keyboardValues,
-    (t) => mappingMatch(t),
-    "keyboard"
+  const keyboardUnmapped = checkUnmappedPeripherals(keyboardValues, (t) =>
+    mappingMatch(t)
   );
-  const mousepadUnmapped = checkUnmappedPeripherals(
-    mousepadValues,
-    (t) => mappingMatch(t),
-    "mousepad"
+  const mousepadUnmapped = checkUnmappedPeripherals(mousepadValues, (t) =>
+    mappingMatch(t)
   );
-  const headsetUnmapped = checkUnmappedPeripherals(
-    headsetValues,
-    (t) => mappingMatch(t),
-    "headset"
+  const headsetUnmapped = checkUnmappedPeripherals(headsetValues, (t) =>
+    mappingMatch(t)
   );
 
   const reportJson = JSON.stringify(buildHealthReport(issues));
-
-  const StatCard = ({
-    label,
-    value,
-    icon: Icon,
-    warn,
-  }: {
-    label: string;
-    value: string | number;
-    icon: React.ComponentType<{ className?: string }>;
-    warn?: boolean;
-  }) => (
-    <div className="rounded-lg border border-border/50 bg-card p-4">
-      <div className="flex items-center gap-2 mb-1">
-        <Icon
-          className={`h-4 w-4 ${warn ? "text-amber-500" : "text-muted-foreground"}`}
-        />
-        <span className="text-xs text-muted-foreground uppercase tracking-wider">
-          {label}
-        </span>
-      </div>
-      <p
-        className={`text-2xl font-bold tabular-nums ${warn ? "text-amber-500" : ""}`}
-      >
-        {value}
-      </p>
-    </div>
-  );
-
-  const Table = ({
-    headers,
-    rows,
-    empty,
-    sourceFile,
-  }: {
-    headers: string[];
-    rows: React.ReactNode[][];
-    empty: string;
-    sourceFile?: string;
-  }) => (
-    <div className="rounded-lg border border-border/50 overflow-hidden">
-      {rows.length === 0 ? (
-        <div className="px-5 py-4 text-sm text-muted-foreground italic flex items-center gap-1.5">
-          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-          {empty}
-        </div>
-      ) : (
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-border/50 bg-muted/50">
-              {headers.map((h, i) => (
-                <th
-                  key={i}
-                  className="text-left px-4 py-2.5 font-medium text-muted-foreground text-xs uppercase tracking-wider"
-                >
-                  {h}
-                </th>
-              ))}
-              {sourceFile && (
-                <th className="text-right px-4 py-2.5 w-12" />
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, ri) => (
-              <tr
-                key={ri}
-                className="border-b border-border/50 last:border-0 hover:bg-muted/30 transition-colors"
-              >
-                {row.map((cell, ci) => (
-                  <td key={ci} className="px-4 py-2.5">
-                    {cell}
-                  </td>
-                ))}
-                {sourceFile && (
-                  <td className="px-4 py-2.5 text-right">
-                    <SourceLink file={sourceFile} />
-                  </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
-  );
 
   return (
     <div>

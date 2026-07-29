@@ -74,15 +74,6 @@ function GearCell({ navn, slug, href }: { navn: string | null; slug: string | nu
   );
 }
 
-const HEADERS = [
-  { label: "Spiller", hide: "" },
-  { label: "Mus", hide: "" },
-  { label: "Tastatur", hide: "lg" },
-  { label: "Musemåtte", hide: "lg" },
-  { label: "Headset", hide: "xl" },
-  { label: "Skærm", hide: "xl" },
-] as const;
-
 export function EsportProsTable({ rows }: Props) {
   const [query, setQuery] = useState("");
   const [holdFilter, setHoldFilter] = useState(ALL_FILTER);

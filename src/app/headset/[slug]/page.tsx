@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { getHeadset, headsets } from "@/data/headsets";
 import { pros } from "@/data/pros";
 import { getRetailer } from "@/data/retailers";
-import { bestOffer, bestOffers } from "@/lib/affiliate";
+import { bestOffers } from "@/lib/affiliate";
 import { ProAvatar } from "@/components/pro-avatar";
 import { AffiliateLink } from "@/components/affiliate-link";
 
@@ -43,8 +43,6 @@ export default async function HeadsetPage({ params }: Props) {
     return min;
   }, Infinity);
   const hasPrice = lowestPrice !== Infinity;
-  const offer = bestOffer(headset);
-  const retailer = offer ? getRetailer(offer.retailer) : null;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12 pb-24 sm:pb-12">

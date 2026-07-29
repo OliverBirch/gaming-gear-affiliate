@@ -1,4 +1,4 @@
-import type { Mouse, Pro, Mousepad } from "@/lib/types";
+import type { Mouse, Pro } from "@/lib/types";
 import { mice } from "@/data/mice";
 import { keyboards } from "@/data/keyboards";
 import { mousepads } from "@/data/mousepads";

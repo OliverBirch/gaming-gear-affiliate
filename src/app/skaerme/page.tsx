@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Script from "next/script";
 import { MonitorCard } from "@/components/monitor-card";
 import { monitors } from "@/data/monitors";

@@ -1,6 +1,33 @@
 import type { Monitor, AffiliateOffer } from "@/lib/types";
 import { MonitorSchema } from "@/lib/types";
 import raw from "./monitors.json";
+import { getMonitorProSlugs } from "./pros-peripherals-mapping";
+
+/**
+ * Shape of a row in monitors.json. Declared explicitly rather than inferred:
+ * JSON widens enum-ish fields to `string`, and MonitorSchema.parse below is
+ * what actually guarantees the narrower types at build time.
+ */
+type RawMonitor = {
+  slug: string;
+  navn: string;
+  brand: string;
+  stoerrelseTommer: number;
+  oploesning: string;
+  opdateringsHz: number;
+  paneltype: Monitor["paneltype"];
+  responstidMs?: number | null;
+  adaptiveSync: Monitor["adaptiveSync"];
+  buet: boolean;
+  prisNiveau: Monitor["prisNiveau"];
+  billede?: string | null;
+  priser?: Record<string, number | null | undefined> | null;
+  beskrivelse: string;
+  fordele: string[];
+  ulemper: string[];
+  udstyrskilde?: string | null;
+  sidstOpdateret?: string | null;
+};
 
 const SEARCH_URLS: Record<string, string> = {
   maxgaming: "https://www.maxgaming.dk/dk/computertilbehor/skaerme",
@@ -11,7 +38,7 @@ const SEARCH_URLS: Record<string, string> = {
 
 function buildOffers(
   slug: string,
-  priser: Record<string, number> | null
+  priser: Record<string, number | null | undefined> | null
 ): AffiliateOffer[] {
   if (!priser) return [];
   const offers: AffiliateOffer[] = [];
@@ -37,7 +64,7 @@ function buildOffers(
   return offers;
 }
 
-const _builtMonitors: Monitor[] = raw.monitors.map((m: any) => ({
+const _builtMonitors: Monitor[] = (raw.monitors as RawMonitor[]).map((m) => ({
   slug: m.slug,
   navn: m.navn,
   brand: m.brand,
@@ -54,8 +81,9 @@ const _builtMonitors: Monitor[] = raw.monitors.map((m: any) => ({
   beskrivelse: m.beskrivelse,
   fordele: m.fordele,
   ulemper: m.ulemper,
-  kilde: m.udstyrskilde ?? "spillerens-valg",
-  sidstVerificeret: m.sidstOpdateret ?? "2026-07-22",
+  proBrugere: getMonitorProSlugs(m.slug),
+  kilde: m.udstyrskilde ?? null,
+  sidstVerificeret: m.sidstOpdateret ?? null,
 }));
 
 for (const m of _builtMonitors) MonitorSchema.parse(m);

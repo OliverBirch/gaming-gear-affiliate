@@ -53,7 +53,3 @@ export function buildOfferRecord(
     createdAt: new Date().toISOString(),
   };
 }
-
-export function createGoUrl(offerId: string): string {
-  return `/go/${offerId}`;
-}

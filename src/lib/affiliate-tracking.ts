@@ -3,7 +3,7 @@
  * Partner-ads join key is `uid` only — never utm_* on outbound.
  */
 
-import type { AffiliateOffer, RetailerSlug } from "./types";
+import type { RetailerSlug } from "./types";
 import { getRetailer } from "@/data/retailers";
 import {
   buildPartnerAdsUrl,

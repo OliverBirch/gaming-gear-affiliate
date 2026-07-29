@@ -1625,13 +1625,3 @@ export const mice: Mouse[] = _built;
 export function getMouse(slug: string): Mouse | undefined {
   return mice.find((m) => m.slug === slug);
 }
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function getMiceByEsport(esportSlug: string): Mouse[] {
-  return mice.filter((m) => m.proBrugere.length > 0);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function getMiceByPro(proSlug: string): Mouse[] {
-  return mice.filter((m) => m.proBrugere.includes(proSlug));
-}

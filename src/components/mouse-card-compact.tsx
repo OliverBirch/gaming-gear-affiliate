@@ -2,7 +2,6 @@ import type { Mouse } from "@/lib/types";
 import Link from "next/link";
 import Image from "next/image";
 import { bestOffers } from "@/lib/affiliate";
-import { brandSlug } from "@/data/brands";
 
 interface Props {
   mouse: Mouse;

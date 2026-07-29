@@ -27,8 +27,6 @@ export interface CategoryStatsSet {
   topProducts: CategoryTopProduct[];
 }
 
-const ESPORT_SLUGS = ["cs2", "valorant", "r6"] as const;
-
 function buildStats(
   filteredPros: Pro[],
   getSlug: (proSlug: string) => string | undefined,

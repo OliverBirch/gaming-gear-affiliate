@@ -103,7 +103,7 @@ export const MouseSchema = z.object({
   lodMm: z.number(),
   softwarePaakraevet: z.boolean(),
   prisNiveau: z.enum(["budget", "mid", "flagship"]),
-  billede: z.string().optional(),
+  billede: z.string().optional().nullable(),
   offers: z.array(AffiliateOfferSchema),
   beskrivelse: z.string(),
   fordele: CopyPoints,
@@ -133,11 +133,11 @@ export const KeyboardSchema = z.object({
   beskrivelse: z.string(),
   fordele: CopyPoints,
   ulemper: CopyPoints,
-  billede: z.string().optional(),
+  billede: z.string().optional().nullable(),
   offers: z.array(AffiliateOfferSchema),
   proBrugere: z.array(z.string()),
-  kilde: z.string().optional(),
-  sidstVerificeret: z.string().optional(),
+  kilde: z.string().optional().nullable(),
+  sidstVerificeret: z.string().optional().nullable(),
 });
 
 export type Keyboard = z.infer<typeof KeyboardSchema>;
@@ -160,15 +160,15 @@ export const MousepadSchema = z.object({
   ),
   bund: z.string(),
   vaskbar: z.boolean(),
-  billede: z.string().nullable(),
+  billede: z.string().optional().nullable(),
   prisNiveau: z.enum(["budget", "mid", "flagship"]),
   offers: z.array(AffiliateOfferSchema),
   beskrivelse: z.string(),
   fordele: CopyPoints,
   ulemper: CopyPoints,
   proBrugere: z.array(z.string()),
-  kilde: z.string(),
-  sidstVerificeret: z.string(),
+  kilde: z.string().nullable(),
+  sidstVerificeret: z.string().nullable(),
 });
 
 export type Mousepad = z.infer<typeof MousepadSchema>;
@@ -187,14 +187,14 @@ export const HeadsetSchema = z.object({
   aftagelig: z.boolean().nullable(),
   surroundSound: z.boolean(),
   prisNiveau: z.enum(["budget", "mid", "flagship"]),
-  billede: z.string().nullable(),
+  billede: z.string().optional().nullable(),
   offers: z.array(AffiliateOfferSchema),
   beskrivelse: z.string(),
   fordele: CopyPoints,
   ulemper: CopyPoints,
   proBrugere: z.array(z.string()),
-  kilde: z.string(),
-  sidstVerificeret: z.string(),
+  kilde: z.string().nullable(),
+  sidstVerificeret: z.string().nullable(),
 });
 
 export type Headset = z.infer<typeof HeadsetSchema>;
@@ -212,13 +212,14 @@ export const MonitorSchema = z.object({
   adaptiveSync: z.enum(["ingen", "g-sync", "freesync", "begge"]),
   buet: z.boolean(),
   prisNiveau: z.enum(["budget", "mid", "flagship"]),
-  billede: z.string().nullable(),
+  billede: z.string().optional().nullable(),
   offers: z.array(AffiliateOfferSchema),
   beskrivelse: z.string(),
   fordele: CopyPoints,
   ulemper: CopyPoints,
-  kilde: z.string(),
-  sidstVerificeret: z.string(),
+  proBrugere: z.array(z.string()),
+  kilde: z.string().nullable(),
+  sidstVerificeret: z.string().nullable(),
 });
 
 export type Monitor = z.infer<typeof MonitorSchema>;

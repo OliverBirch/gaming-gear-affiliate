@@ -1,4 +1,5 @@
 import type { Pro } from "@/lib/types";
+import { ProSchema } from "@/lib/types";
 
 export const pros: Pro[] = [
   {
@@ -3794,6 +3795,10 @@ export const pros: Pro[] = [
     sidstVerificeret: "2026-07-21",
   },
 ];
+
+// Zod validation at module level — fails build if data is invalid.
+// Pro data is the site's moat; it gets the same guarantee as product data.
+for (const p of pros) ProSchema.parse(p);
 
 export function getPro(slug: string): Pro | undefined {
   return pros.find((p) => p.slug === slug);
