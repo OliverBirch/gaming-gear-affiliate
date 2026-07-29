@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/transparens`, changeFrequency: "monthly" as const, priority: 0.4 },
     { url: `${BASE}/privatliv`, changeFrequency: "monthly" as const, priority: 0.3 },
     { url: `${BASE}/mus`, changeFrequency: "weekly" as const, priority: 0.7 },
+    { url: `${BASE}/sammenlign/mus`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/tastaturer`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/musemaatter`, changeFrequency: "weekly" as const, priority: 0.7 },
     { url: `${BASE}/headset`, changeFrequency: "weekly" as const, priority: 0.7 },

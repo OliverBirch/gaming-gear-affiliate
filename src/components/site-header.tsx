@@ -74,6 +74,7 @@ export function SiteHeader() {
             <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto">
               <div className="w-44 rounded-xl border border-border/50 bg-card p-1.5 shadow-lg">
                 <DropdownItem href="/mus">Mus</DropdownItem>
+                <DropdownItem href="/sammenlign/mus">Sammenlign mus</DropdownItem>
                 <DropdownItem href="/tastaturer">Tastaturer</DropdownItem>
                 <DropdownItem href="/musemaatter">Musemåtter</DropdownItem>
                 <DropdownItem href="/headset">Headsets</DropdownItem>
@@ -141,6 +142,7 @@ export function SiteHeader() {
               </summary>
               <div className="flex flex-col pl-4 border-l border-border/50 ml-1 mb-2">
                 <DropdownItem href="/mus" close={() => setOpen(false)}>Mus</DropdownItem>
+                <DropdownItem href="/sammenlign/mus" close={() => setOpen(false)}>Sammenlign mus</DropdownItem>
                 <DropdownItem href="/tastaturer" close={() => setOpen(false)}>Tastaturer</DropdownItem>
                 <DropdownItem href="/musemaatter" close={() => setOpen(false)}>Musemåtter</DropdownItem>
                 <DropdownItem href="/headset" close={() => setOpen(false)}>Headsets</DropdownItem>

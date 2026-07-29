@@ -8,6 +8,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getMonitor, monitors } from "@/data/monitors";
 import { bestOffers, bestOffer } from "@/lib/affiliate";
+import { AffiliateLink } from "@/components/affiliate-link";
+import { getRetailer } from "@/data/retailers";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -99,35 +101,48 @@ export default async function SkaermPage({ params }: Props) {
 
             {allOffers.length > 0 && (
               <div className="space-y-2 mb-6">
-                {allOffers.map((o) => (
-                  <a
-                    key={o.retailer}
-                    href={o.produktUrl}
-                    target="_blank"
-                    rel="sponsored nofollow"
-                    className={cn(
-                      "flex items-center justify-between rounded-lg border border-border/50 px-4 py-3 text-sm transition-colors duration-150",
-                      o.inStock === false ? "opacity-50 pointer-events-none" : "hover:border-primary/40 hover:bg-primary/[0.02]"
-                    )}
-                  >
-                    <span className="font-medium">{o.retailer}</span>
-                    <span className="font-semibold tabular-nums">
-                      {o.prisDkk != null ? `${o.prisDkk} kr.` : "Ikke på lager"}
-                    </span>
-                  </a>
-                ))}
+                {allOffers.map((o) => {
+                  const r = getRetailer(o.retailer);
+                  return (
+                    <AffiliateLink
+                      key={o.retailer}
+                      retailer={o.retailer}
+                      produktUrl={o.produktUrl}
+                      affiliateUrl={o.affiliateUrl}
+                      productSlug={monitor.slug}
+                      pagePath={`/skaerme/${monitor.slug}`}
+                      network={r?.netvaerk}
+                      className={cn(
+                        "flex items-center justify-between rounded-lg border border-border/50 px-4 py-3 text-sm transition-colors duration-150",
+                        o.inStock === false ? "opacity-50 pointer-events-none" : "hover:border-primary/40 hover:bg-primary/[0.02]"
+                      )}
+                    >
+                      <span className="font-medium">{r?.navn ?? o.retailer}</span>
+                      <span className="font-semibold tabular-nums">
+                        {o.prisDkk != null ? `${o.prisDkk} kr.` : "Ikke på lager"}
+                      </span>
+                    </AffiliateLink>
+                  );
+                })}
               </div>
             )}
 
             {offer && (
-              <a
-                href={offer.produktUrl}
-                target="_blank"
-                rel="sponsored nofollow"
+              <AffiliateLink
+                retailer={offer.retailer}
+                produktUrl={offer.produktUrl}
+                affiliateUrl={offer.affiliateUrl}
+                productSlug={monitor.slug}
+                pagePath={`/skaerme/${monitor.slug}`}
+                network={getRetailer(offer.retailer)?.netvaerk}
                 className={cn(buttonVariants(), "w-full active:scale-[0.98] transition-transform duration-150")}
               >
-                {offer.inStock === false ? "Se hos " + offer.retailer : "Køb hos " + offer.retailer + (offer.prisDkk ? " - " + offer.prisDkk + " kr." : "")}
-              </a>
+                {offer.inStock === false
+                  ? "Se hos " + (getRetailer(offer.retailer)?.navn ?? offer.retailer)
+                  : "Køb hos " +
+                    (getRetailer(offer.retailer)?.navn ?? offer.retailer) +
+                    (offer.prisDkk ? " - " + offer.prisDkk + " kr." : "")}
+              </AffiliateLink>
             )}
           </div>
         </div>

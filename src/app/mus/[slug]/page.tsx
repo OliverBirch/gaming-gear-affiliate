@@ -12,6 +12,7 @@ import { bestOffer, bestOffers } from "@/lib/affiliate";
 import { getRetailer } from "@/data/retailers";
 import { getPro } from "@/data/pros";
 import { ProAvatar } from "@/components/pro-avatar";
+import { AffiliateLink } from "@/components/affiliate-link";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -120,6 +121,12 @@ export default async function MusPage({ params }: Props) {
                 </span>
               </a>
             )}
+            <Link
+              href={`/sammenlign/mus?p=${mouse.slug}`}
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+            >
+              Sammenlign mus
+            </Link>
             {mouse.proBrugere.length > 0 && (
               <div className="flex items-center gap-2 text-sm">
                 <span className="text-lg font-bold tabular-nums text-primary">
@@ -274,11 +281,14 @@ export default async function MusPage({ params }: Props) {
                 if (!r) return null;
                 const isLowest = o.prisDkk === lowest && lowest != null;
                 return (
-                  <a
+                  <AffiliateLink
                     key={o.retailer}
-                    href={o.affiliateUrl ?? o.produktUrl}
-                    rel="sponsored nofollow"
-                    target="_blank"
+                    retailer={o.retailer}
+                    produktUrl={o.produktUrl}
+                    affiliateUrl={o.affiliateUrl}
+                    productSlug={mouse.slug}
+                    pagePath={`/mus/${mouse.slug}`}
+                    network={r.netvaerk}
                     className="flex items-center justify-between rounded-lg border border-border/50 p-4 hover:border-primary/30 hover:-translate-y-px transition-all duration-200"
                   >
                     <div className="flex items-center gap-3">
@@ -306,7 +316,7 @@ export default async function MusPage({ params }: Props) {
                         {o.prisDkk ? `${o.prisDkk} kr.` : "Se pris"}
                       </span>
                     </div>
-                  </a>
+                  </AffiliateLink>
                 );
               })}
             </div>
@@ -316,40 +326,57 @@ export default async function MusPage({ params }: Props) {
 
       {similar.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Sammenlign med</h2>
+          <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+            <h2 className="text-xl font-semibold">Sammenlign med</h2>
+            <Link
+              href={`/sammenlign/mus?p=${mouse.slug}`}
+              className="text-sm text-primary hover:underline"
+            >
+              Åbn sammenligning
+            </Link>
+          </div>
           <div className="grid gap-4 sm:grid-cols-3">
             {similar.map((m) => {
               const mOffer = bestOffer(m);
-              const mRetailer = mOffer ? getRetailer(mOffer.retailer) : null;
               return (
-                <Link
+                <div
                   key={m.slug}
-                  href={`/mus/${m.slug}`}
-                  className="rounded-xl border border-border/50 bg-card p-4 hover:border-primary/30 transition-all duration-200 group"
+                  className="rounded-xl border border-border/50 bg-card p-4 hover:border-primary/30 transition-all duration-200 group flex flex-col"
                 >
-                  <div className="relative h-24 w-full rounded-lg bg-[#0d0d0d] overflow-hidden mb-3">
-                    {m.billede ? (
-                      <Image
-                        src={m.billede}
-                        alt={m.navn}
-                        fill
-                        className="object-contain p-3 transition-transform duration-300 group-hover:scale-105"
-                        sizes="150px"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center">
-                        <div className="text-3xl font-bold text-foreground/5">{m.navn.charAt(0).toUpperCase()}</div>
-                      </div>
+                  <Link href={`/mus/${m.slug}`} className="block flex-1">
+                    <div className="relative h-24 w-full rounded-lg bg-[#0d0d0d] overflow-hidden mb-3">
+                      {m.billede ? (
+                        <Image
+                          src={m.billede}
+                          alt={m.navn}
+                          fill
+                          className="object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+                          sizes="150px"
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center">
+                          <div className="text-3xl font-bold text-foreground/5">{m.navn.charAt(0).toUpperCase()}</div>
+                        </div>
+                      )}
+                    </div>
+                    <div className="font-semibold text-sm group-hover:text-primary transition-colors">
+                      {m.navn}
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-0.5">
+                      {m.vaegtGram}g &middot; {m.proBrugere.length} pro{m.proBrugere.length > 1 ? "s" : ""}
+                      {mOffer?.prisDkk && ` &middot; ${mOffer.prisDkk} kr.`}
+                    </div>
+                  </Link>
+                  <Link
+                    href={`/sammenlign/mus?p=${mouse.slug},${m.slug}`}
+                    className={cn(
+                      buttonVariants({ variant: "outline", size: "sm" }),
+                      "mt-3 w-full"
                     )}
-                  </div>
-                  <div className="font-semibold text-sm group-hover:text-primary transition-colors">
-                    {m.navn}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-0.5">
-                    {m.vaegtGram}g &middot; {m.proBrugere.length} pro{m.proBrugere.length > 1 ? "s" : ""}
-                    {mOffer?.prisDkk && ` &middot; ${mOffer.prisDkk} kr.`}
-                  </div>
-                </Link>
+                  >
+                    Sammenlign side om side
+                  </Link>
+                </div>
               );
             })}
           </div>

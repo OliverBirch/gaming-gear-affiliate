@@ -69,7 +69,7 @@ gtag('set', 'url_passthrough', true);`,
         />
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          src="https://www.googletagmanager.com/gtag/js?id=G-BPNT90SDZ3"
           strategy="afterInteractive"
         />
         <Script
@@ -79,7 +79,7 @@ gtag('set', 'url_passthrough', true);`,
             __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-XXXXXXXXXX');`,
+gtag('config', 'G-BPNT90SDZ3');`,
           }}
         />
         <Script

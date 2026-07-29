@@ -10,6 +10,7 @@ import { pros } from "@/data/pros";
 import { getRetailer } from "@/data/retailers";
 import { bestOffer, bestOffers } from "@/lib/affiliate";
 import { ProAvatar } from "@/components/pro-avatar";
+import { AffiliateLink } from "@/components/affiliate-link";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -182,11 +183,14 @@ export default async function HeadsetPage({ params }: Props) {
                 if (!r) return null;
                 const isLowest = o.prisDkk === lowest && lowest != null;
                 return (
-                  <a
+                  <AffiliateLink
                     key={o.retailer}
-                    href={o.affiliateUrl ?? o.produktUrl}
-                    rel="sponsored nofollow"
-                    target="_blank"
+                    retailer={o.retailer}
+                    produktUrl={o.produktUrl}
+                    affiliateUrl={o.affiliateUrl}
+                    productSlug={headset.slug}
+                    pagePath={`/headset/${headset.slug}`}
+                    network={r.netvaerk}
                     className="flex items-center justify-between rounded-lg border border-border/50 p-4 hover:border-primary/30 hover:-translate-y-px transition-all duration-200"
                   >
                     <div className="flex items-center gap-3">
@@ -214,7 +218,7 @@ export default async function HeadsetPage({ params }: Props) {
                         {o.prisDkk ? o.prisDkk + " kr." : "Se pris"}
                       </span>
                     </div>
-                  </a>
+                  </AffiliateLink>
                 );
               })}
             </div>

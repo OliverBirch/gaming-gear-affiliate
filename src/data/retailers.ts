@@ -77,6 +77,14 @@ export const retailers: Retailer[] = [
     cookieDage: 30,
     hjemmeside: "https://www.billo.dk",
   },
+  {
+    slug: "ultrashop",
+    navn: "UltraShop",
+    netvaerk: "partner-ads",
+    basePayoutPct: 3.0,
+    cookieDage: 30,
+    hjemmeside: "https://www.ultrashop.dk",
+  },
 ];
 
 export function getRetailer(slug: string): Retailer | undefined {
