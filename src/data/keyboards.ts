@@ -20,6 +20,7 @@ function kbOffers(retailers: string[]): AffiliateOffer[] {
 const rawKeyboards: Keyboard[] = [
   {
     slug: "steelseries-apex-pro-tkl-gen-3",
+    ean: "5707119058865",
     navn: "Apex Pro TKL Gen 3",
     brand: "SteelSeries",
     layout: "TKL (80%)",
@@ -47,6 +48,7 @@ const rawKeyboards: Keyboard[] = [
       "Kun kablet (ingen trådløs)",
       "Ikke hot-swappable switches",
     ],
+    billede: "/images/keyboards/steelseries-apex-pro-tkl-gen-3.jpg",
     offers: kbOffers(["maxgaming", "proshop"]),
     proBrugere: [],
   },
@@ -212,6 +214,7 @@ const rawKeyboards: Keyboard[] = [
   },
   {
     slug: "logitech-g915-tkl",
+    ean: "5099206088795",
     navn: "G915 TKL",
     brand: "Logitech",
     layout: "TKL (80%)",
@@ -239,6 +242,7 @@ const rawKeyboards: Keyboard[] = [
       "Ikke hot-swappable",
       "Kortere batteritid end konkurrenter",
     ],
+    billede: "/images/keyboards/logitech-g915-tkl.jpg",
     offers: kbOffers(["maxgaming", "proshop"]),
     proBrugere: [],
   },

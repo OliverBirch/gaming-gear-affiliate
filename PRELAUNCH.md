@@ -19,7 +19,11 @@
 ## Launch blockers
 
 - [ ] Remove `noindex, nofollow` from `next.config.ts`
-- [ ] Verify all affiliate links route through `/api/redirect`
+- [ ] Verify all affiliate links route through `/api/redirect` (see `docs/partner-ads-ga4.md`)
+- [ ] Set Partner-ads env: `PARTNER_ADS_PARTNER_ID` + `PARTNER_ADS_DEEPLINK_*` per approved program (deeplink id, not a visual banner)
+- [ ] Register PA callback: `https://prosetups.dk/api/partner-ads/callback?uid=[uid]&ordre=[ordrenummer]&prov=[belob]&sum=[omprsalg]&prg=[cprogramid]&uid2=[uid2]`
+- [ ] Set `GA4_API_SECRET` for Measurement Protocol commission events
+- [ ] In GA4: custom dims + mark `affiliate_sale` as conversion (optional)
 - [ ] Confirm all retailer payouts are real (not placeholder)
 - [ ] Test all price comparison sections with real data
 - [ ] Remove `upload.wikimedia.org` from `next.config.ts` remotePatterns when brand logos are local

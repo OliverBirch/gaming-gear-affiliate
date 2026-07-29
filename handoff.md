@@ -70,8 +70,18 @@ across all product categories. Prices come from:
 2. prices.json overrides (keyed by productSlug__retailerSlug)
 3. Fallback: no price shown, "Se pris hos [forhandler]" CTA only
 
-All outbound affiliate links use rel="sponsored nofollow" and
-route through an internal redirect.
+All outbound affiliate links use `AffiliateLink` → `/api/redirect`
+(`rel="sponsored nofollow"`). Partner-ads + GA4 revenue tracking:
+
+→ **`docs/partner-ads-ga4.md`** (required reading — status, env, hard rules).
+
+Key files: `src/lib/partner-ads.ts`, `src/lib/affiliate-tracking.ts`,
+`src/lib/ga4-mp.ts`, `src/components/affiliate-link.tsx`,
+`src/app/api/redirect/route.ts`, `src/app/api/partner-ads/callback/route.ts`.
+
+First live PA program: **UltraShop** (`ultrashop`) —
+`PARTNER_ADS_PARTNER_ID=57198`, deeplink material `112168`.
+No product offers use ultrashop yet (plumbing only).
 
 ### Retailers
 
@@ -79,8 +89,14 @@ route through an internal redirect.
 |---|---|
 | proshop | partner-ads |
 | computersalg | partner-ads |
-| maxgaming | impact |
+| maxgaming | adtraction |
 | coolshop | partner-ads |
+| elgiganten | impact |
+| avxperten | adtraction |
+| dustinhome | daisycon |
+| komplett | adtraction |
+| billo | partner-ads |
+| ultrashop | partner-ads |
 
 ## Navigation
 

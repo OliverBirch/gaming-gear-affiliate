@@ -65,6 +65,7 @@ const rawMice: MouseSansProBrugere[] = [
   },
   {
     slug: "razer-viper-v3-pro",
+    ean: "8886419334491",
     navn: "Viper V3 Pro",
     brand: "Razer",
     vaegtGram: 55,
@@ -111,12 +112,6 @@ const rawMice: MouseSansProBrugere[] = [
         produktUrl: "https://www.maxgaming.dk/da/tilbehoer/mus/razer-viper-v3-pro",
         affiliateUrl: "https://www.maxgaming.dk/da/tilbehoer/mus/razer-viper-v3-pro",
         payoutPct: 4.0,
-        inStock: true,
-      },
-      {
-        retailer: "ultrashop",
-        produktUrl: "https://www.ultrashop.dk/da/",
-        payoutPct: 3.0,
         inStock: true,
       },
     ],
@@ -708,6 +703,7 @@ const rawMice: MouseSansProBrugere[] = [
   },
   {
     slug: "logitech-g-pro-x2-superstrike",
+    ean: "5099206136205",
     navn: "G Pro X2 SUPERSTRIKE",
     brand: "Logitech",
     vaegtGram: 60,

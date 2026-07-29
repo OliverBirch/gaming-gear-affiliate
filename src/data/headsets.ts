@@ -8,30 +8,22 @@ const SEARCH_URLS: Record<string, string> = {
   proshop: "https://www.proshop.dk/Headset",
   computersalg: "https://www.computersalg.dk/headset",
   elgiganten: "https://www.elgiganten.dk/computertilbehoer/headset",
-  ultrashop: "https://www.ultrashop.dk/da/headsets-gaming",
-};
-
-const PAYOUT_MAP: Record<string, number> = {
-  maxgaming: 4.0,
-  elgiganten: 2.5,
-  ultrashop: 3.0,
 };
 
 function buildOffers(
   slug: string,
-  priser: Record<string, number> | null,
-  urls?: Record<string, string>
+  priser: Record<string, number> | null
 ): AffiliateOffer[] {
   if (!priser) return [];
   const offers: AffiliateOffer[] = [];
   for (const [retailer, pris] of Object.entries(priser)) {
     if (typeof pris !== "number") continue;
-    if (!["maxgaming", "proshop", "computersalg", "elgiganten", "ultrashop"].includes(retailer)) continue;
+    if (!["maxgaming", "proshop", "computersalg", "elgiganten"].includes(retailer)) continue;
     offers.push({
       retailer: retailer as AffiliateOffer["retailer"],
-      produktUrl: urls?.[retailer] ?? SEARCH_URLS[retailer] ?? `https://www.maxgaming.dk/dk/search/${encodeURIComponent(slug)}`,
+      produktUrl: SEARCH_URLS[retailer] ?? `https://www.maxgaming.dk/dk/search/${encodeURIComponent(slug)}`,
       prisDkk: pris,
-      payoutPct: PAYOUT_MAP[retailer] ?? 3.5,
+      payoutPct: retailer === "maxgaming" ? 4.0 : retailer === "elgiganten" ? 2.5 : 3.5,
       inStock: true,
     });
   }
@@ -60,7 +52,7 @@ const _builtHeadsets: Headset[] = raw.headsets.map((h: any) => ({
   surroundSound: h.surroundSound,
   prisNiveau: h.prisNiveau,
   billede: h.billede ?? null,
-  offers: buildOffers(h.slug, h.priser ?? null, (h as any).urls ?? undefined),
+  offers: buildOffers(h.slug, h.priser ?? null),
   beskrivelse: h.beskrivelse,
   fordele: h.fordele,
   ulemper: h.ulemper,

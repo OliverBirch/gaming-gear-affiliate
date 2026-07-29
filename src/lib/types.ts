@@ -82,6 +82,7 @@ const CopyPoints = z.array(
 
 export const MouseSchema = z.object({
   slug: z.string(),
+  ean: z.string().regex(/^\d{8,14}$/).optional().nullable(),
   navn: z.string(),
   brand: z.string(),
   vaegtGram: z.number(),
@@ -114,6 +115,7 @@ export type Mouse = z.infer<typeof MouseSchema>;
 
 export const KeyboardSchema = z.object({
   slug: z.string(),
+  ean: z.string().regex(/^\d{8,14}$/).optional().nullable(),
   navn: z.string(),
   brand: z.string(),
   layout: z.string(),
@@ -142,6 +144,7 @@ export type Keyboard = z.infer<typeof KeyboardSchema>;
 
 export const MousepadSchema = z.object({
   slug: z.string(),
+  ean: z.string().regex(/^\d{8,14}$/).optional().nullable(),
   brand: z.string(),
   model: z.string(),
   variant: z.string().nullable(),
@@ -172,6 +175,7 @@ export type Mousepad = z.infer<typeof MousepadSchema>;
 
 export const HeadsetSchema = z.object({
   slug: z.string(),
+  ean: z.string().regex(/^\d{8,14}$/).optional().nullable(),
   navn: z.string(),
   brand: z.string(),
   wireless: z.boolean(),
@@ -197,6 +201,7 @@ export type Headset = z.infer<typeof HeadsetSchema>;
 
 export const MonitorSchema = z.object({
   slug: z.string(),
+  ean: z.string().regex(/^\d{8,14}$/).optional().nullable(),
   navn: z.string(),
   brand: z.string(),
   stoerrelseTommer: z.number(),

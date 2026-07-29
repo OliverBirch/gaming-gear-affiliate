@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="luxury">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProSetups.dk — Project Conventions (AGENTS.md)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/daisyui.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/themes.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :where(.grid, .flex, .layout-grid, .layout-flex) > *,
+  :where([style*="display: grid"], [style*="display:grid"], [style*="display: flex"], [style*="display:flex"]) > * {
+    min-width: 0;
+  }
+  :where(p, h1, h2, h3, h4, h5, h6, li, dd, blockquote, figcaption, td, th, .badge, .label) {
+    overflow-wrap: anywhere;
+  }
+  :where(img, svg, video, canvas, iframe) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :root {
+    --brand: oklch(0.717 0.176 22.6);
+    --brand-foreground: oklch(0.13 0.015 30);
+    --purchase: oklch(0.7 0.22 150);
+    --purchase-foreground: oklch(0.13 0.015 30);
+  }
+
+  .brand-gradient-text {
+    background: linear-gradient(135deg, var(--brand), oklch(0.8 0.18 35));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-accent-top {
+    border-top: 3px solid var(--brand);
+  }
+
+  .section-divider {
+    border-color: oklch(1 0 0 / 8%);
+  }
+
+  .code-inline {
+    background: oklch(0.22 0.015 30);
+    border: 1px solid oklch(1 0 0 / 8%);
+    border-radius: 0.375rem;
+    padding: 0.125rem 0.375rem;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.875rem;
+    color: oklch(0.92 0.01 30);
+  }
+
+  .priority-high {
+    background: oklch(0.577 0.245 27.325 / 20%);
+    color: oklch(0.7 0.25 27);
+    border: 1px solid oklch(0.577 0.245 27.325 / 30%);
+  }
+  .priority-med {
+    background: oklch(0.65 0.16 60 / 20%);
+    color: oklch(0.75 0.18 60);
+    border: 1px solid oklch(0.65 0.16 60 / 30%);
+  }
+  .priority-low {
+    background: oklch(0.5 0.06 250 / 20%);
+    color: oklch(0.6 0.1 250);
+    border: 1px solid oklch(0.5 0.06 250 / 30%);
+  }
+
+  .mermaid {
+    background: oklch(0.16 0.015 30);
+    border: 1px solid oklch(1 0 0 / 8%);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+  }
+
+  .skill-pill {
+    background: oklch(0.717 0.176 22.6 / 12%);
+    color: var(--brand);
+    border: 1px solid oklch(0.717 0.176 22.6 / 25%);
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    display: inline-block;
+  }
+
+  .tooltip-td {
+    position: relative;
+    cursor: help;
+  }
+</style>
+</head>
+<body class="min-h-screen" style="background: oklch(0.13 0.015 30);">
+
+<main class="mx-auto max-w-6xl px-6 py-8 lg:py-12">
+  <!-- Hero -->
+  <section class="mb-12">
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center gap-3">
+        <h1 class="text-4xl lg:text-5xl font-bold tracking-tight brand-gradient-text">
+          ProSetups.dk
+        </h1>
+        <span class="badge badge-soft" style="--badge-color: var(--brand); background: oklch(0.717 0.176 22.6 / 12%); color: var(--brand); border: 1px solid oklch(0.717 0.176 22.6 / 25%);">AGENTS.md</span>
+      </div>
+      <p class="text-lg" style="color: oklch(0.63 0.02 30); max-width: 48rem;">
+        Project conventions, data workflows, and agent instructions for the ProSetups.dk affiliate site.
+        Answer one question: <em class="brand-gradient-text">"What gear does this pro use, where can I buy it in Denmark, and is this info current?"</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- Architecture Diagram -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-4" style="color: oklch(0.92 0.01 30);">Data Flow Architecture</h2>
+    <div class="mermaid">
+graph TD
+    PS[prosettings.net<br/>Pro gear data] --> PROS[src/data/pros.ts]
+    LP[Liquipedia API<br/>Team/roster data] --> PROS
+    RT[RTINGS / Techpowerup<br/>Mouse specs] --> MICE[src/data/mice.ts]
+    MG[MaxGaming.dk<br/>Prices & images] --> MICE
+    AFF[Affiliate Portals<br/>Offers & payout] --> RETAIL[src/data/retailers.ts]
+
+    PROS --> MAP[src/data/pros-peripherals-mapping.ts<br/>Substring matching]
+    MICE --> MAP
+    MAP --> PAGES[Static Pages<br/>SSG at build time]
+
+    PROS --> FRESH[src/data/freshness-tasks.ts<br/>Incomplete data tickets]
+    MICE --> FRESH
+    FRESH --> ADMIN[/admin<br/>Issue dashboard]
+
+    VAL[Zod Schemas<br/>src/lib/types.ts] -.-> PROS
+    VAL -.-> MICE
+    VAL -.-> HEADSETS[src/data/headsets.ts]
+    VAL -.-> PADS[src/data/mousepads.ts]
+    VAL -.-> KBS[src/data/keyboards.ts]
+
+    PAGES --> BUILD[npm run build<br/>TypeScript + Zod validation]
+    BUILD --> SITE[ProSetups.dk]
+    </div>
+    <p class="text-sm mt-3" style="color: oklch(0.5 0.02 30);">
+      All content is statically generated at build time. Zod schemas in <span class="code-inline">src/lib/types.ts</span> are canonical.
+    </p>
+  </section>
+
+  <!-- Stats Row -->
+  <section class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
+    <div class="stats shadow bg-base-200 rounded-box border border-base-content/5">
+      <div class="stat p-4">
+        <div class="stat-title text-base-content/60 text-xs">Validation Layers</div>
+        <div class="stat-value text-2xl" style="color: var(--brand);">5</div>
+        <div class="stat-desc text-xs">TS + Zod + CopyPoints + JSON + Admin</div>
+      </div>
+    </div>
+    <div class="stats shadow bg-base-200 rounded-box border border-base-content/5">
+      <div class="stat p-4">
+        <div class="stat-title text-base-content/60 text-xs">Agent Skills</div>
+        <div class="stat-value text-2xl" style="color: var(--brand);">4</div>
+        <div class="stat-desc text-xs">add-pro, add-mouse, fix-issues, re-verify-pros</div>
+      </div>
+    </div>
+    <div class="stats shadow bg-base-200 rounded-box border border-base-content/5">
+      <div class="stat p-4">
+        <div class="stat-title text-base-content/60 text-xs">Data Sources</div>
+        <div class="stat-value text-2xl" style="color: var(--brand);">4</div>
+        <div class="stat-desc text-xs">prosettings.net, RTINGS, MaxGaming, Liquipedia</div>
+      </div>
+    </div>
+    <div class="stats shadow bg-base-200 rounded-box border border-base-content/5">
+      <div class="stat p-4">
+        <div class="stat-title text-base-content/60 text-xs">Issue Types</div>
+        <div class="stat-value text-2xl" style="color: var(--brand);">13</div>
+        <div class="stat-desc text-xs">Tracked in admin dashboard</div>
+      </div>
+    </div>
+    <div class="stats shadow bg-base-200 rounded-box border border-base-content/5">
+      <div class="stat p-4">
+        <div class="stat-title text-base-content/60 text-xs">Weekly Routine</div>
+        <div class="stat-value text-2xl" style="color: var(--brand);">15–40</div>
+        <div class="stat-desc text-xs">Minutes per week</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Source of Truth & Core Rules -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-5" style="color: oklch(0.92 0.01 30);">Core Rules</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <!-- Source of truth -->
+      <div class="card card-border bg-base-200 card-accent-top">
+        <div class="card-body p-5">
+          <h3 class="card-title text-lg">
+            <svg class="w-5 h-5" style="color: var(--brand);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            Source of Truth
+          </h3>
+          <ul class="list-disc list-inside text-sm space-y-1.5" style="color: oklch(0.78 0.02 30);">
+            <li>Zod schemas in <span class="code-inline">src/lib/types.ts</span> are canonical</li>
+            <li>Data files must conform — transform layers map raw JSON to schemas</li>
+            <li>Never edit raw data inline; create a transform layer</li>
+            <li>Pattern: see <span class="code-inline">src/data/mousepads.ts</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Product copy rules -->
+      <div class="card card-border bg-base-200 card-accent-top">
+        <div class="card-body p-5">
+          <h3 class="card-title text-lg">
+            <svg class="w-5 h-5" style="color: var(--brand);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            Product Copy (CopyPoints)
+          </h3>
+          <ul class="list-disc list-inside text-sm space-y-1.5" style="color: oklch(0.78 0.02 30);">
+            <li>Prices in <span class="code-inline">offers[].prisDkk</span> or <span class="code-inline">prices.json</span> overrides only</li>
+            <li>No price strings in <span class="code-inline">fordele</span>, <span class="code-inline">ulemper</span>, or <span class="code-inline">beskrivelse</span></li>
+            <li>Zod refine rejects <span class="code-inline">$</span> + digit patterns at validation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Retailers -->
+      <div class="card card-border bg-base-200 card-accent-top">
+        <div class="card-body p-5">
+          <h3 class="card-title text-lg">
+            <svg class="w-5 h-5" style="color: var(--brand);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            Retailers
+          </h3>
+          <ul class="list-disc list-inside text-sm space-y-1.5" style="color: oklch(0.78 0.02 30);">
+            <li><span class="code-inline">RETAILER_SLUGS</span> is a closed Zod enum</li>
+            <li>Adding requires: update union in <span class="code-inline">types.ts</span> + add entry in <span class="code-inline">retailers.ts</span></li>
+            <li>No slug before the retailer entry exists</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Route naming -->
+      <div class="card card-border bg-base-200 card-accent-top">
+        <div class="card-body p-5">
+          <h3 class="card-title text-lg">
+            <svg class="w-5 h-5" style="color: var(--brand);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            Route Naming
+          </h3>
+          <ul class="list-disc list-inside text-sm space-y-1.5" style="color: oklch(0.78 0.02 30);">
+            <li><strong>Danish</strong> for routes and UI: <span class="code-inline">/tastaturer</span>, <span class="code-inline">/musemaatter</span>, <span class="code-inline">/mus</span></li>
+            <li><strong>English</strong> for code identifiers</li>
+            <li>Affiliate links: <span class="code-inline">rel="sponsored nofollow"</span>, route via <span class="code-inline">/api/redirect</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MaxGaming URL Patterns -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-4" style="color: oklch(0.92 0.01 30);">MaxGaming URL Patterns</h2>
+    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-200">
+      <table class="table table-zebra table-sm">
+        <thead>
+          <tr>
+            <th>Product Type</th>
+            <th>Wireless Path</th>
+            <th>Wired Path</th>
+            <th>Category Page</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-semibold">Mice</td>
+            <td class="code-inline text-xs">/dk/tradlose/{slug}</td>
+            <td class="code-inline text-xs">/dk/kablet-mus/{slug}</td>
+            <td class="text-xs">/dk/.../gaming-mus</td>
+          </tr>
+          <tr>
+            <td class="font-semibold">Headsets</td>
+            <td class="code-inline text-xs">/dk/tradlose-headset/{slug}</td>
+            <td class="code-inline text-xs">/dk/kablet-headset/{slug}</td>
+            <td class="text-xs">/dk/.../gaming-headset</td>
+          </tr>
+          <tr>
+            <td class="font-semibold">Keyboards</td>
+            <td class="code-inline text-xs">/dk/gaming-tastatur/{slug}</td>
+            <td class="text-base-content/40 text-xs">Same (all wired)</td>
+            <td class="text-xs">/dk/.../gaming-tastatur</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-3 p-4 bg-base-200 rounded-box border border-base-content/5">
+      <p class="text-sm font-semibold mb-2" style="color: var(--brand);">Discovery Workflow</p>
+      <div class="text-sm space-y-1" style="color: oklch(0.78 0.02 30);">
+        DuckDuckGo <span class="code-inline">site:maxgaming.dk "product name"</span> →
+        Extract URL pattern →
+        Fetch category page (<span class="code-inline">?limit=48&amp;page=N</span>) →
+        Fetch product page →
+        Extract <span class="code-inline">og:image</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Workflows -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-5" style="color: oklch(0.92 0.01 30);">Data Workflows &amp; Skills</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="card card-border bg-base-200">
+        <div class="card-body p-5">
+          <span class="skill-pill mb-2 w-fit">add-pro</span>
+          <p class="text-sm" style="color: oklch(0.78 0.02 30);">
+            Handles prose settings, peripherals, images, team data (Liquipedia), and stub mouse creation. Unknown mice tracked in <span class="code-inline">mice-todo.ts</span>.
+          </p>
+        </div>
+      </div>
+      <div class="card card-border bg-base-200">
+        <div class="card-body p-5">
+          <span class="skill-pill mb-2 w-fit">add-mouse</span>
+          <p class="text-sm" style="color: oklch(0.78 0.02 30);">
+            Sources specs from RTINGS → Techpowerup → manufacturer. Copy from multi-source synthesis. Offers from affiliate portals.
+          </p>
+        </div>
+      </div>
+      <div class="card card-border bg-base-200">
+        <div class="card-body p-5">
+          <span class="skill-pill mb-2 w-fit">add-headset</span>
+          <p class="text-sm" style="color: oklch(0.78 0.02 30);">
+            Mirrors <span class="code-inline">add-mouse</span>. Research specs → write Danish copy → find MaxGaming URL → add to JSON.
+          </p>
+        </div>
+      </div>
+      <div class="card card-border bg-base-200">
+        <div class="card-body p-5">
+          <span class="skill-pill mb-2 w-fit">re-verify-pros</span>
+          <p class="text-sm" style="color: oklch(0.78 0.02 30);">
+            Batch re-checks pro gear from prosettings.net. Uses <span class="code-inline">freshness-priority.ts</span> for tier-1 prioritization.
+          </p>
+        </div>
+      </div>
+      <div class="card card-border bg-base-200">
+        <div class="card-body p-5">
+          <span class="skill-pill mb-2 w-fit">fix-issues</span>
+          <p class="text-sm" style="color: oklch(0.78 0.02 30);">
+            Reads embedded <span class="code-inline">issues.json</span> from /admin. Auto-fixes: broken-url, missing-image, missing-pro-image.
+          </p>
+        </div>
+      </div>
+      <div class="card card-border bg-base-200">
+        <div class="card-body p-5">
+          <span class="skill-pill mb-2 w-fit">Freshness Tickets</span>
+          <p class="text-sm" style="color: oklch(0.78 0.02 30);">
+            Incomplete data creates <span class="code-inline">FreshnessTicket</span> in <span class="code-inline">freshness-tasks.ts</span>. View at <span class="code-inline">/admin/tickets</span>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Sources Table -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-4" style="color: oklch(0.92 0.01 30);">Data Sources</h2>
+    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-200">
+      <table class="table table-zebra table-sm">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Used For</th>
+            <th>Priority / Fallback</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-semibold">prosettings.net</td>
+            <td>Pro gear data (always)</td>
+            <td>Primary</td>
+          </tr>
+          <tr>
+            <td class="font-semibold">Liquipedia API</td>
+            <td>Team/roster data (<span class="code-inline">liquipedia.ts</span>)</td>
+            <td>Primary (more accurate than ProSettings for rosters)</td>
+          </tr>
+          <tr>
+            <td class="font-semibold">RTINGS</td>
+            <td>Mouse specs</td>
+            <td>Primary → Techpowerup → manufacturer</td>
+          </tr>
+          <tr>
+            <td class="font-semibold">MaxGaming.dk</td>
+            <td>Prices, product images, SKU data</td>
+            <td>Primary for Danish offers</td>
+          </tr>
+          <tr>
+            <td class="font-semibold">Affiliate Portals</td>
+            <td>Offer links, payout data</td>
+            <td>Via <span class="code-inline">src/data/retailers.ts</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Issue Severity Triage -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-4" style="color: oklch(0.92 0.01 30);">Admin Issue Triage</h2>
+    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-200">
+      <table class="table table-zebra table-sm">
+        <thead>
+          <tr>
+            <th>Issue Type</th>
+            <th>Severity</th>
+            <th>Resolution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">stale-pro</span></td>
+            <td><span class="badge priority-high text-xs">high/med</span></td>
+            <td><span class="skill-pill">re-verify-pros</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">stub-mouse</span></td>
+            <td><span class="badge priority-high text-xs">high</span></td>
+            <td><span class="skill-pill">add-mouse</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">no-offers</span></td>
+            <td><span class="badge priority-high text-xs">high</span></td>
+            <td>Research product + add offers</td>
+          </tr>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">broken-url</span></td>
+            <td><span class="badge priority-high text-xs">high</span></td>
+            <td><span class="skill-pill">fix-issues</span> (auto-fixable)</td>
+          </tr>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">orphaned-mus</span></td>
+            <td><span class="badge priority-high text-xs">high</span></td>
+            <td><span class="skill-pill">add-mouse</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">missing-price</span></td>
+            <td><span class="badge priority-med text-xs">medium</span></td>
+            <td><span class="code-inline">prices.json</span> override</td>
+          </tr>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">feed-stale</span></td>
+            <td><span class="badge priority-med text-xs">medium</span></td>
+            <td>Refresh <span class="code-inline">prices.json.scrapedAt</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold">
+              <span class="code-inline">empty-description</span> /
+              <span class="code-inline">empty-fordele</span> /
+              <span class="code-inline">empty-ulemper</span>
+            </td>
+            <td><span class="badge priority-med text-xs">medium</span></td>
+            <td><span class="skill-pill">add-mouse</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">missing-image</span></td>
+            <td><span class="badge priority-low text-xs">low</span></td>
+            <td><span class="skill-pill">fix-issues</span> (auto-fixable)</td>
+          </tr>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">missing-peripherals</span></td>
+            <td><span class="badge priority-low text-xs">low</span></td>
+            <td><span class="skill-pill">add-pro</span> step 3</td>
+          </tr>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">product-stale</span></td>
+            <td><span class="badge priority-low text-xs">low</span></td>
+            <td>Re-verify product specs</td>
+          </tr>
+          <tr>
+            <td class="font-semibold"><span class="code-inline">unmapped-peripheral</span></td>
+            <td><span class="badge priority-low text-xs">low</span></td>
+            <td>Add <span class="code-inline">match()</span> rule in mapping</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Weekly Freshness Checklist -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-4" style="color: oklch(0.92 0.01 30);">Weekly Freshness Routine (15–40 min)</h2>
+    <ul class="steps steps-vertical lg:steps-horizontal w-full">
+      <li class="step step-primary">
+        <div class="text-xs text-left lg:text-center">
+          <strong>Open /admin</strong><br>
+          Scan high-severity issues
+        </div>
+      </li>
+      <li class="step step-primary">
+        <div class="text-xs text-left lg:text-center">
+          <strong>Run fix-issues</strong><br>
+          broken-url, missing-image
+        </div>
+      </li>
+      <li class="step step-primary">
+        <div class="text-xs text-left lg:text-center">
+          <strong>Re-verify Stale Pros</strong><br>
+          Tier-1 priority first
+        </div>
+      </li>
+      <li class="step step-primary">
+        <div class="text-xs text-left lg:text-center">
+          <strong>Complete 1 Stub</strong><br>
+          From mice-todo.ts
+        </div>
+      </li>
+      <li class="step step-primary">
+        <div class="text-xs text-left lg:text-center">
+          <strong>Spot-check Prices</strong><br>
+          Top 5 into prices.json
+        </div>
+      </li>
+      <li class="step step-primary">
+        <div class="text-xs text-left lg:text-center">
+          <strong>npm run build</strong><br>
+          Verify Zod validation
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Validation Layers -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-4" style="color: oklch(0.92 0.01 30);">Validation Layers</h2>
+    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-200">
+      <table class="table table-zebra table-sm">
+        <thead>
+          <tr>
+            <th class="w-12">#</th>
+            <th>Layer</th>
+            <th>What It Checks</th>
+            <th>Fails At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-semibold">1</td>
+            <td class="font-semibold">TypeScript</td>
+            <td>All types</td>
+            <td><span class="code-inline">next build</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold">2</td>
+            <td class="font-semibold">Zod Parse</td>
+            <td>Module-level in mice.ts, keyboards.ts, mousepads.ts, headsets.ts</td>
+            <td>Build time</td>
+          </tr>
+          <tr>
+            <td class="font-semibold">3</td>
+            <td class="font-semibold">CopyPoints</td>
+            <td>Zod refine rejects $ + digit in fordele/ulemper/beskrivelse</td>
+            <td>Build time</td>
+          </tr>
+          <tr>
+            <td class="font-semibold">4</td>
+            <td class="font-semibold">JSON Validation</td>
+            <td>prices.json, CopyPoints in JSON files, required fields</td>
+            <td><span class="code-inline">npm run validate-data</span></td>
+          </tr>
+          <tr>
+            <td class="font-semibold">5</td>
+            <td class="font-semibold">Admin Health</td>
+            <td>Full issue report</td>
+            <td><span class="code-inline">/admin</span> (SSG)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Adding a New Product Category -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-4" style="color: oklch(0.92 0.01 30);">Adding a New Product Category</h2>
+    <ul class="steps steps-vertical lg:steps-horizontal w-full">
+      <li class="step step-primary"><span class="text-xs">Schema</span></li>
+      <li class="step step-primary"><span class="text-xs">Data File</span></li>
+      <li class="step step-primary"><span class="text-xs">Card</span></li>
+      <li class="step step-primary"><span class="text-xs">List Route</span></li>
+      <li class="step step-primary"><span class="text-xs">Detail Route</span></li>
+      <li class="step step-primary"><span class="text-xs">Mapping</span></li>
+      <li class="step step-primary"><span class="text-xs">Brand Pages</span></li>
+      <li class="step step-primary"><span class="text-xs">Pro Pages</span></li>
+      <li class="step step-primary"><span class="text-xs">Navigation</span></li>
+      <li class="step step-primary"><span class="text-xs">Sitemap</span></li>
+      <li class="step step-primary"><span class="text-xs">Dashboard</span></li>
+    </ul>
+    <div class="mt-3 p-4 bg-base-200 rounded-box border border-base-content/5">
+      <p class="text-sm" style="color: oklch(0.78 0.02 30);">
+        <strong>Model on existing patterns:</strong> <span class="code-inline">src/data/mousepads.ts</span> for transform layers,
+        <span class="code-inline">src/components/headset-card.tsx</span> for cards,
+        skip schema step since <span class="code-inline">HeadsetSchema</span>/<span class="code-inline">MonitorSchema</span> already exist in <span class="code-inline">types.ts</span>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Peripheral Mapping Gotchas -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-4" style="color: oklch(0.92 0.01 30);">Peripheral Mapping Gotchas</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="alert alert-warning">
+        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+        <span class="text-sm"><strong>Short terms are greedy:</strong> <span class="code-inline">"rog"</span> matches both ROG Delta II and ROG Pelta. Prefer <span class="code-inline">"delta" + "rog"</span> over <span class="code-inline">"rog"</span> alone.</span>
+      </div>
+      <div class="alert alert-warning">
+        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+        <span class="text-sm"><strong>False positives:</strong> <span class="code-inline">"cloud ii"</span> matches HyperX Cloud Stinger II. Exclude with <span class="code-inline">!includes("stinger")</span>.</span>
+      </div>
+    </div>
+    <p class="text-sm mt-3 p-4 bg-base-200 rounded-box border border-base-content/5" style="color: oklch(0.78 0.02 30);">
+      <strong>Verify:</strong> Always check a handful of actual pro entries after adding a new matching pattern to catch false matches.
+      Mapping file: <span class="code-inline">src/data/pros-peripherals-mapping.ts</span>
+    </p>
+  </section>
+
+  <!-- Key Reference Files -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-4" style="color: oklch(0.92 0.01 30);">Key Reference Files</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div class="flex items-center gap-3 p-3 bg-base-200 rounded-box border border-base-content/5">
+        <span class="badge badge-soft" style="--badge-color: var(--brand); background: oklch(0.717 0.176 22.6 / 12%); color: var(--brand); border-color: oklch(0.717 0.176 22.6 / 25%);">core</span>
+        <div>
+          <div class="code-inline text-xs">src/lib/types.ts</div>
+          <div class="text-xs text-base-content/50">Zod schemas (canonical)</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-base-200 rounded-box border border-base-content/5">
+        <span class="badge badge-soft" style="--badge-color: var(--brand); background: oklch(0.717 0.176 22.6 / 12%); color: var(--brand); border-color: oklch(0.717 0.176 22.6 / 25%);">health</span>
+        <div>
+          <div class="code-inline text-xs">src/lib/data-health.ts</div>
+          <div class="text-xs text-base-content/50">Health-check functions</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-base-200 rounded-box border border-base-content/5">
+        <span class="badge badge-soft" style="--badge-color: var(--brand); background: oklch(0.717 0.176 22.6 / 12%); color: var(--brand); border-color: oklch(0.717 0.176 22.6 / 25%);">priority</span>
+        <div>
+          <div class="code-inline text-xs">src/data/freshness-priority.ts</div>
+          <div class="text-xs text-base-content/50">Tier-1 pro priority lists</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-base-200 rounded-box border border-base-content/5">
+        <span class="badge badge-soft" style="--badge-color: var(--brand); background: oklch(0.717 0.176 22.6 / 12%); color: var(--brand); border-color: oklch(0.717 0.176 22.6 / 25%);">team</span>
+        <div>
+          <div class="code-inline text-xs">src/lib/liquipedia.ts</div>
+          <div class="text-xs text-base-content/50">Liquipedia API fetch utility</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-base-200 rounded-box border border-base-content/5">
+        <span class="badge badge-soft" style="--badge-color: var(--brand); background: oklch(0.717 0.176 22.6 / 12%); color: var(--brand); border-color: oklch(0.717 0.176 22.6 / 25%);">mapping</span>
+        <div>
+          <div class="code-inline text-xs">src/data/pros-peripherals-mapping.ts</div>
+          <div class="text-xs text-base-content/50">Peripheral matching</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-base-200 rounded-box border border-base-content/5">
+        <span class="badge badge-soft" style="--badge-color: var(--brand); background: oklch(0.717 0.176 22.6 / 12%); color: var(--brand); border-color: oklch(0.717 0.176 22.6 / 25%);">tasks</span>
+        <div>
+          <div class="code-inline text-xs">src/data/freshness-tasks.ts</div>
+          <div class="text-xs text-base-content/50">Incomplete data tickets</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-base-200 rounded-box border border-base-content/5">
+        <span class="badge badge-soft" style="--badge-color: var(--brand); background: oklch(0.717 0.176 22.6 / 12%); color: var(--brand); border-color: oklch(0.717 0.176 22.6 / 25%);">logos</span>
+        <div>
+          <div class="code-inline text-xs">src/data/team-logos.ts</div>
+          <div class="text-xs text-base-content/50">Team logo mappings</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-base-200 rounded-box border border-base-content/5">
+        <span class="badge badge-soft" style="--badge-color: var(--brand); background: oklch(0.717 0.176 22.6 / 12%); color: var(--brand); border-color: oklch(0.717 0.176 22.6 / 25%);">transform</span>
+        <div>
+          <div class="code-inline text-xs">src/data/mousepads.ts</div>
+          <div class="text-xs text-base-content/50">Transform layer pattern</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 p-3 bg-base-200 rounded-box border border-base-content/5">
+        <span class="badge badge-soft" style="--badge-color: var(--brand); background: oklch(0.717 0.176 22.6 / 12%); color: var(--brand); border-color: oklch(0.717 0.176 22.6 / 25%);">prices</span>
+        <div>
+          <div class="code-inline text-xs">scripts/validate-data.mjs</div>
+          <div class="text-xs text-base-content/50">JSON validation script</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center pt-6 border-t section-divider">
+    <p class="text-sm" style="color: oklch(0.5 0.02 30);">
+      ProSetups.dk AGENTS.md &mdash; <span class="code-inline">src/lib/types.ts</span> is canonical.
+      All prices in DKK. Danish UI routes. English code identifiers.
+    </p>
+  </footer>
+</main>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.esm.min.mjs";
+
+  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const paint = document.createElement("canvas").getContext("2d");
+  function toRgba(color) {
+    paint.clearRect(0, 0, 1, 1);
+    paint.fillStyle = "#000";
+    paint.fillStyle = color;
+    paint.fillRect(0, 0, 1, 1);
+    return paint.getImageData(0, 0, 1, 1).data;
+  }
+
+  function compositeRgba(foreground, background) {
+    const foregroundAlpha = foreground[3] / 255;
+    const backgroundAlpha = background[3] / 255;
+    const alpha = foregroundAlpha + backgroundAlpha * (1 - foregroundAlpha);
+    if (alpha === 0) return [0, 0, 0, 0];
+    return [
+      (foreground[0] * foregroundAlpha + background[0] * backgroundAlpha * (1 - foregroundAlpha)) / alpha,
+      (foreground[1] * foregroundAlpha + background[1] * backgroundAlpha * (1 - foregroundAlpha)) / alpha,
+      (foreground[2] * foregroundAlpha + background[2] * backgroundAlpha * (1 - foregroundAlpha)) / alpha,
+      alpha * 255,
+    ];
+  }
+
+  function pageIsDark() {
+    const root = document.documentElement;
+    const rootBackground = toRgba(getComputedStyle(root).backgroundColor);
+    const bodyBackground = document.body ? toRgba(getComputedStyle(document.body).backgroundColor) : [0, 0, 0, 0];
+    const [r, g, b, a] = compositeRgba(bodyBackground, rootBackground);
+    if (a > 0) {
+      return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.5;
+    }
+    const colorScheme = getComputedStyle(root).colorScheme;
+    if (colorScheme.includes("dark") && !colorScheme.includes("light")) return true;
+    if (colorScheme.includes("light") && !colorScheme.includes("dark")) return false;
+    return darkQuery.matches;
+  }
+
+  const diagrams = [...document.querySelectorAll(".mermaid")].map((el) => ({ el, src: el.textContent }));
+  let applied;
+  let rendering = false;
+  let queued = false;
+  function queueRender() {
+    queued = true;
+    if (rendering) return;
+    void render();
+  }
+  async function render() {
+    rendering = true;
+    try {
+      while (queued) {
+        queued = false;
+        const theme = pageIsDark() ? "dark" : "default";
+        if (theme === applied) continue;
+        mermaid.initialize({ startOnLoad: false, theme, securityLevel: "strict" });
+        for (const { el, src } of diagrams) {
+          el.removeAttribute("data-processed");
+          el.textContent = src;
+        }
+        try {
+          await mermaid.run({ nodes: diagrams.map((d) => d.el) });
+        } catch (error) {
+          console.error("Mermaid diagram render failed:", error);
+          return;
+        }
+        applied = theme;
+      }
+    } finally {
+      rendering = false;
+      if (queued) queueRender();
+    }
+  }
+
+  if (document.readyState === "complete") queueRender();
+  else window.addEventListener("load", queueRender, { once: true });
+  const themeObserver = new MutationObserver(queueRender);
+  for (const el of [document.documentElement, document.body]) {
+    if (!el) continue;
+    themeObserver.observe(el, {
+      attributes: true,
+      attributeFilter: ["data-theme", "class", "style"],
+    });
+  }
+  document.addEventListener("change", queueRender, true);
+  document.addEventListener(
+    "transitionend",
+    ({ propertyName }) => {
+      if (propertyName === "background-color") queueRender();
+    },
+    true,
+  );
+  darkQuery.addEventListener("change", queueRender);
+</script>
+
+</body>
+</html>

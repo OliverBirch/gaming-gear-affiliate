@@ -86,11 +86,7 @@
       "priser": {
         "maxgaming": 749,
         "proshop": 799,
-        "computersalg": 749,
-        "ultrashop": 849
-      },
-      "urls": {
-        "ultrashop": "https://www.ultrashop.dk/da/"
+        "computersalg": 749
       },
       "beskrivelse": "HyperX Cloud III er den seneste generation af HyperX' populære Cloud-serie. Med forbedret komfort, DTS Headphone:X rumlig lyd og en opgraderet 53 mm driver, leverer den en endnu bedre lydoplevelse end forgængeren. Den robuste aluminiumsramme og USB-C tilslutning gør den klar til moderne gaming.",
       "fordele": [
@@ -124,11 +120,7 @@
       "priser": {
         "maxgaming": 999,
         "proshop": 1099,
-        "computersalg": 1049,
-        "ultrashop": 2139
-      },
-      "urls": {
-        "ultrashop": "https://www.ultrashop.dk/da/"
+        "computersalg": 1049
       },
       "beskrivelse": "HyperX Cloud III Wireless tilbyder den trådløse oplevelse med den nyeste Cloud III-teknologi. Med hele 120 timers batteritid på en enkelt opladning er det et af de mest holdbare trådløse headsets på markedet. DTS Headphone:X og 53 mm drivere sikrer præcis lyd, og den lette aluminiumsramme gør det komfortabelt i timevis.",
       "fordele": [
@@ -355,6 +347,7 @@
     },
     {
       "slug": "steelseries-arctis-nova-pro-wireless",
+      "ean": "5707119058032",
       "navn": "Arctis Nova Pro Wireless",
       "brand": "SteelSeries",
       "wireless": true,
@@ -366,7 +359,7 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "flagship",
-      "billede": null,
+      "billede": "/images/headsets/steelseries-arctis-nova-pro-wireless.jpg",
       "priser": {
         "maxgaming": 2499,
         "proshop": 2599,
