@@ -10,6 +10,7 @@ import { getMonitor, monitors } from "@/data/monitors";
 import { bestOffers, bestOffer } from "@/lib/affiliate";
 import { AffiliateLink } from "@/components/affiliate-link";
 import { getRetailer } from "@/data/retailers";
+import { breadcrumbList, productSchema, jsonLd } from "@/lib/schema-org";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -218,35 +219,22 @@ export default async function SkaermPage({ params }: Props) {
         id="schema-skaerm-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Skærme", item: "https://prosetups.dk/skaerme" },
-              { "@type": "ListItem", position: 3, name: monitor.navn, item: `https://prosetups.dk/skaerme/${slug}` },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Skærme", path: "/skaerme" },
+              { name: monitor.navn, path: `/skaerme/${slug}` },
+            ])
+          ),
         }}
       />
       <Script
         id="schema-skaerm-product"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Product",
-            name: `${monitor.brand} ${monitor.navn}`,
-            brand: { "@type": "Brand", name: monitor.brand },
-            description: monitor.beskrivelse,
-            offers: monitor.offers.filter((o) => o.inStock !== false).map((o) => ({
-              "@type": "Offer",
-              price: o.prisDkk,
-              priceCurrency: "DKK",
-              availability: o.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-              url: o.produktUrl,
-            })),
-          }),
+          __html: jsonLd(
+            productSchema({ ...monitor, navn: `${monitor.brand} ${monitor.navn}` })
+          ),
         }}
       />
     </>

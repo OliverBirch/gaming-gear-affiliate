@@ -4,6 +4,7 @@ import { KeyboardCard } from "@/components/keyboard-card";
 import { CategoryStatsSection } from "@/components/category-stats-section";
 import { keyboards } from "@/data/keyboards";
 import { computeKeyboardStats } from "@/lib/category-stats";
+import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
 
 export const metadata: Metadata = {
   title: "Alle gaming-tastaturer - ProSetups.dk",
@@ -36,37 +37,26 @@ export default function TastaturerPage() {
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Alle tastaturer", item: "https://prosetups.dk/tastaturer" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Alle tastaturer", path: "/tastaturer" },
+            ])
+          ),
         }}
       />
       <Script
         id="schema-keyboards-itemlist"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: "Alle gaming-tastaturer",
-            description: keyboards.length + " gaming-tastaturer med specifikationer og priser",
-            itemListElement: keyboards.map((k, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "Product",
-                name: k.navn,
-                brand: k.brand,
-                url: "https://prosetups.dk/tastaturer/" + k.slug,
-              },
-            })),
-            numberOfItems: keyboards.length,
-          }),
+          __html: jsonLd(
+            productItemList({
+              name: "Alle gaming-tastaturer",
+              description: `${keyboards.length} gaming-tastaturer med specifikationer og priser`,
+              products: sorted,
+              urlPrefix: "tastaturer",
+            })
+          ),
         }}
       />
     </div>

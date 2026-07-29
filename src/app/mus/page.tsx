@@ -4,6 +4,7 @@ import { MouseCard } from "@/components/mouse-card";
 import { CategoryStatsSection } from "@/components/category-stats-section";
 import { mice } from "@/data/mice";
 import { computeMusStats } from "@/lib/category-stats";
+import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
 
 export const metadata: Metadata = {
   title: "Alle gaming-mus - ProSetups.dk",
@@ -36,37 +37,26 @@ export default function MusPage() {
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Alle mus", item: "https://prosetups.dk/mus" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Alle mus", path: "/mus" },
+            ])
+          ),
         }}
       />
       <Script
         id="schema-mice-itemlist"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: "Alle gaming-mus",
-            description: `${mice.length} gaming-mus med specifikationer, priser og pro-brugere`,
-            itemListElement: sorted.map((m, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "Product",
-                name: m.navn,
-                brand: m.brand,
-                url: `https://prosetups.dk/mus/${m.slug}`,
-              },
-            })),
-            numberOfItems: mice.length,
-          }),
+          __html: jsonLd(
+            productItemList({
+              name: "Alle gaming-mus",
+              description: `${mice.length} gaming-mus med specifikationer, priser og pro-brugere`,
+              products: sorted,
+              urlPrefix: "mus",
+            })
+          ),
         }}
       />
     </div>

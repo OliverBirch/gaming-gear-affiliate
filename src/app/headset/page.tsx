@@ -4,6 +4,7 @@ import { HeadsetCard } from "@/components/headset-card";
 import { CategoryStatsSection } from "@/components/category-stats-section";
 import { headsets } from "@/data/headsets";
 import { computeHeadsetStats } from "@/lib/category-stats";
+import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
 
 export const metadata: Metadata = {
   title: "Alle gaming-headsets - ProSetups.dk",
@@ -36,31 +37,26 @@ export default function HeadsetListPage() {
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Alle headsets", item: "https://prosetups.dk/headset" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Alle headsets", path: "/headset" },
+            ])
+          ),
         }}
       />
       <Script
         id="schema-headsets-itemlist"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: "Alle gaming-headsets",
-            description: headsets.length + " gaming-headsets med specifikationer og priser",
-            itemListElement: headsets.map((h, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              name: h.navn,
-            })),
-          }),
+          __html: jsonLd(
+            productItemList({
+              name: "Alle gaming-headsets",
+              description: `${headsets.length} gaming-headsets med specifikationer og priser`,
+              products: sorted,
+              urlPrefix: "headset",
+            })
+          ),
         }}
       />
     </div>

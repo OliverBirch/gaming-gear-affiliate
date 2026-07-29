@@ -13,6 +13,7 @@ import { getRetailer } from "@/data/retailers";
 import { getPro } from "@/data/pros";
 import { ProAvatar } from "@/components/pro-avatar";
 import { AffiliateLink } from "@/components/affiliate-link";
+import { breadcrumbList, productSchema, jsonLd } from "@/lib/schema-org";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -416,39 +417,20 @@ export default async function MusPage({ params }: Props) {
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Mus", item: "https://prosetups.dk/mus" },
-              { "@type": "ListItem", position: 3, name: mouse.navn, item: `https://prosetups.dk/mus/${slug}` },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Mus", path: "/mus" },
+              { name: mouse.navn, path: `/mus/${slug}` },
+            ])
+          ),
         }}
       />
       <Script
         id="schema-product"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Product",
-            name: mouse.navn,
-            brand: { "@type": "Brand", name: mouse.brand },
-            description: mouse.beskrivelse,
-            image: mouse.billede ? `https://prosetups.dk${mouse.billede}` : undefined,
-            offers: mouse.offers.filter((o) => o.inStock !== false).map((o) => ({
-              "@type": "Offer",
-              url: o.affiliateUrl ?? o.produktUrl,
-              price: o.prisDkk ?? undefined,
-              priceCurrency: o.prisDkk ? "DKK" : undefined,
-              availability: o.inStock
-                ? "https://schema.org/InStock"
-                : "https://schema.org/OutOfStock",
-              seller: { "@type": "Organization", name: o.retailer },
-            })),
-          }),
+          __html: jsonLd(productSchema(mouse)),
         }}
       />
     </div>

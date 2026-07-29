@@ -10,6 +10,7 @@ import { getMousepad, mousepads } from "@/data/mousepads";
 import { pros } from "@/data/pros";
 import { getRetailer } from "@/data/retailers";
 import { bestOffers } from "@/lib/affiliate";
+import { breadcrumbList, productSchema, jsonLd } from "@/lib/schema-org";
 import { ProAvatar } from "@/components/pro-avatar";
 import { AffiliateLink } from "@/components/affiliate-link";
 
@@ -302,38 +303,22 @@ export default async function MusemaattePage({ params }: Props) {
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Musemåtter", item: "https://prosetups.dk/musemaatter" },
-              { "@type": "ListItem", position: 3, name: mousepad.brand + " " + mousepad.model, item: "https://prosetups.dk/musemaatter/" + slug },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Musemåtter", path: "/musemaatter" },
+              { name: `${mousepad.brand} ${mousepad.model}`, path: `/musemaatter/${slug}` },
+            ])
+          ),
         }}
       />
       <Script
         id="schema-product"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Product",
-            name: mousepad.brand + " " + mousepad.model,
-            brand: { "@type": "Brand", name: mousepad.brand },
-            description: mousepad.beskrivelse,
-            offers: mousepad.offers.filter((o) => o.inStock !== false).map((o) => ({
-              "@type": "Offer",
-              url: o.affiliateUrl ?? o.produktUrl,
-              price: o.prisDkk ?? undefined,
-              priceCurrency: o.prisDkk ? "DKK" : undefined,
-              availability: o.inStock
-                ? "https://schema.org/InStock"
-                : "https://schema.org/OutOfStock",
-              seller: { "@type": "Organization", name: o.retailer },
-            })),
-          }),
+          __html: jsonLd(
+            productSchema({ ...mousepad, navn: `${mousepad.brand} ${mousepad.model}` })
+          ),
         }}
       />
     </div>

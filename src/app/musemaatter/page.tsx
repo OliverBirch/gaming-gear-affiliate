@@ -4,6 +4,7 @@ import { MousepadCard } from "@/components/mousepad-card";
 import { CategoryStatsSection } from "@/components/category-stats-section";
 import { mousepads } from "@/data/mousepads";
 import { computeMousepadStats } from "@/lib/category-stats";
+import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
 
 export const metadata: Metadata = {
   title: "Alle musemåtter - ProSetups.dk",
@@ -36,36 +37,31 @@ export default function MusemaatterPage() {
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Alle musemåtter", item: "https://prosetups.dk/musemaatter" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Alle musemåtter", path: "/musemaatter" },
+            ])
+          ),
         }}
       />
       <Script
         id="schema-mousepads-itemlist"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: "Alle gaming-musemåtter",
-            description: mousepads.length + " gaming-musemåtter med specifikationer og priser",
-            itemListElement: mousepads.map((m, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "Product",
-                name: m.brand + " " + m.model,
-                url: "https://prosetups.dk/musemaatter/" + m.slug,
-              },
-            })),
-            numberOfItems: mousepads.length,
-          }),
+          __html: jsonLd(
+            productItemList({
+              name: "Alle gaming-musemåtter",
+              description: `${mousepads.length} gaming-musemåtter med specifikationer og priser`,
+              // Mousepads have brand + model rather than a single navn field.
+              products: sorted.map((m) => ({
+                slug: m.slug,
+                navn: `${m.brand} ${m.model}`,
+                brand: m.brand,
+              })),
+              urlPrefix: "musemaatter",
+            })
+          ),
         }}
       />
     </div>

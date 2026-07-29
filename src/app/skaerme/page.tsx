@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { MonitorCard } from "@/components/monitor-card";
 import { monitors } from "@/data/monitors";
+import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
 
 export const metadata: Metadata = {
   title: "Alle gaming-skærme - ProSetups.dk",
@@ -28,35 +29,26 @@ export default function SkaermePage() {
         id="schema-skaerme-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Alle skærme", item: "https://prosetups.dk/skaerme" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Alle skærme", path: "/skaerme" },
+            ])
+          ),
         }}
       />
       <Script
         id="schema-skaerme-itemlist"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: "Alle gaming-skærme",
-            description: monitors.length + " gaming-skærme med specifikationer og priser",
-            itemListElement: monitors.map((m, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "Product",
-                name: m.navn,
-                brand: { "@type": "Brand", name: m.brand },
-              },
-            })),
-          }),
+          __html: jsonLd(
+            productItemList({
+              name: "Alle gaming-skærme",
+              description: `${monitors.length} gaming-skærme med specifikationer og priser`,
+              products: monitors,
+              urlPrefix: "skaerme",
+            })
+          ),
         }}
       />
     </>
