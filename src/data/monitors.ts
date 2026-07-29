@@ -1,5 +1,6 @@
-import type { Monitor, AffiliateOffer } from "@/lib/types";
+import type { Monitor } from "@/lib/types";
 import { MonitorSchema } from "@/lib/types";
+import { buildFlatOffers, type BuildOffersConfig } from "./build-offers";
 import raw from "./monitors.json";
 import { getMonitorProSlugs } from "./pros-peripherals-mapping";
 
@@ -36,33 +37,14 @@ const SEARCH_URLS: Record<string, string> = {
   elgiganten: "https://www.elgiganten.dk/computere-tilbehoer/skaerm",
 };
 
-function buildOffers(
-  slug: string,
-  priser: Record<string, number | null | undefined> | null
-): AffiliateOffer[] {
-  if (!priser) return [];
-  const offers: AffiliateOffer[] = [];
-  for (const [retailer, pris] of Object.entries(priser)) {
-    if (typeof pris !== "number") continue;
-    if (!["maxgaming", "proshop", "computersalg", "elgiganten"].includes(retailer)) continue;
-    offers.push({
-      retailer: retailer as AffiliateOffer["retailer"],
-      produktUrl: SEARCH_URLS[retailer] ?? `https://www.maxgaming.dk/dk/search/${encodeURIComponent(slug)}`,
-      prisDkk: pris,
-      payoutPct: retailer === "maxgaming" ? 4.0 : 3.5,
-      inStock: true,
-    });
-  }
-  if (offers.length === 0) {
-    offers.push({
-      retailer: "maxgaming",
-      produktUrl: SEARCH_URLS.maxgaming,
-      payoutPct: 4.0,
-      inStock: false,
-    });
-  }
-  return offers;
-}
+const OFFER_CONFIG: BuildOffersConfig = {
+  searchUrls: SEARCH_URLS,
+  allowedRetailers: ["maxgaming", "proshop", "computersalg", "elgiganten"],
+  // No elgiganten carve-out here — monitors pay it the default 3.5%.
+  payoutPct: { maxgaming: 4.0 },
+  fallbackRetailer: "maxgaming",
+  defaultPayoutPct: 3.5,
+};
 
 const _builtMonitors: Monitor[] = (raw.monitors as RawMonitor[]).map((m) => ({
   slug: m.slug,
@@ -77,7 +59,7 @@ const _builtMonitors: Monitor[] = (raw.monitors as RawMonitor[]).map((m) => ({
   buet: m.buet,
   prisNiveau: m.prisNiveau,
   billede: m.billede ?? null,
-  offers: buildOffers(m.slug, m.priser ?? null),
+  offers: buildFlatOffers(m.priser ?? null, OFFER_CONFIG),
   beskrivelse: m.beskrivelse,
   fordele: m.fordele,
   ulemper: m.ulemper,

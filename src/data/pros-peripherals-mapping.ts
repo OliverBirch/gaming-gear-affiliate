@@ -40,10 +40,14 @@ export function match(s: string | null | undefined): string | undefined {
 function matchHeadset(lower: string): string | undefined {
   if (lower.includes("hyperx")) {
     const noStinger = !lower.includes("stinger");
-    if (noStinger && (lower.includes("cloud ii") || lower.includes("cloud 2")) && (lower.includes("wireless") || lower.includes("trådløs"))) return "hyperx-cloud-ii-wireless";
-    if ((lower.includes("cloud iii") || lower.includes("cloud 3")) && (lower.includes("wireless") || lower.includes("trådløs"))) return "hyperx-cloud-iii-wireless";
-    if (lower.includes("cloud iii") || lower.includes("cloud 3")) return "hyperx-cloud-iii";
-    if (noStinger && (lower.includes("cloud ii") || lower.includes("cloud 2"))) return "hyperx-cloud-ii";
+    const wireless = lower.includes("wireless") || lower.includes("trådløs");
+    // "cloud iii" contains "cloud ii" as a substring, so the III checks MUST
+    // come first — otherwise every Cloud III Wireless resolves to Cloud II
+    // Wireless. Do not reorder.
+    const isCloud3 = lower.includes("cloud iii") || lower.includes("cloud 3");
+    const isCloud2 = noStinger && (lower.includes("cloud ii") || lower.includes("cloud 2"));
+    if (isCloud3) return wireless ? "hyperx-cloud-iii-wireless" : "hyperx-cloud-iii";
+    if (isCloud2) return wireless ? "hyperx-cloud-ii-wireless" : "hyperx-cloud-ii";
     return undefined;
   }
 

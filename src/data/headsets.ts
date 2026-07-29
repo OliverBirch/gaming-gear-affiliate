@@ -1,5 +1,6 @@
-import type { Headset, AffiliateOffer } from "@/lib/types";
+import type { Headset } from "@/lib/types";
 import { HeadsetSchema } from "@/lib/types";
+import { buildFlatOffers, type BuildOffersConfig } from "./build-offers";
 import raw from "./headsets.json";
 import { getHeadsetProSlugs } from "./pros-peripherals-mapping";
 
@@ -37,33 +38,14 @@ const SEARCH_URLS: Record<string, string> = {
   elgiganten: "https://www.elgiganten.dk/computertilbehoer/headset",
 };
 
-function buildOffers(
-  slug: string,
-  priser: Record<string, number | null | undefined> | null
-): AffiliateOffer[] {
-  if (!priser) return [];
-  const offers: AffiliateOffer[] = [];
-  for (const [retailer, pris] of Object.entries(priser)) {
-    if (typeof pris !== "number") continue;
-    if (!["maxgaming", "proshop", "computersalg", "elgiganten"].includes(retailer)) continue;
-    offers.push({
-      retailer: retailer as AffiliateOffer["retailer"],
-      produktUrl: SEARCH_URLS[retailer] ?? `https://www.maxgaming.dk/dk/search/${encodeURIComponent(slug)}`,
-      prisDkk: pris,
-      payoutPct: retailer === "maxgaming" ? 4.0 : retailer === "elgiganten" ? 2.5 : 3.5,
-      inStock: true,
-    });
-  }
-  if (offers.length === 0) {
-    offers.push({
-      retailer: "maxgaming",
-      produktUrl: SEARCH_URLS.maxgaming,
-      payoutPct: 4.0,
-      inStock: false,
-    });
-  }
-  return offers;
-}
+const OFFER_CONFIG: BuildOffersConfig = {
+  searchUrls: SEARCH_URLS,
+  allowedRetailers: ["maxgaming", "proshop", "computersalg", "elgiganten"],
+  // elgiganten pays 2.5% on headsets, unlike monitors — kept as-is.
+  payoutPct: { maxgaming: 4.0, elgiganten: 2.5, proshop: 3.5, computersalg: 3.5 },
+  fallbackRetailer: "maxgaming",
+  defaultPayoutPct: 3.5,
+};
 
 const _builtHeadsets: Headset[] = (raw.headsets as RawHeadset[]).map((h) => ({
   slug: h.slug,
@@ -79,7 +61,7 @@ const _builtHeadsets: Headset[] = (raw.headsets as RawHeadset[]).map((h) => ({
   surroundSound: h.surroundSound,
   prisNiveau: h.prisNiveau,
   billede: h.billede ?? null,
-  offers: buildOffers(h.slug, h.priser ?? null),
+  offers: buildFlatOffers(h.priser ?? null, OFFER_CONFIG),
   beskrivelse: h.beskrivelse,
   fordele: h.fordele,
   ulemper: h.ulemper,

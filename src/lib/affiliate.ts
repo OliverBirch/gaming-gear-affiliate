@@ -32,6 +32,20 @@ export function bestOffers(product: OfferableProduct): AffiliateOffer[] {
     .filter((o) => o.inStock !== false);
 }
 
+/**
+ * Lowest resolved price across a product's in-stock offers, or null when no
+ * offer carries a price. Callers previously inlined a `reduce(…, Infinity)`
+ * and compared against Infinity themselves.
+ */
+export function getLowestPrice(product: OfferableProduct): number | null {
+  let lowest: number | null = null;
+  for (const offer of bestOffers(product)) {
+    if (offer.prisDkk == null) continue;
+    if (lowest === null || offer.prisDkk < lowest) lowest = offer.prisDkk;
+  }
+  return lowest;
+}
+
 export function generateOfferId(): string {
   _offerIdCounter++;
   return `off_${Date.now()}_${_offerIdCounter}`;
