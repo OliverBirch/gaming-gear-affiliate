@@ -12,6 +12,19 @@ Answer one question: *"What gear does this pro use, where can I buy it in Denmar
 ## Source of truth
 - Zod schemas in `src/lib/types.ts` are canonical. Data files must conform — transform layers map raw JSON to schemas.
 - Never edit raw data inline; create a transform layer (see `src/data/mousepads.ts` for the pattern).
+- Every data module runs its schema at import time (`for (const x of built) XSchema.parse(x)`), including `pros.ts`. A build failure here means the data is wrong — fix the data, don't loosen the schema.
+- **Never invent `sidstVerificeret` or `kilde`.** They are nullable; leave them null when unknown so `/admin` reports "aldrig verificeret". A default date silently claims a verification that never happened.
+
+## Shared modules — use these, don't re-inline
+- `src/lib/schema-org.ts` — all JSON-LD. `breadcrumbList`, `productItemList`, `productSchema`, `jsonLd`, plus `SITE_URL`/`absoluteUrl`. Hand-writing a `"@context"` literal in a page is how `/headset` ended up with no `brand` or `url` in its ItemList.
+- `src/lib/product-labels.ts` — Danish enum labels. Note `prisNiveauLabels` ("Mellemklasse", for spec tables) and `prisNiveauLabelsShort` ("Mellem", for card badges) are both intentional; don't collapse them.
+- `src/lib/affiliate.ts` — `getLowestPrice(product)`. Don't re-inline `reduce(…, Infinity)`.
+- `src/lib/utils.ts` — `formatPriceDkk(n)` for the `"N kr."` suffix.
+- `src/data/build-offers.ts` — `buildFlatOffers` for flat `{retailer: price}` maps (headsets, monitors). Payout rates differ per category by design: headsets pay elgiganten 2.5%, monitors 3.5%. Tests pin this. Mousepads keep their own builder — nested per-size prices.
+
+## Tests
+- `npm test` (Vitest). Coverage is deliberately narrow: affiliate offer/price resolution, the peripheral-matching false-positive traps, schema-org output.
+- Peripheral matching is fuzzy substring matching over free text and is the most fragile logic in the repo. **Order is load-bearing** — `"cloud iii"` contains `"cloud ii"`, so the III branch must be checked first. Add a regression test with any new `match()` rule.
 
 ## Product copy (CopyPoints)
 - Prices belong in `offers[].prisDkk` or `prices.json` overrides. Do NOT write price strings (`$180`, `~$200`, `399 kr.`) into `fordele`/`ulemper` or `beskrivelse`. The CopyPoints Zod refine rejects `$` + digit patterns at validation.
