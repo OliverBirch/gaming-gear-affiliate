@@ -115,7 +115,7 @@ const rawMice: MouseSansProBrugere[] = [
       },
       {
         retailer: "ultrashop",
-        produktUrl: "https://www.ultrashop.dk/da/soeg?controller=search&s=razer+viper+v3+pro",
+        produktUrl: "https://www.ultrashop.dk/da/",
         payoutPct: 3.0,
         inStock: true,
       },
