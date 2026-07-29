@@ -408,7 +408,7 @@ export default function AdminDashboardPage() {
               </h3>
               <Table
                 headers={["Mus"]}
-                sourceFile="src/data/mice.ts"
+                sourceFile="src/data/mice.json"
                 rows={noOfferMice.map((m) => [
                   <Link
                     key={m.slug}
@@ -430,7 +430,7 @@ export default function AdminDashboardPage() {
               </h3>
               <Table
                 headers={["Mus", "URL (forældet mønster)"]}
-                sourceFile="src/data/mice.ts"
+                sourceFile="src/data/mice.json"
                 rows={topOldUrls.map((o) => [
                   <Link
                     key={o.productSlug}
@@ -463,7 +463,7 @@ export default function AdminDashboardPage() {
               </h3>
               <Table
                 headers={["Mus", "Tilbud"]}
-                sourceFile="src/data/mice.ts"
+                sourceFile="src/data/mice.json"
                 rows={topNoPrice.map((m) => [
                   <Link
                     key={m.slug}
@@ -569,7 +569,7 @@ export default function AdminDashboardPage() {
             </h3>
             <Table
               headers={["Mus", "Mærke"]}
-              sourceFile="src/data/mice.ts"
+              sourceFile="src/data/mice.json"
               rows={stubMice.map((s) => [
                 <Link
                   key={s.slug}
@@ -595,7 +595,7 @@ export default function AdminDashboardPage() {
               </h3>
               <Table
                 headers={["Mus"]}
-                sourceFile="src/data/mice.ts"
+                sourceFile="src/data/mice.json"
                 rows={miceEmptyFordele.map((m) => [
                   <Link
                     key={m.slug}
@@ -617,7 +617,7 @@ export default function AdminDashboardPage() {
               </h3>
               <Table
                 headers={["Mus"]}
-                sourceFile="src/data/mice.ts"
+                sourceFile="src/data/mice.json"
                 rows={miceEmptyUlemper.map((m) => [
                   <Link
                     key={m.slug}
@@ -819,7 +819,7 @@ export default function AdminDashboardPage() {
                             {users.join(", ")}
                           </td>
                           <td className="px-4 py-2.5 text-right">
-                            <SourceLink file="src/data/mice.ts" />
+                            <SourceLink file="src/data/mice.json" />
                           </td>
                         </tr>
                       );

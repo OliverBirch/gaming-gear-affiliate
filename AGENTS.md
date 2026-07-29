@@ -11,7 +11,7 @@ Answer one question: *"What gear does this pro use, where can I buy it in Denmar
 
 ## Source of truth
 - Zod schemas in `src/lib/types.ts` are canonical. Data files must conform — transform layers map raw JSON to schemas.
-- Never edit raw data inline; create a transform layer (see `src/data/mousepads.ts` for the pattern).
+- Never edit raw data inline; create a transform layer (see `src/data/mousepads.ts` for the pattern). Mice and keyboards deliberately diverge from that pattern's offer-building — see the `build-offers.ts` bullet below before "fixing" them to match.
 - Every data module runs its schema at import time (`for (const x of built) XSchema.parse(x)`), including `pros.ts`. A build failure here means the data is wrong — fix the data, don't loosen the schema.
 - **Never invent `sidstVerificeret` or `kilde`.** They are nullable; leave them null when unknown so `/admin` reports "aldrig verificeret". A default date silently claims a verification that never happened.
 
@@ -21,6 +21,7 @@ Answer one question: *"What gear does this pro use, where can I buy it in Denmar
 - `src/lib/affiliate.ts` — `getLowestPrice(product)`. Don't re-inline `reduce(…, Infinity)`.
 - `src/lib/utils.ts` — `formatPriceDkk(n)` for the `"N kr."` suffix.
 - `src/data/build-offers.ts` — `buildFlatOffers` for flat `{retailer: price}` maps (headsets, monitors). Payout rates differ per category by design: headsets pay elgiganten 2.5%, monitors 3.5%. Tests pin this. Mousepads keep their own builder — nested per-size prices.
+- **Mice and keyboards don't use `buildFlatOffers` at all — by design, not oversight.** `mice.json` stores each mouse's `offers` array verbatim: individually-authored per-product URLs (`produktUrl`/`affiliateUrl`), not a generic category-search fallback. **These are not confirmed live links** — the site has no affiliate program hooked up yet, every outbound URL across the site is placeholder/provisional pending real verification — but they're still per-product, not machine-generated from a shared template, and that's what matters for the JSON format choice. Routing them through a `priser` map + `buildFlatOffers` would silently collapse per-product URLs into generic category search URLs across all 52 mice — don't do it, regardless of the URLs' current verification status. Keyboards are the opposite case: every entry's offers were already machine-generated from a retailer list (`kbOffers()` in `keyboards.ts`), so `keyboards.json` stores that retailer list (`"retailers": [...]`) and `kbOffers()` expands it at build time — don't store the expanded offer objects there either, that would just duplicate generated data.
 
 ## Tests
 - `npm test` (Vitest). Coverage is deliberately narrow: affiliate offer/price resolution, the peripheral-matching false-positive traps, schema-org output.

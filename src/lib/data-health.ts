@@ -85,7 +85,7 @@ export function checkNoOffers(mice: Mouse[]): DashboardIssue[] {
       autoFixable: false,
       slug: m.slug,
       label: `${m.navn} — ingen tilbud`,
-      file: "src/data/mice.ts",
+      file: "src/data/mice.json",
       context: { brand: m.brand },
     }));
 }
@@ -101,7 +101,7 @@ export function checkBrokenUrls(mice: Mouse[]): DashboardIssue[] {
           autoFixable: true,
           slug: m.slug,
           label: `${m.navn} — maxgaming URL forældet`,
-          file: "src/data/mice.ts",
+          file: "src/data/mice.json",
           context: {
             retailer: o.retailer,
             oldUrl: o.produktUrl,
@@ -151,7 +151,7 @@ export function checkMissingPrices(
       autoFixable: false,
       slug: m.slug,
       label: `${m.navn} — ingen pris-data`,
-      file: "src/data/mice.ts",
+      file: "src/data/mice.json",
       context: { retailers: m.offers.map((o) => o.retailer) },
     }));
 }
@@ -169,7 +169,7 @@ export function checkMissingImagesMice(mice: Mouse[]): DashboardIssue[] {
         autoFixable: !!maxgamingOffer,
         slug: m.slug,
         label: `${m.navn} — intet billede`,
-        file: "src/data/mice.ts",
+        file: "src/data/mice.json",
         context: {
           hasMaxgaming: !!maxgamingOffer,
           maxgamingUrl: maxgamingOffer?.produktUrl ?? null,
@@ -206,7 +206,7 @@ export function checkEmptyCopyMice(mice: Mouse[]): DashboardIssue[] {
         autoFixable: false,
         slug: m.slug,
         label: `${m.navn} — tom beskrivelse`,
-        file: "src/data/mice.ts",
+        file: "src/data/mice.json",
         context: { brand: m.brand },
       });
     }
@@ -217,7 +217,7 @@ export function checkEmptyCopyMice(mice: Mouse[]): DashboardIssue[] {
         autoFixable: false,
         slug: m.slug,
         label: `${m.navn} — ingen fordele`,
-        file: "src/data/mice.ts",
+        file: "src/data/mice.json",
         context: { brand: m.brand },
       });
     }
@@ -228,7 +228,7 @@ export function checkEmptyCopyMice(mice: Mouse[]): DashboardIssue[] {
         autoFixable: false,
         slug: m.slug,
         label: `${m.navn} — ingen ulemper`,
-        file: "src/data/mice.ts",
+        file: "src/data/mice.json",
         context: { brand: m.brand },
       });
     }
@@ -252,7 +252,7 @@ export function checkOrphanedMice(
         autoFixable: false,
         slug: musSlug,
         label: `${musSlug} — mus findes ikke i kataloget`,
-        file: "src/data/mice.ts",
+        file: "src/data/mice.json",
         context: { usedBy },
       };
     });
@@ -304,7 +304,7 @@ export function checkStubMice(mice: Mouse[]): DashboardIssue[] {
       autoFixable: false,
       slug: m.slug,
       label: `${m.navn} — stub (mangler specs, copy og tilbud)`,
-      file: "src/data/mice.ts",
+      file: "src/data/mice.json",
       context: { brand: m.brand, vaegtGram: m.vaegtGram, offers: m.offers.length },
     }));
 }

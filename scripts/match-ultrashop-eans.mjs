@@ -26,29 +26,14 @@ function normalize(s) {
 // Load all catalog products
 const catalog = [];
 
-// Mice — load via eval-like approach since it's a .ts with imports
-// We'll parse the .ts file for product entries directly
 function loadMice() {
-  const src = readFileSync(join(ROOT, "src/data/mice.ts"), "utf-8");
-  // Extract slugs and names from the inline array
-  const entries = [];
-  const re = /slug:\s*"([^"]+)",\s*\n\s*navn:\s*"([^"]+)",\s*\n\s*brand:\s*"([^"]+)"/g;
-  let m;
-  while ((m = re.exec(src)) !== null) {
-    entries.push({ slug: m[1], navn: m[2], brand: m[3], category: "mus" });
-  }
-  return entries;
+  const data = JSON.parse(readFileSync(join(ROOT, "src/data/mice.json"), "utf-8"));
+  return data.mice.map((m) => ({ slug: m.slug, navn: m.navn, brand: m.brand, category: "mus" }));
 }
 
 function loadKeyboards() {
-  const src = readFileSync(join(ROOT, "src/data/keyboards.ts"), "utf-8");
-  const entries = [];
-  const re = /slug:\s*"([^"]+)",\s*\n\s*navn:\s*"([^"]+)",\s*\n\s*brand:\s*"([^"]+)"/g;
-  let m;
-  while ((m = re.exec(src)) !== null) {
-    entries.push({ slug: m[1], navn: m[2], brand: m[3], category: "tastaturer" });
-  }
-  return entries;
+  const data = JSON.parse(readFileSync(join(ROOT, "src/data/keyboards.json"), "utf-8"));
+  return data.keyboards.map((k) => ({ slug: k.slug, navn: k.navn, brand: k.brand, category: "tastaturer" }));
 }
 
 function loadMousepads() {

@@ -84,7 +84,7 @@ If the player is no longer listed on prosettings.net → check Liquipedia Status
 
 | Field | Source on page | Notes |
 |-------|---------------|-------|
-| Mouse | prosettings Mouse column / gear section | Map to internal `musSlug` in `mice.ts` |
+| Mouse | prosettings Mouse column / gear section | Map to internal `musSlug` in `mice.json` |
 | DPI | prosettings DPI value | Number |
 | Sensitivity | prosettings In-game sense | Number |
 | Polling rate | prosettings Polling rate column | Number (omit if missing) |
@@ -101,7 +101,7 @@ Compare what you extracted against `src/data/pros.ts` entry:
 
 | Diff | Action |
 |------|--------|
-| Mouse changed | Update `musSlug`. If new mouse not in `mice.ts`, follow `add-pro` step 4 (stub + mice-todo) |
+| Mouse changed | Update `musSlug`. If new mouse not in `mice.json`, follow `add-pro` step 4 (stub + mice-todo) |
 | DPI/Sens changed | Update `settings` field, recalculate `edpi` |
 | Team changed | Update `hold` |
 | Peripherals changed | Update `src/data/pros-peripherals.json` |
@@ -125,7 +125,7 @@ m0nesy: new mousepad (SteelSeries QcK Heavy → Artisan Ninja FX Zero), mapping 
 ## Unknown mouse handling
 
 Same as `add-pro` step 4:
-1. Create stub in `src/data/mice.ts` with placeholder values
+1. Create stub in `src/data/mice.json` with placeholder values
 2. Add entry to `src/data/mice-todo.ts`
 3. Report: "New mouse `{slug}` created as a stub. Use `add-mouse` skill to complete."
 
@@ -236,7 +236,7 @@ freshnessTickets.push({
 - `src/data/freshness-tasks.ts` — Ticket array for manual-verification cases
 - `src/data/pros-peripherals.json` — Free-text peripheral data
 - `src/data/pros-peripherals-mapping.ts` — Text → catalog slug mapping
-- `src/data/mice.ts` — Mouse catalog (check if mouse exists)
+- `src/data/mice.json` — Mouse catalog (check if mouse exists)
 - `src/data/mice-todo.ts` — Incomplete mouse tracking
 - `src/data/freshness-priority.ts` — Priority pro lists for re-verify
 - `src/lib/data-health.ts` — `getStaleProsByAge(pros)`, `STALE_DAYS`

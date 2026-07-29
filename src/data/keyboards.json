@@ -1,0 +1,272 @@
+{
+  "keyboards": [
+    {
+      "batteritidTimer": null,
+      "beskrivelse": "SteelSeries Apex Pro TKL Gen 3 er den ultimative konkurrencekeyboard med OmniPoint 3.0 HyperMagnetic switches. Justerbar aktivering, Rapid Trigger og Rapid Tap giver dig en målbar fordel i FPS-spil. OLED-display og PBT-keycaps gør den til et komplet produkt.",
+      "billede": "/images/keyboards/steelseries-apex-pro-tkl-gen-3.jpg",
+      "brand": "SteelSeries",
+      "ean": "5707119058865",
+      "forbindelse": "USB-C kablet",
+      "fordele": [
+        "OmniPoint 3.0 Hall Effect switches med justerbar aktivering",
+        "Rapid Trigger og Rapid Tap/SOCD til konkurrencegaming",
+        "OLED-display til indstillinger på farten",
+        "PBT doubleshot keycaps"
+      ],
+      "formfaktor": "TKL",
+      "hotSwappable": false,
+      "keycapMaterial": "PBT doubleshot",
+      "layout": "TKL (80%)",
+      "navn": "Apex Pro TKL Gen 3",
+      "pollingHz": 1000,
+      "prisNiveau": "flagship",
+      "rgb": true,
+      "slug": "steelseries-apex-pro-tkl-gen-3",
+      "switchType": "OmniPoint 3.0 HyperMagnetic (Hall Effect)",
+      "taster": 87,
+      "ulemper": [
+        "Høj pris",
+        "Kun kablet (ingen trådløs)",
+        "Ikke hot-swappable switches"
+      ],
+      "wireless": false,
+      "retailers": [
+        "maxgaming",
+        "proshop"
+      ]
+    },
+    {
+      "batteritidTimer": null,
+      "beskrivelse": "Wooting 80HE er den mest brugte keyboard blandt CS2-pros (27,5%). Med ægte 8000 Hz polling, Hall Effect switches og Rapid Trigger-teknologi er den benchmark for konkurrencekeyboards. Rappy Snappy og analog input giver controller-lignende kontrol.",
+      "brand": "Wooting",
+      "forbindelse": "USB-C kablet",
+      "fordele": [
+        "8000 Hz polling - ekstremt lav latency",
+        "Rapid Trigger og Rappy Snappy",
+        "Hot-swappable switches",
+        "Mest brugte keyboard blandt CS2-pros"
+      ],
+      "formfaktor": "75%",
+      "hotSwappable": true,
+      "keycapMaterial": "PBT",
+      "layout": "75%",
+      "navn": "80HE",
+      "pollingHz": 8000,
+      "prisNiveau": "flagship",
+      "rgb": true,
+      "slug": "wooting-80he",
+      "switchType": "Lekker Hall Effect (justerbar 0.1-4.0mm)",
+      "taster": 84,
+      "ulemper": [
+        "Høj pris",
+        "Kun kablet",
+        "Kan være svær at få fat i"
+      ],
+      "wireless": false,
+      "retailers": [
+        "maxgaming",
+        "proshop"
+      ]
+    },
+    {
+      "batteritidTimer": null,
+      "beskrivelse": "Razer Huntsman V3 Pro er et esports-flagskib med Razer Analog Optical Gen-2 switches og 8000 Hz HyperPolling. Justerbar aktivering fra 0,1-4,0 mm og Rapid Trigger gør den til et af de hurtigste keyboards på markedet.",
+      "brand": "Razer",
+      "forbindelse": "USB-C kablet",
+      "fordele": [
+        "Razer Analog Optical Gen-2 switches med lynhurtig aktivering",
+        "8000 Hz HyperPolling",
+        "Justerbar aktivering 0,1-4,0 mm",
+        "Rapid Trigger og Snap Tap"
+      ],
+      "formfaktor": "Full-size",
+      "hotSwappable": false,
+      "keycapMaterial": "PBT doubleshot",
+      "layout": "Full-size (100%)",
+      "navn": "Huntsman V3 Pro",
+      "pollingHz": 8000,
+      "prisNiveau": "flagship",
+      "rgb": true,
+      "slug": "razer-huntsman-v3-pro",
+      "switchType": "Razer Analog Optical Gen-2",
+      "taster": 104,
+      "ulemper": [
+        "Høj pris",
+        "Kun kablet",
+        "Kræver Razer Synapse software"
+      ],
+      "wireless": false,
+      "retailers": [
+        "maxgaming",
+        "proshop"
+      ]
+    },
+    {
+      "batteritidTimer": null,
+      "beskrivelse": "Corsair K100 RGB er et premium flagskib med Corsair OPX optiske switches og 4000 Hz polling. Det robuste aluminiumsdesign, iCUE kontrolhjul og 44-zone RGB LightEdge gør den til midtpunktet i ethvert setup.",
+      "brand": "Corsair",
+      "forbindelse": "USB-C kablet",
+      "fordele": [
+        "Corsair OPX optiske switches med 1,0 mm aktivering",
+        "4000 Hz hyper-polling",
+        "iCUE kontrolhjul og dedikerede medietaster",
+        "Aluminiumskonstruktion i topklasse"
+      ],
+      "formfaktor": "Full-size",
+      "hotSwappable": false,
+      "keycapMaterial": "PBT doubleshot",
+      "layout": "Full-size (100%)",
+      "navn": "K100 RGB",
+      "pollingHz": 4000,
+      "prisNiveau": "flagship",
+      "rgb": true,
+      "slug": "corsair-k100-rgb",
+      "switchType": "Corsair OPX Optical",
+      "taster": 110,
+      "ulemper": [
+        "Meget høj pris",
+        "Kun kablet",
+        "Ikke hot-swappable"
+      ],
+      "wireless": false,
+      "retailers": [
+        "maxgaming",
+        "proshop"
+      ]
+    },
+    {
+      "batteritidTimer": 2000,
+      "beskrivelse": "ASUS ROG Azoth 96 HE kombinerer et OLED-display, gasket mount-design og op til 2000 timers batteritid. Med tri-mode trådløs forbindelse og Hall Effect switches er den den perfekte hybrid mellem produktivitet og gaming.",
+      "brand": "ASUS",
+      "forbindelse": "Tri-mode: USB-C / 2,4 GHz / Bluetooth",
+      "fordele": [
+        "OLED-display med funktionalitet",
+        "Gasket mount med 3-lags dæmpning",
+        "2000 timers batteritid",
+        "Tri-mode trådløs (USB/2,4GHz/Bluetooth)"
+      ],
+      "formfaktor": "96%",
+      "hotSwappable": true,
+      "keycapMaterial": "PBT",
+      "layout": "96% (kompakt full-size)",
+      "navn": "ROG Azoth 96 HE",
+      "pollingHz": 1000,
+      "prisNiveau": "flagship",
+      "rgb": true,
+      "slug": "asus-rog-azoth-96-he",
+      "switchType": "Hall Effect (justerbar)",
+      "taster": 96,
+      "ulemper": [
+        "Meget høj pris",
+        "OLED dræner batteri",
+        "Kræver firmware-opdateringer"
+      ],
+      "wireless": true,
+      "retailers": [
+        "maxgaming",
+        "proshop"
+      ]
+    },
+    {
+      "batteritidTimer": 80,
+      "beskrivelse": "Keychron K4 HE gør Hall Effect-teknologi tilgængelig til en fornuftig pris. Med justerbar aktivering, tri-mode trådløs og et kompakt 96%-layout får du konkurrencefunktioner uden flagskibsprisen.",
+      "brand": "Keychron",
+      "forbindelse": "Tri-mode: USB-C / 2,4 GHz / Bluetooth",
+      "fordele": [
+        "Hall Effect switches til en fornuftig pris",
+        "Tri-mode trådløs (USB/2,4GHz/Bluetooth)",
+        "Hot-swappable switches",
+        "Kompakt 96%-layout med numpad"
+      ],
+      "formfaktor": "96%",
+      "hotSwappable": true,
+      "keycapMaterial": "PBT",
+      "layout": "96% (kompakt full-size)",
+      "navn": "K4 HE",
+      "pollingHz": 1000,
+      "prisNiveau": "mid",
+      "rgb": true,
+      "slug": "keychron-k4-he",
+      "switchType": "Hall Effect (justerbar)",
+      "taster": 100,
+      "ulemper": [
+        "Kun 1000 Hz polling",
+        "Mindre kendt for gaming",
+        "Byggekvalitet matcher ikke premium-modeller"
+      ],
+      "wireless": true,
+      "retailers": [
+        "maxgaming",
+        "proshop"
+      ]
+    },
+    {
+      "batteritidTimer": 40,
+      "beskrivelse": "Logitech G915 TKL er et low-profile trådløst flagskib med GL tactile switches og Lightspeed-teknologi. Det slanke design, RGB-belysning og dedikerede medietaster gør den ideel til gamere der også vil have et stilrent skrivebord.",
+      "billede": "/images/keyboards/logitech-g915-tkl.jpg",
+      "brand": "Logitech",
+      "ean": "5099206088795",
+      "forbindelse": "2,4 GHz Lightspeed + Bluetooth",
+      "fordele": [
+        "Low-profile design - meget slank",
+        "Lightspeed trådløs med lav latency",
+        "Dedikerede medietaster",
+        "Flot RGB-belysning"
+      ],
+      "formfaktor": "TKL",
+      "hotSwappable": false,
+      "keycapMaterial": "PBT",
+      "layout": "TKL (80%)",
+      "navn": "G915 TKL",
+      "pollingHz": 1000,
+      "prisNiveau": "flagship",
+      "rgb": true,
+      "slug": "logitech-g915-tkl",
+      "switchType": "Logitech GL Tactile (low-profile)",
+      "taster": 87,
+      "ulemper": [
+        "Høj pris",
+        "Ikke hot-swappable",
+        "Kortere batteritid end konkurrenter"
+      ],
+      "wireless": true,
+      "retailers": [
+        "maxgaming",
+        "proshop"
+      ]
+    },
+    {
+      "batteritidTimer": 60,
+      "beskrivelse": "AULA F75 Pro leverer en premium thocky lyd og tri-mode trådløs til en overraskende lav pris. Med pre-lubed Reaper switches, gasket mount og PBT-keycaps får du langt mere end prisen antyder.",
+      "brand": "AULA",
+      "forbindelse": "Tri-mode: USB-C / 2,4 GHz / Bluetooth",
+      "fordele": [
+        "Fantastisk værdi for prisen",
+        "Tri-mode trådløs",
+        "Gasket mount med god lyd",
+        "Hot-swappable switches"
+      ],
+      "formfaktor": "75%",
+      "hotSwappable": true,
+      "keycapMaterial": "PBT",
+      "layout": "75%",
+      "navn": "F75 Pro",
+      "pollingHz": 1000,
+      "prisNiveau": "budget",
+      "rgb": true,
+      "slug": "aula-f75-pro",
+      "switchType": "Pre-lubed Reaper (mekanisk)",
+      "taster": 82,
+      "ulemper": [
+        "Kun 1000 Hz polling",
+        "Mindre kendt brand",
+        "Plastikkonstruktion"
+      ],
+      "wireless": true,
+      "retailers": [
+        "maxgaming",
+        "proshop"
+      ]
+    }
+  ]
+}

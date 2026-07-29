@@ -40,7 +40,7 @@ Sort by severity (high → medium → low), then by auto-fixable first.
 1. Fetch `https://www.maxgaming.dk/dk/computertilbehor/computermus-tilbehor/gaming-mus` (and subsequent pages if not found)
 2. Grep the HTML for `href="/dk/tradlose/{search-term}"` where `searchTerm` comes from `context.searchTerm`
 3. Match by brand/model name to find the correct new URL
-4. Edit `src/data/mice.ts`: find the offer with `retailer: "maxgaming"` for this slug and replace both `produktUrl` and `affiliateUrl` with `https://www.maxgaming.dk{found-href}`
+4. Edit `src/data/mice.json`: find the offer with `"retailer": "maxgaming"` for this slug and replace both `produktUrl` and `affiliateUrl` with `https://www.maxgaming.dk{found-href}`
 5. If not found on any page, log a warning
 
 #### `missing-image` (mouse product image)
@@ -48,7 +48,7 @@ Sort by severity (high → medium → low), then by auto-fixable first.
 1. Check `context.hasMaxgaming` and `context.maxgamingUrl`
 2. If `hasMaxgaming: true`: fetch the product page, extract `<meta property="og:image" content="...">`
 3. Download the image to `/public/images/mice/{slug}.{ext}` (preserve extension, strip query params)
-4. Edit `src/data/mice.ts`: change `billede: undefined` to `billede: "/images/mice/{slug}.{ext}"`
+4. Edit `src/data/mice.json`: add `"billede": "/images/mice/{slug}.{ext}"` to the entry (the key is normally omitted entirely until an image exists)
 5. If `hasMaxgaming: false`: skip — no retailer product page accessible for image extraction
 
 #### `missing-pro-image` (pro player avatar)
@@ -98,7 +98,7 @@ Run `npm run build`. Fix any type errors or validation failures.
 - `src/app/admin/page.tsx` — Dashboard with embedded issues JSON (now using `src/lib/data-health.ts`)
 - `src/lib/data-health.ts` — Pure health-check functions (also powers admin)
 - `src/data/freshness-tasks.ts` — Ticket definitions (user answers via /api/resolve-ticket → KV)
-- `src/data/mice.ts` — Mouse entries (offer URLs, billede)
+- `src/data/mice.json` — Mouse entries (offer URLs, billede); `src/data/mice.ts` is the transform layer, don't edit entries there
 - `src/data/pros.ts` — Pro entries (billede, sidstVerificeret)
 - `src/data/pros-peripherals.json` — Peripheral data
 - `.opencode/skills/add-pro/SKILL.md` — Pro creation/update workflow

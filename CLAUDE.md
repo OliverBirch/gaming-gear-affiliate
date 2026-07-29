@@ -6,9 +6,9 @@ Danish esports-gear affiliate site. Core: "what pros use → verified → buy in
 ## Entry points (read these first)
 - `src/lib/types.ts` — all Zod schemas, RETAILER_SLUGS, CopyPoints
 - `src/lib/affiliate.ts` — generic offer resolution
-- `src/data/pros.ts` — 80+ pros (the moat)
-- `src/data/mice.ts` — 14 mice
-- `src/data/keyboards.ts` — 8 keyboards
+- `src/data/pros.ts` — 300+ pros (the moat)
+- `src/data/mice.ts` — 52 mice (transform layer from JSON)
+- `src/data/keyboards.ts` — 8 keyboards (transform layer from JSON)
 - `src/data/mousepads.ts` — 17 mousepads (transform layer from JSON)
 
 ## Key constraints

@@ -41,7 +41,7 @@ From the prosettings.net table, extract:
 | `slug` | Derived from navn | Lowercase, alphanumeric + hyphens only. Matches the URL-friendly handle. |
 | `hold` | Liquipedia API | e.g. "Team Spirit" |
 | `land` | Liquipedia API or prosettings flag | Danish country names: Rusland, Frankrig, Ukraine, Danmark, etc. |
-| `musSlug` | Mouse column | Map the mouse name to the internal slug in `mice.ts`. If the mouse doesn't exist → see step 4. |
+| `musSlug` | Mouse column | Map the mouse name to the internal slug in `mice.json`. If the mouse doesn't exist → see step 4. |
 | `dpi` | DPI column | Number |
 | `inGameSens` | Sensitivity column | Number (use `.` for decimal) |
 | `pollingHz` | Polling rate column | Number. If missing from prosettings, omit the field. |
@@ -76,7 +76,7 @@ Insert the entry into the `pros[]` array. Maintain alphabetical-ish order by slu
 **Optional fields:** `hold`, `land`, `billede`, `tastaturSlug`, `musemaatteSlug`, `settings.pollingHz`.
 
 The `esport` slug must match an entry in `src/data/esports.ts` (currently `cs2`, `valorant`, `r6`).
-The `musSlug` must match a slug in `src/data/mice.ts` — if not, see step 4.
+The `musSlug` must match a slug in `src/data/mice.json` — if not, see step 4.
 
 ### 3. Add peripheral data
 
@@ -111,41 +111,39 @@ If the team isn't on ProSettings.net, generate a monogram via `scripts/_gen-team
 
 ### 4. Unknown mouse
 
-If the pro's mouse slug does not exist in `src/data/mice.ts`:
+If the pro's mouse slug does not exist in `src/data/mice.json`:
 
-1. **Add a stub entry** to `src/data/mice.ts` with `// STUB — needs completion` comment. Use placeholder values:
-   ```ts
-   // STUB — needs completion. Tracked in mice-todo.ts
+1. **Add a stub entry** to the `mice` array in `src/data/mice.json`. Use placeholder values (omit `billede` entirely — JSON has no `undefined`, and that's the correct "no image yet" state):
+   ```json
    {
-     slug: "new-mouse-slug",
-     navn: "Mouse Name from Prosettings",
-     brand: "Brand from Prosettings",
-     vaegtGram: 0,
-     laengdeMm: 0,
-     breddeMm: 0,
-     hoejdeMm: 0,
-     formfaktor: "symmetrisk",
-     greb: [],
-     haandStoerrelse: [],
-     wireless: false,
-     forbindelse: "",
-     batteritidTimer: null,
-     sensor: "",
-     maxDpi: 0,
-     pollingHz: 0,
-     switchType: "mekanisk",
-     knapper: 0,
-     lodMm: 0,
-     softwarePaakraevet: false,
-     prisNiveau: "mid",
-     billede: undefined,
-     offers: [],
-     beskrivelse: "",
-     fordele: [],
-     ulemper: [],
-     proBrugere: [],
-   },
+     "slug": "new-mouse-slug",
+     "navn": "Mouse Name from Prosettings",
+     "brand": "Brand from Prosettings",
+     "vaegtGram": 0,
+     "laengdeMm": 0,
+     "breddeMm": 0,
+     "hoejdeMm": 0,
+     "formfaktor": "symmetrisk",
+     "greb": [],
+     "haandStoerrelse": [],
+     "wireless": false,
+     "forbindelse": "",
+     "batteritidTimer": null,
+     "sensor": "",
+     "maxDpi": 0,
+     "pollingHz": 0,
+     "switchType": "mekanisk",
+     "knapper": 0,
+     "lodMm": 0,
+     "softwarePaakraevet": false,
+     "prisNiveau": "mid",
+     "offers": [],
+     "beskrivelse": "",
+     "fordele": [],
+     "ulemper": []
+   }
    ```
+   Don't add a `proBrugere` field — the `mice.ts` transform layer derives it from `pros.ts` at build time. `data-health.ts`'s `isStubMouse` check detects this as a stub structurally (zero weight/offers/copy), so no `// STUB` marker is needed or possible in JSON — `mice-todo.ts` is the actual tracking mechanism (next step).
 
 2. **Add a todo entry** to `src/data/mice-todo.ts`:
    ```ts
@@ -255,5 +253,5 @@ Use a unique `id` format: `{slug}-{ticket-type-sep}-{date}` e.g. `nilo-missing-i
 - `src/data/pros-peripherals.json` — Free-text peripheral data
 - `src/data/pros-peripherals-mapping.ts` — Text-to-catalog slug mapping
 - `src/data/mice-todo.ts` — Incomplete mouse tracking
-- `src/data/mice.ts` — Mouse catalog (check if mouse exists)
+- `src/data/mice.json` — Mouse catalog (check if mouse exists)
 - `src/data/esports.ts` — Valid esport slugs

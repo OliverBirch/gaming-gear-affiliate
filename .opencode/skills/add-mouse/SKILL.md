@@ -27,7 +27,7 @@ Same steps, just no stub to clean up afterward.
 
 **Niche brands** (WLmouse, Ninjutso, Finalmouse, Vaxee, G-Wolves, Pwnage, Endgame Gear): RTINGS rarely covers these. Skip RTINGS and go directly to Techpowerup, then the manufacturer product page. Prosettings.net entries for pros using the mouse can also supply specs.
 
-**Variant derivation:** If the mouse is a special edition, collab, or wired variant of an existing entry (e.g. SUPERSTRIKE = Superlight 2, Jinggg X = customized X2, Maya 8K = Maya X), start from the existing specs in `mice.ts` and only research what differs — polling rate, sensor, weight, switch type. This avoids re-fetching the same shape data.
+**Variant derivation:** If the mouse is a special edition, collab, or wired variant of an existing entry (e.g. SUPERSTRIKE = Superlight 2, Jinggg X = customized X2, Maya 8K = Maya X), start from the existing specs in `mice.json` and only research what differs — polling rate, sensor, weight, switch type. This avoids re-fetching the same shape data.
 
 | Field | Source | Notes |
 |---|---|---|
@@ -66,38 +66,38 @@ ulemper: ["Høj pris", "Ikke velegnet til palm-greb", "Overfladen kan være glat
 
 ### Images
 
-**Default: `billede: undefined`** — the mouse card renders the first letter of `brand` as a fallback. This is the correct starting state.
+**Default: omit the `billede` key entirely** (JSON has no `undefined`) — the mouse card renders the first letter of `brand` as a fallback. This is the correct starting state.
 
 Only add an image if you can access a retailer product page (proshop.dk, maxgaming.dk) and download a verifiable product image. Save to `/public/images/mice/{slug}.{ext}` (use original extension — retain `.png`, `.jpg`, `.webp`). Do not guess or construct image URLs.
 
 ### Offers
 
-Offers tell the system which retailers to track for this product. Prices come from the Adtraction XML feed, NOT from this skill.
+Offers tell the system which retailers to track for this product. Prices come from the Adtraction XML feed, NOT from this skill. Unlike keyboards/headsets/mousepads, mice offers are stored as a literal array in `mice.json` — individually-authored per-product URLs, not a generic search-page fallback — so don't collapse this into a retailer list. Note: the site has no live affiliate program yet, so these URLs are provisional placeholders, not confirmed links — don't describe them as "verified" in copy or docs.
 
 For each retailer where the mouse is available:
 
 1. Search **Partner-ads** or **Adtraction** affiliate portal for the product
 2. Copy the product URL and affiliate URL
 3. Use `basePayoutPct` from `src/data/retailers.ts` for the retailer's default rate
-4. Add to the `offers[]` array:
+4. Add to the `offers` array in the JSON entry:
 
-```ts
-offers: [
+```json
+"offers": [
   {
-    retailer: "proshop",
-    produktUrl: "https://www.proshop.dk/...",
-    affiliateUrl: "https://www.proshop.dk/...",
-    payoutPct: 3.5,
-    inStock: true,
+    "retailer": "proshop",
+    "produktUrl": "https://www.proshop.dk/...",
+    "affiliateUrl": "https://www.proshop.dk/...",
+    "payoutPct": 3.5,
+    "inStock": true
   },
   {
-    retailer: "maxgaming",
-    produktUrl: "https://www.maxgaming.dk/...",
-    affiliateUrl: "https://www.maxgaming.dk/...",
-    payoutPct: 4.0,
-    inStock: true,
-  },
-],
+    "retailer": "maxgaming",
+    "produktUrl": "https://www.maxgaming.dk/...",
+    "affiliateUrl": "https://www.maxgaming.dk/...",
+    "payoutPct": 4.0,
+    "inStock": true
+  }
+]
 ```
 
 Valid retailer slugs (from `RETAILER_SLUGS`): `proshop`, `computersalg`, `maxgaming`, `coolshop`, `elgiganten`, `avxperten`, `dustinhome`, `komplett`, `billo`.
@@ -123,7 +123,7 @@ Pass the stub slug to `isSlugTaken(existingCatalog)` and `findDuplicateSuggestio
 
 If a completed entry already exists or the stub appears twice, deduplicate first — edit out the duplicate stub entry or skip if already done.
 
-**When multiple stubs exist:** Group by brand and launch parallel research agents. Derive variant specs from existing entries where possible (see variant derivation above). Write all entries to `mice.ts` in a single edit pass rather than one at a time.
+**When multiple stubs exist:** Group by brand and launch parallel research agents. Derive variant specs from existing entries where possible (see variant derivation above). Write all entries to `mice.json` in a single edit pass rather than one at a time.
 
 ### 2. Source specs
 
@@ -148,11 +148,11 @@ If a retailer doesn't carry the product, skip it.
 
 ### 5. Save image (optional)
 
-Only if a product image was sourced from a retailer page (see Images section above). Save to `/public/images/mice/{slug}.{ext}`. Most entries ship with `billede: undefined` as the default — that's expected.
+Only if a product image was sourced from a retailer page (see Images section above). Save to `/public/images/mice/{slug}.{ext}`. Most entries ship with the `billede` key omitted as the default — that's expected.
 
-### 6. Add entry to `src/data/mice.ts`
+### 6. Add entry to `src/data/mice.json`
 
-Insert the complete entry into the `rawMice[]` array. Use the `MiceSansProBrugere` type — `proBrugere` is auto-derived from `pros.ts`.
+Insert the complete entry into the `mice` array in `mice.json`. Don't add a `proBrugere` field — it's auto-derived from `pros.ts` by the `src/data/mice.ts` transform layer at build time.
 
 If replacing a stub: replace the entire stub entry with the complete entry.
 
@@ -192,7 +192,8 @@ Same process — specs from wherever available, even if sparse. Better incomplet
 ## Key reference files
 
 - `src/lib/types.ts` — MouseSchema, AffiliateOfferSchema, CopyPoints validation
-- `src/data/mice.ts` — Existing mouse entries (pattern reference)
+- `src/data/mice.json` — Existing mouse entries (pattern reference, and where new entries go)
+- `src/data/mice.ts` — Transform layer (JSON → Zod-validated `Mouse[]`); don't edit entries here
 - `src/data/mice-todo.ts` — Stub tracking (read for stubs, clean up after completion)
 - `src/data/retailers.ts` — Retailer slugs and base payout percentages
 - `src/data/prices.ts` + `prices.json` — Price override system (feed-populated, do not edit)

@@ -36,12 +36,15 @@ if (!prices) {
 }
 
 // CopyPoints check (no dollar sign + digit in copy)
+// `items` is passed in explicitly by the caller rather than guessed from a
+// hardcoded key list here: a prior version guessed via `data.mousepads ??
+// data.headsets ?? []`, so any file whose key wasn't in that chain (e.g.
+// monitors.json's `monitors` key) silently checked zero entries and reported
+// success instead of failing to find data.
 const COPY_FIELDS = ["beskrivelse", "fordele", "ulemper"];
-function checkCopyPoints(data, file, getNavn) {
-  if (!data) return;
-  const items = Array.isArray(data) ? data : (data.mousepads ?? data.headsets ?? []);
-  for (const item of items) {
-    const name = getNavn ? getNavn(item) : (item.slug ?? item.navn ?? "?");
+function checkCopyPoints(items, file) {
+  for (const item of items ?? []) {
+    const name = item.slug ?? item.navn ?? "?";
     for (const field of COPY_FIELDS) {
       const value = item[field];
       const texts = Array.isArray(value) ? value : [value];
@@ -53,8 +56,11 @@ function checkCopyPoints(data, file, getNavn) {
     }
   }
 }
-checkCopyPoints(readJson("mousepads.json"), "mousepads.json", (m) => m.slug ?? "?");
-checkCopyPoints(readJson("headsets.json"), "headsets.json", (h) => h.slug ?? "?");
+checkCopyPoints(readJson("mousepads.json")?.mousepads, "mousepads.json");
+checkCopyPoints(readJson("headsets.json")?.headsets, "headsets.json");
+checkCopyPoints(readJson("monitors.json")?.monitors, "monitors.json");
+checkCopyPoints(readJson("mice.json")?.mice, "mice.json");
+checkCopyPoints(readJson("keyboards.json")?.keyboards, "keyboards.json");
 
 // pros-peripherals.json validation
 const peripherals = readJson("pros-peripherals.json");
@@ -92,6 +98,28 @@ if (hs) {
   for (const h of hs.headsets ?? []) {
     for (const r of ["slug", "navn", "brand", "wireless", "prisNiveau", "beskrivelse"]) {
       if (!(r in h)) warn("headsets.json", (h.slug ?? "?") + " missing '" + r + "'");
+    }
+  }
+}
+
+// mice.json structure
+const mc = readJson("mice.json");
+if (mc) {
+  if (!Array.isArray(mc.mice)) error("mice.json", "missing mice array");
+  for (const m of mc.mice ?? []) {
+    for (const r of ["slug", "navn", "brand", "formfaktor", "prisNiveau", "beskrivelse", "offers"]) {
+      if (!(r in m)) warn("mice.json", (m.slug ?? "?") + " missing '" + r + "'");
+    }
+  }
+}
+
+// keyboards.json structure
+const kb = readJson("keyboards.json");
+if (kb) {
+  if (!Array.isArray(kb.keyboards)) error("keyboards.json", "missing keyboards array");
+  for (const k of kb.keyboards ?? []) {
+    for (const r of ["slug", "navn", "brand", "layout", "prisNiveau", "beskrivelse", "retailers"]) {
+      if (!(r in k)) warn("keyboards.json", (k.slug ?? "?") + " missing '" + r + "'");
     }
   }
 }
