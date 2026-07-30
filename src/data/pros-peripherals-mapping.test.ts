@@ -81,4 +81,9 @@ describe("matchMonitor", () => {
   it("returns undefined for unknown monitors", () => {
     expect(matchMonitor("dell u2720q")).toBeUndefined();
   });
+
+  it("does not mismap XL2566X+ or XL2746K onto the unrelated XL2566K catalog entry", () => {
+    expect(matchMonitor("zowie xl2566x+")).toBeUndefined();
+    expect(matchMonitor("zowie xl2746k")).toBeUndefined();
+  });
 });

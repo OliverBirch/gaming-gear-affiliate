@@ -107,8 +107,8 @@ function matchMonitor(lower: string): string | undefined {
   if (lower.includes("xl2546k")) return "zowie-xl2546k";
   if (lower.includes("pg27aqdm")) return "asus-rog-swift-pg27aqdm";
   if (lower.includes("aw2524h")) return "alienware-aw2524h";
-  if (lower.includes("xl2566x+") || lower.includes("xl2566x")) return "zowie-xl2566k";
-  if (lower.includes("xl2746k")) return "zowie-xl2566k";
+  // XL2566X+ and XL2746K are real, distinct ZOWIE monitors with no catalog
+  // entry yet - do not map them to XL2566K, a different product.
   if (lower.includes("pg27aq") && !lower.includes("pg27aqdm")) return "asus-rog-swift-pg27aqdm";
   return undefined;
 }

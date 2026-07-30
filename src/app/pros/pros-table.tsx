@@ -226,11 +226,11 @@ export function ProsTable({ pros }: Props) {
                         <div className="text-xs text-muted-foreground truncate">{pro.hold}</div>
                       </div>
                     </div>
-                    <div className="flex items-center"><MouseCell navn={row.mouseNavn} slug={row.mouseSlug} /></div>
-                    <div className="flex items-center"><GearCell navn={row.keyboardNavn} slug={row.keyboardSlug} basePath="tastaturer" /></div>
-                    <div className="flex items-center"><GearCell navn={row.mousepadNavn} slug={row.mousepadSlug} basePath="musemaatter" /></div>
-                    <div className="hidden xl:flex items-center"><GearCell navn={row.headsetNavn} slug={row.headsetSlug} basePath="headset" /></div>
-                    <div className="hidden xl:flex items-center"><GearCell navn={row.monitorNavn} slug={row.monitorSlug ?? null} basePath="skaerme" /></div>
+                    <div className="flex items-center min-w-0"><MouseCell navn={row.mouseNavn} slug={row.mouseSlug} /></div>
+                    <div className="flex items-center min-w-0"><GearCell navn={row.keyboardNavn} slug={row.keyboardSlug} basePath="tastaturer" /></div>
+                    <div className="flex items-center min-w-0"><GearCell navn={row.mousepadNavn} slug={row.mousepadSlug} basePath="musemaatter" /></div>
+                    <div className="hidden xl:flex items-center min-w-0"><GearCell navn={row.headsetNavn} slug={row.headsetSlug} basePath="headset" /></div>
+                    <div className="hidden xl:flex items-center min-w-0"><GearCell navn={row.monitorNavn} slug={row.monitorSlug ?? null} basePath="skaerme" /></div>
                   </div>
 
                   {/* Tablet row */}
@@ -242,9 +242,9 @@ export function ProsTable({ pros }: Props) {
                         <div className="text-xs text-muted-foreground truncate">{pro.hold}</div>
                       </div>
                     </div>
-                    <div className="flex items-center"><MouseCell navn={row.mouseNavn} slug={row.mouseSlug} /></div>
-                    <div className="hidden sm:flex items-center"><GearCell navn={row.keyboardNavn} slug={row.keyboardSlug} basePath="tastaturer" /></div>
-                    <div className="hidden sm:flex items-center"><GearCell navn={row.mousepadNavn} slug={row.mousepadSlug} basePath="musemaatter" /></div>
+                    <div className="flex items-center min-w-0"><MouseCell navn={row.mouseNavn} slug={row.mouseSlug} /></div>
+                    <div className="hidden sm:flex items-center min-w-0"><GearCell navn={row.keyboardNavn} slug={row.keyboardSlug} basePath="tastaturer" /></div>
+                    <div className="hidden sm:flex items-center min-w-0"><GearCell navn={row.mousepadNavn} slug={row.mousepadSlug} basePath="musemaatter" /></div>
                   </div>
 
                   {/* Mobile card */}
@@ -259,47 +259,47 @@ export function ProsTable({ pros }: Props) {
                     <div className="space-y-2.5">
                       {row.mouseNavn && (
                         <div className="flex items-center justify-between gap-2">
-                          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
                             <MousePointer className="h-3 w-3 text-primary" />
                             Mus
                           </span>
-                          <MouseCell navn={row.mouseNavn} slug={row.mouseSlug} />
+                          <div className="min-w-0"><MouseCell navn={row.mouseNavn} slug={row.mouseSlug} /></div>
                         </div>
                       )}
                       {row.keyboardNavn && (
                         <div className="flex items-center justify-between gap-2">
-                          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
                             <Keyboard className="h-3 w-3 text-primary" />
                             Tastatur
                           </span>
-                          <GearCell navn={row.keyboardNavn} slug={row.keyboardSlug} basePath="tastaturer" />
+                          <div className="min-w-0"><GearCell navn={row.keyboardNavn} slug={row.keyboardSlug} basePath="tastaturer" /></div>
                         </div>
                       )}
                       {row.mousepadNavn && (
                         <div className="flex items-center justify-between gap-2">
-                          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
                             <Square className="h-3 w-3 text-primary" />
                             Musemåtte
                           </span>
-                          <GearCell navn={row.mousepadNavn} slug={row.mousepadSlug} basePath="musemaatter" />
+                          <div className="min-w-0"><GearCell navn={row.mousepadNavn} slug={row.mousepadSlug} basePath="musemaatter" /></div>
                         </div>
                       )}
                       {row.monitorNavn && (
                         <div className="flex items-center justify-between gap-2">
-                          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
                             <Monitor className="h-3 w-3 text-primary" />
                             Monitor
                           </span>
-                          <GearCell navn={row.monitorNavn} slug={row.monitorSlug ?? null} basePath="skaerme" />
+                          <div className="min-w-0"><GearCell navn={row.monitorNavn} slug={row.monitorSlug ?? null} basePath="skaerme" /></div>
                         </div>
                       )}
                       {row.headsetNavn && (
                         <div className="flex items-center justify-between gap-2">
-                          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
                             <Headphones className="h-3 w-3 text-primary" />
                             Headset
                           </span>
-                          <GearCell navn={row.headsetNavn} slug={row.headsetSlug} basePath="headset" />
+                          <div className="min-w-0"><GearCell navn={row.headsetNavn} slug={row.headsetSlug} basePath="headset" /></div>
                         </div>
                       )}
                     </div>
