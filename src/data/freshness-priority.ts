@@ -11,13 +11,13 @@ export const PRIORITY_CS2 = [
   "donk", "m0nesy", "zywoo", "niko", "ropz", "xantares",
   "s1mple", "kyousuke", "jimpphat", "frozen",
   "spinx", "flamez", "twistzz", "elige", "broky",
-  "sh1ro", "w0nderful", "isak", "bit", "jimbo",
+  "sh1ro", "w0nderful", "isak", "bit", "jambo",
 ];
 
 export const PRIORITY_VALORANT = [
   "tenz", "aspas", "zekken", "something", "f0rsaken",
-  "demon1", "leaf", "alfajer", "leo", "com",
-  "meteor", "chronic", "marved", "bang", "cryocells",
+  "demon1", "leaf", "alfajer", "leo", "c0m",
+  "meteor", "chronicle", "marved", "bang", "cryocells",
 ];
 
 export const PRIORITY_R6 = [
