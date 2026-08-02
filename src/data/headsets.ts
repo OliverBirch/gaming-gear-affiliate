@@ -11,6 +11,7 @@ import { getHeadsetProSlugs } from "./pros-peripherals-mapping";
  */
 type RawHeadset = {
   slug: string;
+  ean?: string;
   navn: string;
   brand: string;
   wireless: boolean;
@@ -49,6 +50,7 @@ const OFFER_CONFIG: BuildOffersConfig = {
 
 const _builtHeadsets: Headset[] = (raw.headsets as RawHeadset[]).map((h) => ({
   slug: h.slug,
+  ean: h.ean ?? null,
   navn: h.navn,
   brand: h.brand,
   wireless: h.wireless,

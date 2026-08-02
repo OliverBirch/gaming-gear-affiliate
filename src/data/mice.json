@@ -6,6 +6,7 @@
       "billede": "/images/mice/logitech-g-pro-x-superlight-2.jpg",
       "brand": "Logitech",
       "breddeMm": 63.5,
+      "ean": "5099206104532",
       "forbindelse": "2,4 GHz",
       "fordele": [
         "Ekstremt letvægt (60g)",
@@ -123,6 +124,7 @@
       "billede": "/images/mice/zowie-ec2-dw.png",
       "brand": "ZOWIE",
       "breddeMm": 60,
+      "ean": "4718755094590",
       "forbindelse": "2,4 GHz",
       "fordele": [
         "Ergonomisk design - behagelig i længere sessioner",
@@ -237,6 +239,7 @@
       "billede": "/images/mice/razer-deathadder-v3.png",
       "brand": "Razer",
       "breddeMm": 66,
+      "ean": "8886419334057",
       "forbindelse": "2,4 GHz",
       "fordele": [
         "Letvægt ergonomisk design (63g)",
@@ -487,6 +490,7 @@
       "billede": "/images/mice/lamzu-maya-x.webp",
       "brand": "Lamzu",
       "breddeMm": 64,
+      "ean": "6975637430213",
       "forbindelse": "2,4 GHz",
       "fordele": [
         "Let (50g) med 4K Hz polling",
@@ -536,6 +540,7 @@
       "billede": "/images/mice/razer-deathadder-v4-pro.jpg",
       "brand": "Razer",
       "breddeMm": 68,
+      "ean": "8886419334743",
       "forbindelse": "2,4 GHz + Bluetooth",
       "fordele": [
         "Ekstremt let (56g) til ergonomisk mus",
@@ -593,6 +598,7 @@
       "billede": "/images/mice/razer-viper-v4-pro.jpg",
       "brand": "Razer",
       "breddeMm": 63,
+      "ean": "8887910085134",
       "forbindelse": "2,4 GHz + Bluetooth",
       "fordele": [
         "Meget let (49g)",
@@ -826,6 +832,7 @@
       "billede": "/images/mice/zowie-fk2-dw.jpg",
       "brand": "ZOWIE",
       "breddeMm": 65,
+      "ean": "4718755094200",
       "forbindelse": "2,4 GHz",
       "fordele": [
         "Driverløs — plug and play direkte fra æsken",
@@ -991,6 +998,7 @@
       "billede": "/images/mice/logitech-g-pro-x-superlight-2-dex.jpg",
       "brand": "Logitech",
       "breddeMm": 67.5,
+      "ean": "5099206128064",
       "forbindelse": "2,4 GHz",
       "fordele": [
         "Ergonomisk form for højrehåndet greb",
@@ -1338,6 +1346,7 @@
       "billede": "/images/mice/asus-rog-harpe-ace-2.jpg",
       "brand": "ASUS",
       "breddeMm": 63,
+      "ean": "4711387986639",
       "forbindelse": "2,4 GHz + Bluetooth + Kabel",
       "fordele": [
         "Kun 48 gram — blandt markedets letteste",
@@ -2147,6 +2156,7 @@
     },
     {
       "slug": "logitech-g-pro-x-superlight",
+      "ean": "5099206091733",
       "navn": "G Pro X Superlight",
       "brand": "Logitech",
       "vaegtGram": 63,

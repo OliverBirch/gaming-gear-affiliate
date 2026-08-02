@@ -18,6 +18,7 @@ type RawMousepadSize = {
 
 type RawMousepad = {
   slug: string;
+  ean?: string;
   brand: string;
   model: string;
   variant?: string | null;
@@ -93,6 +94,7 @@ const TYPE_MAP: Record<string, "speed" | "control" | "hybrid"> = {
 
 const _builtPads: Mousepad[] = (raw.mousepads as RawMousepad[]).map((m) => ({
   slug: m.slug,
+  ean: m.ean ?? null,
   brand: m.brand,
   model: m.model,
   variant: m.variant ?? null,

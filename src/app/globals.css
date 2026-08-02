@@ -100,10 +100,15 @@
   }
   body {
     @apply text-foreground;
+    /* Real document background under the fixed GrainGradient layer, so
+       mobile elastic-overscroll bounce (which reveals html/body, not
+       fixed-position content) shows dark instead of the browser default white. */
+    background-color: var(--background);
   }
   html {
     @apply font-sans;
     scroll-behavior: smooth;
+    background-color: var(--background);
   }
 }
 

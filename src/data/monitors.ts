@@ -11,6 +11,7 @@ import { getMonitorProSlugs } from "./pros-peripherals-mapping";
  */
 type RawMonitor = {
   slug: string;
+  ean?: string;
   navn: string;
   brand: string;
   stoerrelseTommer: number;
@@ -48,6 +49,7 @@ const OFFER_CONFIG: BuildOffersConfig = {
 
 const _builtMonitors: Monitor[] = (raw.monitors as RawMonitor[]).map((m) => ({
   slug: m.slug,
+  ean: m.ean ?? null,
   navn: m.navn,
   brand: m.brand,
   stoerrelseTommer: m.stoerrelseTommer,
