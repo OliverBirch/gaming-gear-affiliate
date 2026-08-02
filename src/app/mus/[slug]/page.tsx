@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { getMouse, mice } from "@/data/mice";
 import { bestOffer } from "@/lib/affiliate";
 import { breadcrumbList, productSchema, jsonLd } from "@/lib/schema-org";
-import { formfaktorLabels, grebLabels, haandLabels } from "@/lib/product-labels";
+import { formfaktorLabels, grebLabels, haandLabels, prisNiveauLabels } from "@/lib/product-labels";
 import { ProductImage } from "@/components/product-image";
 import { ProUsersBand } from "@/components/pro-users-band";
 import { SpecTable } from "@/components/spec-table";
@@ -95,29 +95,27 @@ export default async function MusPage({ params }: Props) {
       <ProUsersBand productSlug={mouse.slug} proBrugere={mouse.proBrugere} categoryProducts={mice} />
 
       <div className="grid gap-8 sm:grid-cols-2 mb-8">
-        <div className="rounded-xl border border-border/50 bg-card p-7">
-          <h2 className="text-xl font-semibold mb-4">Specifikationer</h2>
-          <SpecTable
-            rows={[
-              ["Brand", mouse.brand, `/maerke/${brandSlug(mouse.brand)}`],
-              ["Vægt", `${mouse.vaegtGram}g`],
-              ["Mål", `${mouse.laengdeMm} × ${mouse.breddeMm} × ${mouse.hoejdeMm} mm`],
-              ["Formfaktor", formfaktorLabels[mouse.formfaktor] ?? mouse.formfaktor],
-              ["Forbindelse", mouse.forbindelse],
-              ["Batteritid", mouse.batteritidTimer ? `${mouse.batteritidTimer} timer` : "-"],
-              ["Switch-type", mouse.switchType === "optisk" ? "Optisk" : "Mekanisk"],
-              ["Knapper", mouse.knapper],
-              ["Greb", mouse.greb.map((g) => grebLabels[g] ?? g).join(", ")],
-              ["Håndstørrelse", mouse.haandStoerrelse.map((h) => haandLabels[h] ?? h).join(", ")],
-              ["Sensor", mouse.sensor],
-              ["Max DPI", mouse.maxDpi.toLocaleString("da-DK")],
-              ["Polling rate", `${mouse.pollingHz} Hz`],
-              ["LOD", `${mouse.lodMm} mm`],
-              ["Software", mouse.softwarePaakraevet ? "Påkrævet" : "Valgfri"],
-              ["Prisniveau", mouse.prisNiveau === "budget" ? "Budget" : mouse.prisNiveau === "mid" ? "Mellemklasse" : "Flagship"],
-            ]}
-          />
-        </div>
+        <SpecTable
+          title="Specifikationer"
+          rows={[
+            ["Brand", mouse.brand, `/maerke/${brandSlug(mouse.brand)}`],
+            ["Vægt", `${mouse.vaegtGram}g`],
+            ["Mål", `${mouse.laengdeMm} × ${mouse.breddeMm} × ${mouse.hoejdeMm} mm`],
+            ["Formfaktor", formfaktorLabels[mouse.formfaktor] ?? mouse.formfaktor],
+            ["Forbindelse", mouse.forbindelse],
+            ["Batteritid", mouse.batteritidTimer ? `${mouse.batteritidTimer} timer` : "-"],
+            ["Switch-type", mouse.switchType === "optisk" ? "Optisk" : "Mekanisk"],
+            ["Knapper", mouse.knapper],
+            ["Greb", mouse.greb.map((g) => grebLabels[g] ?? g).join(", ")],
+            ["Håndstørrelse", mouse.haandStoerrelse.map((h) => haandLabels[h] ?? h).join(", ")],
+            ["Sensor", mouse.sensor],
+            ["Max DPI", mouse.maxDpi.toLocaleString("da-DK")],
+            ["Polling rate", `${mouse.pollingHz} Hz`],
+            ["LOD", `${mouse.lodMm} mm`],
+            ["Software", mouse.softwarePaakraevet ? "Påkrævet" : "Valgfri"],
+            ["Prisniveau", prisNiveauLabels[mouse.prisNiveau] ?? mouse.prisNiveau],
+          ]}
+        />
 
         <div className="space-y-8">
           <ProsConsList title="Fordele" items={mouse.fordele} variant="pro" />
@@ -147,21 +145,12 @@ export default async function MusPage({ params }: Props) {
                   className="rounded-xl border border-border/50 bg-card p-4 hover:border-primary/30 transition-all duration-200 group flex flex-col"
                 >
                   <Link href={`/mus/${m.slug}`} className="block flex-1">
-                    <div className="relative h-24 w-full rounded-lg bg-[#0d0d0d] overflow-hidden mb-3">
-                      {m.billede ? (
-                        <Image
-                          src={m.billede}
-                          alt={m.navn}
-                          fill
-                          className="object-contain p-3 transition-transform duration-300 group-hover:scale-105"
-                          sizes="150px"
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center">
-                          <div className="text-3xl font-bold text-foreground/5">{m.navn.charAt(0).toUpperCase()}</div>
-                        </div>
-                      )}
-                    </div>
+                    <ProductImage
+                      src={m.billede}
+                      alt={m.navn}
+                      sizes="150px"
+                      className="h-24 w-full rounded-lg bg-[#0d0d0d] mb-3"
+                    />
                     <div className="font-semibold text-sm group-hover:text-primary transition-colors">
                       {m.navn}
                     </div>

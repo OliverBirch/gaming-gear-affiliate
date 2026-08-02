@@ -1,18 +1,22 @@
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn, formatPriceDkk } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { AffiliateLink } from "@/components/affiliate-link";
 import { getRetailer } from "@/data/retailers";
 import { bestOffers, getLowestPrice } from "@/lib/affiliate";
 import type { OfferableProduct } from "@/lib/types";
 
+/** Shared "Sammenlign priser" label, with or without a known lowest price. */
+function priceLabel(lowestPrice: number | null): string {
+  return lowestPrice != null ? `Sammenlign priser (fra ${formatPriceDkk(lowestPrice)})` : "Sammenlign priser";
+}
+
 /** Hero CTA anchor scrolling down to the #priser price list. Renders nothing without offers. */
 export function PriceCta({ product }: { product: OfferableProduct }) {
   const allOffers = bestOffers(product);
   if (allOffers.length === 0) return null;
 
-  const lowestPrice = getLowestPrice(product);
-  const label = lowestPrice != null ? `Sammenlign priser (fra ${lowestPrice} kr.)` : "Sammenlign priser";
+  const label = priceLabel(getLowestPrice(product));
 
   return (
     <a
@@ -39,14 +43,14 @@ export function PriceComparison({ product, pagePath }: { product: OfferableProdu
   if (allOffers.length === 0) return null;
 
   const sorted = [...allOffers].sort((a, b) => (a.prisDkk ?? Infinity) - (b.prisDkk ?? Infinity));
-  const lowest = sorted[0]?.prisDkk ?? null;
-  const ctaLabel = lowest != null ? `Sammenlign priser (fra ${lowest} kr.)` : "Sammenlign priser";
+  const lowest = getLowestPrice(product);
+  const ctaLabel = priceLabel(lowest);
 
   return (
     <>
       <div id="priser" className="rounded-xl border border-border/50 bg-card p-7 mb-8 scroll-mt-20">
         <h2 className="text-xl font-semibold mb-4">
-          Sammenlign priser{lowest != null ? ` (fra ${lowest} kr.)` : ""}
+          Sammenlign priser{lowest != null ? ` (fra ${formatPriceDkk(lowest)})` : ""}
         </h2>
         <div className="space-y-3">
           {sorted.map((o) => {
@@ -86,7 +90,7 @@ export function PriceComparison({ product, pagePath }: { product: OfferableProdu
                     <span className="text-xs text-muted-foreground">På lager</span>
                   )}
                   <span className={cn("text-lg font-bold tabular-nums", isLowest ? "text-purchase" : "text-primary")}>
-                    {o.prisDkk ? `${o.prisDkk} kr.` : "Se pris"}
+                    {o.prisDkk ? formatPriceDkk(o.prisDkk) : "Se pris"}
                   </span>
                 </div>
               </AffiliateLink>

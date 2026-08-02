@@ -94,20 +94,18 @@ export default async function MusemaattePage({ params }: Props) {
       <ProUsersBand productSlug={mousepad.slug} proBrugere={mousepad.proBrugere} categoryProducts={mousepads} />
 
       <div className="grid gap-8 sm:grid-cols-2 mb-8">
-        <div className="rounded-xl border border-border/50 bg-card p-7">
-          <h2 className="text-xl font-semibold mb-4">Specifikationer</h2>
-          <SpecTable
-            rows={[
-              ["Brand", mousepad.brand],
-              ["Model", mousepad.model],
-              ["Glide-type", glideLabels[mousepad.type] ?? mousepad.type],
-              ["Materiale", mousepad.materiale],
-              ["Bund", mousepad.bund],
-              ["Vaskbar", mousepad.vaskbar ? "Ja" : "Nej"],
-              ["Prisniveau", prisNiveauLabels[mousepad.prisNiveau] ?? mousepad.prisNiveau],
-            ]}
-          />
-        </div>
+        <SpecTable
+          title="Specifikationer"
+          rows={[
+            ["Brand", mousepad.brand],
+            ["Model", mousepad.model],
+            ["Glide-type", glideLabels[mousepad.type] ?? mousepad.type],
+            ["Materiale", mousepad.materiale],
+            ["Bund", mousepad.bund],
+            ["Vaskbar", mousepad.vaskbar ? "Ja" : "Nej"],
+            ["Prisniveau", prisNiveauLabels[mousepad.prisNiveau] ?? mousepad.prisNiveau],
+          ]}
+        />
 
         <div className="space-y-8">
           <div className="rounded-xl border border-border/50 bg-card p-7">

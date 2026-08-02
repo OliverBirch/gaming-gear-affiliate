@@ -8,8 +8,6 @@ interface ProductImageProps {
   src?: string | null;
   alt: string;
   className?: string;
-  /** Overrides the default object-fit/padding on the loaded <Image>. */
-  imageClassName?: string;
   /** `next/image` sizes attribute — differs per hero layout. */
   sizes?: string;
   /** Marks the image as LCP-critical; use on above-the-fold hero images. */
@@ -20,7 +18,6 @@ export function ProductImage({
   src,
   alt,
   className,
-  imageClassName = "object-contain p-4",
   sizes = "(max-width: 768px) 100vw, 300px",
   priority,
 }: ProductImageProps) {
@@ -47,7 +44,7 @@ export function ProductImage({
         src={src}
         alt={alt}
         fill
-        className={cn("transition-transform duration-300 group-hover:scale-110", imageClassName)}
+        className="object-contain p-4 transition-transform duration-300 group-hover:scale-110"
         sizes={sizes}
         priority={priority}
         onError={() => setFailed(true)}

@@ -75,23 +75,21 @@ export default async function HeadsetPage({ params }: Props) {
       <ProUsersBand productSlug={headset.slug} proBrugere={headset.proBrugere} categoryProducts={headsets} />
 
       <div className="grid gap-8 sm:grid-cols-2 mb-8">
-        <div className="rounded-xl border border-border/50 bg-card p-7">
-          <h2 className="text-xl font-semibold mb-4">Specifikationer</h2>
-          <SpecTable
-            rows={[
-              ["Brand", headset.brand],
-              ["Forbindelse", headset.forbindelse],
-              ["Trådløs", headset.wireless ? "Ja" : "Nej"],
-              ["Batteritid", headset.batteritidTimer ? headset.batteritidTimer + " timer" : "-"],
-              ["Vægt", headset.vaegtGram + " g"],
-              ["Driver", headset.driverStoerrelseMm ? headset.driverStoerrelseMm + " mm" : "-"],
-              ["Mikrofon", headset.mikrofon ? "Ja" : "Nej"],
-              ["Aftagelig mikrofon", headset.aftagelig === null ? "-" : headset.aftagelig ? "Ja" : "Nej"],
-              ["Surround sound", headset.surroundSound ? "Ja" : "Nej"],
-              ["Prisniveau", prisNiveauLabels[headset.prisNiveau] ?? headset.prisNiveau],
-            ]}
-          />
-        </div>
+        <SpecTable
+          title="Specifikationer"
+          rows={[
+            ["Brand", headset.brand],
+            ["Forbindelse", headset.forbindelse],
+            ["Trådløs", headset.wireless ? "Ja" : "Nej"],
+            ["Batteritid", headset.batteritidTimer ? headset.batteritidTimer + " timer" : "-"],
+            ["Vægt", headset.vaegtGram + " g"],
+            ["Driver", headset.driverStoerrelseMm ? headset.driverStoerrelseMm + " mm" : "-"],
+            ["Mikrofon", headset.mikrofon ? "Ja" : "Nej"],
+            ["Aftagelig mikrofon", headset.aftagelig === null ? "-" : headset.aftagelig ? "Ja" : "Nej"],
+            ["Surround sound", headset.surroundSound ? "Ja" : "Nej"],
+            ["Prisniveau", prisNiveauLabels[headset.prisNiveau] ?? headset.prisNiveau],
+          ]}
+        />
 
         <div className="space-y-8">
           <ProsConsList title="Fordele" items={headset.fordele} variant="pro" />

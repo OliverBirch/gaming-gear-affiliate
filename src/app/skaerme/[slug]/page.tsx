@@ -88,23 +88,21 @@ export default async function SkaermPage({ params }: Props) {
       <ProUsersBand productSlug={monitor.slug} proBrugere={monitor.proBrugere} categoryProducts={monitors} />
 
       <div className="grid gap-8 sm:grid-cols-2 mb-8">
-        <div className="rounded-xl border border-border/50 bg-card p-7">
-          <h2 className="text-xl font-semibold mb-4">Specifikationer</h2>
-          <SpecTable
-            rows={[
-              ["Mærke", monitor.brand],
-              ["Model", monitor.navn],
-              ["Størrelse", monitor.stoerrelseTommer + '"'],
-              ["Opløsning", monitor.oploesning],
-              ["Opdateringshastighed", monitor.opdateringsHz + " Hz"],
-              ["Paneltype", paneltypeLabels[monitor.paneltype]],
-              ["Responstid", monitor.responstidMs != null ? monitor.responstidMs + " ms" : "-"],
-              ["Adaptive Sync", adaptiveSyncLabels[monitor.adaptiveSync]],
-              ["Buet", monitor.buet ? "Ja" : "Nej"],
-              ["Prisniveau", prisNiveauLabels[monitor.prisNiveau]],
-            ]}
-          />
-        </div>
+        <SpecTable
+          title="Specifikationer"
+          rows={[
+            ["Mærke", monitor.brand],
+            ["Model", monitor.navn],
+            ["Størrelse", monitor.stoerrelseTommer + '"'],
+            ["Opløsning", monitor.oploesning],
+            ["Opdateringshastighed", monitor.opdateringsHz + " Hz"],
+            ["Paneltype", paneltypeLabels[monitor.paneltype]],
+            ["Responstid", monitor.responstidMs != null ? monitor.responstidMs + " ms" : "-"],
+            ["Adaptive Sync", adaptiveSyncLabels[monitor.adaptiveSync]],
+            ["Buet", monitor.buet ? "Ja" : "Nej"],
+            ["Prisniveau", prisNiveauLabels[monitor.prisNiveau]],
+          ]}
+        />
 
         <div className="space-y-8">
           <ProsConsList title="Fordele" items={monitor.fordele} variant="pro" />

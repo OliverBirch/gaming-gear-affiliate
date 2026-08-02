@@ -73,26 +73,24 @@ export default async function TastaturPage({ params }: Props) {
       <ProUsersBand productSlug={keyboard.slug} proBrugere={keyboard.proBrugere} categoryProducts={keyboards} />
 
       <div className="grid gap-8 sm:grid-cols-2 mb-8">
-        <div className="rounded-xl border border-border/50 bg-card p-7">
-          <h2 className="text-xl font-semibold mb-4">Specifikationer</h2>
-          <SpecTable
-            rows={[
-              ["Brand", keyboard.brand],
-              ["Layout", keyboard.layout],
-              ["Switch-type", keyboard.switchType],
-              ["Forbindelse", keyboard.forbindelse],
-              ["Trådløs", keyboard.wireless ? "Ja" : "Nej"],
-              ["Batteritid", keyboard.batteritidTimer ? keyboard.batteritidTimer + " timer" : "-"],
-              ["Polling rate", keyboard.pollingHz >= 1000 ? (keyboard.pollingHz / 1000) + "K Hz" : keyboard.pollingHz + " Hz"],
-              ["Taster", keyboard.taster],
-              ["Formfaktor", keyboard.formfaktor],
-              ["RGB", keyboard.rgb ? "Ja" : "Nej"],
-              ["Hot-swappable", keyboard.hotSwappable ? "Ja" : "Nej"],
-              ["Keycaps", keyboard.keycapMaterial ?? "-"],
-              ["Prisniveau", prisNiveauLabels[keyboard.prisNiveau] ?? keyboard.prisNiveau],
-            ]}
-          />
-        </div>
+        <SpecTable
+          title="Specifikationer"
+          rows={[
+            ["Brand", keyboard.brand],
+            ["Layout", keyboard.layout],
+            ["Switch-type", keyboard.switchType],
+            ["Forbindelse", keyboard.forbindelse],
+            ["Trådløs", keyboard.wireless ? "Ja" : "Nej"],
+            ["Batteritid", keyboard.batteritidTimer ? keyboard.batteritidTimer + " timer" : "-"],
+            ["Polling rate", keyboard.pollingHz >= 1000 ? (keyboard.pollingHz / 1000) + "K Hz" : keyboard.pollingHz + " Hz"],
+            ["Taster", keyboard.taster],
+            ["Formfaktor", keyboard.formfaktor],
+            ["RGB", keyboard.rgb ? "Ja" : "Nej"],
+            ["Hot-swappable", keyboard.hotSwappable ? "Ja" : "Nej"],
+            ["Keycaps", keyboard.keycapMaterial ?? "-"],
+            ["Prisniveau", prisNiveauLabels[keyboard.prisNiveau] ?? keyboard.prisNiveau],
+          ]}
+        />
 
         <div className="space-y-8">
           <ProsConsList title="Fordele" items={keyboard.fordele} variant="pro" />
