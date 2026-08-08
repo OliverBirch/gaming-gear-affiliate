@@ -81,7 +81,7 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "mid",
-      "billede": "/images/headsets/hyperx-cloud-iii.jpg",
+      "billede": "/images/headsets/hyperx-cloud-iii.png",
       "priser": {
         "proshop": 458,
         "computersalg": 749,
@@ -116,7 +116,7 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "mid",
-      "billede": "/images/headsets/hyperx-cloud-iii-wireless.jpg",
+      "billede": "/images/headsets/hyperx-cloud-iii-wireless.png",
       "priser": {
         "proshop": 1099,
         "computersalg": 1049
@@ -149,7 +149,7 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "flagship",
-      "billede": null,
+      "billede": "/images/headsets/logitech-g-pro-x-2.png",
       "priser": {
         "proshop": null,
         "computersalg": 1649,
@@ -186,7 +186,7 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "mid",
-      "billede": null,
+      "billede": "/images/headsets/logitech-g-pro-x.png",
       "priser": {
         "proshop": 728,
         "computersalg": 649,
@@ -221,7 +221,7 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "flagship",
-      "billede": "/images/headsets/razer-blackshark-v3-pro.jpg",
+      "billede": "/images/headsets/razer-blackshark-v3-pro.png",
       "priser": {
         "proshop": 1672,
         "computersalg": 1399,
@@ -256,7 +256,7 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "mid",
-      "billede": null,
+      "billede": "/images/headsets/razer-blackshark-v2-pro.png",
       "priser": {
         "proshop": null,
         "computersalg": 999,
@@ -358,7 +358,7 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "flagship",
-      "billede": "/images/headsets/steelseries-arctis-nova-pro-wireless.jpg",
+      "billede": "/images/headsets/steelseries-arctis-nova-pro-wireless.png",
       "priser": {
         "proshop": null,
         "computersalg": 2499,

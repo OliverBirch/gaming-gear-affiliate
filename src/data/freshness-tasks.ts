@@ -21,7 +21,8 @@ export interface FreshnessTicket {
     | "stub-mouse-created"
     | "no-mouse-offers"
     | "peripheral-missing"
-    | "no-retailer-coverage";
+    | "no-retailer-coverage"
+    | "bad-product-image";
   slug: string;
   label: string;
   question: string;
@@ -467,6 +468,62 @@ export const freshnessTickets: FreshnessTicket[] = [
       mouseSlug: "pulsar-x2h",
       mouseNavn: "X2H",
       instructions: "Either find where the original PAW3395 X2H is still sold, or update the catalog spec/offers to match whichever current Pulsar generation is actually being linked.",
+    },
+    createdAt: "2026-08-08",
+  },
+  {
+    id: "vaxee-xe-wireless-wrong-image-2026-08-08",
+    type: "bad-product-image",
+    slug: "vaxee-xe-wireless",
+    label: "vaxee-xe-wireless — product image is a marketing infographic, not a photo",
+    question:
+      "The current /images/mice/vaxee-xe-wireless.jpg is a full spec-sheet infographic (dev philosophy copy, latency charts, dimension diagrams) with no clean shot of the mouse itself. Neither Proshop nor Geek'd matched this product during the 2026-08-08 image-consistency pass, so it was never replaced.",
+    context: {
+      mouseSlug: "vaxee-xe-wireless",
+      mouseNavn: "XE Wireless",
+      instructions: "Source a real isolated product photo (manufacturer site, RTINGS, or a DK retailer listing) and replace the file, same as the add-mouse skill's image-sourcing step.",
+    },
+    createdAt: "2026-08-08",
+  },
+  {
+    id: "g-wolves-hts-pro-4k-white-on-white-2026-08-08",
+    type: "bad-product-image",
+    slug: "g-wolves-hts-pro-4k",
+    label: "g-wolves-hts-pro-4k — white mouse on white background, too risky to auto-remove",
+    question:
+      "This mouse is white/light-colored on a white studio background, so flood-fill background removal can't safely distinguish product edges from backdrop — it risks eating into the mouse's own silhouette. Left as-is (solid background) rather than risk a corrupted cutout.",
+    context: {
+      mouseSlug: "g-wolves-hts-pro-4k",
+      mouseNavn: "HTS Pro 4K",
+      instructions: "Needs either a manual/assisted cutout (proper matting tool, not flood-fill) or a replacement photo shot against a darker or more distinct backdrop.",
+    },
+    createdAt: "2026-08-08",
+  },
+  {
+    id: "pulsar-jinggg-x-white-on-white-2026-08-08",
+    type: "bad-product-image",
+    slug: "pulsar-jinggg-x",
+    label: "pulsar-jinggg-x — white mouse on white background, too risky to auto-remove",
+    question:
+      "Same issue as g-wolves-hts-pro-4k: white mouse on a white background, flood-fill can't reliably tell the two apart without risking damage to the product silhouette. Left as-is.",
+    context: {
+      mouseSlug: "pulsar-jinggg-x",
+      mouseNavn: "JinGGG X",
+      instructions: "Needs either a manual/assisted cutout (proper matting tool, not flood-fill) or a replacement photo shot against a darker or more distinct backdrop.",
+    },
+    createdAt: "2026-08-08",
+  },
+  {
+    id: "ninjutso-sora-v2-white-on-white-2026-08-08",
+    type: "bad-product-image",
+    slug: "ninjutso-sora-v2",
+    label: "ninjutso-sora-v2 — white mouse on white background, too risky to auto-remove",
+    question:
+      "Same issue as g-wolves-hts-pro-4k and pulsar-jinggg-x: white mouse on a white background, flood-fill can't reliably tell the two apart without risking damage to the product silhouette. Left as-is.",
+    context: {
+      mouseSlug: "ninjutso-sora-v2",
+      mouseNavn: "Sora V2",
+      instructions: "Needs either a manual/assisted cutout (proper matting tool, not flood-fill) or a replacement photo shot against a darker or more distinct backdrop.",
     },
     createdAt: "2026-08-08",
   },

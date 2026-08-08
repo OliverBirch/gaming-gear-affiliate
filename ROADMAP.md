@@ -97,6 +97,34 @@ Every outbound link across the site remains placeholder/unverified until a
 network confirms live click tracking — that's a real milestone to hit, not
 just a data-quality task.
 
+**Product image consistency 🔄** — `match-proshop-images.mjs` now covers the
+whole catalog (not just missing-image products, via an `IMAGES_MISSING_ONLY`
+opt-in flag to restore the old scope), reusing the same exact-EAN-first
+matching as the price/link work. First pass (2026-08-08): 36 of 97 products
+got a fresh, feed-verified product photo — 32 from Proshop, 4 from Geek'd
+(reusing `scripts/geekd-ean-matches.json`'s `imageUrl`, `hyperx-cloud-ii`
+excluded since that specific match is already known-wrong for pricing).
+Several replaced genuinely inconsistent art — `logitech-g-pro-x-superlight-2`
+had a full desk-scene lifestyle photo, `razer-viper-v4-pro` had a product
+*box* shot, not the mouse — with a clean isolated product photo matching the
+rest of the catalog's style. All 36 fetched photos have since had their
+white studio backgrounds removed (flood-fill + alpha fade) so they blend
+into the site's dark cards; see the Log for the corruption this surfaced
+and fixed along the way. A follow-up sweep of the *rest* of the catalog's
+existing photos found one more safe case (`wlmouse-beast-x-pro`, black
+mouse on white, now also transparent) plus 4 that need human judgment
+rather than automated flood-fill — `vaxee-xe-wireless`'s image is actually
+a marketing infographic, not a product photo, and `g-wolves-hts-pro-4k`/
+`pulsar-jinggg-x`/`ninjutso-sora-v2` are white-on-white shots where
+flood-fill risks eating into the product silhouette. All 4 filed as
+`bad-product-image` tickets (new ticket type) in `/admin/tickets` rather
+than guessed at automatically. **61 products still have no feed-verified
+image source** (same boundary as the price/link work — neither feed
+matched them); tracked as a follow-up, not yet a ticket of its own. The
+`/musemaatter` list page also doesn't render `billede` at all yet
+(unrelated pre-existing gap, found during this pass) — mousepad detail
+pages show the real photo, list cards still show a monogram.
+
 ## Phase 4 — Full DK retailer coverage ⬜
 
 Goal: every catalog product has at least one real, priced, verified DK
@@ -240,3 +268,88 @@ retailer coverage" for the current list and method.
   over. `npm run build` + `vitest` + `validate-data` all pass; spot-checked
   rendered pages for the geekd/proshop fixes and confirmed the two
   now-zero-coverage examples (`hyperx-cloud-ii`) correctly show no offer.
+- **2026-08-08 (cont.)** — Product image consistency pass, prompted by a
+  request to get more uniform product photography across the catalog.
+  Validated the approach on the top 3 mice by pro-usage count before going
+  wide: `logitech-g-pro-x-superlight-2`'s image was a full lifestyle desk
+  scene (monitor, keyboard, headset all in frame) and `razer-viper-v4-pro`'s
+  was a sealed retail *box*, neither a photo of the product alone — both
+  replaced with clean isolated shots from Proshop's feed; the third
+  (`razer-viper-v3-pro`) already had a good isolated shot, confirming the
+  EAN matcher finds the right product rather than just a plausible one.
+  Extended `match-proshop-images.mjs` to re-match every catalog product
+  (previously gap-filling only, missing-image products), re-ran against a
+  fresh feed: 32 exact-EAN matches, all applied. Reused
+  `scripts/geekd-ean-matches.json` (already carries `imageUrl` per match)
+  as a fallback for 4 more products Proshop didn't cover, explicitly
+  excluding `hyperx-cloud-ii` since that match is the same wired/wireless
+  false positive already known from the pricing pass. Downloaded all 36,
+  handled extension changes (old file removed when the new one's extension
+  differs), and updated each product's `billede` field via a script that
+  scanned the raw text between consecutive `"slug"` lines. **That script's
+  "doesn't depend on key order" claim was wrong** — it silently corrupted
+  `headsets.json` (7 targets + 1 uninvolved product got each other's
+  `billede` values, chained one-object-off) and `mousepads.json` (3
+  uninvolved products) in files where `slug` is the *first* key, because the
+  scan window then captured the wrong object's own field first. Caught and
+  fixed in the same 2026-08-08 session (see below) before it reached a
+  commit. 61 products remain without a verified image source from either
+  feed. Build/tests/validate-data all pass; confirmed via the dev server
+  (restarted, since Next.js dev doesn't reliably hot-pick-up JSON data
+  changes) that the new images actually render.
+- **2026-08-08 (cont.)** — Background removal + corruption fix. Added a
+  flood-fill script (`sharp`, border-seeded BFS treating near-white pixels
+  as background, two-threshold smooth alpha fade to avoid drop-shadow
+  halos) to strip the white studio backdrops from the 36 freshly-fetched
+  photos, since they read as white boxes against the site's dark cards.
+  Validated on 3 sample mice before running wider. Applying it surfaced the
+  `billede`-field corruption described above via a full slug-vs-filename
+  audit across all 5 category files: `headsets.json` (8 mismatches) and
+  `mousepads.json` (3 mismatches, all non-target casualties) were wrong;
+  `mice.json`/`keyboards.json`/`monitors.json` were unaffected. Fixed by
+  reconstructing the corruption chain (each target's write had landed on
+  the *preceding* object in file order) and cross-checking the recovered
+  values against `proshop-image-matches.json`/`geekd-ean-matches.json`;
+  restored the 4 uninvolved casualties to `null` via `git show HEAD:...`.
+  Also found the original bg-removal pass had, as a side effect of reading
+  through the then-corrupted `billede` pointers, skipped 2 files entirely
+  and double-processed 1 — fixed by re-running removal on the skipped
+  files and re-fetching+reprocessing the double-processed one from
+  Proshop. Separately found 13 more products (8 mice, 2 keyboards, 3
+  mousepads) whose `billede` still pointed at a pre-removal `.jpg`/`.webp`
+  extension while the actual file had already been renamed to `.png` —
+  fixed those too, but only after a second scripting mistake (a
+  slug-tracking regex that got confused by mice.json's key order and wrote
+  7 wrong products' `billede` fields) was caught via diff review and
+  reverted before it could compound. Full audit (slug-match + on-disk
+  existence + orphan sweep) now shows zero issues across all 5 files;
+  `tsc`/`build`/`vitest`/`validate-data` all pass; spot-checked 5 pages via
+  the dev server (2 headsets, 1 mousepad detail, 1 mouse, the headset list)
+  and confirmed correct products with clean transparent backgrounds. Along
+  the way noticed `mousepad-card.tsx` (the `/musemaatter` list view) never
+  reads `billede` at all — every mousepad card shows a brand-initial
+  monogram regardless of whether a photo exists. Pre-existing, unrelated to
+  this pass, not yet fixed — worth a follow-up ticket since mousepads now
+  have the same feed-verified photos as every other category but nothing
+  surfaces them on the list page (detail pages render them correctly).
+- **2026-08-08 (cont.)** — Extended background removal beyond the 36
+  freshly-fetched photos to the rest of the catalog's existing images.
+  Surveyed all 44 products with a photo for actual transparency (not just
+  file extension): 36 already fixed, 1 (`logitech-g-pro-x` headset)
+  correctly left alone since its background is a genuine dark studio shot,
+  not white. Of the remaining 7 old, never-touched mouse images:
+  `wlmouse-beast-x-pro` was a clean black-mouse-on-white case, background-
+  removed and applied the same way as the rest. `finalmouse-starlight-pro-
+  small` already has a dark background, no action needed. The other 5 got
+  filed as tickets instead of an automated attempt: `vaxee-xe-wireless`'s
+  file turned out to be a marketing infographic (dev-philosophy copy,
+  latency charts), not a product photo at all — no amount of background
+  removal fixes that. `g-wolves-hts-pro-4k`, `pulsar-jinggg-x`, and
+  `ninjutso-sora-v2` are white-or-light mice shot on white backgrounds,
+  where flood-fill can't reliably tell product from backdrop and risks
+  cutting into the product itself — left as-is rather than risk a
+  corrupted image. Added a `bad-product-image` ticket type (extending the
+  closed `FreshnessTicket["type"]` union, plus its `ICONS`/`LABELS` entries
+  in `/admin/tickets` — `tsc`'s `Record<...>` exhaustiveness check catches
+  a missing entry at compile time) and filed all 4. Build/tests/
+  validate-data pass; spot-checked the new render on the dev server.

@@ -1,12 +1,120 @@
 [
   {
+    "slug": "logitech-g-pro-x2-superstrike",
+    "category": "mus",
+    "catalogName": "Logitech G Pro X2 SUPERSTRIKE",
+    "feedName": "Logitech Logitech G PRO X2 SUPERSTRIKE - Gaming Mus - Optisk - 6 knapper - Hvid",
+    "ean": "5099206136205",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3421921_49f4f2837606.png",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "logitech-g-pro-x-superlight-2",
+    "category": "mus",
+    "catalogName": "Logitech G Pro X Superlight 2",
+    "feedName": "Logitech Logitech G PRO X SUPERLIGHT 2 - Gaming Mus - Optisk - 5 knapper - Sort",
+    "ean": "5099206104532",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3184282_44bab6de3624.png",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "asus-rog-delta-ii",
+    "category": "headset",
+    "catalogName": "ASUS ROG Delta II",
+    "feedName": "ASUS ASUS ROG DELTA II - Sort",
+    "ean": "4711387604847",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3279467_4475a6a97795.png",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "razer-viper-v4-pro",
+    "category": "mus",
+    "catalogName": "Razer Viper V4 Pro",
+    "feedName": "Razer Razer Viper V4 Pro Wireless - Gaming Mus - Optisk - 6 knapper - Sort",
+    "ean": "8887910085134",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3457139_d2d764a069eb.png",
+    "matchType": "exact-ean"
+  },
+  {
     "slug": "hyperx-cloud-iii",
     "category": "headset",
     "catalogName": "HyperX Cloud III",
     "feedName": "HyperX HyperX Cloud III - Black",
     "ean": "197029008220",
     "imageUrl": "https://www.proshop.dk/Images/600x800/3190641_1db25eda0483.jpg",
-    "matchType": "fuzzy-full-overlap"
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "zowie-xl2586x-plus",
+    "category": "skaerme",
+    "catalogName": "ZOWIE XL2586X+",
+    "feedName": "BenQ 24,1\" BenQ ZOWIE XL2586X+ - 1920x1080 (FHD) - 600Hz - TN",
+    "ean": "4718755094873",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3326554_e8908cf8ffe1.png",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "steelseries-qck-heavy",
+    "category": "musemaatter",
+    "catalogName": "SteelSeries QcK Heavy",
+    "feedName": "SteelSeries SteelSeries QcK Heavy - XXL - Sort",
+    "ean": "5707119026154",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/2531052_bc8f9af486be.png",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "razer-deathadder-v3",
+    "category": "mus",
+    "catalogName": "Razer DeathAdder V3 Pro",
+    "feedName": "Razer Razer DeathAdder V3 Pro - Gaming Mus - Optisk - 5 knapper - Sort",
+    "ean": "8886419334057",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3099869_90caf4cc06bc.jpg",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "steelseries-qck-large",
+    "category": "musemaatter",
+    "catalogName": "SteelSeries QcK Large",
+    "feedName": "SteelSeries SteelSeries QcK Large",
+    "ean": "5707119001762",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/2100985_db4d187b5a43.jpg",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "logitech-g-pro-2-lightspeed",
+    "category": "mus",
+    "catalogName": "Logitech G Pro 2 LIGHTSPEED",
+    "feedName": "Logitech Logitech G PRO 2 LIGHTSPEED - Gaming Mus - Optisk - 8 knapper - Sort",
+    "ean": "5099206123427",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3314393_028875337a2c.jpg",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "razer-deathadder-v3-hyperspeed",
+    "category": "mus",
+    "catalogName": "Razer DeathAdder V3 HyperSpeed",
+    "feedName": "Razer Razer DeathAdder V3 HyperSpeed - Gaming Mus - Optisk - 5 knapper - Sort",
+    "ean": "8886419334552",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3290362_69130dce5e7f.jpg",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "razer-viper-v3-pro",
+    "category": "mus",
+    "catalogName": "Razer Viper V3 Pro",
+    "feedName": "Razer Razer Viper V3 Pro Wireless - Gaming Mus - Optisk - 6 knapper - Sort",
+    "ean": "8886419334491",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3241622_5730f4e70d4d.png",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "zowie-ec2-dw",
+    "category": "mus",
+    "catalogName": "ZOWIE EC2-DW",
+    "feedName": "BenQ BenQ Zowie EC2-DW (Medium) Wireless Mouse for Esports - Gaming Mus - Optisk - 7 knapper - Sort",
+    "ean": "4718755094590",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3373269_5e16164c21a1.png",
+    "matchType": "exact-ean"
   },
   {
     "slug": "hyperx-cloud-iii-wireless",
@@ -15,7 +123,25 @@
     "feedName": "HyperX HyperX Cloud III Wireless - Black/Red",
     "ean": "0197029611734",
     "imageUrl": "https://www.proshop.dk/Images/600x800/3201901_12bf7383b065.jpg",
-    "matchType": "fuzzy-full-overlap"
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "razer-deathadder-v4-pro",
+    "category": "mus",
+    "catalogName": "Razer DeathAdder V4 Pro",
+    "feedName": "Razer Razer DeathAdder V4 Pro - Gaming Mus - Optisk - 6 knapper - Sort",
+    "ean": "8886419334743",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3452053_e49bf0238c60.png",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "logitech-g-pro-x-superlight-2-dex",
+    "category": "mus",
+    "catalogName": "Logitech G Pro X Superlight 2 Dex",
+    "feedName": "Logitech Logitech G PRO X SUPERLIGHT 2 DEX - Gaming Mus - Optisk - 5 knapper - Hvid",
+    "ean": "5099206128064",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3303627_6da95f274b74.jpg",
+    "matchType": "exact-ean"
   },
   {
     "slug": "endgame-gear-op1-8k-v2",
@@ -24,7 +150,34 @@
     "feedName": "Endgame Gear Endgame Gear OP1 8K (v2) - Dark Frost - Gaming Mus - Optisk - 5 knapper - Sort",
     "ean": "4251442513177",
     "imageUrl": "https://www.proshop.dk/Images/600x800/3396238_83d0b5317940.png",
-    "matchType": "fuzzy-full-overlap"
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "steelseries-apex-pro-tkl-gen-3",
+    "category": "tastaturer",
+    "catalogName": "SteelSeries Apex Pro TKL Gen 3",
+    "feedName": "SteelSeries SteelSeries Apex Pro TKL Wireless Gen 3 - Gaming Tastatur - Uden Numpad - Amerikansk engelsk - Sort",
+    "ean": "5707119058865",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3335688_75745db31876.jpg",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "asus-rog-azoth-96-he",
+    "category": "tastaturer",
+    "catalogName": "ASUS ROG Azoth 96 HE",
+    "feedName": "ASUS ASUS ROG Azoth 96 HE - Gaming Tastatur - Nordisk - Sort",
+    "ean": "4711636009171",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3419415_085d1c01dd58.png",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "zowie-fk2-dw",
+    "category": "mus",
+    "catalogName": "ZOWIE FK2-DW",
+    "feedName": "BenQ BenQ Zowie FK2-DW (Medium) Wireless Mouse for Esports - Gaming Mus - Optisk - 7 knapper - Sort",
+    "ean": "4718755094200",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3335584_03ef264989c4.jpg",
+    "matchType": "exact-ean"
   },
   {
     "slug": "lamzu-thorn-v2",
@@ -33,7 +186,16 @@
     "feedName": "Lamzu Lamzu Thorn V2 (Orange/Black) - Gaming Mus - Optisk - 5 knapper - Orange",
     "ean": "6975637430893",
     "imageUrl": "https://www.proshop.dk/Images/600x800/3487039_37903ca1efa9.jpg",
-    "matchType": "fuzzy-full-overlap"
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "logitech-g-pro-x-superlight-2c",
+    "category": "mus",
+    "catalogName": "Logitech G Pro X Superlight 2c",
+    "feedName": "Logitech Logitech G PRO X SUPERLIGHT 2c (Compact) - Gaming Mus - Optisk - 5 knapper - Hvid",
+    "ean": "5099206130111",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3389093_56e9a507d0df.png",
+    "matchType": "exact-ean"
   },
   {
     "slug": "pulsar-es-fs-1",
@@ -42,7 +204,25 @@
     "feedName": "Pulsar Pulsar eS FS-1 - Gaming Mus - Optisk - 5 knapper - Blå",
     "ean": "8800304255043",
     "imageUrl": "https://www.proshop.dk/Images/600x800/3450990_36d221d2dee3.png",
-    "matchType": "fuzzy-full-overlap"
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "pulsar-tenz-signature-edition",
+    "category": "mus",
+    "catalogName": "Pulsar TenZ Signature Edition",
+    "feedName": "Pulsar Pulsar TenZ Signature Edition - Gaming Mus - Optisk - 5 knapper - Sort",
+    "ean": "8800304251014",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3395272_a75c7f63d963.png",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "asus-rog-harpe-ace-2",
+    "category": "mus",
+    "catalogName": "ASUS ROG Harpe Ace 2",
+    "feedName": "ASUS ASUS ROG Harpe II Ace - Gaming Mus - Optisk - 5 knapper - Sort",
+    "ean": "4711387986639",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3369920_5c52136fdb99.png",
+    "matchType": "exact-ean"
   },
   {
     "slug": "pulsar-x2n-crazylight",
@@ -51,7 +231,7 @@
     "feedName": "Pulsar Pulsar X2N CRAZYLIGHT Medium (Ocean) - Gaming Mus - Optisk - 6 knapper - Blå",
     "ean": "8800304255098",
     "imageUrl": "https://www.proshop.dk/Images/600x800/3449936_c88b241b25db.png",
-    "matchType": "fuzzy-full-overlap"
+    "matchType": "exact-ean"
   },
   {
     "slug": "pulsar-es-saturn-pro",
@@ -60,6 +240,51 @@
     "feedName": "Pulsar Pulsar eS Pad Series Saturn Pro",
     "ean": "8800304252578",
     "imageUrl": "https://www.proshop.dk/Images/600x800/3479709_153114e65c0a.jpg",
-    "matchType": "fuzzy-full-overlap"
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "logitech-g403-hero",
+    "category": "mus",
+    "catalogName": "Logitech G403 Hero",
+    "feedName": "Logitech Logitech G403 HERO - Gaming Mus - Optisk - 6 knapper - Sort med RGB lys",
+    "ean": "5099206083394",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/2778787_b7bf97b7014c.jpg",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "steelseries-arctis-nova-pro-wireless",
+    "category": "headset",
+    "catalogName": "SteelSeries Arctis Nova Pro Wireless",
+    "feedName": "SteelSeries SteelSeries Arctis Nova Pro Wireless - Gaming headset - PC &amp; PS - Hvid",
+    "ean": "5707119058032",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3307123_d0ba1466e086.png",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "razer-blackshark-v3-pro",
+    "category": "headset",
+    "catalogName": "Razer BlackShark V3 Pro",
+    "feedName": "Razer Razer BlackShark V3 Pro",
+    "ean": "8887910061176",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3459526_a494d47506ea.jpg",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "razer-gigantus-v2",
+    "category": "musemaatter",
+    "catalogName": "Razer Gigantus V2",
+    "feedName": "Razer Razer Gigantus V2",
+    "ean": "8886419318552",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/2860708_d8d6470c289c.jpg",
+    "matchType": "exact-ean"
+  },
+  {
+    "slug": "lamzu-maya-x",
+    "category": "mus",
+    "catalogName": "Lamzu Maya X",
+    "feedName": "Lamzu Lamzu Maya X - Gaming Mus - Optisk - 6 knapper - Sort",
+    "ean": "6975637430213",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3449499_af79aa62e8a4.jpg",
+    "matchType": "exact-ean"
   }
 ]

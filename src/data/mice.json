@@ -3,7 +3,7 @@
     {
       "batteritidTimer": 95,
       "beskrivelse": "Den mest brugte mus blandt CS2-pros. 60 grams vægt, 4000 Hz polling rate og Hero 2-sensoren gør den til førstevalget for konkurrencespillere.",
-      "billede": "/images/mice/logitech-g-pro-x-superlight-2.jpg",
+      "billede": "/images/mice/logitech-g-pro-x-superlight-2.png",
       "brand": "Logitech",
       "breddeMm": 63.5,
       "ean": "5099206104532",
@@ -449,7 +449,7 @@
     {
       "batteritidTimer": 70,
       "beskrivelse": "Lamzu Maya X kombinerer et slankt design med 50 grams vægt og 4000 Hz polling rate. Den er hurtigt blevet populær blandt konkurrencespillere.",
-      "billede": "/images/mice/lamzu-maya-x.webp",
+      "billede": "/images/mice/lamzu-maya-x.png",
       "brand": "Lamzu",
       "breddeMm": 64,
       "ean": "6975637430213",
@@ -499,7 +499,7 @@
     {
       "batteritidTimer": 90,
       "beskrivelse": "Razers nyeste flagskib ergonomiske mus med 56 grams vægt og 8000 Hz polling rate. Den opdaterede DeathAdder-serie har et mere bokset design end forgængeren.",
-      "billede": "/images/mice/razer-deathadder-v4-pro.jpg",
+      "billede": "/images/mice/razer-deathadder-v4-pro.png",
       "brand": "Razer",
       "breddeMm": 68,
       "ean": "8886419334743",
@@ -557,7 +557,7 @@
     {
       "batteritidTimer": 90,
       "beskrivelse": "Den nyeste Viper-serie fra Razer med 49 grams vægt og 8000 Hz polling rate. En af de mest populære mus blandt Valorant-pros.",
-      "billede": "/images/mice/razer-viper-v4-pro.jpg",
+      "billede": "/images/mice/razer-viper-v4-pro.png",
       "brand": "Razer",
       "breddeMm": 63,
       "ean": "8887910085134",
@@ -602,7 +602,7 @@
     {
       "batteritidTimer": 70,
       "beskrivelse": "TenZ' signaturmus fra Pulsar med utrolige 47 grams vægt og 8000 Hz polling rate. Designet i samarbejde med en af Valorants største stjerner.",
-      "billede": "/images/mice/pulsar-tenz-signature-edition.jpg",
+      "billede": "/images/mice/pulsar-tenz-signature-edition.png",
       "brand": "Pulsar",
       "breddeMm": 63,
       "ean": "8800304251014",
@@ -695,7 +695,7 @@
     {
       "batteritidTimer": 95,
       "beskrivelse": "Valorant-specialudgave af Superlight 2 med eksklusivt SUPERSTRIKE-design. Samme 60 grams letvægtskabinet og Hero 2-sensor som originalen, men med et unikt design skabt i samarbejde med Riot Games. Bruges af Team Heretics-stjernen wo0t.",
-      "billede": "/images/mice/logitech-g-pro-x2-superstrike.jpg",
+      "billede": "/images/mice/logitech-g-pro-x2-superstrike.png",
       "brand": "Logitech",
       "breddeMm": 63.5,
       "ean": "5099206136205",
@@ -748,7 +748,7 @@
     {
       "batteritidTimer": 70,
       "beskrivelse": "ZOWIE FK2-DW er den trådløse 4K-opdatering af den legendariske FK-serie. Med sin lave profil og symmetriske design skaber den mere plads mellem håndflade og mus — ideelt til præcise mikrojusteringer ved claw- og fingertip-greb. Driverløs — alle indstillinger justeres direkte på musen. Bruges af spikeziN (Leviatán) i Valorant.",
-      "billede": "/images/mice/zowie-fk2-dw.jpg",
+      "billede": "/images/mice/zowie-fk2-dw.png",
       "brand": "ZOWIE",
       "breddeMm": 65,
       "ean": "4718755094200",
@@ -799,7 +799,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "Ultralet magnesiummus på kun 39g med flagskibssensoren PAW3950HS og 8K trådløs polling. Fås med hullede eller solide sider og valgfri optiske eller mekaniske switches. Web-baseret software uden installation. Bruges af CS2-proen sato.",
-      "billede": "/images/mice/wlmouse-beast-x-pro.jpg",
+      "billede": "/images/mice/wlmouse-beast-x-pro.png",
       "brand": "WLmouse",
       "breddeMm": 62,
       "forbindelse": "2,4 GHz",
@@ -842,7 +842,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "Den kablede version af Superlight 2 til dig, der vil have pro-ydelse uden at bekymre dig om batteri eller trådløs latenstid. Samme 60 grams formfaktor og Hero 2-sensor som den trådløse model — bare med kabel. Bruges af G2 Esports-spilleren trent i VCT.",
-      "billede": "/images/mice/logitech-g-pro-x-superlight-2c.jpg",
+      "billede": "/images/mice/logitech-g-pro-x-superlight-2c.png",
       "brand": "Logitech",
       "breddeMm": 63.5,
       "ean": "5099206130111",
@@ -901,7 +901,7 @@
     {
       "batteritidTimer": 95,
       "beskrivelse": "Den ergonomiske variant af Superlight 2 med asymmetrisk form designet til højrehåndet kontrol. Med 60 grams vægt, Hero 2-sensor på op til 44.000 DPI og 8000 Hz polling leverer den præcision i verdensklasse. Bruges af G2's Shanks i VCT.",
-      "billede": "/images/mice/logitech-g-pro-x-superlight-2-dex.jpg",
+      "billede": "/images/mice/logitech-g-pro-x-superlight-2-dex.png",
       "brand": "Logitech",
       "breddeMm": 67.5,
       "ean": "5099206128064",
@@ -1190,7 +1190,7 @@
     {
       "batteritidTimer": 80,
       "beskrivelse": "ASUS ROG Harpe Ace 2 er et trådløst esports-flagskib på kun 48 gram — blandt de letteste i sin klasse. ROG AimPoint-sensoren leverer 42.000 DPI med under 1% afvigelse, og 8000 Hz polling rate via ROG Polling Rate Booster sikrer ultralav input-latency. Optiske ROG-switches med 100M klik-levetid eliminerer double-click. Bruges af jawgemo (G2 Esports) i Valorant.",
-      "billede": "/images/mice/asus-rog-harpe-ace-2.jpg",
+      "billede": "/images/mice/asus-rog-harpe-ace-2.png",
       "brand": "ASUS",
       "breddeMm": 63,
       "ean": "4711387986639",
@@ -1416,7 +1416,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
-      "billede": "/images/mice/razer-deathadder-v3-hyperspeed.jpg",
+      "billede": "/images/mice/razer-deathadder-v3-hyperspeed.png",
       "brand": "Razer",
       "breddeMm": 0,
       "ean": "8886419334552",
@@ -1814,7 +1814,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
-      "billede": "/images/mice/lamzu-thorn-v2.jpg",
+      "billede": "/images/mice/lamzu-thorn-v2.png",
       "brand": "Lamzu",
       "breddeMm": 0,
       "ean": "6975637430893",
@@ -2044,7 +2044,7 @@
       "navn": "G Pro 2 LIGHTSPEED",
       "brand": "Logitech",
       "ean": "5099206123427",
-      "billede": "/images/mice/logitech-g-pro-2-lightspeed.jpg",
+      "billede": "/images/mice/logitech-g-pro-2-lightspeed.png",
       "vaegtGram": 80,
       "laengdeMm": 125,
       "breddeMm": 63.5,

@@ -14,38 +14,41 @@ function normalize(s) {
     .trim();
 }
 
-// Only products that currently have no local image — this pass is for
-// filling gaps, not re-verifying products we already have art for.
+// All catalog products — re-matched against the feed regardless of whether
+// they already have an image, so inconsistent art (lifestyle photos, box
+// shots) can be replaced with a uniform isolated product shot. Pass
+// IMAGES_MISSING_ONLY=1 to restore the old gap-filling-only behavior.
+const MISSING_ONLY = process.env.IMAGES_MISSING_ONLY === "1";
 const catalog = [];
 
 function loadMice() {
   const data = JSON.parse(readFileSync(join(ROOT, "src/data/mice.json"), "utf-8"));
   return data.mice
-    .filter((m) => !m.billede)
+    .filter((m) => !MISSING_ONLY || !m.billede)
     .map((m) => ({ slug: m.slug, navn: m.navn, brand: m.brand, ean: m.ean || null, category: "mus" }));
 }
 function loadKeyboards() {
   const data = JSON.parse(readFileSync(join(ROOT, "src/data/keyboards.json"), "utf-8"));
   return data.keyboards
-    .filter((k) => !k.billede)
+    .filter((k) => !MISSING_ONLY || !k.billede)
     .map((k) => ({ slug: k.slug, navn: k.navn, brand: k.brand, ean: k.ean || null, category: "tastaturer" }));
 }
 function loadMousepads() {
   const data = JSON.parse(readFileSync(join(ROOT, "src/data/mousepads.json"), "utf-8"));
   return data.mousepads
-    .filter((p) => !p.billede)
+    .filter((p) => !MISSING_ONLY || !p.billede)
     .map((p) => ({ slug: p.slug, navn: p.model, brand: p.brand, ean: p.ean || null, category: "musemaatter" }));
 }
 function loadHeadsets() {
   const data = JSON.parse(readFileSync(join(ROOT, "src/data/headsets.json"), "utf-8"));
   return data.headsets
-    .filter((h) => !h.billede)
+    .filter((h) => !MISSING_ONLY || !h.billede)
     .map((h) => ({ slug: h.slug, navn: h.navn, brand: h.brand, ean: h.ean || null, category: "headset" }));
 }
 function loadMonitors() {
   const data = JSON.parse(readFileSync(join(ROOT, "src/data/monitors.json"), "utf-8"));
   return data.monitors
-    .filter((p) => !p.billede)
+    .filter((p) => !MISSING_ONLY || !p.billede)
     .map((p) => ({ slug: p.slug, navn: p.navn, brand: p.brand, ean: p.ean || null, category: "skaerme" }));
 }
 
@@ -60,7 +63,7 @@ for (const p of catalog) {
   if (p.ean) byEan[p.ean] = p;
 }
 
-console.log(`Catalog (missing image only): ${catalog.length} products, ${Object.keys(byBrand).length} brands`);
+console.log(`Catalog (${MISSING_ONLY ? "missing image only" : "all products"}): ${catalog.length} products, ${Object.keys(byBrand).length} brands`);
 
 // Includes brand aliases Proshop uses that differ from our catalog brand
 // (ZOWIE monitors are listed under BenQ, Alienware monitors under Dell).
@@ -272,7 +275,7 @@ stream.on("end", () => {
     unique.push(m);
   }
 
-  console.log(`\nDone. Scanned ${count} products, found ${unique.length} unique image matches (of ${catalog.length} image-less catalog products).\n`);
+  console.log(`\nDone. Scanned ${count} products, found ${unique.length} unique image matches (of ${catalog.length} catalog products considered).\n`);
   for (const m of unique) {
     console.log(`  [${m.matchType}] [${m.category}] ${m.catalogName}  ←  ${m.feedName}`);
   }

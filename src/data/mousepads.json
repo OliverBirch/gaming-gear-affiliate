@@ -217,7 +217,7 @@
       "bund": "Gummibase med tekstureret overflade",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": "/images/mousepads/razer-gigantus-v2.jpg",
+      "billede": "/images/mousepads/razer-gigantus-v2.png",
       "prisNiveau": "budget",
       "priser": {
         "proshop": 281,
@@ -411,7 +411,7 @@
       "bund": "Naturgummi",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": "/images/mousepads/steelseries-qck-large.jpg",
+      "billede": "/images/mousepads/steelseries-qck-large.png",
       "prisNiveau": "budget",
       "priser": {
         "proshop": { "Large": 159 },
@@ -528,7 +528,7 @@
       "bund": "Poron-skum med skridsikker base",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": "/images/mousepads/pulsar-es-saturn-pro.jpg",
+      "billede": "/images/mousepads/pulsar-es-saturn-pro.png",
       "prisNiveau": "flagship",
       "priser": {
         "proshop": 496,
