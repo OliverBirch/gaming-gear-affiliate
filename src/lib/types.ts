@@ -55,7 +55,7 @@ export type Pro = z.infer<typeof ProSchema>;
  * country - ended up live). Add a retailer here only after adding it to
  * retailers.ts with real payout/network data.
  */
-export const RETAILER_SLUGS = ["proshop", "computersalg", "maxgaming", "coolshop", "elgiganten", "avxperten", "dustinhome", "komplett", "billo", "ultrashop"] as const;
+export const RETAILER_SLUGS = ["proshop", "computersalg", "coolshop", "elgiganten", "avxperten", "dustinhome", "komplett", "billo", "geekd"] as const;
 export type RetailerSlug = (typeof RETAILER_SLUGS)[number];
 
 export const AffiliateOfferSchema = z.object({

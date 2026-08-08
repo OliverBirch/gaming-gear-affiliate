@@ -28,8 +28,8 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-function lowestPriceDkk(product: OfferableProduct): number | null {
-  const prices = bestOffers(product)
+async function lowestPriceDkk(product: OfferableProduct): Promise<number | null> {
+  const prices = (await bestOffers(product))
     .map((o) => o.prisDkk)
     .filter((p): p is number => p != null);
   if (prices.length === 0) return null;
@@ -215,7 +215,7 @@ export default async function ProPage({ params }: Props) {
         mouse.sensor,
         mouse.wireless ? "Trådløs" : "Kablet",
       ],
-      prisDkk: lowestPriceDkk(mouse),
+      prisDkk: await lowestPriceDkk(mouse),
       featured: true,
     },
   ];
@@ -230,7 +230,7 @@ export default async function ProPage({ params }: Props) {
       badges: keyboard
         ? [keyboard.formfaktor, keyboard.switchType, ...(keyboard.wireless ? ["Trådløs"] : [])]
         : undefined,
-      prisDkk: keyboard ? lowestPriceDkk(keyboard) : null,
+      prisDkk: keyboard ? await lowestPriceDkk(keyboard) : null,
     });
   }
 
@@ -245,7 +245,7 @@ export default async function ProPage({ params }: Props) {
       brand: mousepad?.brand,
       billede: mousepad?.billede,
       badges: mousepad ? [mousepad.type, mousepad.materiale] : undefined,
-      prisDkk: mousepad ? lowestPriceDkk(mousepad) : null,
+      prisDkk: mousepad ? await lowestPriceDkk(mousepad) : null,
     });
   }
 
@@ -259,7 +259,7 @@ export default async function ProPage({ params }: Props) {
       badges: headset
         ? [`${headset.vaegtGram}g`, headset.wireless ? "Trådløs" : "Kablet"]
         : undefined,
-      prisDkk: headset ? lowestPriceDkk(headset) : null,
+      prisDkk: headset ? await lowestPriceDkk(headset) : null,
     });
   }
 
@@ -273,7 +273,7 @@ export default async function ProPage({ params }: Props) {
       badges: monitor
         ? [`${monitor.stoerrelseTommer}"`, monitor.oploesning, `${monitor.opdateringsHz} Hz`]
         : undefined,
-      prisDkk: monitor ? lowestPriceDkk(monitor) : null,
+      prisDkk: monitor ? await lowestPriceDkk(monitor) : null,
     });
   }
 

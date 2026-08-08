@@ -27,13 +27,11 @@ import {
 } from "lucide-react";
 import {
   STALE_DAYS,
-  OLD_MAXGAMING,
   daysAgo,
   dateLabel,
   checkStalePros,
   checkProductStaleness,
   checkNoOffers,
-  checkBrokenUrls,
   computePriceCoverage,
   checkMissingPrices,
   checkMissingImagesMice,
@@ -174,7 +172,6 @@ export default function AdminDashboardPage() {
 
   issues.push(...checkStalePros(pros));
   issues.push(...checkNoOffers(mice));
-  issues.push(...checkBrokenUrls(mice));
   issues.push(...checkMissingPrices(mice, pricedKeys));
   issues.push(...checkMissingImagesMice(mice));
   issues.push(...checkMissingImagesPros(pros));
@@ -199,14 +196,6 @@ export default function AdminDashboardPage() {
   const avgEsportAge = avgAgeByEsport(pros);
   const esportCountsData = computeEsportCounts(pros);
 
-  const allOffers = mice.flatMap((m) =>
-    m.offers.map((o) => ({
-      ...o,
-      productSlug: m.slug,
-      productNavn: m.navn,
-    }))
-  );
-  const oldUrlOffers = allOffers.filter((o) => OLD_MAXGAMING.test(o.produktUrl));
   const noOfferMice = mice.filter((m) => m.offers.length === 0);
   const miceWithoutPrice = mice.filter(
     (m) =>
@@ -235,7 +224,6 @@ export default function AdminDashboardPage() {
   const stubMice = checkStubMice(mice);
 
   const topStale = staleProsList.slice(0, 10);
-  const topOldUrls = oldUrlOffers.slice(0, 5);
   const topNoPrice = miceWithoutPrice.slice(0, 5);
 
   const keyboardValues = extractPeripheralValues(peripheralsCast, "keyboard");
@@ -312,12 +300,6 @@ export default function AdminDashboardPage() {
           value={`${coverage.pct}%`}
           icon={Percent}
           warn={coverage.pct < 80}
-        />
-        <StatCard
-          label="Gamle URLs"
-          value={oldUrlOffers.length}
-          icon={Link2}
-          warn={oldUrlOffers.length > 0}
         />
       </div>
 
@@ -420,39 +402,6 @@ export default function AdminDashboardPage() {
                 ])}
                 empty="Alle mus har tilbud"
               />
-            </div>
-          )}
-
-          {topOldUrls.length > 0 && (
-            <div>
-              <h3 className="text-sm font-medium text-muted-foreground mb-2">
-                Gamle MaxGaming URLs ({oldUrlOffers.length})
-              </h3>
-              <Table
-                headers={["Mus", "URL (forældet mønster)"]}
-                sourceFile="src/data/mice.json"
-                rows={topOldUrls.map((o) => [
-                  <Link
-                    key={o.productSlug}
-                    href={`/mus/${o.productSlug}`}
-                    className="text-primary hover:underline underline-offset-4"
-                  >
-                    {o.productNavn}
-                  </Link>,
-                  <code
-                    key="url"
-                    className="text-xs text-red-500 break-all"
-                  >
-                    {o.produktUrl}
-                  </code>,
-                ])}
-                empty="Ingen gamle URLs"
-              />
-              {oldUrlOffers.length > 5 && (
-                <p className="text-xs text-muted-foreground mt-2">
-                  +{oldUrlOffers.length - 5} flere
-                </p>
-              )}
             </div>
           )}
 

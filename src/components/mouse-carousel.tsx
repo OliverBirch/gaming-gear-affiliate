@@ -1,18 +1,15 @@
 "use client";
 
-import { useRef } from "react";
-import type { Mouse } from "@/lib/types";
-import { MouseCard } from "@/components/mouse-card";
+import { useRef, type ReactNode } from "react";
 
 interface Props {
-  mice: Mouse[];
-  rank?: boolean;
+  cards: ReactNode[];
 }
 
-export function MouseCarousel({ mice, rank }: Props) {
+export function MouseCarousel({ cards }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
-  if (mice.length === 0) return null;
+  if (cards.length === 0) return null;
 
   const scroll = (dir: "left" | "right") => {
     if (!ref.current) return;
@@ -31,16 +28,9 @@ export function MouseCarousel({ mice, rank }: Props) {
         className="flex gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-1"
         style={{ scrollSnapType: "x mandatory", msOverflowStyle: "none", scrollbarWidth: "none" }}
       >
-        {mice.map((mouse, i) => (
-          <MouseCard
-            key={mouse.slug}
-            mouse={mouse}
-            rank={rank ? i + 1 : undefined}
-            className="min-w-0 w-full shrink-0 snap-start"
-          />
-        ))}
+        {cards}
       </div>
-      {mice.length > 1 && (
+      {cards.length > 1 && (
         <>
           <button
             type="button"

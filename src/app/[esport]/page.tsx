@@ -11,7 +11,11 @@ import { headsets } from "@/data/headsets";
 import { monitors } from "@/data/monitors";
 import { pros } from "@/data/pros";
 import { guides } from "@/data/guides";
+import { MouseCard } from "@/components/mouse-card";
 import { MouseCardCompact } from "@/components/mouse-card-compact";
+import { KeyboardCard } from "@/components/keyboard-card";
+import { MousepadCard } from "@/components/mousepad-card";
+import { HeadsetCard } from "@/components/headset-card";
 import { MouseCarousel } from "@/components/mouse-carousel";
 import { MouseShareBar } from "@/components/mouse-share-bar";
 import { EsportProsTable, type EsportProRow } from "@/components/esport-pros-table";
@@ -179,9 +183,10 @@ export default async function EsportPage({ params }: Props) {
         linkPrefix: "/tastaturer",
         itemLabel: "tastaturer",
       },
-      items: topKeyboards
+      cards: topKeyboards
         .map((item) => keyboards.find((k) => k.slug === item.slug))
-        .filter((k): k is (typeof keyboards)[number] => k != null),
+        .filter((k): k is (typeof keyboards)[number] => k != null)
+        .map((kb) => <KeyboardCard key={kb.slug} keyboard={kb} />),
     });
   }
 
@@ -199,9 +204,10 @@ export default async function EsportPage({ params }: Props) {
         linkPrefix: "/musemaatter",
         itemLabel: "musemåtter",
       },
-      items: topMousepads
+      cards: topMousepads
         .map((item) => mousepads.find((p) => p.slug === item.slug))
-        .filter((p): p is (typeof mousepads)[number] => p != null),
+        .filter((p): p is (typeof mousepads)[number] => p != null)
+        .map((mp) => <MousepadCard key={mp.slug} mousepad={mp} />),
     });
   }
 
@@ -219,9 +225,10 @@ export default async function EsportPage({ params }: Props) {
         linkPrefix: "/headset",
         itemLabel: "headsets",
       },
-      items: topHeadsets
+      cards: topHeadsets
         .map((item) => headsets.find((h) => h.slug === item.slug))
-        .filter((h): h is (typeof headsets)[number] => h != null),
+        .filter((h): h is (typeof headsets)[number] => h != null)
+        .map((hs) => <HeadsetCard key={hs.slug} headset={hs} />),
     });
   }
 
@@ -286,7 +293,7 @@ export default async function EsportPage({ params }: Props) {
     },
     {
       q: "Hvor køber jeg i Danmark?",
-      a: "Produktkort og mus-sider viser danske forhandlerpriser via affiliate-links (fx MaxGaming). Klik dig videre fra mus eller pro-siden for aktuelle tilbud.",
+      a: "Produktkort og mus-sider viser danske forhandlerpriser via affiliate-links (fx Proshop). Klik dig videre fra mus eller pro-siden for aktuelle tilbud.",
     },
   ].filter((x): x is { q: string; a: string } => x != null);
 
@@ -451,7 +458,16 @@ export default async function EsportPage({ params }: Props) {
                       </span>
                     </div>
                     {tierMice.length > 0 ? (
-                      <MouseCarousel mice={tierMice} rank />
+                      <MouseCarousel
+                        cards={tierMice.map((mouse, i) => (
+                          <MouseCard
+                            key={mouse.slug}
+                            mouse={mouse}
+                            rank={i + 1}
+                            className="min-w-0 w-full shrink-0 snap-start"
+                          />
+                        ))}
+                      />
                     ) : (
                       <p className="text-sm text-muted-foreground italic">
                         Ingen pros i denne kategori

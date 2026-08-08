@@ -1,4 +1,5 @@
 import pricesData from "./prices.json";
+import { redisGet } from "@/lib/redis";
 
 export interface OfferOverride {
   prisDkk?: number;
@@ -8,13 +9,19 @@ export interface OfferOverride {
 const overrides: Record<string, OfferOverride> = pricesData.overrides;
 
 /**
- * Feed-shaped on purpose: this is the seam a scheduled Adtraction (or any
- * other network) feed ingestion job writes into - keyed by
- * `${productSlug}__${retailerSlug}`, covering any product category, not just
- * mice. bestOffer/bestOffers in lib/affiliate.ts read it as a live override
- * on top of the static offers[] data.
+ * Keyed by `${productSlug}__${retailerSlug}`, covering any product category,
+ * not just mice. bestOffer/bestOffers in lib/affiliate.ts read it as a live
+ * override on top of the static offers[] data.
+ *
+ * Redis holds the live value written by the daily feed-sync job; prices.json
+ * is the committed fallback. Build containers may not reach Redis (or it may
+ * be empty on a cold cache), so every product still renders a price from the
+ * fallback rather than shipping priceless - Redis, when reachable, always
+ * wins since the sync job keeps it fresher than a hand-edited JSON file.
  */
-export function getOfferOverride(productSlug: string, retailerSlug: string): OfferOverride | null {
+export async function getOfferOverride(productSlug: string, retailerSlug: string): Promise<OfferOverride | null> {
   const key = `${productSlug}__${retailerSlug}`;
+  const live = await redisGet<OfferOverride>(`price:${key}`);
+  if (live) return live;
   return overrides[key] ?? null;
 }

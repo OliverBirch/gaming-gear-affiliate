@@ -12,11 +12,11 @@ function priceLabel(lowestPrice: number | null): string {
 }
 
 /** Hero CTA anchor scrolling down to the #priser price list. Renders nothing without offers. */
-export function PriceCta({ product }: { product: OfferableProduct }) {
-  const allOffers = bestOffers(product);
+export async function PriceCta({ product }: { product: OfferableProduct }) {
+  const allOffers = await bestOffers(product);
   if (allOffers.length === 0) return null;
 
-  const label = priceLabel(getLowestPrice(product));
+  const label = priceLabel(await getLowestPrice(product));
 
   return (
     <a
@@ -38,12 +38,12 @@ export function PriceCta({ product }: { product: OfferableProduct }) {
  * together since the sticky bar is fixed-positioned and needs no separate
  * placement in the page layout. Renders nothing without offers.
  */
-export function PriceComparison({ product, pagePath }: { product: OfferableProduct; pagePath: string }) {
-  const allOffers = bestOffers(product);
+export async function PriceComparison({ product, pagePath }: { product: OfferableProduct; pagePath: string }) {
+  const allOffers = await bestOffers(product);
   if (allOffers.length === 0) return null;
 
   const sorted = [...allOffers].sort((a, b) => (a.prisDkk ?? Infinity) - (b.prisDkk ?? Infinity));
-  const lowest = getLowestPrice(product);
+  const lowest = await getLowestPrice(product);
   const ctaLabel = priceLabel(lowest);
 
   return (

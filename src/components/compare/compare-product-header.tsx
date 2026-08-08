@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import type { Mouse } from "@/lib/types";
 import { mouseLowestPriceLabel } from "@/lib/compare/mice";
 
-export function CompareProductHeader({ mouse }: { mouse: Mouse }) {
-  const priceLabel = mouseLowestPriceLabel(mouse);
+export async function CompareProductHeader({ mouse }: { mouse: Mouse }) {
+  const priceLabel = await mouseLowestPriceLabel(mouse);
   const proCount = mouse.proBrugere.length;
 
   return (

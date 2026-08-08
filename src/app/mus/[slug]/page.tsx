@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!mouse) return {};
   return {
     title: `${mouse.navn} - specifikationer, fordele, og priser`,
-    description: `Se komplette specifikationer for ${mouse.navn}: vægt, sensor, greb, og find den bedste pris hos Proshop, MaxGaming eller Computersalg.`,
+    description: `Se komplette specifikationer for ${mouse.navn}: vægt, sensor, greb, og find den bedste pris hos Proshop, Geek'd eller Computersalg.`,
   };
 }
 
@@ -45,6 +45,10 @@ export default async function MusPage({ params }: Props) {
     )
     .sort((a, b) => b.proBrugere.length - a.proBrugere.length)
     .slice(0, 3);
+
+  const similarOffers = new Map(
+    await Promise.all(similar.map(async (m) => [m.slug, await bestOffer(m)] as const))
+  );
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12 pb-24 sm:pb-12">
@@ -138,7 +142,7 @@ export default async function MusPage({ params }: Props) {
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
             {similar.map((m) => {
-              const mOffer = bestOffer(m);
+              const mOffer = similarOffers.get(m.slug) ?? null;
               return (
                 <div
                   key={m.slug}

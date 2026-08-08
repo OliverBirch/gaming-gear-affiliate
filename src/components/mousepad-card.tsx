@@ -17,8 +17,8 @@ const glideColors: Record<string, string> = {
   hybrid: "bg-amber-500/10 text-amber-400",
 };
 
-export function MousepadCard({ mousepad, rank }: { mousepad: Mousepad; rank?: number }) {
-  const resolvedOffers = bestOffers(mousepad);
+export async function MousepadCard({ mousepad, rank }: { mousepad: Mousepad; rank?: number }) {
+  const resolvedOffers = await bestOffers(mousepad);
   const lowestPrice = resolvedOffers.reduce((min, o) => {
     if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
     return min;

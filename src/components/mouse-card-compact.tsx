@@ -10,8 +10,8 @@ interface Props {
   proCount?: number;
 }
 
-export function MouseCardCompact({ mouse, rank, sharePct, proCount }: Props) {
-  const resolvedOffers = bestOffers(mouse);
+export async function MouseCardCompact({ mouse, rank, sharePct, proCount }: Props) {
+  const resolvedOffers = await bestOffers(mouse);
   const lowestPrice = resolvedOffers.reduce((min, o) => {
     if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
     return min;

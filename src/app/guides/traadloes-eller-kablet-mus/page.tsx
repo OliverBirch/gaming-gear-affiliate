@@ -31,9 +31,9 @@ const haandLabels: Record<string, string> = {
   stor: "Stor",
 };
 
-function MouseMini({ slug }: { slug: string }) {
+async function MouseMini({ slug }: { slug: string }) {
   const mouse = mice.find((m) => m.slug === slug)!;
-  const offer = bestOffer(mouse);
+  const offer = await bestOffer(mouse);
   const retailer = offer ? getRetailer(offer.retailer) : null;
 
   return (

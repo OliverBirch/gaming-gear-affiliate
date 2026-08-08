@@ -17,8 +17,6 @@ export type BuildOffersConfig = {
   allowedRetailers: readonly string[];
   /** Payout percentage per retailer. */
   payoutPct: Record<string, number>;
-  /** Retailer used for the no-price fallback offer. */
-  fallbackRetailer: string;
   defaultPayoutPct: number;
 };
 
@@ -42,15 +40,7 @@ export function buildFlatOffers(
     });
   }
 
-  // No priced offer: still surface a "se pris hos X" path rather than nothing.
-  if (offers.length === 0) {
-    offers.push({
-      retailer: config.fallbackRetailer as AffiliateOffer["retailer"],
-      produktUrl: config.searchUrls[config.fallbackRetailer],
-      payoutPct: config.payoutPct[config.fallbackRetailer] ?? config.defaultPayoutPct,
-      inStock: false,
-    });
-  }
-
+  // No verified retailer carries this product: show no offer rather than a
+  // synthetic "see price at X" link to a retailer that isn't actually priced.
   return offers;
 }

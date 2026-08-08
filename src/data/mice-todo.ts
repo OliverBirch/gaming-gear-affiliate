@@ -106,13 +106,6 @@ export const miceToAdd: MouseStub[] = [
     sourceUrl: "https://prosettings.net/players/laser/",
   },
   {
-    slug: "razer-deathadder-v3-pro",
-    navn: "DeathAdder V3 Pro",
-    brand: "Razer",
-    sourcePro: "doc",
-    sourceUrl: "https://prosettings.net/players/doc/",
-  },
-  {
     slug: "zowie-za13-dw",
     navn: "ZA13-DW",
     brand: "ZOWIE",

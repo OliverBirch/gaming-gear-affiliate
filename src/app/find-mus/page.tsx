@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import FinderQuiz from "@/components/finder-quiz";
+import FinderQuiz, { type MousePriceInfo } from "@/components/finder-quiz";
+import { mice } from "@/data/mice";
+import { bestOffers } from "@/lib/affiliate";
 
 export const metadata: Metadata = {
   title: "Find din gaming-mus",
@@ -8,7 +10,24 @@ export const metadata: Metadata = {
     "Svar på 5 spørgsmål og find den bedste gaming-mus til dig baseret på dit spil, greb, håndstørrelse og budget.",
 };
 
-export default function FindMusPage() {
+export default async function FindMusPage() {
+  // FinderQuiz is a client component: it scores mice from arbitrary quiz
+  // answers, so we can't know in advance which mice it'll show. Resolve
+  // prices for the whole (small) catalog server-side instead and hand the
+  // result down as a plain prop.
+  const priceMap: Record<string, MousePriceInfo> = Object.fromEntries(
+    await Promise.all(
+      mice.map(async (m) => {
+        const offers = await bestOffers(m);
+        const lowestPrice = offers.reduce((min, o) => {
+          if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
+          return min;
+        }, Infinity);
+        return [m.slug, { hasOffers: offers.length > 0, lowestPrice: lowestPrice === Infinity ? null : lowestPrice }];
+      })
+    )
+  );
+
   return (
     <>
       <Script
@@ -25,7 +44,7 @@ export default function FindMusPage() {
           }),
         }}
       />
-      <FinderQuiz />
+      <FinderQuiz priceMap={priceMap} />
       <Script
         id="schema-faq"
         type="application/ld+json"

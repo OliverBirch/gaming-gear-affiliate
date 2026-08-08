@@ -6,8 +6,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { bestOffers } from "@/lib/affiliate";
 
-export function KeyboardCard({ keyboard, rank }: { keyboard: Keyboard; rank?: number }) {
-  const resolvedOffers = bestOffers(keyboard);
+export async function KeyboardCard({ keyboard, rank }: { keyboard: Keyboard; rank?: number }) {
+  const resolvedOffers = await bestOffers(keyboard);
   const lowestPrice = resolvedOffers.reduce((min, o) => {
     if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
     return min;

@@ -23,8 +23,8 @@ export default function TransparensPage() {
           <ul className="list-disc pl-5 mt-2 space-y-1">
             <li>Proshop (Partner-ads)</li>
             <li>Computersalg (Partner-ads)</li>
-            <li>MaxGaming (Adtraction)</li>
             <li>Coolshop (Partner-ads)</li>
+            <li>Geek'd (Partner-ads)</li>
           </ul>
         </section>
         <section>

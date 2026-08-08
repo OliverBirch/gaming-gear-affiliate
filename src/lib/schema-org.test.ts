@@ -97,12 +97,12 @@ describe("productSchema", () => {
     const schema = productSchema({
       ...base,
       offers: [
-        { retailer: "maxgaming", produktUrl: "https://a.test", prisDkk: 100, inStock: true },
+        { retailer: "geekd", produktUrl: "https://a.test", prisDkk: 100, inStock: true },
         { retailer: "proshop", produktUrl: "https://b.test", prisDkk: 90, inStock: false },
       ],
     });
     expect(schema.offers).toHaveLength(1);
-    expect(schema.offers[0].seller.name).toBe("maxgaming");
+    expect(schema.offers[0].seller.name).toBe("geekd");
   });
 
   it("prefers the affiliate URL when present", () => {
@@ -110,7 +110,7 @@ describe("productSchema", () => {
       ...base,
       offers: [
         {
-          retailer: "maxgaming",
+          retailer: "geekd",
           produktUrl: "https://direct.test",
           affiliateUrl: "https://tracked.test",
           prisDkk: 100,
@@ -124,7 +124,7 @@ describe("productSchema", () => {
   it("omits currency when an offer carries no price", () => {
     const schema = productSchema({
       ...base,
-      offers: [{ retailer: "maxgaming", produktUrl: "https://a.test", inStock: true }],
+      offers: [{ retailer: "geekd", produktUrl: "https://a.test", inStock: true }],
     });
     expect(schema.offers[0].price).toBeUndefined();
     expect(schema.offers[0].priceCurrency).toBeUndefined();

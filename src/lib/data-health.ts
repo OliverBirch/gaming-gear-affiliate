@@ -1,7 +1,6 @@
 import type { Mouse } from "@/lib/types";
 
 export const STALE_DAYS = 90;
-export const OLD_MAXGAMING = /\/da\/tilbehoer\/mus\//;
 
 export interface DashboardIssue {
   type: string;
@@ -90,30 +89,6 @@ export function checkNoOffers(mice: Mouse[]): DashboardIssue[] {
     }));
 }
 
-export function checkBrokenUrls(mice: Mouse[]): DashboardIssue[] {
-  const issues: DashboardIssue[] = [];
-  for (const m of mice) {
-    for (const o of m.offers) {
-      if (OLD_MAXGAMING.test(o.produktUrl)) {
-        issues.push({
-          type: "broken-url",
-          severity: "high",
-          autoFixable: true,
-          slug: m.slug,
-          label: `${m.navn} — maxgaming URL forældet`,
-          file: "src/data/mice.json",
-          context: {
-            retailer: o.retailer,
-            oldUrl: o.produktUrl,
-            searchTerm: m.slug,
-          },
-        });
-      }
-    }
-  }
-  return issues;
-}
-
 // ─── Price coverage ───────────────────────────────────────────────
 
 export function computePriceCoverage(
@@ -161,21 +136,15 @@ export function checkMissingPrices(
 export function checkMissingImagesMice(mice: Mouse[]): DashboardIssue[] {
   return mice
     .filter((m) => !m.billede)
-    .map((m) => {
-      const maxgamingOffer = m.offers.find((o) => o.retailer === "maxgaming");
-      return {
-        type: "missing-image" as const,
-        severity: "low" as const,
-        autoFixable: !!maxgamingOffer,
-        slug: m.slug,
-        label: `${m.navn} — intet billede`,
-        file: "src/data/mice.json",
-        context: {
-          hasMaxgaming: !!maxgamingOffer,
-          maxgamingUrl: maxgamingOffer?.produktUrl ?? null,
-        },
-      };
-    });
+    .map((m) => ({
+      type: "missing-image" as const,
+      severity: "low" as const,
+      autoFixable: false,
+      slug: m.slug,
+      label: `${m.navn} — intet billede`,
+      file: "src/data/mice.json",
+      context: {},
+    }));
 }
 
 export function checkMissingImagesPros(

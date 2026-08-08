@@ -32,7 +32,6 @@ type RawMonitor = {
 };
 
 const SEARCH_URLS: Record<string, string> = {
-  maxgaming: "https://www.maxgaming.dk/dk/computertilbehor/skaerme",
   proshop: "https://www.proshop.dk/Skaerm",
   computersalg: "https://www.computersalg.dk/skaerm",
   elgiganten: "https://www.elgiganten.dk/computere-tilbehoer/skaerm",
@@ -40,10 +39,8 @@ const SEARCH_URLS: Record<string, string> = {
 
 const OFFER_CONFIG: BuildOffersConfig = {
   searchUrls: SEARCH_URLS,
-  allowedRetailers: ["maxgaming", "proshop", "computersalg", "elgiganten"],
-  // No elgiganten carve-out here — monitors pay it the default 3.5%.
-  payoutPct: { maxgaming: 4.0 },
-  fallbackRetailer: "maxgaming",
+  allowedRetailers: ["proshop", "computersalg", "elgiganten"],
+  payoutPct: {},
   defaultPayoutPct: 3.5,
 };
 

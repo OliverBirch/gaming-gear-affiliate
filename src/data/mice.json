@@ -32,18 +32,18 @@
       "navn": "G Pro X Superlight 2",
       "offers": [
         {
-          "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-Pro-X-Superlight-2/3173290",
+          "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-X-SUPERLIGHT-2-Gaming-Mus-Optisk-5-knapper-Sort/3184282",
           "inStock": true,
           "payoutPct": 3.5,
-          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G-Pro-X-Superlight-2/3173290",
+          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-X-SUPERLIGHT-2-Gaming-Mus-Optisk-5-knapper-Sort/3184282",
           "retailer": "proshop"
         },
         {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/logitech-g-pro-x-superlight-2",
+          "affiliateUrl": "https://geekd.dk/products/logitech-g-pro-x-superlight-2-optisk-tradlos-sort",
           "inStock": true,
           "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/logitech-g-pro-x-superlight-2",
-          "retailer": "maxgaming"
+          "produktUrl": "https://geekd.dk/products/logitech-g-pro-x-superlight-2-optisk-tradlos-sort",
+          "retailer": "geekd"
         }
       ],
       "pollingHz": 4000,
@@ -88,22 +88,7 @@
       "lodMm": 1,
       "maxDpi": 35000,
       "navn": "Viper V3 Pro",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.proshop.dk/Mus/Razer-Viper-V3-Pro/3173291",
-          "inStock": true,
-          "payoutPct": 3.5,
-          "produktUrl": "https://www.proshop.dk/Mus/Razer-Viper-V3-Pro/3173291",
-          "retailer": "proshop"
-        },
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/razer-viper-v3-pro",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/razer-viper-v3-pro",
-          "retailer": "maxgaming"
-        }
-      ],
+      "offers": [],
       "pollingHz": 4000,
       "prisNiveau": "flagship",
       "sensor": "Focus Pro 35K",
@@ -153,13 +138,6 @@
           "payoutPct": 3,
           "produktUrl": "https://www.computersalg.dk/mus/zowie-ec2-dw",
           "retailer": "computersalg"
-        },
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/zowie-ec2-dw",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/zowie-ec2-dw",
-          "retailer": "maxgaming"
         }
       ],
       "pollingHz": 1000,
@@ -182,6 +160,7 @@
       "billede": "/images/mice/logitech-g403-hero.png",
       "brand": "Logitech",
       "breddeMm": 68,
+      "ean": "5099206083394",
       "forbindelse": "Kabel",
       "fordele": [
         "Hero 25K-sensor til en lav pris",
@@ -205,18 +184,25 @@
       "navn": "G403 Hero",
       "offers": [
         {
-          "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G403-Hero/3173292",
-          "inStock": true,
-          "payoutPct": 3.5,
-          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G403-Hero/3173292",
-          "retailer": "proshop"
-        },
-        {
           "affiliateUrl": "https://www.coolshop.dk/mus/logitech-g403-hero",
           "inStock": true,
           "payoutPct": 3,
           "produktUrl": "https://www.coolshop.dk/mus/logitech-g403-hero",
           "retailer": "coolshop"
+        },
+        {
+          "affiliateUrl": "https://geekd.dk/products/logitech-g403-hero-gaming-mus",
+          "inStock": true,
+          "payoutPct": 4,
+          "produktUrl": "https://geekd.dk/products/logitech-g403-hero-gaming-mus",
+          "retailer": "geekd"
+        },
+        {
+          "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G403-HERO-Gaming-Mus-Optisk-6-knapper-Sort-med-RGB-lys/2778787",
+          "inStock": false,
+          "payoutPct": 3.5,
+          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G403-HERO-Gaming-Mus-Optisk-6-knapper-Sort-med-RGB-lys/2778787",
+          "retailer": "proshop"
         }
       ],
       "pollingHz": 1000,
@@ -263,11 +249,18 @@
       "navn": "DeathAdder V3 Pro",
       "offers": [
         {
-          "affiliateUrl": "https://www.proshop.dk/Mus/Razer-DeathAdder-V3/3173293",
+          "affiliateUrl": "https://www.proshop.dk/Mus/Razer-DeathAdder-V3-Pro-Gaming-Mus-Optisk-5-knapper-Sort/3099869",
           "inStock": true,
           "payoutPct": 3.5,
-          "produktUrl": "https://www.proshop.dk/Mus/Razer-DeathAdder-V3/3173293",
+          "produktUrl": "https://www.proshop.dk/Mus/Razer-DeathAdder-V3-Pro-Gaming-Mus-Optisk-5-knapper-Sort/3099869",
           "retailer": "proshop"
+        },
+        {
+          "affiliateUrl": "https://geekd.dk/products/razer-deathadder-v3-pro-optisk-tradlos-hvid",
+          "inStock": true,
+          "payoutPct": 4,
+          "produktUrl": "https://geekd.dk/products/razer-deathadder-v3-pro-optisk-tradlos-hvid",
+          "retailer": "geekd"
         }
       ],
       "pollingHz": 1000,
@@ -312,13 +305,6 @@
       "maxDpi": 16000,
       "navn": "Starlight Pro Small",
       "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/finalmouse-starlight-pro-small",
-          "inStock": false,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/finalmouse-starlight-pro-small",
-          "retailer": "maxgaming"
-        }
       ],
       "pollingHz": 1000,
       "prisNiveau": "flagship",
@@ -361,15 +347,7 @@
       "lodMm": 1,
       "maxDpi": 26000,
       "navn": "X2H",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/pulsar-x2h",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/pulsar-x2h",
-          "retailer": "maxgaming"
-        }
-      ],
+      "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "mid",
       "sensor": "PAW3395",
@@ -411,15 +389,7 @@
       "lodMm": 1.5,
       "maxDpi": 26000,
       "navn": "XE Wireless",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/vaxee-xe-wireless",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/vaxee-xe-wireless",
-          "retailer": "maxgaming"
-        }
-      ],
+      "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "mid",
       "sensor": "3395",
@@ -461,15 +431,7 @@
       "lodMm": 1,
       "maxDpi": 26000,
       "navn": "HTS Pro 4K",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/g-wolves-hts-pro-4k",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/g-wolves-hts-pro-4k",
-          "retailer": "maxgaming"
-        }
-      ],
+      "offers": [],
       "pollingHz": 4000,
       "prisNiveau": "mid",
       "sensor": "PAW3395",
@@ -514,11 +476,11 @@
       "navn": "Maya X",
       "offers": [
         {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/lamzu-maya-x",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/lamzu-maya-x",
-          "retailer": "maxgaming"
+          "retailer": "proshop",
+          "produktUrl": "https://www.proshop.dk/Mus/Lamzu-Maya-X-Gaming-Mus-Optisk-6-knapper-Sort/3449499",
+          "affiliateUrl": "https://www.proshop.dk/Mus/Lamzu-Maya-X-Gaming-Mus-Optisk-6-knapper-Sort/3449499",
+          "payoutPct": 3.5,
+          "inStock": false
         }
       ],
       "pollingHz": 4000,
@@ -564,18 +526,18 @@
       "navn": "DeathAdder V4 Pro",
       "offers": [
         {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/deathadder-v4-pro-tradlos-gamingmus-hvid",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/deathadder-v4-pro-tradlos-gamingmus-hvid",
-          "retailer": "maxgaming"
-        },
-        {
           "affiliateUrl": "https://www.proshop.dk/Mus/Razer-DeathAdder-V4-Pro-Gaming-Mus-Optisk-6-knapper-Sort/3452053",
           "inStock": true,
           "payoutPct": 3,
           "produktUrl": "https://www.proshop.dk/Mus/Razer-DeathAdder-V4-Pro-Gaming-Mus-Optisk-6-knapper-Sort/3452053",
           "retailer": "proshop"
+        },
+        {
+          "affiliateUrl": "https://geekd.dk/products/razer-deathadder-v4-pro-black",
+          "inStock": true,
+          "payoutPct": 4,
+          "produktUrl": "https://geekd.dk/products/razer-deathadder-v4-pro-black",
+          "retailer": "geekd"
         }
       ],
       "pollingHz": 8000,
@@ -622,22 +584,7 @@
       "lodMm": 1,
       "maxDpi": 50000,
       "navn": "Viper V4 Pro",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/razer-viper-v4-pro-hvid",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/razer-viper-v4-pro-hvid",
-          "retailer": "maxgaming"
-        },
-        {
-          "affiliateUrl": "https://www.proshop.dk/Mus/Razer-Viper-V4-Pro-Wireless-Gaming-Mus-Optisk-6-knapper-Sort/3457139",
-          "inStock": true,
-          "payoutPct": 3,
-          "produktUrl": "https://www.proshop.dk/Mus/Razer-Viper-V4-Pro-Wireless-Gaming-Mus-Optisk-6-knapper-Sort/3457139",
-          "retailer": "proshop"
-        }
-      ],
+      "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
       "sensor": "Focus Pro 50K Gen-3",
@@ -658,6 +605,7 @@
       "billede": "/images/mice/pulsar-tenz-signature-edition.jpg",
       "brand": "Pulsar",
       "breddeMm": 63,
+      "ean": "8800304251014",
       "forbindelse": "2,4 GHz",
       "fordele": [
         "Ekstremt let (47g)",
@@ -680,16 +628,9 @@
       "navn": "TenZ Signature Edition",
       "offers": [
         {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/pulsar-tenz-signature-edition",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/pulsar-tenz-signature-edition",
-          "retailer": "maxgaming"
-        },
-        {
           "affiliateUrl": "https://www.proshop.dk/Mus/Pulsar-TenZ-Signature-Edition-Gaming-Mus-Optisk-5-knapper-Sort/3395272",
           "inStock": true,
-          "payoutPct": 3,
+          "payoutPct": 3.5,
           "produktUrl": "https://www.proshop.dk/Mus/Pulsar-TenZ-Signature-Edition-Gaming-Mus-Optisk-5-knapper-Sort/3395272",
           "retailer": "proshop"
         }
@@ -736,22 +677,7 @@
       "lodMm": 1.5,
       "maxDpi": 3200,
       "navn": "U2-DW",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/zowie-by-benq-u2-dw-4k-tradlos-gaming-mus-glossy-edition",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/zowie-by-benq-u2-dw-4k-tradlos-gaming-mus-glossy-edition",
-          "retailer": "maxgaming"
-        },
-        {
-          "affiliateUrl": "https://www.proshop.dk/Mus/BenQ-Zowie-U2-DW-Medium-Wireless-Mouse-for-Esports-Gaming-Mus-Optisk-7-knapper-Sort/3338183",
-          "inStock": true,
-          "payoutPct": 3,
-          "produktUrl": "https://www.proshop.dk/Mus/BenQ-Zowie-U2-DW-Medium-Wireless-Mouse-for-Esports-Gaming-Mus-Optisk-7-knapper-Sort/3338183",
-          "retailer": "proshop"
-        }
-      ],
+      "offers": [],
       "pollingHz": 4000,
       "prisNiveau": "flagship",
       "sensor": "PAW3950",
@@ -798,18 +724,11 @@
       "navn": "G Pro X2 SUPERSTRIKE",
       "offers": [
         {
-          "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-Pro-X2-SUPERSTRIKE",
+          "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-X2-SUPERSTRIKE-Gaming-Mus-Optisk-6-knapper-Hvid/3421921",
           "inStock": true,
           "payoutPct": 3.5,
-          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G-Pro-X2-SUPERSTRIKE",
+          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-X2-SUPERSTRIKE-Gaming-Mus-Optisk-6-knapper-Hvid/3421921",
           "retailer": "proshop"
-        },
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/logitech-pro-x-2-superstrike",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/logitech-pro-x-2-superstrike",
-          "retailer": "maxgaming"
         }
       ],
       "pollingHz": 4000,
@@ -855,13 +774,6 @@
       "maxDpi": 3200,
       "navn": "FK2-DW",
       "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/zowie-fk2-dw-4k",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/zowie-fk2-dw-4k",
-          "retailer": "maxgaming"
-        },
         {
           "affiliateUrl": "https://www.computersalg.dk/mus/zowie-fk2-dw",
           "inStock": true,
@@ -912,13 +824,6 @@
       "maxDpi": 30000,
       "navn": "Beast X Pro",
       "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/beast-x-pro-sort-omron-opticals-solid-sides",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/beast-x-pro-sort-omron-opticals-solid-sides",
-          "retailer": "maxgaming"
-        }
       ],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
@@ -940,6 +845,7 @@
       "billede": "/images/mice/logitech-g-pro-x-superlight-2c.jpg",
       "brand": "Logitech",
       "breddeMm": 63.5,
+      "ean": "5099206130111",
       "forbindelse": "Kabel",
       "fordele": [
         "Samme pro-godkendte form som Superlight 2",
@@ -964,18 +870,18 @@
       "navn": "G Pro X Superlight 2c",
       "offers": [
         {
-          "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-Pro-X-Superlight-2c",
-          "inStock": true,
-          "payoutPct": 3.5,
-          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G-Pro-X-Superlight-2c",
-          "retailer": "proshop"
-        },
-        {
           "affiliateUrl": "https://www.coolshop.dk/mus/logitech-g-pro-x-superlight-2c",
           "inStock": true,
           "payoutPct": 3,
           "produktUrl": "https://www.coolshop.dk/mus/logitech-g-pro-x-superlight-2c",
           "retailer": "coolshop"
+        },
+        {
+          "affiliateUrl": "https://geekd.dk/products/logitech-g-pro-x-superlight-2c",
+          "inStock": true,
+          "payoutPct": 4,
+          "produktUrl": "https://geekd.dk/products/logitech-g-pro-x-superlight-2c",
+          "retailer": "geekd"
         }
       ],
       "pollingHz": 4000,
@@ -1023,18 +929,11 @@
       "navn": "G Pro X Superlight 2 Dex",
       "offers": [
         {
-          "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-Pro-X-Superlight-2-Dex",
+          "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-X-SUPERLIGHT-2-DEX-Gaming-Mus-Optisk-5-knapper-Sort/3303623",
           "inStock": true,
           "payoutPct": 3.5,
-          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G-Pro-X-Superlight-2-Dex",
+          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-X-SUPERLIGHT-2-DEX-Gaming-Mus-Optisk-5-knapper-Sort/3303623",
           "retailer": "proshop"
-        },
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/logitech-superlight-2-dex-sort",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/logitech-superlight-2-dex-sort",
-          "retailer": "maxgaming"
         }
       ],
       "pollingHz": 8000,
@@ -1077,15 +976,7 @@
       "lodMm": 1,
       "maxDpi": 30000,
       "navn": "Fnatic x Lamzu Maya 8K",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/fnatic-lamzu-maya-8k",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/fnatic-lamzu-maya-8k",
-          "retailer": "maxgaming"
-        }
-      ],
+      "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "mid",
       "sensor": "PAW3950",
@@ -1126,15 +1017,7 @@
       "lodMm": 1,
       "maxDpi": 26000,
       "navn": "Ultralight X Large",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/finalmouse-ultralight-x-large",
-          "inStock": false,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/finalmouse-ultralight-x-large",
-          "retailer": "maxgaming"
-        }
-      ],
+      "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
       "sensor": "PAW3395",
@@ -1203,22 +1086,7 @@
       "lodMm": 1,
       "maxDpi": 26000,
       "navn": "X2",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/pulsar-x2",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/da/tilbehoer/mus/pulsar-x2",
-          "retailer": "maxgaming"
-        },
-        {
-          "affiliateUrl": "https://www.proshop.dk/Mus/Pulsar-X2",
-          "inStock": true,
-          "payoutPct": 3.5,
-          "produktUrl": "https://www.proshop.dk/Mus/Pulsar-X2",
-          "retailer": "proshop"
-        }
-      ],
+      "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "mid",
       "sensor": "PAW3395",
@@ -1261,20 +1129,6 @@
       "maxDpi": 32000,
       "navn": "Jinggg X",
       "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/pulsar-pro-series-jinggg-x",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/pulsar-pro-series-jinggg-x",
-          "retailer": "maxgaming"
-        },
-        {
-          "affiliateUrl": "https://www.proshop.dk/Mus/Pulsar-Jinggg-X",
-          "inStock": true,
-          "payoutPct": 3.5,
-          "produktUrl": "https://www.proshop.dk/Mus/Pulsar-Jinggg-X",
-          "retailer": "proshop"
-        }
       ],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
@@ -1319,13 +1173,6 @@
       "maxDpi": 26000,
       "navn": "Sora V2",
       "offers": [
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/ninjutso-sora-v2-8k-superlight-tradlos-gaming-mus-sort",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/ninjutso-sora-v2-8k-superlight-tradlos-gaming-mus-sort",
-          "retailer": "maxgaming"
-        }
       ],
       "pollingHz": 8000,
       "prisNiveau": "mid",
@@ -1370,20 +1217,6 @@
       "maxDpi": 42000,
       "navn": "ROG Harpe Ace 2",
       "offers": [
-        {
-          "affiliateUrl": "https://www.proshop.dk/Mus/ASUS-ROG-Harpe-Ace-2",
-          "inStock": true,
-          "payoutPct": 3.5,
-          "produktUrl": "https://www.proshop.dk/Mus/ASUS-ROG-Harpe-Ace-2",
-          "retailer": "proshop"
-        },
-        {
-          "affiliateUrl": "https://www.maxgaming.dk/dk/tradlose/rog-harpe-ii-ace-tradlos-gaming-mus-hvid",
-          "inStock": true,
-          "payoutPct": 4,
-          "produktUrl": "https://www.maxgaming.dk/dk/tradlose/rog-harpe-ii-ace-tradlos-gaming-mus-hvid",
-          "retailer": "maxgaming"
-        }
       ],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
@@ -1401,8 +1234,10 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
+      "billede": "/images/mice/pulsar-es-fs-1.png",
       "brand": "Pulsar",
       "breddeMm": 0,
+      "ean": "8800304255043",
       "forbindelse": "",
       "fordele": [],
       "formfaktor": "symmetrisk",
@@ -1414,7 +1249,15 @@
       "lodMm": 0,
       "maxDpi": 0,
       "navn": "eS FS-1",
-      "offers": [],
+      "offers": [
+        {
+          "affiliateUrl": "https://www.proshop.dk/Mus/Pulsar-eS-FS-1-Gaming-Mus-Optisk-5-knapper-Blaa/3450990",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "produktUrl": "https://www.proshop.dk/Mus/Pulsar-eS-FS-1-Gaming-Mus-Optisk-5-knapper-Blaa/3450990",
+          "retailer": "proshop"
+        }
+      ],
       "pollingHz": 0,
       "prisNiveau": "mid",
       "sensor": "",
@@ -1536,8 +1379,10 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
+      "billede": "/images/mice/pulsar-x2n-crazylight.png",
       "brand": "Pulsar",
       "breddeMm": 0,
+      "ean": "8800304255098",
       "forbindelse": "",
       "fordele": [],
       "formfaktor": "symmetrisk",
@@ -1549,7 +1394,15 @@
       "lodMm": 0,
       "maxDpi": 0,
       "navn": "X2N Crazylight Medium",
-      "offers": [],
+      "offers": [
+        {
+          "retailer": "proshop",
+          "produktUrl": "https://www.proshop.dk/Mus/Pulsar-X2N-CRAZYLIGHT-Medium-Ocean-Gaming-Mus-Optisk-6-knapper-Blaa/3449936",
+          "affiliateUrl": "https://www.proshop.dk/Mus/Pulsar-X2N-CRAZYLIGHT-Medium-Ocean-Gaming-Mus-Optisk-6-knapper-Blaa/3449936",
+          "payoutPct": 3.5,
+          "inStock": true
+        }
+      ],
       "pollingHz": 0,
       "prisNiveau": "mid",
       "sensor": "",
@@ -1563,8 +1416,10 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
+      "billede": "/images/mice/razer-deathadder-v3-hyperspeed.jpg",
       "brand": "Razer",
       "breddeMm": 0,
+      "ean": "8886419334552",
       "forbindelse": "2,4 GHz",
       "fordele": [],
       "formfaktor": "ergonomisk",
@@ -1576,7 +1431,15 @@
       "lodMm": 0,
       "maxDpi": 0,
       "navn": "DeathAdder V3 HyperSpeed",
-      "offers": [],
+      "offers": [
+        {
+          "retailer": "proshop",
+          "produktUrl": "https://www.proshop.dk/Mus/Razer-DeathAdder-V3-HyperSpeed-Gaming-Mus-Optisk-5-knapper-Sort/3290362",
+          "affiliateUrl": "https://www.proshop.dk/Mus/Razer-DeathAdder-V3-HyperSpeed-Gaming-Mus-Optisk-5-knapper-Sort/3290362",
+          "payoutPct": 3.5,
+          "inStock": true
+        }
+      ],
       "pollingHz": 0,
       "prisNiveau": "mid",
       "sensor": "",
@@ -1617,8 +1480,10 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
+      "billede": "/images/mice/endgame-gear-op1-8k-v2.png",
       "brand": "Endgame Gear",
       "breddeMm": 0,
+      "ean": "4251442513177",
       "forbindelse": "",
       "fordele": [],
       "formfaktor": "symmetrisk",
@@ -1630,7 +1495,15 @@
       "lodMm": 0,
       "maxDpi": 0,
       "navn": "OP1 8k V2",
-      "offers": [],
+      "offers": [
+        {
+          "retailer": "proshop",
+          "produktUrl": "https://www.proshop.dk/Mus/Endgame-Gear-OP1-8K-v2-Dark-Frost-Gaming-mouse-Optic-5/3396238",
+          "affiliateUrl": "https://www.proshop.dk/Mus/Endgame-Gear-OP1-8K-v2-Dark-Frost-Gaming-mouse-Optic-5/3396238",
+          "payoutPct": 3.5,
+          "inStock": true
+        }
+      ],
       "pollingHz": 0,
       "prisNiveau": "mid",
       "sensor": "",
@@ -1770,33 +1643,6 @@
       "prisNiveau": "mid",
       "sensor": "",
       "slug": "zowie-s1",
-      "softwarePaakraevet": false,
-      "switchType": "mekanisk",
-      "ulemper": [],
-      "vaegtGram": 0,
-      "wireless": false
-    },
-    {
-      "batteritidTimer": null,
-      "beskrivelse": "",
-      "brand": "Razer",
-      "breddeMm": 0,
-      "forbindelse": "",
-      "fordele": [],
-      "formfaktor": "ergonomisk",
-      "greb": [],
-      "haandStoerrelse": [],
-      "hoejdeMm": 0,
-      "knapper": 0,
-      "laengdeMm": 0,
-      "lodMm": 0,
-      "maxDpi": 0,
-      "navn": "DeathAdder V3 Pro",
-      "offers": [],
-      "pollingHz": 0,
-      "prisNiveau": "mid",
-      "sensor": "",
-      "slug": "razer-deathadder-v3-pro",
       "softwarePaakraevet": false,
       "switchType": "mekanisk",
       "ulemper": [],
@@ -1968,8 +1814,10 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
+      "billede": "/images/mice/lamzu-thorn-v2.jpg",
       "brand": "Lamzu",
       "breddeMm": 0,
+      "ean": "6975637430893",
       "forbindelse": "",
       "fordele": [],
       "formfaktor": "ergonomisk",
@@ -1981,7 +1829,15 @@
       "lodMm": 0,
       "maxDpi": 0,
       "navn": "Thorn V2",
-      "offers": [],
+      "offers": [
+        {
+          "retailer": "proshop",
+          "produktUrl": "https://www.proshop.dk/Mus/Lamzu-Thorn-V2-OrangeBlack-Gaming-mouse-Optic-5-Orange/3487039",
+          "affiliateUrl": "https://www.proshop.dk/Mus/Lamzu-Thorn-V2-OrangeBlack-Gaming-mouse-Optic-5-Orange/3487039",
+          "payoutPct": 3.5,
+          "inStock": true
+        }
+      ],
       "pollingHz": 0,
       "prisNiveau": "mid",
       "sensor": "",
@@ -2178,13 +2034,6 @@
       "softwarePaakraevet": true,
       "prisNiveau": "flagship",
       "offers": [
-        {
-          "retailer": "proshop",
-          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G-Pro-X-Superlight/2876803",
-          "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-Pro-X-Superlight/2876803",
-          "payoutPct": 3.5,
-          "inStock": true
-        }
       ],
       "beskrivelse": "Musen der startede ultra-letvægtskategorien. 63 gram, HERO 25K-sensor og 70 timers batteritid gør den til et sikkert valg for spillere på alle niveauer. En af de mest brugte mus i CS2- og Valorant-scenen — blandt andet af NaVis IGL aleksib.",
       "fordele": ["63 gram — banebrydende letvægt", "HERO 25K-sensor med præcis tracking", "70 timers batteritid", "Gennemtestet af tusindvis af pros"],
@@ -2194,6 +2043,8 @@
       "slug": "logitech-g-pro-2-lightspeed",
       "navn": "G Pro 2 LIGHTSPEED",
       "brand": "Logitech",
+      "ean": "5099206123427",
+      "billede": "/images/mice/logitech-g-pro-2-lightspeed.jpg",
       "vaegtGram": 80,
       "laengdeMm": 125,
       "breddeMm": 63.5,
@@ -2218,6 +2069,13 @@
           "produktUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-2-LIGHTSPEED-Gaming-Mus-Optisk-8-knapper-Sort/3314393",
           "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-2-LIGHTSPEED-Gaming-Mus-Optisk-8-knapper-Sort/3314393",
           "payoutPct": 3.5,
+          "inStock": true
+        },
+        {
+          "retailer": "geekd",
+          "produktUrl": "https://geekd.dk/products/logitech-g-pro-2-lightspeed-optisk-tradlos-hvid",
+          "affiliateUrl": "https://geekd.dk/products/logitech-g-pro-2-lightspeed-optisk-tradlos-hvid",
+          "payoutPct": 4,
           "inStock": true
         }
       ],

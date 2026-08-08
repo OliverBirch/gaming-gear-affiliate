@@ -20,7 +20,8 @@ export interface FreshnessTicket {
     | "missing-pro-image"
     | "stub-mouse-created"
     | "no-mouse-offers"
-    | "peripheral-missing";
+    | "peripheral-missing"
+    | "no-retailer-coverage";
   slug: string;
   label: string;
   question: string;
@@ -39,6 +40,8 @@ export interface FreshnessTicket {
     mouseNavn?: string;
     /** Pro who triggered the need */
     sourcePro?: string;
+    /** No-retailer-coverage: product slugs with no matched DK retailer offer */
+    uncoveredSlugs?: string[];
     instructions: string;
   };
   createdAt: string;
@@ -106,7 +109,7 @@ export const freshnessTickets: FreshnessTicket[] = [
       mouseNavn: "Xlite V4 Es Medium",
       sourcePro: "electronic",
       sourceUrl: "https://prosettings.net/players/electronic/",
-      instructions: "Run add-mouse skill for 'pulsar-xlite-v4-es'. Sources: RTINGS → Techpowerup → Pulsar product page. Fill in specs (weight, dimensions, sensor, polling rate, switch type), write Danish copy (beskrivelse, fordele, ulemper), find MaxGaming/proshop.dk offers, download product image from MaxGaming CDN. Then resolve this ticket when complete.",
+      instructions: "Run add-mouse skill for 'pulsar-xlite-v4-es'. Sources: RTINGS → Techpowerup → Pulsar product page. Fill in specs (weight, dimensions, sensor, polling rate, switch type), write Danish copy (beskrivelse, fordele, ulemper), find proshop.dk/Geek'd offers (MaxGaming is not a retailer partner — do not source offers or images from there), download product image. Then resolve this ticket when complete.",
     },
     createdAt: "2026-07-27",
   },
@@ -123,22 +126,6 @@ export const freshnessTickets: FreshnessTicket[] = [
       sourcePro: "laser",
       sourceUrl: "https://prosettings.net/players/laser/",
       instructions: "Run the add-mouse skill for zowie-s1 to fill in specs, copy, and offers.",
-    },
-    createdAt: "2026-07-27",
-  },
-  {
-    id: "razer-deathadder-v3-pro-stub-2026-07-27",
-    type: "stub-mouse-created",
-    slug: "doc-cs",
-    label: "razer-deathadder-v3-pro — mouse stub needs completion",
-    question: "doc uses a Razer DeathAdder V3 Pro which does not exist in the mouse catalog. A stub was created. Run add-mouse to complete it.",
-    context: {
-      esport: "cs2",
-      mouseSlug: "razer-deathadder-v3-pro",
-      mouseNavn: "DeathAdder V3 Pro",
-      sourcePro: "doc-cs",
-      sourceUrl: "https://prosettings.net/players/doc/",
-      instructions: "Run the add-mouse skill for razer-deathadder-v3-pro to fill in specs, copy, and offers.",
     },
     createdAt: "2026-07-27",
   },
@@ -365,5 +352,122 @@ export const freshnessTickets: FreshnessTicket[] = [
       instructions: "Finalmouse-produkter sælges via limited drops, ikke løbende lager. Tjek maxgaming.dk for en aktiv produktside (som for finalmouse-starlight-pro-small/finalmouse-ultralight-x-large), ellers lad offers stå tomme.",
     },
     createdAt: "2026-07-30",
+  },
+  {
+    id: "proshop-feed-retailer-coverage-2026-08-07",
+    type: "no-retailer-coverage",
+    slug: "catalog",
+    label: "33 mice + 5 keyboards + 4 monitors + 14 mousepads have zero DK retailer offers — find coverage or a substitute",
+    question:
+      "After matching the Proshop XML feed (partnerid=57198) against the catalog and removing MaxGaming entirely (2026-08-08 — it was never a real affiliate partner) plus every Proshop link/price that couldn't be confirmed against a fresh feed download, the zero-coverage list grew substantially: 33 mice (mostly boutique brands: Vaxee, Finalmouse, Fnatic, PMM, Waizowl, Fallen Gear, Sony Inzone, several ZOWIE regional SKUs, plus some flagship models whose old Proshop links turned out to be guessed/unverified — razer-viper-v3-pro, razer-viper-v4-pro, zowie-u2-dw, pulsar-x2, logitech-g-pro-x-superlight), 5 keyboards (wooting-80he, razer-huntsman-v3-pro, corsair-k100-rgb, keychron-k4-he, aula-f75-pro — all had proshop as their ONLY retailer, all unverified), 4 monitors (zowie-xl2566k, zowie-xl2546k, asus-rog-swift-pg27aqdm, alienware-aw2524h), and 14 mousepads (steelseries-qck-heavy, zowie-g-sr-iii/h-sr-iii/g-tr/g-sr-ii, artisan-ninja-fx-zero/fx-hien/type-99, logitech-g740/g640, vaxee-pa, xtrfy-gp4, fnatic-focus-3, corsair-mm250). For each: (1) check whether Geek'd/Computersalg/Coolshop/AVXperten/Dustin Home/Komplett/Billo (already in retailers.ts) carries it — if so, that retailer's own feed/API can supply a real offer (MaxGaming is not a retailer partner — do not source offers from there); (2) if genuinely no Danish retailer carries it, find the closest comparable in-catalog product to show as a substitute instead of a dead end.",
+    context: {
+      uncoveredSlugs: [
+        // mice
+        "razer-viper-v3-pro", "razer-viper-v4-pro", "zowie-u2-dw", "pulsar-x2",
+        "logitech-g-pro-x-superlight", "finalmouse-starlight-pro-small",
+        "wlmouse-beast-x-pro", "pulsar-jinggg-x", "ninjutso-sora-v2",
+        "asus-rog-harpe-ace-2",
+        "finalmouse-ultralight-x-small", "wlmouse-beast-x-max",
+        "vaxee-outset-ax-wireless", "razer-viper-mini-signature-edition", "pulsar-susanto-x",
+        "zowie-donk-mouse",
+        "vaxee-np01s-v2-wireless", "zowie-ec1-c", "vaxee-xe-v2", "pulsar-xlite-v4-es",
+        "zowie-s1", "zowie-za13-dw", "zowie-ec3-cw", "zowie-ec2-cw",
+        "pulsar-zywoo-chosen-mouse-gen2", "pmm-zen-8k-mini", "sony-inzone-mouse-a",
+        "fallen-gear-lobo-wireless", "vaxee-np01s-wireless",
+        "zowie-ec3-dw", "lamzu-inca", "waizowl-ogm-cloud-8k", "zowie-fk1-c",
+        // vaxee-xe-wireless, fnatic-lamzu-maya-8k, g-wolves-hts-pro-4k,
+        // finalmouse-ultralight-x-large, pulsar-x2h moved to their own
+        // no-mouse-offers tickets below (2026-08-08) — MaxGaming offer
+        // removed after confirming it's genuinely not carried anymore,
+        // not just a stale URL.
+
+        // keyboards (2026-08-08 — proshop was the only, unverified retailer)
+        "wooting-80he", "razer-huntsman-v3-pro", "corsair-k100-rgb",
+        "keychron-k4-he", "aula-f75-pro",
+
+        // monitors (2026-08-08)
+        "zowie-xl2566k", "zowie-xl2546k", "asus-rog-swift-pg27aqdm",
+        "alienware-aw2524h",
+
+        // mousepads (2026-08-08)
+        "steelseries-qck-heavy", "zowie-g-sr-iii", "zowie-h-sr-iii", "zowie-g-tr",
+        "logitech-g740", "logitech-g640", "zowie-g-sr-ii",
+        "artisan-ninja-fx-zero", "artisan-fx-hien", "artisan-type-99",
+        "vaxee-pa", "xtrfy-gp4", "fnatic-focus-3", "corsair-mm250",
+      ],
+      instructions:
+        "Same methodology as scripts/match-proshop-eans.mjs (exact-EAN pass first, then full-catalog-token-overlap fuzzy match with the extra-token allowlist — see that file's comments for why loose matching produced false positives before). For brands with no DK retail presence at all (most Finalmouse/PMM/Waizowl/Fallen Gear drops), don't leave the page empty — pick the closest substitute already in the catalog by form factor + weight + sensor tier and note it's a substitute, not the exact SKU. Keyboards/headsets/monitors/mousepads never store per-product URLs (only a generic category-page link per retailer) — a 'match' for those categories means confirming the retailer actually carries *a* unit of that exact product at *some* price, then wiring the category-page URL + payout into that file's SEARCH_URLS/allowedRetailers/payoutPct config (see how Geek'd was wired into keyboards.ts/headsets.ts/mousepads.ts on 2026-08-08 for the pattern) — not finding a per-product link.",
+    },
+    createdAt: "2026-08-07",
+  },
+  {
+    id: "vaxee-xe-wireless-no-offers-2026-08-08",
+    type: "no-mouse-offers",
+    slug: "vaxee-xe-wireless",
+    label: "vaxee-xe-wireless — MaxGaming offer removed, no replacement found",
+    question:
+      "MaxGaming's old vaxee-xe-wireless URL 404'd; a site search on maxgaming.dk turned up zero listings for the mouse itself (only mouse skates/grips compatible with it). We have no MaxGaming XML feed to auto-verify against, so the offer was removed rather than guessed. Does any DK retailer (Geek'd, Computersalg, Coolshop, AVXperten, Dustin Home, Komplett, Billo) carry it?",
+    context: {
+      mouseSlug: "vaxee-xe-wireless",
+      mouseNavn: "XE Wireless",
+      instructions: "Check the other onboarded retailers' feeds/sites for this product before falling back to a substitute mouse.",
+    },
+    createdAt: "2026-08-08",
+  },
+  {
+    id: "fnatic-lamzu-maya-8k-no-offers-2026-08-08",
+    type: "no-mouse-offers",
+    slug: "fnatic-lamzu-maya-8k",
+    label: "fnatic-lamzu-maya-8k — MaxGaming offer removed, no replacement found",
+    question:
+      "MaxGaming's old fnatic-lamzu-maya-8k URL 404'd; a site search returned zero results for this Fnatic x Lamzu collab edition. No MaxGaming feed exists to auto-verify against, so the offer was removed rather than guessed. Does any DK retailer carry this specific collab edition, or has it sold out permanently (limited collab drop)?",
+    context: {
+      mouseSlug: "fnatic-lamzu-maya-8k",
+      mouseNavn: "Fnatic x Lamzu Maya 8K",
+      instructions: "If this was a one-time collab drop that's permanently gone, consider pointing to the plain lamzu-maya-x as the closest in-catalog substitute instead of leaving offers empty.",
+    },
+    createdAt: "2026-08-08",
+  },
+  {
+    id: "g-wolves-hts-pro-4k-no-offers-2026-08-08",
+    type: "no-mouse-offers",
+    slug: "g-wolves-hts-pro-4k",
+    label: "g-wolves-hts-pro-4k — MaxGaming offer removed, no replacement found",
+    question:
+      "MaxGaming's old g-wolves-hts-pro-4k URL 404'd; MaxGaming currently only stocks \"HTS Plus 4K\", a different tier from our catalog's \"HTS Pro 4K\" — not safe to assume they're interchangeable. No MaxGaming feed exists to auto-verify against, so the offer was removed rather than guessed. Does any DK retailer carry the actual Pro tier?",
+    context: {
+      mouseSlug: "g-wolves-hts-pro-4k",
+      mouseNavn: "HTS Pro 4K",
+      instructions: "Confirm whether G-Wolves' \"Pro\" and \"Plus\" 4K tiers are genuinely different SKUs (specs, price) before treating MaxGaming's Plus listing as a match.",
+    },
+    createdAt: "2026-08-08",
+  },
+  {
+    id: "finalmouse-ultralight-x-large-no-offers-2026-08-08",
+    type: "no-mouse-offers",
+    slug: "finalmouse-ultralight-x-large",
+    label: "finalmouse-ultralight-x-large — MaxGaming offer removed, no replacement found",
+    question:
+      "MaxGaming's old finalmouse-ultralight-x-large URL 404'd; MaxGaming's current Finalmouse lineup is all newer rebrand editions (ULX Prophecy, ULX Frostlord — both sold out; Starlight X Nightfall — coming soon), none of which are confirmed to be the same product as our catalog's plain \"Ultralight X Large\". No MaxGaming feed exists to auto-verify against, so the offer was removed rather than guessed.",
+    context: {
+      mouseSlug: "finalmouse-ultralight-x-large",
+      mouseNavn: "Ultralight X Large",
+      instructions: "Finalmouse renames/relaunches this line frequently via limited drops (see the related finalmouse-ultralight-x-small and finalmouse-starlight-pro-small tickets). Check which current edition, if any, corresponds to our catalog entry before relinking.",
+    },
+    createdAt: "2026-08-08",
+  },
+  {
+    id: "pulsar-x2h-no-offers-2026-08-08",
+    type: "no-mouse-offers",
+    slug: "pulsar-x2h",
+    label: "pulsar-x2h — MaxGaming offer removed, no replacement found",
+    question:
+      "MaxGaming's old pulsar-x2h URL 404'd; MaxGaming's current Pulsar X2H lineup is all newer generations (v3, CrazyLight, High Hump/eS) with different sensors than our catalog's PAW3395/1000Hz spec — not safe to assume interchangeable. No MaxGaming feed exists to auto-verify against, so the offer was removed rather than guessed. (pulsar-x2 has the same issue but kept its proshop offer.)",
+    context: {
+      mouseSlug: "pulsar-x2h",
+      mouseNavn: "X2H",
+      instructions: "Either find where the original PAW3395 X2H is still sold, or update the catalog spec/offers to match whichever current Pulsar generation is actually being linked.",
+    },
+    createdAt: "2026-08-08",
   },
 ];

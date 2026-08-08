@@ -1,13 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import type { Keyboard, Mousepad, Headset } from "@/lib/types";
-import type { ShareSegment, GearTopItem } from "@/lib/esport-stats";
+import type { GearTopItem, ShareSegment } from "@/lib/esport-stats";
 import { MouseShareBar } from "@/components/mouse-share-bar";
-import { KeyboardCard } from "@/components/keyboard-card";
-import { MousepadCard } from "@/components/mousepad-card";
-import { HeadsetCard } from "@/components/headset-card";
 import { cn } from "@/lib/utils";
 
 export type EsportGearTab =
@@ -24,7 +20,7 @@ export type EsportGearTab =
         linkPrefix: string;
         itemLabel: string;
       };
-      items: Keyboard[];
+      cards: ReactNode[];
     }
   | {
       id: string;
@@ -39,7 +35,7 @@ export type EsportGearTab =
         linkPrefix: string;
         itemLabel: string;
       };
-      items: Mousepad[];
+      cards: ReactNode[];
     }
   | {
       id: string;
@@ -54,7 +50,7 @@ export type EsportGearTab =
         linkPrefix: string;
         itemLabel: string;
       };
-      items: Headset[];
+      cards: ReactNode[];
     }
   | {
       id: string;
@@ -76,11 +72,12 @@ interface Props {
   tabs: EsportGearTab[];
 }
 
+function tabItemCount(t: EsportGearTab): number {
+  return t.kind === "monitor" ? t.items.length : t.cards.length;
+}
+
 export function EsportGearPanel({ tabs }: Props) {
-  const available = tabs.filter((t) => {
-    if (t.kind === "monitor") return t.items.length > 0 || t.share.segments.length > 0;
-    return t.items.length > 0 || t.share.segments.length > 0;
-  });
+  const available = tabs.filter((t) => tabItemCount(t) > 0 || t.share.segments.length > 0);
 
   const [activeId, setActiveId] = useState(available[0]?.id ?? "");
   const active = available.find((t) => t.id === activeId) ?? available[0];
@@ -144,27 +141,21 @@ export function EsportGearPanel({ tabs }: Props) {
           />
         </div>
 
-        {active.kind === "keyboard" && active.items.length > 0 && (
+        {active.kind === "keyboard" && active.cards.length > 0 && (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {active.items.map((kb) => (
-              <KeyboardCard key={kb.slug} keyboard={kb} />
-            ))}
+            {active.cards}
           </div>
         )}
 
-        {active.kind === "mousepad" && active.items.length > 0 && (
+        {active.kind === "mousepad" && active.cards.length > 0 && (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {active.items.map((mp) => (
-              <MousepadCard key={mp.slug} mousepad={mp} />
-            ))}
+            {active.cards}
           </div>
         )}
 
-        {active.kind === "headset" && active.items.length > 0 && (
+        {active.kind === "headset" && active.cards.length > 0 && (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {active.items.map((hs) => (
-              <HeadsetCard key={hs.slug} headset={hs} />
-            ))}
+            {active.cards}
           </div>
         )}
 

@@ -7,7 +7,7 @@ import http from "http";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 
-const MATCHES = JSON.parse(readFileSync(join(__dirname, "ultrashop-ean-matches.json"), "utf-8"));
+const MATCHES = JSON.parse(readFileSync(join(__dirname, "proshop-image-matches.json"), "utf-8"));
 
 const CATEGORY_DIRS = {
   mus: "mice",
@@ -39,6 +39,7 @@ async function download(url, dest) {
 
 async function main() {
   const imagesDir = join(ROOT, "public", "images");
+  const downloaded = [];
 
   for (const m of MATCHES) {
     if (!m.imageUrl) continue;
@@ -49,20 +50,25 @@ async function main() {
     const ext = extname(new URL(m.imageUrl).pathname) || ".jpg";
     const filename = `${m.slug}${ext}`;
     const dest = join(catDir, filename);
+    const publicPath = `/images/${dirName}/${filename}`;
 
     if (existsSync(dest)) {
       console.log(`  Exists: ${dirName}/${filename}`);
+      downloaded.push({ slug: m.slug, category: m.category, billede: publicPath });
       continue;
     }
 
     console.log(`  Downloading: ${dirName}/${filename} ← ${m.imageUrl}`);
     const ok = await download(m.imageUrl, dest);
     if (ok) {
-      console.log(`    → /images/${dirName}/${filename}`);
+      console.log(`    → ${publicPath}`);
+      downloaded.push({ slug: m.slug, category: m.category, billede: publicPath });
     }
   }
 
-  console.log("\nDone. Next: manually verify images, then update billede in data files.");
+  const { writeFileSync } = await import("fs");
+  writeFileSync(join(__dirname, "proshop-images-downloaded.json"), JSON.stringify(downloaded, null, 2));
+  console.log(`\nDone. ${downloaded.length} images ready. Manifest: scripts/proshop-images-downloaded.json`);
 }
 
 main().catch(console.error);

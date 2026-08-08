@@ -25,8 +25,8 @@ const haandLabels: Record<string, string> = {
   stor: "Stor",
 };
 
-export function MouseCard({ mouse, rank, className }: { mouse: Mouse; rank?: number; className?: string }) {
-  const resolvedOffers = bestOffers(mouse);
+export async function MouseCard({ mouse, rank, className }: { mouse: Mouse; rank?: number; className?: string }) {
+  const resolvedOffers = await bestOffers(mouse);
   const lowestPrice = resolvedOffers.reduce((min, o) => {
     if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
     return min;

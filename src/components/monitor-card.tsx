@@ -6,8 +6,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { bestOffers } from "@/lib/affiliate";
 
-export function MonitorCard({ monitor }: { monitor: Monitor }) {
-  const resolvedOffers = bestOffers(monitor);
+export async function MonitorCard({ monitor }: { monitor: Monitor }) {
+  const resolvedOffers = await bestOffers(monitor);
   const lowestPrice = resolvedOffers.reduce((min, o) => {
     if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
     return min;

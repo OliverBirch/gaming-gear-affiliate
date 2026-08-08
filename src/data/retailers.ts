@@ -20,15 +20,6 @@ export const retailers: Retailer[] = [
     hjemmeside: "https://www.computersalg.dk",
   },
   {
-    slug: "maxgaming",
-    navn: "MaxGaming",
-    netvaerk: "adtraction",
-    basePayoutPct: 4.0,
-    cookieDage: 60,
-    logo: "/images/retailers/maxgaming.svg",
-    hjemmeside: "https://www.maxgaming.dk",
-  },
-  {
     slug: "coolshop",
     navn: "Coolshop",
     netvaerk: "partner-ads",
@@ -78,12 +69,12 @@ export const retailers: Retailer[] = [
     hjemmeside: "https://www.billo.dk",
   },
   {
-    slug: "ultrashop",
-    navn: "UltraShop",
+    slug: "geekd",
+    navn: "Geek'd",
     netvaerk: "partner-ads",
-    basePayoutPct: 3.0,
-    cookieDage: 30,
-    hjemmeside: "https://www.ultrashop.dk",
+    basePayoutPct: 4.0,
+    cookieDage: 40,
+    hjemmeside: "https://geekd.dk",
   },
 ];
 

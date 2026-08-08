@@ -1,0 +1,37 @@
+[
+  {
+    "slug": "hyperx-cloud-iii",
+    "category": "headset",
+    "billede": "/images/headsets/hyperx-cloud-iii.jpg"
+  },
+  {
+    "slug": "hyperx-cloud-iii-wireless",
+    "category": "headset",
+    "billede": "/images/headsets/hyperx-cloud-iii-wireless.jpg"
+  },
+  {
+    "slug": "endgame-gear-op1-8k-v2",
+    "category": "mus",
+    "billede": "/images/mice/endgame-gear-op1-8k-v2.png"
+  },
+  {
+    "slug": "lamzu-thorn-v2",
+    "category": "mus",
+    "billede": "/images/mice/lamzu-thorn-v2.jpg"
+  },
+  {
+    "slug": "pulsar-es-fs-1",
+    "category": "mus",
+    "billede": "/images/mice/pulsar-es-fs-1.png"
+  },
+  {
+    "slug": "pulsar-x2n-crazylight",
+    "category": "mus",
+    "billede": "/images/mice/pulsar-x2n-crazylight.png"
+  },
+  {
+    "slug": "pulsar-es-saturn-pro",
+    "category": "musemaatter",
+    "billede": "/images/mousepads/pulsar-es-saturn-pro.jpg"
+  }
+]

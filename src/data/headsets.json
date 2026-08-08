@@ -15,8 +15,7 @@
       "prisNiveau": "mid",
       "billede": null,
       "priser": {
-        "maxgaming": 599,
-        "proshop": 649,
+        "proshop": null,
         "computersalg": 599,
         "coolshop": 629
       },
@@ -50,8 +49,7 @@
       "prisNiveau": "mid",
       "billede": null,
       "priser": {
-        "maxgaming": 899,
-        "proshop": 949,
+        "proshop": null,
         "computersalg": 899
       },
       "beskrivelse": "HyperX Cloud II Wireless giver den klassiske Cloud II-oplevelse uden ledninger. Med op til 30 timers batteritid og den samme 53 mm driverteknologi som den kablede version, får du trådløs frihed uden at gå på kompromis med lydkvaliteten. Den aftagelige mikrofon og 7.1 surroundlyd gør den ideel til konkurrencegaming.",
@@ -71,6 +69,7 @@
     },
     {
       "slug": "hyperx-cloud-iii",
+      "ean": "197029008220",
       "navn": "Cloud III",
       "brand": "HyperX",
       "wireless": false,
@@ -82,11 +81,11 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "mid",
-      "billede": null,
+      "billede": "/images/headsets/hyperx-cloud-iii.jpg",
       "priser": {
-        "maxgaming": 749,
-        "proshop": 799,
-        "computersalg": 749
+        "proshop": 458,
+        "computersalg": 749,
+        "geekd": 559
       },
       "beskrivelse": "HyperX Cloud III er den seneste generation af HyperX' populære Cloud-serie. Med forbedret komfort, DTS Headphone:X rumlig lyd og en opgraderet 53 mm driver, leverer den en endnu bedre lydoplevelse end forgængeren. Den robuste aluminiumsramme og USB-C tilslutning gør den klar til moderne gaming.",
       "fordele": [
@@ -105,6 +104,7 @@
     },
     {
       "slug": "hyperx-cloud-iii-wireless",
+      "ean": "0197029611734",
       "navn": "Cloud III Wireless",
       "brand": "HyperX",
       "wireless": true,
@@ -116,9 +116,8 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "mid",
-      "billede": null,
+      "billede": "/images/headsets/hyperx-cloud-iii-wireless.jpg",
       "priser": {
-        "maxgaming": 999,
         "proshop": 1099,
         "computersalg": 1049
       },
@@ -152,10 +151,10 @@
       "prisNiveau": "flagship",
       "billede": null,
       "priser": {
-        "maxgaming": 1649,
-        "proshop": 1749,
+        "proshop": null,
         "computersalg": 1649,
-        "elgiganten": 1699
+        "elgiganten": 1699,
+        "geekd": 1399
       },
       "beskrivelse": "Logitech G Pro X 2 Lightspeed er anden generation af Logitechs premium esports-headset. Udviklet i samarbejde med verdens bedste professionelle spillere, leverer det enestående lyd med 50 mm drivere og DTS X 2.0 surround sound. Med 50 timers batteritid, både 2.4 GHz og Bluetooth forbindelse, og aftagelig kardioidmikrofon med Blue VO!CE teknologi er det blandt de mest populære valg blandt CS2- og Valorant-pros.",
       "fordele": [
@@ -175,6 +174,7 @@
     },
     {
       "slug": "logitech-g-pro-x",
+      "ean": "5099206094833",
       "navn": "G Pro X",
       "brand": "Logitech",
       "wireless": false,
@@ -188,9 +188,9 @@
       "prisNiveau": "mid",
       "billede": null,
       "priser": {
-        "maxgaming": 649,
-        "proshop": 699,
-        "computersalg": 649
+        "proshop": 728,
+        "computersalg": 649,
+        "geekd": 819
       },
       "beskrivelse": "Logitech G Pro X er det kablede esports-headset, der lagde grundstenen for Logitechs Pro-serie. Med 50 mm PRO-G drivere, 7.1 surroundlyd og Blue VO!CE mikrofonteknologi leverer det professionel lydkvalitet. Den robuste konstruktion i stål og aluminium gør det bygget til at holde, og de udskiftelige ørepuder i kunstlæder eller velour giver fleksibel komfort.",
       "fordele": [
@@ -209,6 +209,7 @@
     },
     {
       "slug": "razer-blackshark-v3-pro",
+      "ean": "8887910061176",
       "navn": "BlackShark V3 Pro",
       "brand": "Razer",
       "wireless": true,
@@ -220,10 +221,9 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "flagship",
-      "billede": null,
+      "billede": "/images/headsets/razer-blackshark-v3-pro.jpg",
       "priser": {
-        "maxgaming": 1399,
-        "proshop": 1499,
+        "proshop": 1672,
         "computersalg": 1399,
         "elgiganten": 1449
       },
@@ -258,9 +258,9 @@
       "prisNiveau": "mid",
       "billede": null,
       "priser": {
-        "maxgaming": 999,
-        "proshop": 1049,
-        "computersalg": 999
+        "proshop": null,
+        "computersalg": 999,
+        "geekd": 1109
       },
       "beskrivelse": "Razer BlackShark V2 Pro er forgængeren til V3 Pro, men stadig et populært valg blandt esports-spillere. Med 50 mm Razer TriForce drivere og THX Spatial Audio leverer den konkurrenceklar lyd. Den aftagelige mikrofon med Razer HyperClear teknologi og den lette konstruktion gør den til et solidt valg til både træning og turneringer.",
       "fordele": [
@@ -279,6 +279,7 @@
     },
     {
       "slug": "asus-rog-delta-ii",
+      "ean": "4711387604847",
       "navn": "ROG Delta II",
       "brand": "ASUS",
       "wireless": true,
@@ -290,10 +291,9 @@
       "aftagelig": true,
       "surroundSound": true,
       "prisNiveau": "mid",
-      "billede": null,
+      "billede": "/images/headsets/asus-rog-delta-ii.png",
       "priser": {
-        "maxgaming": 1099,
-        "proshop": 1199,
+        "proshop": 1399,
         "computersalg": 1099
       },
       "beskrivelse": "ASUS ROG Delta II er anden generation af ASUS' populære Delta-serie. Med 50 mm ASUS Essence drivere, quad-DAC teknologi og Hi-Res Audio certificering leverer den enestående lydkvalitet. Den understøtter både 2.4 GHz trådløs og Bluetooth, har 45 timers batteritid og en aftagelig mikrofon med AI-støjreduktion.",
@@ -326,8 +326,7 @@
       "prisNiveau": "mid",
       "billede": null,
       "priser": {
-        "maxgaming": 649,
-        "proshop": 699,
+        "proshop": null,
         "computersalg": 649
       },
       "beskrivelse": "Corsair HS80 RGB USB er et kablet gaming-headset med Dolby Atmos rumlig lyd. De 50 mm neodym-drivere leverer kraftfuld lyd med god positionering, og det flydende hovedbåndsdesign sikrer komfort, selv under lange spilsessioner. Mikrofonen er broadcast-grade og giver klar kommunikation med dine holdkammerater.",
@@ -361,8 +360,7 @@
       "prisNiveau": "flagship",
       "billede": "/images/headsets/steelseries-arctis-nova-pro-wireless.jpg",
       "priser": {
-        "maxgaming": 2499,
-        "proshop": 2599,
+        "proshop": null,
         "computersalg": 2499,
         "elgiganten": 2499
       },
@@ -396,9 +394,8 @@
       "prisNiveau": "flagship",
       "billede": null,
       "priser": {
-        "maxgaming": 1799,
         "elgiganten": 1899,
-        "proshop": 1899
+        "proshop": null
       },
       "beskrivelse": "Sony INZONE H9 II er anden generation af Sonys premium gaming-headset med Sonys 360 Reality Audio og avanceret støjreduktion. Med 40 mm drivere, dobbelt forbindelse og 32 timers batteritid kombinerer den Sonys lydteknologi fra deres high-end hovedtelefoner med gaming-funktioner. Den aktive støjreduktion gør den ideel til fokuseret gaming.",
       "fordele": [

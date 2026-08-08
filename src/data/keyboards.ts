@@ -38,17 +38,22 @@ type RawKeyboard = {
 
 const KB_SEARCH_URLS: Record<string, string> = {
   proshop: "https://www.proshop.dk/Tastatur",
-  maxgaming: "https://www.maxgaming.dk/dk/computertilbehor/tastatur-og-tilbehor/gaming-tastatur",
   computersalg: "https://www.computersalg.dk/tastaturer",
+  geekd: "https://geekd.dk/collections/tastatur",
 };
 
 function kbOffers(retailers: string[]): AffiliateOffer[] {
-  return retailers.map((r) => ({
-    retailer: r as AffiliateOffer["retailer"],
-    produktUrl: KB_SEARCH_URLS[r] ?? `https://www.maxgaming.dk/dk/search/${encodeURIComponent(r)}`,
-    payoutPct: r === "maxgaming" ? 4.0 : 3.5,
-    inStock: true,
-  }));
+  return retailers
+    .filter((r) => KB_SEARCH_URLS[r])
+    .map((r) => ({
+      retailer: r as AffiliateOffer["retailer"],
+      produktUrl: KB_SEARCH_URLS[r],
+      payoutPct: r === "geekd" ? 4.0 : 3.5,
+      // Left undefined (not hardcoded true) so a prices.json override can
+      // actually mark a specific retailer out of stock — resolveOffer's
+      // `offer.inStock ?? override?.inStock ?? true` only consults the
+      // override when the base value isn't already set.
+    }));
 }
 
 const _builtKeyboards: Keyboard[] = (raw.keyboards as RawKeyboard[]).map((k) => ({

@@ -5,10 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import type { FinderInput } from "@/lib/types";
 import { scoreMice, type ScoredMouse } from "@/lib/quiz-scoring";
-import { bestOffers } from "@/lib/affiliate";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+
+export interface MousePriceInfo {
+  hasOffers: boolean;
+  lowestPrice: number | null;
+}
 
 type Step =
   | "welcome"
@@ -78,14 +82,19 @@ function ProgressBar({ step, total }: { step: number; total: number }) {
   );
 }
 
-function ResultCard({ scored, index }: { scored: ScoredMouse; index: number }) {
+function ResultCard({
+  scored,
+  index,
+  priceInfo,
+}: {
+  scored: ScoredMouse;
+  index: number;
+  priceInfo?: MousePriceInfo;
+}) {
   const mouse = scored.mouse;
-  const allOffers = bestOffers(mouse);
-  const lowestPrice = allOffers.reduce((min, o) => {
-    if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
-    return min;
-  }, Infinity);
-  const hasPrice = lowestPrice !== Infinity;
+  const hasOffers = priceInfo?.hasOffers ?? false;
+  const lowestPrice = priceInfo?.lowestPrice ?? null;
+  const hasPrice = lowestPrice != null;
 
   return (
     <div className="rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-200 hover:border-primary/30">
@@ -168,7 +177,7 @@ function ResultCard({ scored, index }: { scored: ScoredMouse; index: number }) {
           )}
 
           <div className="mt-auto pt-2">
-            {allOffers.length > 0 ? (
+            {hasOffers ? (
               <Link
                 href={`/mus/${mouse.slug}`}
                 className={cn(
@@ -196,7 +205,7 @@ function ResultCard({ scored, index }: { scored: ScoredMouse; index: number }) {
   );
 }
 
-export default function FinderQuiz() {
+export default function FinderQuiz({ priceMap }: { priceMap: Record<string, MousePriceInfo> }) {
   const [step, setStep] = useState<Step>("welcome");
   const [input, setInput] = useState<FinderInput>({
     esport: "cs2",
@@ -242,7 +251,7 @@ export default function FinderQuiz() {
           Svar på 5 spørgsmål, så matcher vi dig med den bedste mus baseret på hvad pros bruger.
         </p>
         <p className="text-sm text-muted-foreground/70 mb-8">
-          Vi sammenligner priser fra Proshop, MaxGaming, Computersalg og Coolshop.
+          Vi sammenligner priser fra Proshop, Computersalg og Coolshop.
         </p>
         <button onClick={next} className={cn(buttonVariants({ variant: "cta", size: "lg" }), "text-base px-10")}>
           <span className="btn-main-text-container">
@@ -270,7 +279,12 @@ export default function FinderQuiz() {
 
         <div className="space-y-4 mb-8">
           {topResults.map((scored, i) => (
-            <ResultCard key={scored.mouse.slug} scored={scored} index={i} />
+            <ResultCard
+              key={scored.mouse.slug}
+              scored={scored}
+              index={i}
+              priceInfo={priceMap[scored.mouse.slug]}
+            />
           ))}
         </div>
 

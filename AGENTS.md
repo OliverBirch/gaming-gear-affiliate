@@ -9,6 +9,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ## Core focus
 Answer one question: *"What gear does this pro use, where can I buy it in Denmark, and is this info current?"* Pro data is the moat; product categories serve the pro-data.
 
+## Roadmap
+`ROADMAP.md` tracks project phases (platform → pro data → real affiliate integration → full retailer coverage → launch) and a dated log of milestone sessions. After a session that finishes or meaningfully advances a phase, update it: flip the phase status and append one line to the Log. Don't put per-product counts there — that's what `/admin` and `/admin/tickets` are for; they're computed from data and won't drift like a hand-maintained count would.
+
 ## Source of truth
 - Zod schemas in `src/lib/types.ts` are canonical. Data files must conform — transform layers map raw JSON to schemas.
 - Never edit raw data inline; create a transform layer (see `src/data/mousepads.ts` for the pattern). Mice and keyboards deliberately diverge from that pattern's offer-building — see the `build-offers.ts` bullet below before "fixing" them to match.
@@ -39,28 +42,13 @@ Answer one question: *"What gear does this pro use, where can I buy it in Denmar
 ## Route naming
 - Danish for routes and UI: `/tastaturer`, `/musemaatter`, `/maerke`, `/mus`. English for code identifiers.
 
-## MaxGaming URL patterns
-MaxGaming uses locale-prefixed URLs. Product pages are split by category (wireless vs wired).
-
-| Product type | Wireless path | Wired path | Category page |
-|---|---|---|---|
-| Mice | `/dk/tradlose/{slug}` | `/dk/kablet-mus/{slug}` | `/dk/computertilbehor/computermus-tilbehor/gaming-mus` |
-| Headsets | `/dk/tradlose-headset/{slug}` | `/dk/kablet-headset/{slug}` | `/dk/computertilbehor/headset-lyd/gaming-headset` |
-| Keyboards | `/dk/gaming-tastatur/{slug}` | Same (all wired) | `/dk/computertilbehor/tastatur-og-tilbehor/gaming-tastatur` |
-
-**Discovery workflow:** DuckDuckGo `site:maxgaming.dk "product name"` → extract URL pattern → fetch category page (pagination via `?limit=48&page=N`) and grep for product links → fetch product page → extract `og:image` meta tag for product image.
-
-**Product images URL pattern:** `https://www.maxgaming.dk/bilder/artiklar/{numeric-id}.jpg` (strip query params from og:image URL, keep extension).
-
-Category pages are JS-rendered so product links don't appear in static HTML. Product pages are server-rendered — specs, prices, and og:image are extractable.
-
 ## Data workflows
 - Use the `add-pro` skill to add pros — it handles pros.ts, peripherals, images, and stub mouse creation.
 - Use the `add-mouse` skill to create mice or complete stubs — it sources specs from RTINGS, copy from reviews, and offers from affiliate portals.
 - Unknown mice encountered during pro creation are tracked in `src/data/mice-todo.ts`. Visit `/admin/todo` to see the backlog.
 - Pro gear source is always `prosettings.net`. Mouse specs come from RTINGS → Techpowerup → manufacturer.
 - Pro team/hold source is **Liquipedia API** (`src/lib/liquipedia.ts`), not prosettings.net. Liquipedia is more accurate for roster tracking with full transfer history and covers CS2, Valorant, and R6.
-- `add-headset` skill mirrors `add-mouse` but for headsets (same flow: research specs → write Danish copy → find MaxGaming URL → add to JSON).
+- `add-headset` skill mirrors `add-mouse` but for headsets (same flow: research specs → write Danish copy → find a real per-product retailer URL → add to JSON). MaxGaming is **not** a retailer partner — removed from the catalog 2026-08-08, do not source offers, prices, or images from maxgaming.dk.
 - **Incomplete data tickets:** When creating pros or products with missing data (no image, stub mouse, no offers, missing peripherals), append a `FreshnessTicket` to `src/data/freshness-tasks.ts`. Tickets appear in `/admin/tickets` for manual follow-up. See the ticket types: `missing-pro-image`, `stub-mouse-created`, `no-mouse-offers`, `peripheral-missing`.
 - **Delegating small jobs:** Small, mechanical, self-contained jobs (boilerplate, a standalone script, a repetitive data transform) can be offloaded to the user's opencode/deepseek-v4-pro subscription instead of Claude usage — see the `delegate-deepseek` skill. Always confirm with the user first; deepseek is review-only, never given write access.
 

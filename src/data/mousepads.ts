@@ -39,9 +39,9 @@ type RawMousepad = {
 
 const SEARCH_URLS: Record<string, string> = {
   proshop: "https://www.proshop.dk/Musemaatte",
-  maxgaming: "https://www.maxgaming.dk/da/tilbehoer/musemaatter",
   computersalg: "https://www.computersalg.dk/musemaatter",
-  coolshop: "https://www.coolshop.dk/musemaatter",
+  coolshop: "https://www.coolshop.dk/computere/tilbehoer/musemaatter/",
+  geekd: "https://geekd.dk/collections/musematte",
 };
 
 function lowestPrice(priser: Record<string, number | Record<string, number> | null> | null, retailer: string): number | null {
@@ -57,7 +57,6 @@ function lowestPrice(priser: Record<string, number | Record<string, number> | nu
 }
 
 function buildOffers(
-  slug: string,
   priser: Record<string, number | Record<string, number> | null> | null
 ): AffiliateOffer[] {
   if (!priser) return [];
@@ -65,24 +64,19 @@ function buildOffers(
   for (const retailer of Object.keys(priser)) {
     const pris = lowestPrice(priser, retailer);
     if (pris === null) continue;
-    if (!["proshop", "maxgaming", "computersalg", "coolshop"].includes(retailer)) continue;
-    const searchUrl = SEARCH_URLS[retailer] ?? `https://www.amazon.com/s?k=${encodeURIComponent(slug)}`;
+    if (!["proshop", "computersalg", "coolshop", "geekd"].includes(retailer)) continue;
+    const searchUrl = SEARCH_URLS[retailer];
+    if (!searchUrl) continue;
     offers.push({
       retailer: retailer as AffiliateOffer["retailer"],
       produktUrl: searchUrl,
       prisDkk: pris,
-      payoutPct: retailer === "maxgaming" ? 4.0 : 3.5,
+      payoutPct: retailer === "geekd" ? 4.0 : 3.5,
       inStock: true,
     });
   }
-  if (offers.length === 0) {
-    offers.push({
-      retailer: "maxgaming",
-      produktUrl: `https://www.maxgaming.dk/da/tilbehoer/musemaatter`,
-      payoutPct: 4.0,
-      inStock: false,
-    });
-  }
+  // No verified retailer carries this product: show no offer rather than a
+  // synthetic "see price at X" link to a retailer that isn't actually priced.
   return offers;
 }
 
@@ -92,7 +86,7 @@ const TYPE_MAP: Record<string, "speed" | "control" | "hybrid"> = {
   balanced: "hybrid",
 };
 
-const _builtPads: Mousepad[] = (raw.mousepads as RawMousepad[]).map((m) => ({
+const _builtPads: Mousepad[] = (raw.mousepads as unknown as RawMousepad[]).map((m) => ({
   slug: m.slug,
   ean: m.ean ?? null,
   brand: m.brand,
@@ -110,7 +104,7 @@ const _builtPads: Mousepad[] = (raw.mousepads as RawMousepad[]).map((m) => ({
   vaskbar: m.vaskbar,
   billede: m.billede ?? null,
   prisNiveau: m.prisNiveau,
-  offers: buildOffers(m.slug, m.priser ?? null),
+  offers: buildOffers(m.priser ?? null),
   beskrivelse: m.beskrivelse,
   fordele: m.fordele,
   ulemper: m.ulemper,

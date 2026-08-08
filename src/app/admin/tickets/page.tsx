@@ -16,6 +16,7 @@ import {
   MousePointer,
   ShoppingCart,
   PackageOpen,
+  Store,
 } from "lucide-react";
 
 const ICONS: Record<FreshnessTicket["type"], React.ComponentType<{ className?: string }>> = {
@@ -27,6 +28,7 @@ const ICONS: Record<FreshnessTicket["type"], React.ComponentType<{ className?: s
   "stub-mouse-created": MousePointer,
   "no-mouse-offers": ShoppingCart,
   "peripheral-missing": PackageOpen,
+  "no-retailer-coverage": Store,
 };
 
 const LABELS: Record<FreshnessTicket["type"], string> = {
@@ -38,6 +40,7 @@ const LABELS: Record<FreshnessTicket["type"], string> = {
   "stub-mouse-created": "Mouse stub",
   "no-mouse-offers": "No offers",
   "peripheral-missing": "Missing peripherals",
+  "no-retailer-coverage": "No retailer coverage",
 };
 
 function TicketCard({

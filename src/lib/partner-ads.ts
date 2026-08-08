@@ -36,9 +36,9 @@ const DEEPLINK_ENV: Partial<Record<RetailerSlug, { primary: string; legacy: stri
     primary: "PARTNER_ADS_DEEPLINK_BILLO",
     legacy: "PARTNER_ADS_BANNER_BILLO",
   },
-  ultrashop: {
-    primary: "PARTNER_ADS_DEEPLINK_ULTRASHOP",
-    legacy: "PARTNER_ADS_BANNER_ULTRASHOP",
+  geekd: {
+    primary: "PARTNER_ADS_DEEPLINK_GEEKD",
+    legacy: "PARTNER_ADS_BANNER_GEEKD",
   },
 };
 

@@ -41,11 +41,15 @@ const picks = [
   },
 ];
 
-export default function BedsteMusUnder500() {
+export default async function BedsteMusUnder500() {
   const sortedMice = picks.map((p) => ({
     ...p,
     mouse: mice.find((m) => m.slug === p.slug)!,
   }));
+
+  const offersBySlug = new Map(
+    await Promise.all(sortedMice.map(async ({ mouse }) => [mouse.slug, await bestOffers(mouse)] as const))
+  );
 
   const haandLabels: Record<string, string> = {
     lille: "Lille",
@@ -74,7 +78,7 @@ export default function BedsteMusUnder500() {
 
       <div className="space-y-10 mb-16">
         {sortedMice.map(({ mouse, label, begrundelse }, i) => {
-          const allOffers = bestOffers(mouse);
+          const allOffers = offersBySlug.get(mouse.slug)!;
           const lowestPrice = allOffers.reduce((min, o) => {
             if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
             return min;

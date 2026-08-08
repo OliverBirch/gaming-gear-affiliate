@@ -1,5 +1,6 @@
 import type { Mouse } from "@/lib/types";
-import { mouseSpecRows } from "@/lib/compare/mice";
+import { getMouseSpecRows } from "@/lib/compare/mice";
+import { getLowestPrice } from "@/lib/affiliate";
 import { highlightWinner } from "@/lib/compare/highlight";
 import { cn } from "@/lib/utils";
 import {
@@ -42,7 +43,7 @@ function ValueCell({
   );
 }
 
-export function CompareTable({
+export async function CompareTable({
   mouseA,
   mouseB,
 }: {
@@ -53,7 +54,16 @@ export function CompareTable({
   const body: React.ReactNode[] = [];
   let lastGroup = "";
 
-  for (const row of mouseSpecRows) {
+  const prices = new Map<string, number | null>(
+    await Promise.all(
+      [mouseA, mouseB]
+        .filter((m): m is Mouse => m != null)
+        .map(async (m) => [m.slug, await getLowestPrice(m)] as const)
+    )
+  );
+  const specRows = getMouseSpecRows(prices);
+
+  for (const row of specRows) {
     if (row.group !== lastGroup) {
       lastGroup = row.group;
       body.push(

@@ -1,4 +1,4 @@
-import { bestOffer } from "@/lib/affiliate";
+import { getLowestPrice } from "@/lib/affiliate";
 import type { Mouse } from "@/lib/types";
 import type { SpecRowDef, SpecValue } from "./types";
 
@@ -32,12 +32,24 @@ function fmt(value: SpecValue): string {
   return String(value);
 }
 
-function lowestPrice(m: Mouse): number | null {
-  const o = bestOffer(m);
-  return o?.prisDkk ?? null;
+/**
+ * Price rows can't resolve their own value synchronously (the override
+ * lookup hits Redis), so callers pre-resolve lowest prices per mouse and
+ * pass them in here rather than every row's getValue being async.
+ */
+export function getMouseSpecRows(prices: Map<string, number | null>): SpecRowDef<Mouse>[] {
+  return mouseSpecRowsBase.concat({
+    id: "pris",
+    label: "Laveste pris",
+    group: "price",
+    getValue: (m) => prices.get(m.slug) ?? null,
+    format: (v) => (typeof v === "number" ? `${v} kr.` : "Se priser"),
+    better: "lower",
+    emphasize: true,
+  });
 }
 
-export const mouseSpecRows: SpecRowDef<Mouse>[] = [
+const mouseSpecRowsBase: SpecRowDef<Mouse>[] = [
   {
     id: "brand",
     label: "Brand",
@@ -185,18 +197,9 @@ export const mouseSpecRows: SpecRowDef<Mouse>[] = [
     better: "higher",
     emphasize: true,
   },
-  {
-    id: "pris",
-    label: "Laveste pris",
-    group: "price",
-    getValue: (m) => lowestPrice(m),
-    format: (v) => (typeof v === "number" ? `${v} kr.` : "Se priser"),
-    better: "lower",
-    emphasize: true,
-  },
 ];
 
-export function mouseLowestPriceLabel(m: Mouse): string | null {
-  const p = lowestPrice(m);
+export async function mouseLowestPriceLabel(m: Mouse): Promise<string | null> {
+  const p = await getLowestPrice(m);
   return p != null ? `${p} kr.` : null;
 }

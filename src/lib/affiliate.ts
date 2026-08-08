@@ -3,8 +3,8 @@ import { getOfferOverride } from "@/data/prices";
 
 let _offerIdCounter = 0;
 
-function resolveOffer(product: OfferableProduct, offer: AffiliateOffer): AffiliateOffer {
-  const override = getOfferOverride(product.slug, offer.retailer);
+async function resolveOffer(product: OfferableProduct, offer: AffiliateOffer): Promise<AffiliateOffer> {
+  const override = await getOfferOverride(product.slug, offer.retailer);
   return {
     ...offer,
     prisDkk: offer.prisDkk ?? override?.prisDkk,
@@ -12,10 +12,9 @@ function resolveOffer(product: OfferableProduct, offer: AffiliateOffer): Affilia
   };
 }
 
-export function bestOffer(product: OfferableProduct): AffiliateOffer | null {
-  const inStock = product.offers
-    .map((o) => resolveOffer(product, o))
-    .filter((o) => o.inStock !== false);
+export async function bestOffer(product: OfferableProduct): Promise<AffiliateOffer | null> {
+  const resolved = await Promise.all(product.offers.map((o) => resolveOffer(product, o)));
+  const inStock = resolved.filter((o) => o.inStock !== false);
   if (inStock.length === 0) return null;
 
   return inStock.sort((a, b) => {
@@ -26,10 +25,9 @@ export function bestOffer(product: OfferableProduct): AffiliateOffer | null {
   })[0];
 }
 
-export function bestOffers(product: OfferableProduct): AffiliateOffer[] {
-  return product.offers
-    .map((o) => resolveOffer(product, o))
-    .filter((o) => o.inStock !== false);
+export async function bestOffers(product: OfferableProduct): Promise<AffiliateOffer[]> {
+  const resolved = await Promise.all(product.offers.map((o) => resolveOffer(product, o)));
+  return resolved.filter((o) => o.inStock !== false);
 }
 
 /**
@@ -37,9 +35,9 @@ export function bestOffers(product: OfferableProduct): AffiliateOffer[] {
  * offer carries a price. Callers previously inlined a `reduce(…, Infinity)`
  * and compared against Infinity themselves.
  */
-export function getLowestPrice(product: OfferableProduct): number | null {
+export async function getLowestPrice(product: OfferableProduct): Promise<number | null> {
   let lowest: number | null = null;
-  for (const offer of bestOffers(product)) {
+  for (const offer of await bestOffers(product)) {
     if (offer.prisDkk == null) continue;
     if (lowest === null || offer.prisDkk < lowest) lowest = offer.prisDkk;
   }

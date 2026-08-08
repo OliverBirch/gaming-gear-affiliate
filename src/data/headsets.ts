@@ -33,18 +33,17 @@ type RawHeadset = {
 };
 
 const SEARCH_URLS: Record<string, string> = {
-  maxgaming: "https://www.maxgaming.dk/dk/computertilbehor/headset-lyd/gaming-headset",
   proshop: "https://www.proshop.dk/Headset",
   computersalg: "https://www.computersalg.dk/headset",
   elgiganten: "https://www.elgiganten.dk/computertilbehoer/headset",
+  geekd: "https://geekd.dk/collections/headset",
 };
 
 const OFFER_CONFIG: BuildOffersConfig = {
   searchUrls: SEARCH_URLS,
-  allowedRetailers: ["maxgaming", "proshop", "computersalg", "elgiganten"],
+  allowedRetailers: ["proshop", "computersalg", "elgiganten", "geekd"],
   // elgiganten pays 2.5% on headsets, unlike monitors — kept as-is.
-  payoutPct: { maxgaming: 4.0, elgiganten: 2.5, proshop: 3.5, computersalg: 3.5 },
-  fallbackRetailer: "maxgaming",
+  payoutPct: { elgiganten: 2.5, proshop: 3.5, computersalg: 3.5, geekd: 4.0 },
   defaultPayoutPct: 3.5,
 };
 

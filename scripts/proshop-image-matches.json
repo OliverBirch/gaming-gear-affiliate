@@ -1,0 +1,65 @@
+[
+  {
+    "slug": "hyperx-cloud-iii",
+    "category": "headset",
+    "catalogName": "HyperX Cloud III",
+    "feedName": "HyperX HyperX Cloud III - Black",
+    "ean": "197029008220",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3190641_1db25eda0483.jpg",
+    "matchType": "fuzzy-full-overlap"
+  },
+  {
+    "slug": "hyperx-cloud-iii-wireless",
+    "category": "headset",
+    "catalogName": "HyperX Cloud III Wireless",
+    "feedName": "HyperX HyperX Cloud III Wireless - Black/Red",
+    "ean": "0197029611734",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3201901_12bf7383b065.jpg",
+    "matchType": "fuzzy-full-overlap"
+  },
+  {
+    "slug": "endgame-gear-op1-8k-v2",
+    "category": "mus",
+    "catalogName": "Endgame Gear OP1 8k V2",
+    "feedName": "Endgame Gear Endgame Gear OP1 8K (v2) - Dark Frost - Gaming Mus - Optisk - 5 knapper - Sort",
+    "ean": "4251442513177",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3396238_83d0b5317940.png",
+    "matchType": "fuzzy-full-overlap"
+  },
+  {
+    "slug": "lamzu-thorn-v2",
+    "category": "mus",
+    "catalogName": "Lamzu Thorn V2",
+    "feedName": "Lamzu Lamzu Thorn V2 (Orange/Black) - Gaming Mus - Optisk - 5 knapper - Orange",
+    "ean": "6975637430893",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3487039_37903ca1efa9.jpg",
+    "matchType": "fuzzy-full-overlap"
+  },
+  {
+    "slug": "pulsar-es-fs-1",
+    "category": "mus",
+    "catalogName": "Pulsar eS FS-1",
+    "feedName": "Pulsar Pulsar eS FS-1 - Gaming Mus - Optisk - 5 knapper - Blå",
+    "ean": "8800304255043",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3450990_36d221d2dee3.png",
+    "matchType": "fuzzy-full-overlap"
+  },
+  {
+    "slug": "pulsar-x2n-crazylight",
+    "category": "mus",
+    "catalogName": "Pulsar X2N Crazylight Medium",
+    "feedName": "Pulsar Pulsar X2N CRAZYLIGHT Medium (Ocean) - Gaming Mus - Optisk - 6 knapper - Blå",
+    "ean": "8800304255098",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3449936_c88b241b25db.png",
+    "matchType": "fuzzy-full-overlap"
+  },
+  {
+    "slug": "pulsar-es-saturn-pro",
+    "category": "musemaatter",
+    "catalogName": "Pulsar eS Saturn Pro",
+    "feedName": "Pulsar Pulsar eS Pad Series Saturn Pro",
+    "ean": "8800304252578",
+    "imageUrl": "https://www.proshop.dk/Images/600x800/3479709_153114e65c0a.jpg",
+    "matchType": "fuzzy-full-overlap"
+  }
+]

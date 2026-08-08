@@ -316,7 +316,7 @@ export default function Home() {
               <h3 className="mb-2 font-semibold">Find bedste pris</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Vi viser dig den bedste danske pris - klik og k&oslash;b hos
-                Proshop, MaxGaming eller Computersalg.
+                Proshop, Geek'd eller Computersalg.
               </p>
             </div>
           </div>

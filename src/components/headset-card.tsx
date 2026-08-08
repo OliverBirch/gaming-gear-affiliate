@@ -6,8 +6,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { bestOffers } from "@/lib/affiliate";
 
-export function HeadsetCard({ headset, rank }: { headset: Headset; rank?: number }) {
-  const resolvedOffers = bestOffers(headset);
+export async function HeadsetCard({ headset, rank }: { headset: Headset; rank?: number }) {
+  const resolvedOffers = await bestOffers(headset);
   const lowestPrice = resolvedOffers.reduce((min, o) => {
     if (o.prisDkk != null && o.prisDkk < min) return o.prisDkk;
     return min;

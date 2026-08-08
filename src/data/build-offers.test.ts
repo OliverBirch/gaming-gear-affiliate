@@ -5,27 +5,26 @@ import { monitors } from "./monitors";
 
 const HEADSET_CONFIG: BuildOffersConfig = {
   searchUrls: {
-    maxgaming: "https://max/hs",
+    geekd: "https://geekd/hs",
     proshop: "https://pro/hs",
     computersalg: "https://cs/hs",
     elgiganten: "https://elg/hs",
   },
-  allowedRetailers: ["maxgaming", "proshop", "computersalg", "elgiganten"],
-  payoutPct: { maxgaming: 4.0, elgiganten: 2.5, proshop: 3.5, computersalg: 3.5 },
-  fallbackRetailer: "maxgaming",
+  allowedRetailers: ["geekd", "proshop", "computersalg", "elgiganten"],
+  payoutPct: { geekd: 4.0, elgiganten: 2.5, proshop: 3.5, computersalg: 3.5 },
   defaultPayoutPct: 3.5,
 };
 
 describe("buildFlatOffers", () => {
   it("emits one offer per priced, allowed retailer", () => {
     const offers = buildFlatOffers(
-      { maxgaming: 1299, proshop: 1399 },
+      { geekd: 1299, proshop: 1399 },
       HEADSET_CONFIG
     );
     expect(offers).toEqual([
       {
-        retailer: "maxgaming",
-        produktUrl: "https://max/hs",
+        retailer: "geekd",
+        produktUrl: "https://geekd/hs",
         prisDkk: 1299,
         payoutPct: 4.0,
         inStock: true,
@@ -42,31 +41,23 @@ describe("buildFlatOffers", () => {
 
   it("skips retailers outside the allowlist", () => {
     const offers = buildFlatOffers(
-      { maxgaming: 100, amazon: 50, coolshop: 60 },
+      { geekd: 100, amazon: 50, coolshop: 60 },
       HEADSET_CONFIG
     );
-    expect(offers.map((o) => o.retailer)).toEqual(["maxgaming"]);
+    expect(offers.map((o) => o.retailer)).toEqual(["geekd"]);
   });
 
   it("skips null and non-numeric prices", () => {
     const offers = buildFlatOffers(
-      { maxgaming: null, proshop: undefined, computersalg: 499 },
+      { geekd: null, proshop: undefined, computersalg: 499 },
       HEADSET_CONFIG
     );
     expect(offers.map((o) => o.retailer)).toEqual(["computersalg"]);
   });
 
-  it("falls back to an out-of-stock offer when nothing is priced", () => {
-    expect(buildFlatOffers(null, HEADSET_CONFIG)).toEqual([
-      {
-        retailer: "maxgaming",
-        produktUrl: "https://max/hs",
-        payoutPct: 4.0,
-        inStock: false,
-      },
-    ]);
-    expect(buildFlatOffers({}, HEADSET_CONFIG)).toHaveLength(1);
-    expect(buildFlatOffers({}, HEADSET_CONFIG)[0].inStock).toBe(false);
+  it("returns no offers when nothing is priced, rather than a synthetic fallback", () => {
+    expect(buildFlatOffers(null, HEADSET_CONFIG)).toEqual([]);
+    expect(buildFlatOffers({}, HEADSET_CONFIG)).toEqual([]);
   });
 
   it("applies the per-retailer payout, falling back to the default", () => {
@@ -95,10 +86,5 @@ describe("catalog payout rates", () => {
       .flatMap((m) => m.offers)
       .filter((o) => o.retailer === "elgiganten");
     for (const o of elg) expect(o.payoutPct).toBe(3.5);
-  });
-
-  it("gives every catalogued product at least one offer", () => {
-    for (const h of headsets) expect(h.offers.length).toBeGreaterThan(0);
-    for (const m of monitors) expect(m.offers.length).toBeGreaterThan(0);
   });
 });

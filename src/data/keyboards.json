@@ -31,7 +31,6 @@
       ],
       "wireless": false,
       "retailers": [
-        "maxgaming",
         "proshop"
       ]
     },
@@ -63,10 +62,7 @@
         "Kan være svær at få fat i"
       ],
       "wireless": false,
-      "retailers": [
-        "maxgaming",
-        "proshop"
-      ]
+      "retailers": []
     },
     {
       "batteritidTimer": null,
@@ -96,10 +92,7 @@
         "Kræver Razer Synapse software"
       ],
       "wireless": false,
-      "retailers": [
-        "maxgaming",
-        "proshop"
-      ]
+      "retailers": []
     },
     {
       "batteritidTimer": null,
@@ -129,15 +122,14 @@
         "Ikke hot-swappable"
       ],
       "wireless": false,
-      "retailers": [
-        "maxgaming",
-        "proshop"
-      ]
+      "retailers": []
     },
     {
       "batteritidTimer": 2000,
       "beskrivelse": "ASUS ROG Azoth 96 HE kombinerer et OLED-display, gasket mount-design og op til 2000 timers batteritid. Med tri-mode trådløs forbindelse og Hall Effect switches er den den perfekte hybrid mellem produktivitet og gaming.",
+      "billede": "/images/keyboards/asus-rog-azoth-96-he.png",
       "brand": "ASUS",
+      "ean": "4711636009171",
       "forbindelse": "Tri-mode: USB-C / 2,4 GHz / Bluetooth",
       "fordele": [
         "OLED-display med funktionalitet",
@@ -163,7 +155,6 @@
       ],
       "wireless": true,
       "retailers": [
-        "maxgaming",
         "proshop"
       ]
     },
@@ -195,10 +186,7 @@
         "Byggekvalitet matcher ikke premium-modeller"
       ],
       "wireless": true,
-      "retailers": [
-        "maxgaming",
-        "proshop"
-      ]
+      "retailers": []
     },
     {
       "batteritidTimer": 40,
@@ -230,10 +218,7 @@
         "Kortere batteritid end konkurrenter"
       ],
       "wireless": true,
-      "retailers": [
-        "maxgaming",
-        "proshop"
-      ]
+      "retailers": ["geekd"]
     },
     {
       "batteritidTimer": 60,
@@ -263,10 +248,7 @@
         "Plastikkonstruktion"
       ],
       "wireless": true,
-      "retailers": [
-        "maxgaming",
-        "proshop"
-      ]
+      "retailers": []
     }
   ]
 }
