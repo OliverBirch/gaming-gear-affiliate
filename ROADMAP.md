@@ -48,12 +48,18 @@ even though offers matter more) — read the columns, not just the last one,
 before prioritizing work.
 
 **Pros** (366 total) — offers/copy don't apply; "peripherals" replaces them.
-Image column updated 2026-08-10 (cont.) after downloading 87 missing photos
-— see Log; other columns are the original 2026-08-10 numbers:
+Updated 2026-08-10 (cont. 2) after a full peripheral-completeness push — see
+Log for method:
 
-| Image | Peripherals linked | Verified (≤90d) | Overall |
-|---|---|---|---|
-| 99% (361/366) | 81% (297/366) | 99% (362/366) | **93%** |
+| Image | Has peripheral entry | Full setup (4/4 fields) | Verified (≤90d) | Overall¹ |
+|---|---|---|---|---|
+| 100% (366/366) | 94% (343/366) | 89% (324/366) | 99% (362/366) | **98%** |
+
+¹ Overall averages image/peripherals/verified (same three columns as the
+original snapshot) — "full setup" is a stricter, newer sub-metric shown for
+context, not folded into Overall, since the original methodology didn't
+have it and changing what Overall means mid-snapshot would make the number
+incomparable to its own history.
 
 **Products:**
 
@@ -683,3 +689,47 @@ retailer coverage" for the current list and method.
   (`cs910`, `t0oro`, `forsaken`, `zmjkk`, `xs3xycake`), all now ticketed.
   `tsc`, `vitest` (42 passed), `validate-data`, and a full `next build` all
   pass.
+- **2026-08-10 (cont. 2)** — User: "work on finishing pros completeness...
+  complete setups and images." Scope was much bigger than the 92-image gap:
+  69 pros had zero peripheral entry in `pros-peripherals.json` (49 R6, 20
+  CS2, 0 Valorant) and 11 more had an entry with null fields — 80 pros
+  total needing prosettings.net research. Split the work across 4 parallel
+  general-purpose agents (CS2, R6×2, Valorant-gaps), each fetching
+  `prosettings.net/players/{slug}/` per AGENTS.md's mandated source and
+  attempting an image download too. Agents were instructed not to touch the
+  shared data files themselves (`pros-peripherals.json`, `pros.ts`,
+  `freshness-tasks.ts`) — only to write per-pro image files (safe, no
+  collision risk) and report structured findings back for a single
+  sequential compile pass, avoiding 4-way write races on shared files.
+
+  Results: CS2 — 20/20 pros got full-or-near-full data (79 of 85 possible
+  fields), 25/25 images. R6 batch 1 — 14/25 pros found (10 had no
+  prosettings.net page, `monk` turned out to be a same-nickname Valorant
+  player collision, not our R6 pro), 14 images. R6 batch 2 — 12/24 found
+  (12 genuinely absent, verified against prosettings' own ~57-player R6
+  roster listing, not just guessed URLs), 13 images including `xs3xycake`
+  via a Liquipedia fallback after prosettings came up empty. Valorant — 3 of
+  11 requested null fields filled; the agent also caught and flagged 3 stale
+  entries while it was on the live pages (`koshmaras`'s recorded "mousepad"
+  was actually mislabeled — it's a keyboard on the current page, and there's
+  no mousepad listed at all; `s0pp` and `skuba` had outdated keyboard/
+  mousepad models) — corrected those instead of leaving them stale. Plus
+  `forsaken`/`zmjkk` images, both of which had failed the automated pass.
+
+  Merged all 4 batches into `pros-peripherals.json` (297 → 343 entries).
+  Then ran a full idempotent sync of `billede` fields against actual files
+  in `public/images/pros/` (not just "new" ones from today) — this
+  incidentally fixed the broader dashboard bug flagged in the previous log
+  entry: 279 pros had a real image file but no `billede` field at all
+  (the original 274-pro backlog from before any of this session's work,
+  never linked). `/admin`'s "Pros uden billede" stat card should now read
+  the real number instead of 366/366. Image completeness: **100%**
+  (366/366) — the last 5 gaps (`cs910`, `t0oro`, `forsaken`, `zmjkk`,
+  `xs3xycake`) all closed. Peripheral completeness: 297 → 343 pros with an
+  entry (81% → 94%); 324 pros now have all 4 fields filled (88.5%, a new
+  stricter sub-metric). Filed 2 consolidated tickets for what's left: 23 R6
+  pros with no prosettings.net page at all, and 12 pros (5 CS2, 7 Valorant)
+  with specific fields confirmed genuinely absent on their page (checked
+  directly, not extraction misses) — both need a fallback source (Liquipedia,
+  socials) if pursued further. `tsc`, `vitest` (42 passed), `validate-data`,
+  and a full `next build` all pass.

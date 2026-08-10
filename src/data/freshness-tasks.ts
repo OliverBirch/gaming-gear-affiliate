@@ -626,6 +626,43 @@ export const freshnessTickets: FreshnessTicket[] = [
     createdAt: "2026-08-10",
   },
   {
+    id: "r6-peripheral-no-source-2026-08-10",
+    type: "peripheral-missing",
+    slug: "catalog",
+    label: "23 R6 pros have no prosettings.net page at all — no gear data source",
+    question:
+      "During a full pros-completeness push, 4 parallel research passes covered all 366 pros against prosettings.net (the mandated gear-data source per AGENTS.md). Of 49 R6 pros with zero peripheral data, 26 were successfully researched; these 23 have no prosettings.net page whatsoever — confirmed against the site's own R6 player-list pages (3 pages, ~57 players total), not just single-URL guesses, so this isn't a transient 404 or extraction miss. One additional pro, `monk`, has a prosettings.net page at that exact slug, but it resolves to a same-nickname Valorant player (Cloud9), not our R6 pro — a naming collision, not real data for this pro.",
+    context: {
+      esport: "r6",
+      uncoveredSlugs: [
+        "brid", "yuzus", "solotov", "vitaking", "cyber", "cameram4n",
+        "sheppard", "monk", "deapek", "volpz", "anitun",
+        "virtue", "p4", "canadian", "deadshot", "hungry", "scyther",
+        "kantoraketti", "merc", "uuno", "xs3xycake", "shiinka", "t3b",
+      ],
+      instructions:
+        "prosettings.net simply doesn't cover these players. Try Liquipedia (https://liquipedia.net/rainbowsix/{name}) or the team's own site/socials for gear data as a fallback source — this is a deliberate exception to the 'always prosettings.net' rule since prosettings has no page to be wrong about here. For `monk` specifically, search Liquipedia for the correct R6 player (Cloud9 roster) since the prosettings.net slug is taken by an unrelated Valorant player. Add findings to src/data/pros-peripherals.json under each proSlug key (monitor/keyboard/mousepad/headset, free text — the fuzzy-matching layer in pros-peripherals-mapping.ts resolves catalog slugs automatically from this). If a player genuinely has no public gear info anywhere, leave them out rather than guessing.",
+    },
+    createdAt: "2026-08-10",
+  },
+  {
+    id: "partial-peripheral-fields-2026-08-10",
+    type: "peripheral-missing",
+    slug: "catalog",
+    label: "12 pros (5 CS2, 7 Valorant) have specific gear fields confirmed absent on their prosettings.net page",
+    question:
+      "Same research pass as the R6 ticket above. These 12 pros DO have a prosettings.net page and most fields were found, but 16 specific fields (mostly `headset`) were double-checked directly against the live gear grid and confirmed genuinely not listed — not extraction misses. Prosettings.net just doesn't have every field for every player.",
+    context: {
+      uncoveredSlugs: [
+        "cobra", "danistzz", "nython", "ricioli", "cairne",
+        "cgrs", "koshmaras", "riens", "s0pp", "skuba", "seven", "qpert",
+      ],
+      instructions:
+        "Missing fields per pro: cobra (headset), danistzz (headset), nython (headset), ricioli (keyboard), cairne (mousepad, headset), cgrs (monitor), koshmaras (monitor, mousepad — the earlier-recorded 'Pulsar PCMK 3' mousepad was corrected to keyboard this session after re-verifying against the live page, mousepad is now genuinely empty), riens (headset), s0pp (monitor, headset), skuba (headset), seven (keyboard), qpert (mousepad). Check Liquipedia or the player's socials for these specific fields, then update the relevant key in src/data/pros-peripherals.json (leave as null if still not found — don't guess a plausible-sounding product).",
+    },
+    createdAt: "2026-08-10",
+  },
+  {
     id: "retailer-purge-coverage-2026-08-10",
     type: "no-retailer-coverage",
     slug: "catalog",
