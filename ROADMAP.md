@@ -4,11 +4,16 @@ Where ProSetups.dk stands and what's next. Phases are the big picture; for
 live, always-accurate numbers (stub mice, missing offers, stale pros, price
 coverage %) check `/admin` and `/admin/tickets` — those are computed from
 data at build time and will drift out of sync with reality faster than this
-file can be hand-updated, so this file doesn't try to duplicate them.
+file can be hand-updated, so this file doesn't try to duplicate them, with
+one deliberate exception: the "Data completeness" section below, which the
+user asked to be tracked here explicitly. Treat it as a dated snapshot, not
+a live number — refresh it by recomputing (see its own note), not by
+hand-editing individual percentages.
 
 **How to keep this current:** after a session that finishes or meaningfully
 advances a phase, flip its status and add one line to the Log below. Don't
-put per-product counts here — link to `/admin` instead.
+put per-product counts here — link to `/admin` instead (except the Data
+completeness snapshot, see above).
 
 Status legend: ✅ done · 🔄 in progress · ⬜ not started
 
@@ -29,6 +34,57 @@ team/roster tracking. Peripheral fuzzy-matching system linking free-text
 gear to the catalog. Admin health dashboard, freshness-ticket system, and a
 weekly re-verify routine keep this from going stale — see the "Data
 freshness" checklist in `AGENTS.md`.
+
+## Data completeness snapshot (2026-08-10)
+
+Computed by walking the real transform-layer data (`pros`, `mice`,
+`keyboards`, `headsets`, `monitors`, `mousepads`) against four axes — has an
+image *file on disk*, has ≥1 retailer offer, has non-empty copy
+(beskrivelse + fordele + ulemper), and isn't stale/unverified — then
+averaging the axes that actually apply to that category. "Overall" is an
+unweighted average of its row's columns, not a business-weighted score
+(e.g. a mouse missing offers hurts its % the same as one missing a photo,
+even though offers matter more) — read the columns, not just the last one,
+before prioritizing work.
+
+**Pros** (366 total) — offers/copy don't apply; "peripherals" replaces them.
+Image column updated 2026-08-10 (cont.) after downloading 87 missing photos
+— see Log; other columns are the original 2026-08-10 numbers:
+
+| Image | Peripherals linked | Verified (≤90d) | Overall |
+|---|---|---|---|
+| 99% (361/366) | 81% (297/366) | 99% (362/366) | **93%** |
+
+**Products:**
+
+| Category | Image | Offers | Copy | Verified | Overall |
+|---|---|---|---|---|---|
+| Mice (55) | 62% (34/55) | 27% (15/55) | 53% (29/55) | n/a¹ | **47%** |
+| Keyboards (8) | 63% (5/8) | 38% (3/8) | 100% (8/8) | 0% (0/8)² | **50%** |
+| Headsets (12) | 100% (12/12) | 58% (7/12) | 100% (12/12) | 100% (12/12) | **90%** |
+| Monitors (5) | 80% (4/5) | 20% (1/5) | 100% (5/5) | 100% (5/5) | **75%** |
+| Mousepads (17) | 88% (15/17) | 18% (3/17) | 100% (17/17) | 100% (17/17) | **77%** |
+
+¹ `MouseSchema` has no `kilde`/`sidstVerificeret` field at all — mice have no
+verification-staleness concept in the data model, unlike the other 4
+categories. Not "n/a because it's fine" — genuinely untracked.
+² All 8 keyboards read as "aldrig verificeret" — not a few stale ones, the
+entire category has zero verification-date tracking in practice.
+
+**Known dashboard bug found while computing this:** `/admin`'s "Pros uden
+billede" stat card checks `p.billede`, a field `pros.ts` structurally never
+populates (`grep billede src/data/pros.ts` → zero matches) — pro images are
+actually resolved by `pro-avatar.tsx` deriving `/images/pros/{slug}.png`
+from the slug at render time. So that stat card currently reads 366/366
+(the entire roster) as "missing an image" regardless of reality; the real
+number above (92 missing) came from checking file existence directly. Worth
+fixing `checkMissingImagesPros` to check the real signal — not done in this
+pass, flagged for a follow-up.
+
+**To refresh this snapshot:** re-run the same four-axis check against
+current data (image file existence, `offers.length`, non-empty
+beskrivelse/fordele/ulemper, `sidstVerificeret` staleness) rather than
+incrementing numbers by hand.
 
 ## Phase 3 — Real affiliate program integration 🔄
 
@@ -593,5 +649,37 @@ retailer coverage" for the current list and method.
   production in isolation — stashed the in-progress image-sourcing work
   first so its known broken-image-path bug (found by the same session's
   ultrareview run — ~26 `billede` fields pointing at files that exist on
-  disk but were never `git add`ed) didn't ship. That work is still pending
-  its own commit.
+  disk but were never `git add`ed) didn't ship. That bug turned out to be a
+  staging gap, not a real one — all 26 files existed on disk untracked;
+  verified every `billede` path across all 5 categories resolves to a real
+  file, then committed the retailer purge + dashboard + restored image work
+  together (`5a851d7`, pushed to `origin/master`).
+- **2026-08-10 (cont.)** — Added a "Data completeness" snapshot to this file
+  (see above Phase 2), computed by walking real data across four axes
+  (image, offers, copy, verification) per category rather than eyeballing —
+  the user asked for this to be tracked here explicitly, a deliberate
+  exception to this file's usual "don't duplicate `/admin`" rule. Surfaced a
+  real dashboard bug along the way: `/admin`'s "Pros uden billede" stat
+  checks `p.billede`, a field `pros.ts` never populates (confirmed via
+  `grep` — zero matches) since pro images actually resolve through
+  `pro-avatar.tsx`'s slug-derived fallback — so that stat has been silently
+  reading 366/366 (the whole roster) as missing an image regardless of
+  reality. Not fixed in this pass (flagged as a follow-up), but worked
+  around it to get the real number: checked `public/images/pros/` directly.
+
+  Then acted on the finding: ran `scripts/download-pro-images.mjs` (already
+  existed, unused until now) against all 366 pros. 274 already had a file;
+  of the 92 that didn't, **87 downloaded successfully** from prosettings.net
+  (direct CDN URL or og:image fallback), 5 failed (`cs910`, `t0oro`,
+  `forsaken`, `zmjkk`, `xs3xycake`) — `t0oro` already had a ticket from
+  2026-07-27, filed new `missing-pro-image` tickets for the other 4. Wrote
+  `billede: "/images/pros/{slug}.png"` into each of the 87 pros' `pros.ts`
+  entries (the downloader only fetches files, doesn't touch the data —
+  matched the field-insertion point structurally, right before each pro's
+  `musSlug` line, rather than assuming a fixed offset, after a first regex-
+  based attempt silently matched zero lines due to CRLF line endings and had
+  to be rewritten using plain string comparison). Pro image completeness:
+  75% → 99% (361/366) by real file count; 5 pros remain with no image
+  (`cs910`, `t0oro`, `forsaken`, `zmjkk`, `xs3xycake`), all now ticketed.
+  `tsc`, `vitest` (42 passed), `validate-data`, and a full `next build` all
+  pass.
