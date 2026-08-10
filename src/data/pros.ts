@@ -1144,7 +1144,7 @@ export const pros: Pro[] = [
     esport: "cs2",
     hold: "The Mongolz",
     land: "Mongoliet",
-    billede: "/images/pros/techno4k.png",
+    billede: "/images/pros/techno4k.webp",
     musSlug: "zowie-ec2-dw",
     settings: { dpi: 400, inGameSens: 2.3, edpi: 920, pollingHz: 1000 },
     kilde: "prosettings.net",
