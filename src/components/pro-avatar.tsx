@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface ProAvatarProps {
@@ -22,8 +25,10 @@ const imageSizes = {
 };
 
 export function ProAvatar({ navn, slug, billede, className, size = "sm" }: ProAvatarProps) {
+  const [failed, setFailed] = useState(false);
   const imgSrc = billede || (slug ? `/images/pros/${slug}.png` : undefined);
-  if (imgSrc) {
+
+  if (imgSrc && !failed) {
     return (
       <div
         className={cn(
@@ -38,6 +43,7 @@ export function ProAvatar({ navn, slug, billede, className, size = "sm" }: ProAv
           fill
           className="object-cover"
           sizes={`${imageSizes[size]}px`}
+          onError={() => setFailed(true)}
         />
       </div>
     );
