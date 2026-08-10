@@ -1,6 +1,6 @@
 import type { Mouse } from "@/lib/types";
 import Link from "next/link";
-import Image from "next/image";
+import { ProductImage } from "@/components/product-image";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -35,25 +35,13 @@ export async function MouseCard({ mouse, rank, className }: { mouse: Mouse; rank
 
   return (
     <div className={cn("group relative rounded-xl border border-border/50 bg-card p-5 flex flex-col hover:border-primary/30 hover:-translate-y-[1px] transition-all duration-200", className)}>
-      <Link
-        href={`/mus/${mouse.slug}`}
-        className="relative mb-4 h-40 w-full overflow-hidden rounded-lg bg-[#0d0d0d]"
-      >
-        {mouse.billede ? (
-          <Image
-            src={mouse.billede}
-            alt={mouse.navn}
-            fill
-            className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
-            sizes="(max-width: 640px) 100vw, 300px"
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <div className="text-5xl font-bold text-foreground/5">
-              {mouse.navn.charAt(0).toUpperCase()}
-            </div>
-          </div>
-        )}
+      <Link href={`/mus/${mouse.slug}`} className="relative mb-4 block">
+        <ProductImage
+          src={mouse.billede}
+          alt={mouse.navn}
+          className="h-48 w-full rounded-lg bg-[#0d0d0d]"
+          sizes="(max-width: 640px) 100vw, 300px"
+        />
         {rank && (
           <div className="absolute top-2 left-2 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground shadow-sm">
             {rank}

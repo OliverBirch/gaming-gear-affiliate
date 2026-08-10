@@ -38,7 +38,6 @@ type RawKeyboard = {
 
 const KB_SEARCH_URLS: Record<string, string> = {
   proshop: "https://www.proshop.dk/Tastatur",
-  computersalg: "https://www.computersalg.dk/tastaturer",
   geekd: "https://geekd.dk/collections/tastatur",
 };
 

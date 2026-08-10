@@ -33,13 +33,11 @@ type RawMonitor = {
 
 const SEARCH_URLS: Record<string, string> = {
   proshop: "https://www.proshop.dk/Skaerm",
-  computersalg: "https://www.computersalg.dk/skaerm",
-  elgiganten: "https://www.elgiganten.dk/computere-tilbehoer/skaerm",
 };
 
 const OFFER_CONFIG: BuildOffersConfig = {
   searchUrls: SEARCH_URLS,
-  allowedRetailers: ["proshop", "computersalg", "elgiganten"],
+  allowedRetailers: ["proshop"],
   payoutPct: {},
   defaultPayoutPct: 3.5,
 };

@@ -87,7 +87,7 @@ export default async function MusemaattePage({ params }: Props) {
           alt={`${mousepad.brand} ${mousepad.model}`}
           priority
           sizes="280px"
-          className="h-52 sm:h-56 w-full rounded-xl bg-gradient-to-br from-primary/[0.04] to-primary/[0.02]"
+          className="h-56 sm:h-64 w-full rounded-xl bg-[#0d0d0d]"
         />
       </div>
 

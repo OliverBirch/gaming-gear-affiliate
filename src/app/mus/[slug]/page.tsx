@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!mouse) return {};
   return {
     title: `${mouse.navn} - specifikationer, fordele, og priser`,
-    description: `Se komplette specifikationer for ${mouse.navn}: vægt, sensor, greb, og find den bedste pris hos Proshop, Geek'd eller Computersalg.`,
+    description: `Se komplette specifikationer for ${mouse.navn}: vægt, sensor, greb, og find den bedste pris hos Proshop eller Geek'd.`,
   };
 }
 
@@ -92,7 +92,7 @@ export default async function MusPage({ params }: Props) {
           alt={mouse.navn}
           priority
           sizes="280px"
-          className="h-52 sm:h-56 w-full rounded-xl bg-gradient-to-br from-primary/[0.04] to-primary/[0.02]"
+          className="h-56 sm:h-64 w-full rounded-xl bg-[#0d0d0d]"
         />
       </div>
 
@@ -153,7 +153,7 @@ export default async function MusPage({ params }: Props) {
                       src={m.billede}
                       alt={m.navn}
                       sizes="150px"
-                      className="h-24 w-full rounded-lg bg-[#0d0d0d] mb-3"
+                      className="h-28 w-full rounded-lg bg-[#0d0d0d] mb-3"
                     />
                     <div className="font-semibold text-sm group-hover:text-primary transition-colors">
                       {m.navn}

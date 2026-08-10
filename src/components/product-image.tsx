@@ -4,6 +4,18 @@ import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
+const paddingClasses = {
+  xs: "p-2",
+  sm: "p-3",
+  md: "p-4",
+} as const;
+
+const fallbackTextClasses = {
+  xs: "text-2xl",
+  sm: "text-3xl",
+  md: "text-5xl",
+} as const;
+
 interface ProductImageProps {
   src?: string | null;
   alt: string;
@@ -12,6 +24,8 @@ interface ProductImageProps {
   sizes?: string;
   /** Marks the image as LCP-critical; use on above-the-fold hero images. */
   priority?: boolean;
+  /** Inner breathing room around the product — xs/sm for compact/inline thumbnails, md (default) for cards and hero images. */
+  padding?: keyof typeof paddingClasses;
 }
 
 export function ProductImage({
@@ -20,6 +34,7 @@ export function ProductImage({
   className,
   sizes = "(max-width: 768px) 100vw, 300px",
   priority,
+  padding = "md",
 }: ProductImageProps) {
   const [failed, setFailed] = useState(false);
 
@@ -31,7 +46,7 @@ export function ProductImage({
           className
         )}
       >
-        <div className="text-5xl font-bold text-primary/10">
+        <div className={cn("font-bold text-primary/10", fallbackTextClasses[padding])}>
           {alt.charAt(0).toUpperCase()}
         </div>
       </div>
@@ -44,7 +59,10 @@ export function ProductImage({
         src={src}
         alt={alt}
         fill
-        className="object-contain p-4 transition-transform duration-300 group-hover:scale-110"
+        className={cn(
+          "object-contain transition-transform duration-300 group-hover:scale-105",
+          paddingClasses[padding]
+        )}
         sizes={sizes}
         priority={priority}
         onError={() => setFailed(true)}

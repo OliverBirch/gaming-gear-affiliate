@@ -133,18 +133,25 @@ export function checkMissingPrices(
 
 // ─── Product images ───────────────────────────────────────────────
 
-export function checkMissingImagesMice(mice: Mouse[]): DashboardIssue[] {
-  return mice
-    .filter((m) => !m.billede)
-    .map((m) => ({
+export function checkMissingImages(
+  products: Array<{ slug: string; navn: string; billede?: string | null }>,
+  category: string
+): DashboardIssue[] {
+  return products
+    .filter((p) => !p.billede)
+    .map((p) => ({
       type: "missing-image" as const,
       severity: "low" as const,
       autoFixable: false,
-      slug: m.slug,
-      label: `${m.navn} — intet billede`,
-      file: "src/data/mice.json",
+      slug: p.slug,
+      label: `${p.navn} — intet billede`,
+      file: `src/data/${category}.json`,
       context: {},
     }));
+}
+
+export function checkMissingImagesMice(mice: Mouse[]): DashboardIssue[] {
+  return checkMissingImages(mice, "mice");
 }
 
 export function checkMissingImagesPros(
@@ -392,6 +399,47 @@ export function checkProductStaleness(
         lastVerified: p.sidstVerificeret ?? null,
         ageDays: p.sidstVerificeret ? daysAgo(p.sidstVerificeret) : null,
       },
+    }));
+}
+
+// ─── Retailer partnership status ──────────────────────────────────
+
+/** Scans `.offers[]` across every category array, counting live offers per retailer slug. */
+export function countOffersByRetailer(
+  categories: Array<Array<{ offers: Array<{ retailer: string }> }>>
+): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const products of categories) {
+    for (const p of products) {
+      for (const o of p.offers) {
+        counts[o.retailer] = (counts[o.retailer] ?? 0) + 1;
+      }
+    }
+  }
+  return counts;
+}
+
+/**
+ * Guards against the MaxGaming/placeholder-retailer failure mode: a retailer
+ * with no confirmed feed (harFeed: false) that somehow still has live offers
+ * in the catalog. Should always be empty in normal operation - it exists to
+ * catch the mistake early if a future retailer gets added to retailers.ts
+ * before a real feed backs it.
+ */
+export function checkRetailerFeedMismatch(
+  retailers: Array<{ slug: string; navn: string; harFeed: boolean }>,
+  offerCounts: Record<string, number>
+): DashboardIssue[] {
+  return retailers
+    .filter((r) => !r.harFeed && (offerCounts[r.slug] ?? 0) > 0)
+    .map((r) => ({
+      type: "retailer-unverified-offers",
+      severity: "medium",
+      autoFixable: false,
+      slug: r.slug,
+      label: `${r.navn} — ${offerCounts[r.slug]} tilbud uden bekræftet feed`,
+      file: "src/data/retailers.ts",
+      context: { offerCount: offerCounts[r.slug] },
     }));
 }
 

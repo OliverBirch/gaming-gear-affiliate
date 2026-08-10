@@ -1,6 +1,6 @@
 import type { Monitor } from "@/lib/types";
 import Link from "next/link";
-import Image from "next/image";
+import { ProductImage } from "@/components/product-image";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -16,25 +16,13 @@ export async function MonitorCard({ monitor }: { monitor: Monitor }) {
 
   return (
     <div className="group relative rounded-xl border border-border/50 bg-card p-5 flex flex-col hover:border-primary/30 hover:-translate-y-[1px] transition-all duration-200">
-      <Link
-        href={"/skaerme/" + monitor.slug}
-        className="relative mb-4 h-40 w-full overflow-hidden rounded-lg bg-[#0d0d0d]"
-      >
-        {monitor.billede ? (
-          <Image
-            src={monitor.billede}
-            alt={monitor.navn}
-            fill
-            className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
-            sizes="(max-width: 640px) 100vw, 300px"
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <div className="text-5xl font-bold text-foreground/5">
-              {monitor.navn.charAt(0).toUpperCase()}
-            </div>
-          </div>
-        )}
+      <Link href={"/skaerme/" + monitor.slug} className="relative mb-4 block">
+        <ProductImage
+          src={monitor.billede}
+          alt={monitor.navn}
+          className="h-48 w-full rounded-lg bg-[#0d0d0d]"
+          sizes="(max-width: 640px) 100vw, 300px"
+        />
       </Link>
 
       <div className="flex items-start justify-between mb-2 gap-2">

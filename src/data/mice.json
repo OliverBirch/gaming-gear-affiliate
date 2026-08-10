@@ -131,15 +131,7 @@
       "lodMm": 1.5,
       "maxDpi": 3200,
       "navn": "EC2-DW",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.computersalg.dk/mus/zowie-ec2-dw",
-          "inStock": true,
-          "payoutPct": 3,
-          "produktUrl": "https://www.computersalg.dk/mus/zowie-ec2-dw",
-          "retailer": "computersalg"
-        }
-      ],
+      "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "mid",
       "sensor": "3360",
@@ -183,13 +175,6 @@
       "maxDpi": 25600,
       "navn": "G403 Hero",
       "offers": [
-        {
-          "affiliateUrl": "https://www.coolshop.dk/mus/logitech-g403-hero",
-          "inStock": true,
-          "payoutPct": 3,
-          "produktUrl": "https://www.coolshop.dk/mus/logitech-g403-hero",
-          "retailer": "coolshop"
-        },
         {
           "affiliateUrl": "https://geekd.dk/products/logitech-g403-hero-gaming-mus",
           "inStock": true,
@@ -773,15 +758,7 @@
       "lodMm": 1.5,
       "maxDpi": 3200,
       "navn": "FK2-DW",
-      "offers": [
-        {
-          "affiliateUrl": "https://www.computersalg.dk/mus/zowie-fk2-dw",
-          "inStock": true,
-          "payoutPct": 3,
-          "produktUrl": "https://www.computersalg.dk/mus/zowie-fk2-dw",
-          "retailer": "computersalg"
-        }
-      ],
+      "offers": [],
       "pollingHz": 4000,
       "prisNiveau": "mid",
       "sensor": "PAW3950",
@@ -869,13 +846,6 @@
       "maxDpi": 32000,
       "navn": "G Pro X Superlight 2c",
       "offers": [
-        {
-          "affiliateUrl": "https://www.coolshop.dk/mus/logitech-g-pro-x-superlight-2c",
-          "inStock": true,
-          "payoutPct": 3,
-          "produktUrl": "https://www.coolshop.dk/mus/logitech-g-pro-x-superlight-2c",
-          "retailer": "coolshop"
-        },
         {
           "affiliateUrl": "https://geekd.dk/products/logitech-g-pro-x-superlight-2c",
           "inStock": true,
@@ -1298,6 +1268,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
+      "billede": "/images/mice/vaxee-outset-ax-wireless.png",
       "brand": "VAXEE",
       "breddeMm": 0,
       "forbindelse": "",
@@ -1517,6 +1488,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
+      "billede": "/images/mice/vaxee-np01s-v2-wireless.png",
       "brand": "VAXEE",
       "breddeMm": 0,
       "forbindelse": "",
@@ -1544,6 +1516,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
+      "billede": "/images/mice/zowie-ec1-c.png",
       "brand": "ZOWIE",
       "breddeMm": 0,
       "forbindelse": "",
@@ -1652,6 +1625,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
+      "billede": "/images/mice/zowie-za13-dw.png",
       "brand": "ZOWIE",
       "breddeMm": 0,
       "forbindelse": "",
@@ -1733,6 +1707,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "",
+      "billede": "/images/mice/pulsar-zywoo-chosen-mouse-gen2.png",
       "brand": "Pulsar",
       "breddeMm": 0,
       "forbindelse": "",
@@ -2013,6 +1988,7 @@
     {
       "slug": "logitech-g-pro-x-superlight",
       "ean": "5099206091733",
+      "billede": "/images/mice/logitech-g-pro-x-superlight.png",
       "navn": "G Pro X Superlight",
       "brand": "Logitech",
       "vaegtGram": 63,

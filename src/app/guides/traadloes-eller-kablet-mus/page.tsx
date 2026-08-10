@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import Script from "next/script";
+import { ProductImage } from "@/components/product-image";
 import { mice } from "@/data/mice";
 import { pros } from "@/data/pros";
 import { bestOffer } from "@/lib/affiliate";
@@ -41,11 +41,13 @@ async function MouseMini({ slug }: { slug: string }) {
       href={`/mus/${slug}`}
       className="flex items-center gap-3 rounded-lg border border-border/50 bg-card p-3 hover:border-primary/30 transition-all duration-200 group"
     >
-      <div className="relative h-14 w-14 shrink-0 rounded-lg bg-[#0d0d0d] overflow-hidden">
-        {mouse.billede && (
-          <Image src={mouse.billede} alt={mouse.navn} fill className="object-contain p-2" sizes="56px" />
-        )}
-      </div>
+      <ProductImage
+        src={mouse.billede}
+        alt={mouse.navn}
+        padding="xs"
+        sizes="64px"
+        className="h-16 w-16 shrink-0 rounded-lg bg-[#0d0d0d]"
+      />
       <div className="min-w-0">
         <div className="text-sm font-medium group-hover:text-primary transition-colors truncate">
           {mouse.navn}

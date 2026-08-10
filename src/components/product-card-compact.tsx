@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { ProductImage } from "@/components/product-image";
 
 interface Props {
   href: string;
@@ -21,23 +21,13 @@ export function ProductCardCompact({ href, billede, navn, brand, rank, proCount,
         {rank}
       </div>
 
-      <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-lg bg-[#0d0d0d]">
-        {billede ? (
-          <Image
-            src={billede}
-            alt={navn}
-            fill
-            className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
-            sizes="80px"
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center">
-            <div className="text-2xl font-bold text-foreground/5">
-              {navn.charAt(0).toUpperCase()}
-            </div>
-          </div>
-        )}
-      </div>
+      <ProductImage
+        src={billede}
+        alt={navn}
+        className="h-20 w-24 shrink-0 rounded-lg bg-[#0d0d0d]"
+        padding="xs"
+        sizes="96px"
+      />
 
       <div className="min-w-0 flex-1">
         <div className="text-sm font-semibold truncate group-hover:text-primary transition-colors duration-200">

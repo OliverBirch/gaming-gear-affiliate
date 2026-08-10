@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { FinderInput } from "@/lib/types";
 import { scoreMice, type ScoredMouse } from "@/lib/quiz-scoring";
+import { ProductImage } from "@/components/product-image";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -99,16 +99,13 @@ function ResultCard({
   return (
     <div className="rounded-xl border border-border/50 bg-card overflow-hidden transition-all duration-200 hover:border-primary/30">
       <div className="flex flex-col sm:flex-row">
-        <div className="relative h-40 w-full sm:h-auto sm:w-48 shrink-0 bg-gradient-to-br from-primary/[0.04] to-primary/[0.02]">
-          {mouse.billede && (
-            <Image
-              src={mouse.billede}
-              alt={mouse.navn}
-              fill
-              className="object-contain p-4"
-              sizes="192px"
-            />
-          )}
+        <div className="relative h-48 w-full sm:h-auto sm:w-56 shrink-0">
+          <ProductImage
+            src={mouse.billede}
+            alt={mouse.navn}
+            sizes="224px"
+            className="absolute inset-0 h-full w-full rounded-none bg-[#0d0d0d]"
+          />
           <div className="absolute top-2 left-2">
             <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary text-xs font-bold text-primary-foreground">
               {index + 1}

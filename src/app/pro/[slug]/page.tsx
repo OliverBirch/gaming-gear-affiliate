@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import Script from "next/script";
+import { ProductImage } from "@/components/product-image";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -72,28 +72,16 @@ function GearItemCard({ item }: { item: GearCard }) {
             </span>
           )}
         </div>
-        <div
+        <ProductImage
+          src={item.billede}
+          alt={item.navn}
+          padding="sm"
+          sizes={item.featured ? "400px" : "200px"}
           className={cn(
-            "relative w-full overflow-hidden rounded-lg bg-gradient-to-br from-primary/[0.04] to-primary/[0.02]",
-            item.featured ? "h-36 sm:h-40" : "h-24"
+            "w-full rounded-lg bg-[#0d0d0d]",
+            item.featured ? "h-40 sm:h-44" : "h-28"
           )}
-        >
-          {item.billede ? (
-            <Image
-              src={item.billede}
-              alt={item.navn}
-              fill
-              className="object-contain p-3"
-              sizes={item.featured ? "400px" : "200px"}
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center">
-              <div className="text-3xl font-bold text-primary/10">
-                {item.navn.charAt(0).toUpperCase()}
-              </div>
-            </div>
-          )}
-        </div>
+        />
       </div>
 
       <div className={cn(!item.featured && "mt-3")}>

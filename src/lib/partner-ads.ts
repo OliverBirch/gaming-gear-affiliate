@@ -24,18 +24,6 @@ const DEEPLINK_ENV: Partial<Record<RetailerSlug, { primary: string; legacy: stri
     primary: "PARTNER_ADS_DEEPLINK_PROSHOP",
     legacy: "PARTNER_ADS_BANNER_PROSHOP",
   },
-  computersalg: {
-    primary: "PARTNER_ADS_DEEPLINK_COMPUTERSALG",
-    legacy: "PARTNER_ADS_BANNER_COMPUTERSALG",
-  },
-  coolshop: {
-    primary: "PARTNER_ADS_DEEPLINK_COOLSHOP",
-    legacy: "PARTNER_ADS_BANNER_COOLSHOP",
-  },
-  billo: {
-    primary: "PARTNER_ADS_DEEPLINK_BILLO",
-    legacy: "PARTNER_ADS_BANNER_BILLO",
-  },
   geekd: {
     primary: "PARTNER_ADS_DEEPLINK_GEEKD",
     legacy: "PARTNER_ADS_BANNER_GEEKD",

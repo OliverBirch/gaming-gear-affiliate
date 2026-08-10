@@ -55,7 +55,7 @@ export type Pro = z.infer<typeof ProSchema>;
  * country - ended up live). Add a retailer here only after adding it to
  * retailers.ts with real payout/network data.
  */
-export const RETAILER_SLUGS = ["proshop", "computersalg", "coolshop", "elgiganten", "avxperten", "dustinhome", "komplett", "billo", "geekd"] as const;
+export const RETAILER_SLUGS = ["proshop", "geekd"] as const;
 export type RetailerSlug = (typeof RETAILER_SLUGS)[number];
 
 export const AffiliateOfferSchema = z.object({
@@ -245,6 +245,12 @@ export const RetailerSchema = z.object({
   cookieDage: z.number(),
   logo: z.string().optional(),
   hjemmeside: z.string(),
+  /** True only once a real product feed has been fetched and EAN-matched
+   * against the catalog at least once - never set true on a hunch. */
+  harFeed: z.boolean(),
+  /** ISO date of the last successful feed match run. Nullable like
+   * kilde/sidstVerificeret elsewhere - leave null when unknown, never invent. */
+  sidstFeedHentet: z.string().nullable(),
 });
 
 export type Retailer = z.infer<typeof RetailerSchema>;

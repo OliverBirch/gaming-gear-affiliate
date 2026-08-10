@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import Script from "next/script";
+import { ProductImage } from "@/components/product-image";
 import { mice } from "@/data/mice";
 import { bestOffers } from "@/lib/affiliate";
 import { brandSlug } from "@/data/brands";
@@ -120,20 +120,14 @@ export default async function BedsteMusTilValorant() {
                 )}
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-[160px_1fr] items-start">
-                <Link
-                  href={`/mus/${mouse.slug}`}
-                  className="relative h-32 w-full rounded-lg bg-[#0d0d0d] overflow-hidden"
-                >
-                  {mouse.billede && (
-                    <Image
-                      src={mouse.billede}
-                      alt={mouse.navn}
-                      fill
-                      className="object-contain p-4"
-                      sizes="160px"
-                    />
-                  )}
+              <div className="grid gap-6 sm:grid-cols-[192px_1fr] items-start">
+                <Link href={`/mus/${mouse.slug}`} className="relative block">
+                  <ProductImage
+                    src={mouse.billede}
+                    alt={mouse.navn}
+                    className="h-40 w-full rounded-lg bg-[#0d0d0d]"
+                    sizes="192px"
+                  />
                 </Link>
 
                 <div>

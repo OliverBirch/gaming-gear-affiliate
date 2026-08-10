@@ -527,4 +527,80 @@ export const freshnessTickets: FreshnessTicket[] = [
     },
     createdAt: "2026-08-08",
   },
+  {
+    id: "pulsar-x2h-white-on-white-2026-08-09",
+    type: "bad-product-image",
+    slug: "pulsar-x2h",
+    label: "pulsar-x2h — translucent/white colorway on white background, too risky to auto-remove",
+    question:
+      "The current /images/mice/pulsar-x2h.jpg shows both colorways side by side; the right-hand frosted-white/clear variant sits on a white studio background with no reliable edge for flood-fill to key off — same risk as g-wolves-hts-pro-4k/pulsar-jinggg-x/ninjutso-sora-v2. Missed during the 2026-08-08 background-removal pass (not processed, not ticketed at the time) — caught during a 2026-08-09 follow-up audit that verified transparency pixel-by-pixel rather than trusting the prior pass's own report.",
+    context: {
+      mouseSlug: "pulsar-x2h",
+      mouseNavn: "X2H",
+      instructions: "Needs either a manual/assisted cutout (proper matting tool, not flood-fill) or a replacement photo shot against a darker or more distinct backdrop — ideally a single-colorway shot rather than the current side-by-side.",
+    },
+    createdAt: "2026-08-09",
+  },
+  {
+    id: "zowie-u2-dw-white-on-white-2026-08-09",
+    type: "bad-product-image",
+    slug: "zowie-u2-dw",
+    label: "zowie-u2-dw — white mouse on white background, too risky to auto-remove",
+    question:
+      "Same issue as g-wolves-hts-pro-4k/pulsar-jinggg-x/ninjutso-sora-v2: a glossy white mouse on a white studio background, flood-fill can't reliably tell the two apart without risking damage to the product silhouette. Missed during the 2026-08-08 background-removal pass (not processed, not ticketed at the time) — caught during a 2026-08-09 follow-up audit that verified transparency pixel-by-pixel rather than trusting the prior pass's own report.",
+    context: {
+      mouseSlug: "zowie-u2-dw",
+      mouseNavn: "U2 DW",
+      instructions: "Needs either a manual/assisted cutout (proper matting tool, not flood-fill) or a replacement photo shot against a darker or more distinct backdrop.",
+    },
+    createdAt: "2026-08-09",
+  },
+  {
+    id: "pulsar-zywoo-chosen-mouse-gen2-upscaled-2026-08-09",
+    type: "bad-product-image",
+    slug: "pulsar-zywoo-chosen-mouse-gen2",
+    label: "pulsar-zywoo-chosen-mouse-gen2 — image upscaled ~2x during a normalization pass, source lost",
+    question:
+      "During the 2026-08-09 image-consistency batch (crop-to-content + pad-to-square normalization), this file was untracked (never committed) with only a small 480x480 source and got run through the normalizer's first, buggy version twice before the bug was fixed — the buggy version force-upscaled small content up to a 900px floor. With no git history to restore from, the file is now permanently ~2x upscaled and visibly softer than it should be.",
+    context: {
+      mouseSlug: "pulsar-zywoo-chosen-mouse-gen2",
+      mouseNavn: "ZYWOO Chosen Mouse Gen2",
+      instructions: "Re-source a fresh product photo (manufacturer site or a DK retailer listing) via the source-product-image skill and replace the file — do not just re-run the normalizer on the current degraded file, it won't recover detail that isn't there.",
+    },
+    createdAt: "2026-08-09",
+  },
+  {
+    id: "retailer-purge-coverage-2026-08-10",
+    type: "no-retailer-coverage",
+    slug: "catalog",
+    label: "5 headsets + 2 mice lost their only offer when Computersalg/Coolshop/Elgiganten/AVXperten/Dustin Home/Komplett/Billo were purged",
+    question:
+      "Same cleanup as the 2026-08-08 MaxGaming removal, applied to 7 more retailers that turned out to be placeholder entries in retailers.ts (category-search URLs with manually-typed or guessed prices) rather than real, feed-matched partnerships — confirmed by the user, who only wants retailers with an actual XML feed treated as partners. Removing them (RETAILER_SLUGS, retailers.ts, every category's offer-builder wiring, priser/offers entries, prices.json overrides, ALLOWED_REDIRECT_HOSTS) dropped 7 products to zero offers, since these placeholder retailers were their only price source and neither Proshop nor Geek'd had matched them: hyperx-cloud-ii (58 pros — the catalog's most pro-used headset), hyperx-cloud-ii-wireless, corsair-hs80-rgb-usb, steelseries-arctis-nova-pro-wireless, sony-inzone-h9-ii, zowie-ec2-dw, zowie-fk2-dw. A new partner, Shark Gaming (Adtraction feed), was evaluated the same session but not onboarded — their affiliate program only pays commission on their own house-brand SKUs, not the third-party brands their feed lists, and the catalog carries none of their house brand.",
+    context: {
+      uncoveredSlugs: [
+        "hyperx-cloud-ii",
+        "hyperx-cloud-ii-wireless",
+        "corsair-hs80-rgb-usb",
+        "steelseries-arctis-nova-pro-wireless",
+        "sony-inzone-h9-ii",
+        "zowie-ec2-dw",
+        "zowie-fk2-dw",
+      ],
+      instructions:
+        "Check whether Proshop or Geek'd's feed carries any of these (re-run scripts/match-proshop-eans.mjs / scripts/match-geekd-eans.mjs against a fresh download — none of the 7 have matched either feed so far). hyperx-cloud-ii is the highest-priority gap by far given its pro-usage count. If neither feed matches, this is a genuine zero-coverage product until a new real retailer partnership is onboarded (see AGENTS.md's retailer-onboarding checklist) — don't relink a category-search URL as a substitute, that's the exact pattern being removed here.",
+    },
+    createdAt: "2026-08-10",
+  },
+  {
+    id: "zowie-xl2566k-upscaled-2026-08-09",
+    type: "bad-product-image",
+    slug: "zowie-xl2566k",
+    label: "zowie-xl2566k — image upscaled ~1.8x during a normalization pass, source lost",
+    question:
+      "Same root cause as pulsar-zywoo-chosen-mouse-gen2: this monitor image was untracked with a 500x500 source, went through the buggy first version of the normalization script (which force-upscaled small content to a 900px floor) before the bug was fixed, and has no git history to restore from. Now permanently ~1.8x upscaled.",
+    context: {
+      instructions: "Re-source a fresh product photo (manufacturer site or a DK retailer listing) via the source-product-image skill and replace /images/monitors/zowie-xl2566k.png — do not just re-run the normalizer on the current degraded file.",
+    },
+    createdAt: "2026-08-09",
+  },
 ];

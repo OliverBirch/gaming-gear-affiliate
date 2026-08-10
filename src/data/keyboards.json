@@ -37,6 +37,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "Wooting 80HE er den mest brugte keyboard blandt CS2-pros (27,5%). Med ægte 8000 Hz polling, Hall Effect switches og Rapid Trigger-teknologi er den benchmark for konkurrencekeyboards. Rappy Snappy og analog input giver controller-lignende kontrol.",
+      "billede": "/images/keyboards/wooting-80he.png",
       "brand": "Wooting",
       "forbindelse": "USB-C kablet",
       "fordele": [
@@ -67,6 +68,7 @@
     {
       "batteritidTimer": null,
       "beskrivelse": "Razer Huntsman V3 Pro er et esports-flagskib med Razer Analog Optical Gen-2 switches og 8000 Hz HyperPolling. Justerbar aktivering fra 0,1-4,0 mm og Rapid Trigger gør den til et af de hurtigste keyboards på markedet.",
+      "billede": "/images/keyboards/razer-huntsman-v3-pro.png",
       "brand": "Razer",
       "forbindelse": "USB-C kablet",
       "fordele": [

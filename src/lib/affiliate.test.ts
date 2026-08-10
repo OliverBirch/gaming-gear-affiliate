@@ -2,11 +2,15 @@ import { describe, it, expect, vi } from "vitest";
 
 // prices.json overrides are the live-feed seam on top of static offers.
 // Stubbed so these tests don't move when real price data changes.
+// Two distinct product slugs (rather than a third retailer) give the
+// override table two independent behaviors to hand out — proshop's price
+// override on the default slug, and an out-of-stock override scoped to a
+// separate slug so it doesn't leak into the price-only tests.
 vi.mock("@/data/prices", () => ({
   getOfferOverride: async (productSlug: string, retailerSlug: string) => {
     const table: Record<string, { prisDkk?: number; inStock?: boolean }> = {
       "test-mouse__proshop": { prisDkk: 449 },
-      "test-mouse__coolshop": { inStock: false },
+      "test-mouse-oos__proshop": { inStock: false },
     };
     return table[`${productSlug}__${retailerSlug}`] ?? null;
   },
@@ -16,9 +20,9 @@ const { bestOffer, bestOffers, getLowestPrice } = await import("./affiliate");
 
 type Offer = Parameters<typeof bestOffer>[0]["offers"][number];
 
-function product(offers: Array<Partial<Offer>>) {
+function product(offers: Array<Partial<Offer>>, slug = "test-mouse") {
   return {
-    slug: "test-mouse",
+    slug,
     offers: offers.map((o) => ({
       retailer: "geekd",
       produktUrl: "https://example.test",
@@ -46,10 +50,13 @@ describe("resolveOffer via bestOffers", () => {
 
   it("drops offers the override marks out of stock", async () => {
     const offers = await bestOffers(
-      product([
-        { retailer: "coolshop", prisDkk: 10 },
-        { retailer: "geekd", prisDkk: 200 },
-      ])
+      product(
+        [
+          { retailer: "proshop", prisDkk: 10 },
+          { retailer: "geekd", prisDkk: 200 },
+        ],
+        "test-mouse-oos"
+      )
     );
     expect(offers.map((o) => o.retailer)).toEqual(["geekd"]);
   });
@@ -60,34 +67,36 @@ describe("bestOffer", () => {
     const best = await bestOffer(
       product([
         { retailer: "geekd", prisDkk: 500 },
-        { retailer: "computersalg", prisDkk: 450 },
+        { retailer: "proshop", prisDkk: 450 },
       ])
     );
-    expect(best?.retailer).toBe("computersalg");
+    expect(best?.retailer).toBe("proshop");
   });
 
   it("breaks price ties on the higher payout", async () => {
     const best = await bestOffer(
       product([
         { retailer: "geekd", prisDkk: 500, payoutPct: 3.5 },
-        { retailer: "computersalg", prisDkk: 500, payoutPct: 5.0 },
+        { retailer: "proshop", prisDkk: 500, payoutPct: 5.0 },
       ])
     );
-    expect(best?.retailer).toBe("computersalg");
+    expect(best?.retailer).toBe("proshop");
   });
 
   it("ranks priceless offers last rather than first", async () => {
     const best = await bestOffer(
       product([
         { retailer: "geekd" },
-        { retailer: "computersalg", prisDkk: 900 },
+        { retailer: "proshop", prisDkk: 900 },
       ])
     );
-    expect(best?.retailer).toBe("computersalg");
+    expect(best?.retailer).toBe("proshop");
   });
 
   it("returns null when every offer is out of stock", async () => {
-    expect(await bestOffer(product([{ retailer: "coolshop", prisDkk: 10 }]))).toBeNull();
+    expect(
+      await bestOffer(product([{ retailer: "proshop", prisDkk: 10 }], "test-mouse-oos"))
+    ).toBeNull();
   });
 
   it("returns null when there are no offers at all", async () => {
@@ -101,7 +110,7 @@ describe("getLowestPrice", () => {
       await getLowestPrice(
         product([
           { retailer: "geekd", prisDkk: 800 },
-          { retailer: "computersalg", prisDkk: 650 },
+          { retailer: "proshop", prisDkk: 650 },
         ])
       )
     ).toBe(650);
@@ -110,7 +119,7 @@ describe("getLowestPrice", () => {
   it("ignores offers with no price", async () => {
     expect(
       await getLowestPrice(
-        product([{ retailer: "geekd" }, { retailer: "computersalg", prisDkk: 700 }])
+        product([{ retailer: "geekd" }, { retailer: "proshop", prisDkk: 700 }])
       )
     ).toBe(700);
   });

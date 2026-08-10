@@ -21,9 +21,7 @@
       "billede": "/images/mousepads/steelseries-qck-heavy.png",
       "prisNiveau": "budget",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 149,
       "lagerstatus": "på-lager",
@@ -57,12 +55,10 @@
       "bund": "Gummibase med skridsikker overflade",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/zowie-g-sr-iii.png",
       "prisNiveau": "mid",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 309,
       "lagerstatus": "på-lager",
@@ -97,12 +93,10 @@
       "bund": "Skridsikker silikonebase",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/artisan-ninja-fx-zero.png",
       "prisNiveau": "flagship",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 449,
       "lagerstatus": "på-lager",
@@ -137,12 +131,10 @@
       "bund": "Skridsikker silikonebase",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/artisan-fx-hien.png",
       "prisNiveau": "flagship",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 449,
       "lagerstatus": "på-lager",
@@ -176,12 +168,10 @@
       "bund": "Skridsikker silikonebase",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/artisan-type-99.png",
       "prisNiveau": "flagship",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 449,
       "lagerstatus": "på-lager",
@@ -220,9 +210,7 @@
       "billede": "/images/mousepads/razer-gigantus-v2.png",
       "prisNiveau": "budget",
       "priser": {
-        "proshop": 281,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": 281
       },
       "billigstePris": 99,
       "lagerstatus": "på-lager",
@@ -256,12 +244,10 @@
       "bund": "Gummibase med skridsikker overflade",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/zowie-h-sr-iii.png",
       "prisNiveau": "mid",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 439,
       "lagerstatus": "på-lager",
@@ -294,12 +280,10 @@
       "bund": "Gummibase",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/zowie-g-tr.png",
       "prisNiveau": "mid",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 349,
       "lagerstatus": "på-lager",
@@ -332,12 +316,10 @@
       "bund": "Gummibase",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/logitech-g740.png",
       "prisNiveau": "mid",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 190,
       "lagerstatus": "på-lager",
@@ -370,12 +352,10 @@
       "bund": "Gummibase",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/logitech-g640.png",
       "prisNiveau": "budget",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 199,
       "lagerstatus": "på-lager",
@@ -415,9 +395,7 @@
       "prisNiveau": "budget",
       "priser": {
         "proshop": { "Large": 159 },
-        "geekd": { "Large": 271 },
-        "computersalg": null,
-        "coolshop": null
+        "geekd": { "Large": 271 }
       },
       "billigstePris": 159,
       "lagerstatus": "på-lager",
@@ -451,12 +429,10 @@
       "bund": "Gummibase",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/vaxee-pa.png",
       "prisNiveau": "mid",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": null,
       "lagerstatus": "ukendt",
@@ -489,12 +465,10 @@
       "bund": "Gummibase",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/zowie-g-sr-ii.png",
       "prisNiveau": "mid",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 259,
       "lagerstatus": "på-lager",
@@ -531,9 +505,7 @@
       "billede": "/images/mousepads/pulsar-es-saturn-pro.png",
       "prisNiveau": "flagship",
       "priser": {
-        "proshop": 496,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": 496
       },
       "billigstePris": 496,
       "lagerstatus": "på-lager",
@@ -566,12 +538,10 @@
       "bund": "Naturgummi",
       "vaskbar": false,
       "skateSlid": "lav",
-      "billede": null,
+      "billede": "/images/mousepads/xtrfy-gp4.png",
       "prisNiveau": "mid",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": null,
       "lagerstatus": "ukendt",
@@ -607,9 +577,7 @@
       "billede": null,
       "prisNiveau": "mid",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": null,
       "lagerstatus": "ukendt",
@@ -645,9 +613,7 @@
       "billede": null,
       "prisNiveau": "budget",
       "priser": {
-        "proshop": null,
-        "computersalg": null,
-        "coolshop": null
+        "proshop": null
       },
       "billigstePris": 139,
       "lagerstatus": "på-lager",

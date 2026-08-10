@@ -44,7 +44,7 @@
       "adaptiveSync": "ingen",
       "buet": false,
       "prisNiveau": "flagship",
-      "billede": null,
+      "billede": "/images/monitors/zowie-xl2566k.png",
       "priser": {
         "proshop": null
       },
@@ -75,7 +75,7 @@
       "adaptiveSync": "ingen",
       "buet": false,
       "prisNiveau": "mid",
-      "billede": null,
+      "billede": "/images/monitors/zowie-xl2546k.png",
       "priser": {
         "proshop": null
       },
@@ -137,7 +137,7 @@
       "adaptiveSync": "g-sync",
       "buet": false,
       "prisNiveau": "flagship",
-      "billede": null,
+      "billede": "/images/monitors/alienware-aw2524h.png",
       "priser": {},
       "beskrivelse": "Alienware AW2524H er en af de hurtigste IPS-skærme på markedet med 500 Hz opdateringshastighed. Den kombinerer IPS-panelets bedre farver og betragtningsvinkler med en ekstrem høj opdateringshastighed, hvilket gør den til et fremragende valg for pros, der vil have både hastighed og billedkvalitet.",
       "fordele": [

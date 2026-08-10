@@ -39,8 +39,6 @@ type RawMousepad = {
 
 const SEARCH_URLS: Record<string, string> = {
   proshop: "https://www.proshop.dk/Musemaatte",
-  computersalg: "https://www.computersalg.dk/musemaatter",
-  coolshop: "https://www.coolshop.dk/computere/tilbehoer/musemaatter/",
   geekd: "https://geekd.dk/collections/musematte",
 };
 
@@ -64,7 +62,7 @@ function buildOffers(
   for (const retailer of Object.keys(priser)) {
     const pris = lowestPrice(priser, retailer);
     if (pris === null) continue;
-    if (!["proshop", "computersalg", "coolshop", "geekd"].includes(retailer)) continue;
+    if (!["proshop", "geekd"].includes(retailer)) continue;
     const searchUrl = SEARCH_URLS[retailer];
     if (!searchUrl) continue;
     offers.push({

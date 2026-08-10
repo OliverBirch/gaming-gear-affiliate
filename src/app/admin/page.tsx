@@ -35,6 +35,7 @@ import {
   computePriceCoverage,
   checkMissingPrices,
   checkMissingImagesMice,
+  checkMissingImages,
   checkMissingImagesPros,
   checkEmptyCopyMice,
   checkOrphanedMice,
@@ -190,6 +191,17 @@ export default function AdminDashboardPage() {
       "mousepads"
     )
   );
+  // Non-mice catalogs: mice/pros already had missing-image tracking, the
+  // other 3 categories were completely invisible on this dashboard.
+  issues.push(...checkMissingImages(keyboards, "keyboards"));
+  issues.push(...checkMissingImages(headsets, "headsets"));
+  issues.push(...checkMissingImages(monitors, "monitors"));
+  issues.push(
+    ...checkMissingImages(
+      mousepads.map((m) => ({ ...m, navn: `${m.brand} ${m.model}` })),
+      "mousepads"
+    )
+  );
 
   const coverage = computePriceCoverage(mice, pricedKeys);
   const staleProsList = getStaleProsByAge(pros);
@@ -204,6 +216,9 @@ export default function AdminDashboardPage() {
   );
   const miceNoImage = mice.filter((m) => !m.billede);
   const prosNoImage = pros.filter((p) => !p.billede);
+  const keyboardsNoImage = keyboards.filter((k) => !k.billede);
+  const monitorsNoImage = monitors.filter((m) => !m.billede);
+  const mousepadsNoImage = mousepads.filter((m) => !m.billede);
   const miceEmptyDesc = mice.filter(
     (m) => !m.beskrivelse || m.beskrivelse.length < 10
   );
@@ -494,6 +509,45 @@ export default function AdminDashboardPage() {
             </p>
             <p className="text-xs text-muted-foreground mt-1">
               af {headsets.length} headsets
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-border/50 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <ImageOff className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Keyboards uden billede</span>
+            </div>
+            <p className="text-2xl font-bold tabular-nums">
+              {keyboardsNoImage.length}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              af {keyboards.length} keyboards
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-border/50 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <ImageOff className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Skærme uden billede</span>
+            </div>
+            <p className="text-2xl font-bold tabular-nums">
+              {monitorsNoImage.length}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              af {monitors.length} skærme
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-border/50 p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <ImageOff className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm font-medium">Musemåtter uden billede</span>
+            </div>
+            <p className="text-2xl font-bold tabular-nums">
+              {mousepadsNoImage.length}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              af {mousepads.length} musemåtter
             </p>
           </div>
 
