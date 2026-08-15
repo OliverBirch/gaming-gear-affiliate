@@ -22,6 +22,26 @@ export const retailers: Retailer[] = [
     harFeed: true,
     sidstFeedHentet: "2026-08-08",
   },
+  {
+    slug: "komplett",
+    navn: "Komplett",
+    netvaerk: "adtraction",
+    basePayoutPct: 2.5,
+    cookieDage: 10,
+    hjemmeside: "https://www.komplett.dk",
+    harFeed: true,
+    sidstFeedHentet: "2026-08-15",
+  },
+  {
+    slug: "av-cables",
+    navn: "AV-Cables",
+    netvaerk: "adtraction",
+    basePayoutPct: 4.2,
+    cookieDage: 45,
+    hjemmeside: "https://www.av-cables.dk",
+    harFeed: true,
+    sidstFeedHentet: "2026-08-15",
+  },
 ];
 
 export function getRetailer(slug: string): Retailer | undefined {

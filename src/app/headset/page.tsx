@@ -5,12 +5,14 @@ import { CategoryStatsSection } from "@/components/category-stats-section";
 import { headsets } from "@/data/headsets";
 import { computeHeadsetStats } from "@/lib/category-stats";
 import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Alle gaming-headsets - ProSetups.dk",
   description:
     "Se komplette specifikationer, priser og anmeldelser af de bedste gaming-headsets. Sammenlign HyperX, Logitech, Razer, SteelSeries og flere.",
-};
+  path: "/headset",
+});
 
 export default function HeadsetListPage() {
   const sorted = [...headsets].sort(

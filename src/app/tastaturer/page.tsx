@@ -5,12 +5,14 @@ import { CategoryStatsSection } from "@/components/category-stats-section";
 import { keyboards } from "@/data/keyboards";
 import { computeKeyboardStats } from "@/lib/category-stats";
 import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Alle gaming-tastaturer - ProSetups.dk",
   description:
     "Se komplette specifikationer, priser og anmeldelser af de bedste gaming-tastaturer. Sammenlign SteelSeries, Wooting, Razer, Corsair og flere.",
-};
+  path: "/tastaturer",
+});
 
 export default function TastaturerPage() {
   const sorted = [...keyboards].sort(

@@ -23,6 +23,7 @@ import {
 } from "@/data/pros-peripherals-mapping";
 import { getTeamLogo } from "@/data/team-logos";
 import { ProAvatar } from "@/components/pro-avatar";
+import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -160,10 +161,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const pro = getPro(slug);
   if (!pro) return {};
-  return {
+  return buildMetadata({
     title: `${pro.navn} setup — mus, DPI og priser i DK`,
     description: `Se ${pro.navn}s gaming-mus, DPI, in-game sens og øvrige udstyr. Find bedste pris hos danske forhandlere.`,
-  };
+    path: `/pro/${pro.slug}`,
+    image: pro.billede,
+  });
 }
 
 export default async function ProPage({ params }: Props) {

@@ -12,6 +12,7 @@ import { ProUsersBand } from "@/components/pro-users-band";
 import { SpecTable } from "@/components/spec-table";
 import { ProsConsList } from "@/components/pros-cons-list";
 import { PriceCta, PriceComparison } from "@/components/price-comparison";
+import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -21,10 +22,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const keyboard = getKeyboard(slug);
   if (!keyboard) return {};
-  return {
+  return buildMetadata({
     title: keyboard.navn + " - specifikationer, fordele og priser",
     description: "Se komplette specifikationer for " + keyboard.navn + ": switches, layout, polling rate og find den bedste pris.",
-  };
+    path: `/tastaturer/${keyboard.slug}`,
+    image: keyboard.billede,
+  });
 }
 
 export default async function TastaturPage({ params }: Props) {

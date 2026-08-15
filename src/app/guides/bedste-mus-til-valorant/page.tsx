@@ -8,11 +8,13 @@ import { brandSlug } from "@/data/brands";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Bedste mus til Valorant i 2026 - ProSetups.dk",
   description: "Find den bedste gaming-mus til Valorant. Se hvad pros som TenZ, aspas og sacy bruger, og find den perfekte mus til dit spil.",
-};
+  path: "/guides/bedste-mus-til-valorant",
+});
 
 const picks = [
   {

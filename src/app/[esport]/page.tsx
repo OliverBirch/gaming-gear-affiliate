@@ -41,6 +41,7 @@ import {
 } from "@/data/pros-peripherals-mapping";
 import { getTeamLogo } from "@/data/team-logos";
 import Image from "next/image";
+import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
   params: Promise<{ esport: string }>;
@@ -50,10 +51,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { esport: slug } = await params;
   const esport = getEsport(slug);
   if (!esport) return {};
-  return {
+  return buildMetadata({
     title: `${esport.navn} pro-setups - mus og gear`,
     description: `Se præcis hvilke mus ${esport.navn}-pros bruger. Find den bedste mus med danske priser.`,
-  };
+    path: `/${esport.slug}`,
+  });
 }
 
 export function generateStaticParams() {

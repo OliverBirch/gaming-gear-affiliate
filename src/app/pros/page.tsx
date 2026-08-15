@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { ProsTable } from "./pros-table";
 import { pros } from "@/data/pros";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Alle pros",
   description: "Se alle CS2- og Valorant-pros på ProSetups.dk - deres mus og udstyr.",
-};
+  path: "/pros",
+});
 
 export default function ProsPage() {
   return (

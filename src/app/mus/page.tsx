@@ -5,12 +5,14 @@ import { CategoryStatsSection } from "@/components/category-stats-section";
 import { mice } from "@/data/mice";
 import { computeMusStats } from "@/lib/category-stats";
 import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Alle gaming-mus - ProSetups.dk",
   description:
     "Se komplette specifikationer, priser og hvilke pros der bruger hver mus. Sammenlign Logitech, Razer, ZOWIE, Pulsar og flere.",
-};
+  path: "/mus",
+});
 
 export default function MusPage() {
   const sorted = [...mice].sort(

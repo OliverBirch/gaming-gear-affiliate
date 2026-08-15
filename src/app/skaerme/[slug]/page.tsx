@@ -13,6 +13,7 @@ import { ProUsersBand } from "@/components/pro-users-band";
 import { SpecTable } from "@/components/spec-table";
 import { ProsConsList } from "@/components/pros-cons-list";
 import { PriceCta, PriceComparison } from "@/components/price-comparison";
+import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -36,10 +37,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const monitor = getMonitor(slug);
   if (!monitor) return {};
-  return {
+  return buildMetadata({
     title: `${monitor.brand} ${monitor.navn} - specifikationer og priser`,
     description: `Se komplette specifikationer for ${monitor.brand} ${monitor.navn}: ${monitor.stoerrelseTommer}", ${monitor.opdateringsHz} Hz, ${monitor.paneltype}-panel og find den bedste pris.`,
-  };
+    path: `/skaerme/${monitor.slug}`,
+    image: monitor.billede,
+  });
 }
 
 export default async function SkaermPage({ params }: Props) {

@@ -5,12 +5,14 @@ import { CategoryStatsSection } from "@/components/category-stats-section";
 import { mousepads } from "@/data/mousepads";
 import { computeMousepadStats } from "@/lib/category-stats";
 import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Alle musemåtter - ProSetups.dk",
   description:
     "Se komplette specifikationer og priser på gaming-musemåtter. Sammenlign SteelSeries QcK, ZOWIE G-SR, Artisan og flere.",
-};
+  path: "/musemaatter",
+});
 
 export default function MusemaatterPage() {
   const sorted = [...mousepads].sort(

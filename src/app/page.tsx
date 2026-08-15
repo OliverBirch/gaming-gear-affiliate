@@ -23,6 +23,14 @@ import { getTeamLogo } from "@/data/team-logos";
 import { Mouse, Keyboard, Square, Headphones } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { buildMetadata } from "@/lib/metadata";
+import type { Metadata } from "next";
+
+// No title/description here — inherits the root layout's default title
+// (already the final "ProSetups.dk - ..." string) and description. Only
+// adds the canonical URL and per-page OpenGraph/Twitter fields the layout
+// doesn't set.
+export const metadata: Metadata = buildMetadata({ path: "/" });
 import { HeroLowPoly } from "@/components/hero-low-poly";
 import { HeroStatsBand } from "@/components/hero-stats-band";
 import { HeroFeaturedPros } from "@/components/hero-featured-pros";

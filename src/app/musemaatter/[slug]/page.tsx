@@ -13,6 +13,7 @@ import { ProUsersBand } from "@/components/pro-users-band";
 import { SpecTable } from "@/components/spec-table";
 import { ProsConsList } from "@/components/pros-cons-list";
 import { PriceCta, PriceComparison } from "@/components/price-comparison";
+import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -22,10 +23,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const mp = getMousepad(slug);
   if (!mp) return {};
-  return {
+  return buildMetadata({
     title: mp.brand + " " + mp.model + " - specifikationer, fordele og priser",
     description: "Se komplette specifikationer for " + mp.brand + " " + mp.model + ": glide-type, materiale, størrelser og find den bedste pris.",
-  };
+    path: `/musemaatter/${mp.slug}`,
+    image: mp.billede,
+  });
 }
 
 const glideLabels: Record<string, string> = {

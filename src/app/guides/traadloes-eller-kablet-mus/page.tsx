@@ -8,11 +8,13 @@ import { bestOffer } from "@/lib/affiliate";
 import { getRetailer } from "@/data/retailers";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Trådløs eller kablet mus? Hvad skal du vælge - ProSetups.dk",
   description: "Trådløs vs kablet gaming-mus: hvad er bedst til dig? Vi sammenligner latency, vægt, batteritid og pris, så du kan træffe det rigtige valg.",
-};
+  path: "/guides/traadloes-eller-kablet-mus",
+});
 
 const wireless = mice.filter((m) => m.wireless).sort((a, b) => b.proBrugere.length - a.proBrugere.length).slice(0, 3);
 const wired = mice.filter((m) => !m.wireless).sort((a, b) => b.proBrugere.length - a.proBrugere.length).slice(0, 3);

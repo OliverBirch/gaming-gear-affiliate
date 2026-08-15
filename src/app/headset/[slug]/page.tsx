@@ -12,6 +12,7 @@ import { ProUsersBand } from "@/components/pro-users-band";
 import { SpecTable } from "@/components/spec-table";
 import { ProsConsList } from "@/components/pros-cons-list";
 import { PriceCta, PriceComparison } from "@/components/price-comparison";
+import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -21,10 +22,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const headset = getHeadset(slug);
   if (!headset) return {};
-  return {
+  return buildMetadata({
     title: headset.navn + " - specifikationer, fordele og priser",
     description: "Se komplette specifikationer for " + headset.navn + ": vægt, driver, forbindelse og find den bedste pris.",
-  };
+    path: `/headset/${headset.slug}`,
+    image: headset.billede,
+  });
 }
 
 export default async function HeadsetPage({ params }: Props) {

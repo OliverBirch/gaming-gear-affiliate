@@ -7,6 +7,7 @@ import { AffiliateDisclosure } from "@/components/affiliate-disclosure";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import GrainGradient from "@/components/GrainGradient";
+import { SITE_URL, jsonLd, organizationSchema, websiteSchema } from "@/lib/schema-org";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   },
   description:
     "Se præcis hvilket gear CS2-, Valorant- og R6-pros bruger. Settings, eDPI og danske priser.",
-  metadataBase: new URL("https://prosetups.dk"),
+  metadataBase: new URL(SITE_URL),
   alternates: {
     languages: {
       da: "/",
@@ -90,16 +91,12 @@ gtag('config', 'G-BPNT90SDZ3');`,
         <Script
           id="schema-organization"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "ProSetups.dk",
-              url: "https://prosetups.dk",
-              description:
-                "Dansk pro-setup guide med esport-gear, settings og affiliate-priser.",
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(organizationSchema()) }}
+        />
+        <Script
+          id="schema-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd(websiteSchema()) }}
         />
       </head>
       <body className="min-h-full flex flex-col text-foreground">

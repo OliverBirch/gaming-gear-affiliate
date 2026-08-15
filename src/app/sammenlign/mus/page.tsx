@@ -8,6 +8,7 @@ import {
   parseCompareSlugs,
   resolveCompareMice,
 } from "@/lib/compare/resolve";
+import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
   searchParams: Promise<{ p?: string | string[] }>;
@@ -18,18 +19,24 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const slugs = parseCompareSlugs(sp.p);
   const selected = resolveCompareMice(slugs);
 
+  // Canonical always points at the bare comparison page (matches
+  // sitemap.ts) — not the specific `?p=` pair, so every mouse combination
+  // consolidates its signal onto one indexed URL instead of fragmenting
+  // across unbounded query-string variants.
   if (selected.length === 2) {
-    return {
+    return buildMetadata({
       title: `${selected[0].navn} vs ${selected[1].navn} – sammenligning`,
       description: `Sammenlign ${selected[0].navn} og ${selected[1].navn}: vægt, sensor, greb, pro-brugere og danske priser.`,
-    };
+      path: "/sammenlign/mus",
+    });
   }
 
-  return {
+  return buildMetadata({
     title: "Sammenlign gaming-mus – specs, pros og priser",
     description:
       "Sammenlign to gaming-mus side om side: vægt, sensor, greb, pro-brugere og laveste danske pris.",
-  };
+    path: "/sammenlign/mus",
+  });
 }
 
 export default async function SammenlignMusPage({ searchParams }: Props) {

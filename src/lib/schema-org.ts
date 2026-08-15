@@ -16,6 +16,33 @@ export function absoluteUrl(path: string): string {
   return `${SITE_URL}${path}`;
 }
 
+/** Site-wide Organization identity — used once, in the root layout. */
+export function organizationSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "ProSetups.dk",
+    url: SITE_URL,
+    description: "Dansk pro-setup guide med esport-gear, settings og affiliate-priser.",
+  };
+}
+
+/**
+ * Site-wide WebSite identity — used once, in the root layout. No
+ * `potentialAction` SearchAction: the site has no GET-based search URL
+ * (`/find-mus` is a client-side quiz, not a query endpoint), so adding one
+ * would advertise a capability that doesn't exist.
+ */
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "ProSetups.dk",
+    url: SITE_URL,
+    inLanguage: "da-DK",
+  };
+}
+
 export type Crumb = { name: string; path: string };
 
 export function breadcrumbList(crumbs: Crumb[]) {

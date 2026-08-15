@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { getMouse, mice } from "@/data/mice";
 import { bestOffer } from "@/lib/affiliate";
 import { breadcrumbList, productSchema, jsonLd } from "@/lib/schema-org";
+import { buildMetadata } from "@/lib/metadata";
 import { formfaktorLabels, grebLabels, haandLabels, prisNiveauLabels } from "@/lib/product-labels";
 import { ProductImage } from "@/components/product-image";
 import { ProUsersBand } from "@/components/pro-users-band";
@@ -24,10 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const mouse = getMouse(slug);
   if (!mouse) return {};
-  return {
+  return buildMetadata({
     title: `${mouse.navn} - specifikationer, fordele, og priser`,
     description: `Se komplette specifikationer for ${mouse.navn}: vægt, sensor, greb, og find den bedste pris hos Proshop eller Geek'd.`,
-  };
+    path: `/mus/${mouse.slug}`,
+    image: mouse.billede,
+  });
 }
 
 export default async function MusPage({ params }: Props) {

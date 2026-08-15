@@ -8,8 +8,9 @@ import { headsets } from "@/data/headsets";
 import { monitors } from "@/data/monitors";
 import { getBrands } from "@/data/brands";
 import { guides } from "@/data/guides";
+import { SITE_URL } from "@/lib/schema-org";
 
-const BASE = "https://prosetups.dk";
+const BASE = SITE_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [

@@ -3,12 +3,14 @@ import Script from "next/script";
 import FinderQuiz, { type MousePriceInfo } from "@/components/finder-quiz";
 import { mice } from "@/data/mice";
 import { bestOffers } from "@/lib/affiliate";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Find din gaming-mus",
   description:
     "Svar på 5 spørgsmål og find den bedste gaming-mus til dig baseret på dit spil, greb, håndstørrelse og budget.",
-};
+  path: "/find-mus",
+});
 
 export default async function FindMusPage() {
   // FinderQuiz is a client component: it scores mice from arbitrary quiz

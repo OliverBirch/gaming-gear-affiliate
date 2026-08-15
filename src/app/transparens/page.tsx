@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Transparens - affiliate og datakilder",
   description: "Læs om vores affiliate-partnerskaber, datakilder og hvordan vi tjener penge.",
-};
+  path: "/transparens",
+});
 
 export default function TransparensPage() {
   return (

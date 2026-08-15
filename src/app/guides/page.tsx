@@ -3,11 +3,13 @@ import Link from "next/link";
 import Script from "next/script";
 import { GuidesCard } from "./guides-card";
 import { guides } from "@/data/guides";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Guides - ProSetups.dk",
   description: "Guides til gaming-mus, greb og setups. Find den bedste mus til CS2, Valorant og andre spil.",
-};
+  path: "/guides",
+});
 
 export default function GuidesPage() {
   const featured = guides.filter((g) => g.featured);

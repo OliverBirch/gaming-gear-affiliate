@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Script from "next/script";
 import { blogPosts, getBlogPost } from "@/data/blog";
+import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -16,10 +17,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) return {};
-  return {
+  return buildMetadata({
     title: post.title,
     description: post.description,
-  };
+    path: `/blog/${slug}`,
+  });
 }
 
 export default async function BlogPostPage({ params }: Props) {

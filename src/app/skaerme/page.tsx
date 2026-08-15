@@ -3,11 +3,13 @@ import Script from "next/script";
 import { MonitorCard } from "@/components/monitor-card";
 import { monitors } from "@/data/monitors";
 import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Alle gaming-skærme - ProSetups.dk",
   description: "Se specifikationer, priser og pro-data for de bedste gaming-skærme. Sammenlign ZOWIE, ASUS, Alienware og flere.",
-};
+  path: "/skaerme",
+});
 
 export default function SkaermePage() {
   return (

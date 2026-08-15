@@ -8,6 +8,7 @@ import { pros } from "@/data/pros";
 import { mice } from "@/data/mice";
 import { ProAvatar } from "@/components/pro-avatar";
 import { Badge } from "@/components/ui/badge";
+import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
   params: Promise<{ esport: string; slug: string }>;
@@ -30,10 +31,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!esport) return {};
   const teamNavn = slug.replace(/-/g, " ");
   const teamNavnProper = teamNavn.replace(/\b\w/g, (l) => l.toUpperCase());
-  return {
+  return buildMetadata({
     title: `${teamNavnProper} ${esport.navn}-spillere og deres mus`,
     description: `Se hvilke mus ${teamNavnProper}-spillerne i ${esport.navn} bruger, deres DPI, eDPI og polling rate.`,
-  };
+    path: `/${esport.slug}/hold/${slug}`,
+  });
 }
 
 export default async function TeamPage({ params }: Props) {

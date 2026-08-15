@@ -83,6 +83,24 @@
         "proshop": 458,
         "geekd": 559
       },
+      "offers": [
+        {
+          "retailer": "komplett",
+          "produktUrl": "https://www.komplett.dk/product/1247176/gaming/spiludstyr/gamingheadset/hyperx-cloud-iii-gaming-headset-sort?channable=033d1d69640031323437313736ce",
+          "affiliateUrl": "https://go.adt231.net/t/t?a=1658323777&as=2095414612&t=2&tk=1&cupa_sku=1247176&url=https://www.komplett.dk/product/1247176/gaming/spiludstyr/gamingheadset/hyperx-cloud-iii-gaming-headset-sort?channable=033d1d69640031323437313736ce",
+          "payoutPct": 2.5,
+          "prisDkk": 540,
+          "inStock": true
+        },
+        {
+          "retailer": "av-cables",
+          "produktUrl": "https://www.av-cables.dk/products/hyperx-cloud-iii-gaming-headset?variant=57191632929145",
+          "affiliateUrl": "https://do.av-cables.dk/t/t?a=1816876401&as=2095414612&t=2&tk=1&cupa_sku=65431&url=https://www.av-cables.dk/products/hyperx-cloud-iii-gaming-headset?variant=57191632929145",
+          "payoutPct": 4.2,
+          "prisDkk": 579,
+          "inStock": true
+        }
+      ],
       "beskrivelse": "HyperX Cloud III er den seneste generation af HyperX' populære Cloud-serie. Med forbedret komfort, DTS Headphone:X rumlig lyd og en opgraderet 53 mm driver, leverer den en endnu bedre lydoplevelse end forgængeren. Den robuste aluminiumsramme og USB-C tilslutning gør den klar til moderne gaming.",
       "fordele": [
         "DTS Headphone:X rumlig lyd",
@@ -284,6 +302,16 @@
       "priser": {
         "proshop": 1399
       },
+      "offers": [
+        {
+          "retailer": "komplett",
+          "produktUrl": "https://www.komplett.dk/product/1311085/gaming/spiludstyr/gamingheadset/asus-rog-delta-ii-traadloest-gaming-headset-sort?channable=033d1d6964003133313130383555",
+          "affiliateUrl": "https://go.adt231.net/t/t?a=1658323777&as=2095414612&t=2&tk=1&cupa_sku=1311085&url=https://www.komplett.dk/product/1311085/gaming/spiludstyr/gamingheadset/asus-rog-delta-ii-traadloest-gaming-headset-sort?channable=033d1d6964003133313130383555",
+          "payoutPct": 2.5,
+          "prisDkk": 1690,
+          "inStock": true
+        }
+      ],
       "beskrivelse": "ASUS ROG Delta II er anden generation af ASUS' populære Delta-serie. Med 50 mm ASUS Essence drivere, quad-DAC teknologi og Hi-Res Audio certificering leverer den enestående lydkvalitet. Den understøtter både 2.4 GHz trådløs og Bluetooth, har 45 timers batteritid og en aftagelig mikrofon med AI-støjreduktion.",
       "fordele": [
         "Hi-Res Audio certificeret",
@@ -349,6 +377,16 @@
       "priser": {
         "proshop": null
       },
+      "offers": [
+        {
+          "retailer": "komplett",
+          "produktUrl": "https://www.komplett.dk/product/1306943/gaming/spiludstyr/gamingheadset/steelseries-arctis-nova-pro-wireless-gamingheadset-pcps5-hvid?channable=033d1d6964003133303639343364",
+          "affiliateUrl": "https://go.adt231.net/t/t?a=1658323777&as=2095414612&t=2&tk=1&cupa_sku=1306943&url=https://www.komplett.dk/product/1306943/gaming/spiludstyr/gamingheadset/steelseries-arctis-nova-pro-wireless-gamingheadset-pcps5-hvid?channable=033d1d6964003133303639343364",
+          "payoutPct": 2.5,
+          "prisDkk": 2090,
+          "inStock": true
+        }
+      ],
       "beskrivelse": "SteelSeries Arctis Nova Pro Wireless er et premium trådløst gaming-headset med udskifteligt batterisystem og dobbelt forbindelse. Med 40 mm high-fidelity drivere, Sonar Audio og Hi-Res Audio certificering leverer det den bedste lydkvalitet i sin klasse. Det unikke batterisystem med hot-swap batterier betyder, at du aldrig løber tør for strøm.",
       "fordele": [
         "Hot-swap batterisystem - aldrig uden strøm",

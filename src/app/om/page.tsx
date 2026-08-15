@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Om ProSetups.dk",
   description: "Læs om ProSetups.dk - dansk esport-mus guide med pro-data og affiliate-priser.",
-};
+  path: "/om",
+});
 
 export default function OmPage() {
   return (

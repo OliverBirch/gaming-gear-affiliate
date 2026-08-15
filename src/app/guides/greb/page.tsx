@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Grebsguide - palm, claw og fingertip",
   description:
     "Lær forskellen på palm, claw og fingertip greb. Find ud af hvilket greb du bruger, og hvilken mus der passer til dig.",
-};
+  path: "/guides/greb",
+});
 
 export default function GrebGuidePage() {
   return (

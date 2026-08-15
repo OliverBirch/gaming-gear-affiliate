@@ -14,6 +14,7 @@ import { keyboards } from "@/data/keyboards";
 import { mousepads } from "@/data/mousepads";
 import { headsets } from "@/data/headsets";
 import { monitors } from "@/data/monitors";
+import { buildMetadata } from "@/lib/metadata";
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -23,10 +24,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const brand = getBrand(slug);
   if (!brand) return {};
   const label = brand.antalMus > 0 ? `${brand.navn} mus` : brand.navn;
-  return {
+  return buildMetadata({
     title: `${label} - se alle modeller og priser`,
     description: `Se alle ${brand.navn} gaming-produkter i vores database. Sammenlign specs, priser og se hvilke pros der bruger ${brand.navn}.`,
-  };
+    path: `/maerke/${brand.slug}`,
+  });
 }
 
 export function generateStaticParams() {

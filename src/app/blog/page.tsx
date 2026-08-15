@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import { blogPosts } from "@/data/blog";
+import { buildMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Blog",
   description:
     "Nyheder, guides og analyser om gaming-mus, pro settings og esport. Følg med i roster moves, nye launches og tendenser.",
-};
+  path: "/blog",
+});
 
 export default function BlogPage() {
   return (

@@ -237,7 +237,7 @@ mousepads follow the same manufacturer/RTINGS/retailer pattern manually.
 2026-08-09 (cont.) log entry below for sourcing details, the new
 `scripts/remove-background.mjs`, and the remaining 46-product backlog.
 
-## Phase 4 — Full DK retailer coverage ⬜
+## Phase 4 — Full DK retailer coverage 🔄
 
 Goal: every catalog product has at least one real, priced, verified DK
 retailer offer — or, where no DK retailer carries it, a documented closest
@@ -733,3 +733,143 @@ retailer coverage" for the current list and method.
   directly, not extraction misses) — both need a fallback source (Liquipedia,
   socials) if pursued further. `tsc`, `vitest` (42 passed), `validate-data`,
   and a full `next build` all pass.
+- **2026-08-15** — Onboarded two new Adtraction retailers: **Komplett**
+  (2.5% payout, 10-day cookie) and **AV-Cables** (4.2% payout, 45-day
+  cookie), both confirmed by the user, not guessed. Unlike Proshop/Geek'd
+  (whose `affiliateUrl` today is just a copy of `produktUrl`, no real
+  tracking), Adtraction's product feed embeds a genuine per-product tracking
+  redirect in its `<link>` field — confirmed end-to-end by curling one
+  sample per retailer: both return a 200 with a meta-refresh landing exactly
+  on the expected `komplett.dk`/`av-cables.dk` product page. Added both
+  tracking hosts (`go.adt231.net`, `do.av-cables.dk`) plus the two retailer
+  domains to `ALLOWED_REDIRECT_HOSTS`.
+
+  Built `scripts/match-komplett-eans.mjs` and `scripts/match-avcables-eans.mjs`
+  (adapted from the Proshop matcher's normalize/tokenize/DISALLOWED_EXTRA
+  heuristics — Google-Shopping RSS format instead of Proshop's custom XML,
+  so `<item>`/`g:` fields and a per-retailer `g:product_type` category map
+  had to be rebuilt from scratch). Found and fixed two new false-positive
+  classes this surfaced: a `ps5`/`xbox`-plus-digit token (e.g. "PS5") wasn't
+  caught by the existing bare `"ps"`/`"xbox"` markers or the leading-digit
+  check — confirmed via a real false positive (Razer BlackShark V3 Pro PS5
+  matching the PC-standalone catalog entry); patching that then wrongly
+  excluded a *genuine* match (SteelSeries Arctis Nova Pro Wireless, titled
+  "PC/PS5", exact EAN match) as collateral, fixed by letting an exact
+  catalog-EAN match override the wording heuristic entirely (ground truth
+  beats a guess). Also found AV-Cables files HyperX products under its
+  corporate parent brand ("Kingston") rather than "HyperX" — added as a
+  brand alias after confirming via an exact-EAN block.
+
+  Ran both against full feeds (Komplett 6,860 items, AV-Cables 5,697 items)
+  and manually cross-checked every candidate against the catalog's own
+  recorded EAN before applying anything. Applied **9 of 13 Komplett
+  candidates** and **1 of 1 AV-Cables candidate** — all 10 had an exact
+  EAN match against the catalog's own recorded barcode. Excluded 3 Komplett
+  candidates with a mismatched EAN despite a name-token match
+  (`razer-blackshark-v3-pro`, `logitech-g-pro-x`, `steelseries-qck-large` —
+  each looks like a color/bundle/regional-SKU variant, not verifiable as
+  the same physical product without more digging).
+
+  Applied to **6 mice** (`logitech-g-pro-x-superlight-2-dex`,
+  `razer-deathadder-v3-hyperspeed`, `razer-deathadder-v4-pro`,
+  `razer-deathadder-v3`, `pulsar-tenz-signature-edition`,
+  `logitech-g403-hero` — 2 flagged `inStock: false` per the feed's real
+  stock status) directly into `mice.json`'s existing `offers[]`, no code
+  change needed. **Headsets** needed a schema extension first — added an
+  optional `offers` field to `RawHeadset`/`headsets.json`, merged into the
+  built `offers` array alongside `buildFlatOffers`'s generic-URL output in
+  `headsets.ts` — then applied to `hyperx-cloud-iii` (both Komplett and
+  AV-Cables), `steelseries-arctis-nova-pro-wireless`, and `asus-rog-delta-ii`
+  (Komplett only). **Keyboards/mousepads/monitors got zero verified matches
+  this round** (AV-Cables barely stocks the boutique/pro-tier brands this
+  catalog focuses on — mostly Trust/Deltaco/Plexgear generic gear instead —
+  and neither feed had a keyboard/mousepad/monitor hit that survived EAN
+  verification) — deliberately left their schema unchanged rather than add
+  an unused `offers` field with nothing to put in it; revisit once a re-run
+  finds real candidates.
+
+  Coverage this session, by category (Komplett / AV-Cables, of catalog
+  total): mus 6/55 (10.9%) / 0/55 (0%); headset 3/12 (25%) / 1/12 (8.3%);
+  tastaturer, musemaatter, skaerme 0% for both. Catalog-wide: Komplett
+  9/97 (9.3%), AV-Cables 1/97 (1.0%) — real but partial, most of the
+  gap is boutique-brand SKUs neither generalist retailer stocks. Flipped
+  both retailers' `harFeed`/`sidstFeedHentet` in `retailers.ts` to
+  `true`/`2026-08-15` now that a real EAN-match run has happened. `tsc`,
+  `vitest` (42 passed), `validate-data`, and a full `next build` all pass.
+- **2026-08-15 (cont.)** — SEO foundation pass: added canonical URLs, Twitter
+  card meta, and Organization/WebSite JSON-LD — none existed before. New
+  `src/lib/metadata.ts` (`buildMetadata()`) replaces hand-rolled
+  `{title, description}` exports across all 29 metadata-bearing pages;
+  unified the three independently-hardcoded `SITE_URL` copies
+  (`schema-org.ts`, `layout.tsx`, `sitemap.ts`) into one export.
+  `organizationSchema()`/`websiteSchema()` added to `schema-org.ts`,
+  replacing `layout.tsx`'s inline hand-rolled Organization script. No
+  `potentialAction` SearchAction added — confirmed the site has no real
+  query-based search endpoint to back it. `robots: {index: false, follow:
+  false}` (pre-launch, Phase 5) confirmed intentional with the user and left
+  untouched. `tsc`, `vitest`, and `build` all pass.
+- **2026-08-15 (cont.)** — Audited `/admin/tickets` for stale/resolved
+  entries. Removed 8 after direct verification (not assumption): 6
+  `missing-pro-image` (virtyy, t0oro, cs910, forsaken, zmjkk, xs3xycake —
+  all confirmed to already have a real image file on disk), 2
+  `bad-product-image` "upscaled" tickets (pulsar-zywoo-chosen-mouse-gen2,
+  zowie-xl2566k — confirmed both already background-removed/transparent).
+  Updated the `retailer-purge-coverage-2026-08-10` ticket to drop
+  `steelseries-arctis-nova-pro-wireless`, resolved via the Komplett offer
+  added earlier this session. Mechanical fix: wired the `billede` field for
+  6 mice whose product image already existed on disk but was never linked
+  (`pulsar-susanto-x`, `pulsar-xlite-v4-es`, `pmm-zen-8k-mini`,
+  `fallen-gear-lobo-wireless`, `lamzu-inca`, `waizowl-ogm-cloud-8k`).
+- **2026-08-15 (cont.)** — Completed all 14 remaining `stub-mouse-created`
+  tickets (mice with zero specs/copy, created while scraping prosettings.net
+  pro-gear pages): pulsar-xlite-v4-es, zowie-s1/za13-dw/ec3-cw/ec2-cw/ec3-dw,
+  pulsar-zywoo-chosen-mouse-gen2, pmm-zen-8k-mini, sony-inzone-mouse-a,
+  lamzu-thorn-v2, fallen-gear-lobo-wireless, vaxee-np01s-wireless,
+  lamzu-inca, waizowl-ogm-cloud-8k. Split research across 4 parallel agents
+  (ZOWIE, Pulsar, Lamzu, misc-niche) since RTINGS is now paywalled and
+  TechPowerUp 403'd on every fetch across the whole batch — sourced from
+  manufacturer pages plus prosettings.net/eloshapes.com aggregators instead,
+  with per-field flags wherever only a single source existed.
+
+  One real catalog finding: **pmm-zen-8k-mini is not a standalone mouse** —
+  it's a shell-only mod-kit for the Razer Viper V3 Pro, sold without
+  sensor/switches/battery (buyer supplies their own Viper internals). Wrote
+  only the shell's own real specs (weight, dimensions, copy explaining the
+  mod-kit nature) and left sensor/maxDpi/pollingHz/knapper/battery/
+  connection at their stub "unknown" values rather than carrying over the
+  donor mouse's specs, which an earlier research pass had initially
+  conflated with the shell's own listing.
+
+  Judgment calls made explicit rather than silently absorbed: VAXEE
+  NP-01S's `maxDpi: 3200` is single-source (one review, unusually low for
+  its PAW3395 sensor's 26K ceiling, could not cross-verify — TechPowerUp
+  403'd). ZOWIE EC3-CW/DW's `breddeMm` used prosettings.net's 60.9mm
+  grip-width figure over eloshapes.com's 66mm widest-point figure, matching
+  the existing `zowie-ec2-dw` catalog entry's own measurement convention
+  for internal comparability. Lamzu Thorn V2/Inca and Waizowl OGM Cloud 8K
+  specs came off maxgaming.com — AGENTS.md bans MaxGaming as an offer/
+  price/image source, not a spec source, so this is within the letter of
+  that rule, but flagging it since it's the same domain. `kilde`/
+  `sidstVerificeret` left null for all 14 — `MouseSchema` has no
+  verification-tracking fields at all (confirmed in `types.ts`), consistent
+  with the Phase 2 snapshot's existing footnote on this.
+
+  Offers: confirmed genuine zero DK retailer coverage for 13 of the 14 by
+  checking directly against all 4 real feed-based retailers (Proshop/
+  Geek'd match reports, Komplett/AV-Cables full feeds) rather than
+  assuming — none matched. `lamzu-thorn-v2` keeps its existing Proshop
+  offer, untouched. Removed all 14 `stub-mouse-created` tickets (resolved);
+  the 13 still-uncovered mice remain tracked in the existing catalog-wide
+  `no-retailer-coverage` ticket, with an update note there confirming the
+  re-check. Cleaned up `mice-todo.ts`, removing the 14 completed entries
+  (per the `add-mouse` skill's step 7). `tsc`, `vitest` (42 passed),
+  `validate-data`, and a full `next build` all pass.
+
+  Mouse-category copy completeness: 29/55 (53%) → 43/55 (78%) by direct
+  count — the Data completeness snapshot above is dated 2026-08-10 and not
+  re-run this pass (see its own note on refreshing by recomputation, not
+  hand-editing).
+
+  **Scope note:** `pulsar-susanto-x` remains a genuine stub (still zero
+  specs) — it was never among the 14 tracked `stub-mouse-created` tickets,
+  so it fell outside this pass; no ticket currently tracks it either.

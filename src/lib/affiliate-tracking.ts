@@ -101,6 +101,12 @@ export const ALLOWED_REDIRECT_HOSTS = new Set([
   "proshop.dk",
   "geekd.dk",
   "www.geekd.dk",
+  "komplett.dk",
+  "www.komplett.dk",
+  "go.adt231.net",
+  "av-cables.dk",
+  "www.av-cables.dk",
+  "do.av-cables.dk",
 ]);
 
 export function isAllowedRedirectUrl(url: string): boolean {
