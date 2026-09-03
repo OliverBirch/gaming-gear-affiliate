@@ -9,6 +9,13 @@ export interface CatalogItem {
   brand: string;
   category: ProductCategory;
   ean: string | null;
+  /** Additional barcodes for the same product - a multi-size mousepad has
+   * one per size, and a feed listing may carry any of them. */
+  extraEans?: string[];
+  /** This product's own size names ("Medium", "XXL"). A feed title that
+   * names one of them is describing a variant of this product, not a
+   * different product. */
+  sizeNames?: string[];
 }
 
 /** One product row from a retailer feed, after its adapter has parsed the
@@ -30,6 +37,10 @@ export interface MatchedOffer {
   slug: string;
   category: ProductCategory;
   ean: string;
+  /** Set when the feed title named one of the product's own sizes - the
+   * price and URL then describe that size specifically, which a reviewer
+   * has to see before applying it as the product's offer. */
+  matchedSize?: string | null;
   eanConfirmed: boolean;
   priceDkk: number | null;
   inStock: boolean;
@@ -93,4 +104,6 @@ export interface FeedCandidate {
   affiliateUrl: string;
   discoveredAt: string;
   eanConfirmed: boolean;
+  /** See MatchedOffer.matchedSize. */
+  matchedSize?: string | null;
 }

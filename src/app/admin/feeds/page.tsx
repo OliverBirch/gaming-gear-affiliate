@@ -136,6 +136,14 @@ function CandidateRow({
       <td className="px-4 py-2.5 text-muted-foreground text-xs">{navn}</td>
       <td className="px-4 py-2.5 text-xs max-w-[280px] truncate" title={candidate.feedTitle}>
         {candidate.feedTitle}
+        {candidate.matchedSize && (
+          <span
+            className="ml-1.5 rounded bg-amber-500/10 px-1 py-0.5 text-[10px] font-medium text-amber-500"
+            title="Prisen gælder denne størrelse — ikke hele produktet"
+          >
+            {candidate.matchedSize}
+          </span>
+        )}
       </td>
       <td className="px-4 py-2.5 tabular-nums text-xs">
         {candidate.priceDkk != null ? `${candidate.priceDkk} kr.` : "—"}

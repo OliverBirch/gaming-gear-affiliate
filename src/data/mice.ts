@@ -50,6 +50,8 @@ type RawMouse = {
   beskrivelse: string;
   fordele: string[];
   ulemper: string[];
+  kilde?: string | null;
+  sidstVerificeret?: string | null;
 };
 
 function proBrugereOf(mouseSlug: string): string[] {
@@ -67,6 +69,9 @@ const _built: Mouse[] = (raw.mice as RawMouse[]).map((m) => ({
     retailer: o.retailer as Mouse["offers"][number]["retailer"],
   })),
   proBrugere: proBrugereOf(m.slug),
+  // Never defaulted to a date — see MouseSchema. Absent means unverified.
+  kilde: m.kilde ?? null,
+  sidstVerificeret: m.sidstVerificeret ?? null,
 }));
 
 // Zod validation at module level — fails build if data is invalid

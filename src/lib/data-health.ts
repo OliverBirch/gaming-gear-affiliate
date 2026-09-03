@@ -133,13 +133,49 @@ export function checkMissingPrices(
 
 // ─── Product images ───────────────────────────────────────────────
 
+/**
+ * Root-relative paths (`/images/pros/x.png`) that actually exist under
+ * `public/`. Passed in rather than read here so these checks stay pure and
+ * testable — the caller (`/admin`, SSG) walks the filesystem at build time.
+ */
+export type ExistingImagePaths = ReadonlySet<string>;
+
+/**
+ * A `billede` that's set but points at a file that isn't there is worse than
+ * no `billede` at all: the missing-image checks read it as covered while the
+ * page silently falls back to a monogram. That exact mismatch has bitten this
+ * catalog before (a pro image saved as `.webp` while the data said `.png`),
+ * so it gets its own issue type instead of passing as healthy.
+ */
+function imageIssues<T extends { slug: string; navn: string; billede?: string | null }>(
+  items: T[],
+  existing: ExistingImagePaths | undefined,
+  onMissing: (item: T) => DashboardIssue,
+  onBroken: (item: T, path: string) => DashboardIssue
+): DashboardIssue[] {
+  const out: DashboardIssue[] = [];
+  for (const item of items) {
+    if (!item.billede) {
+      out.push(onMissing(item));
+      continue;
+    }
+    // Only local assets are checkable; a remote URL can't be resolved here.
+    if (existing && item.billede.startsWith("/") && !existing.has(item.billede)) {
+      out.push(onBroken(item, item.billede));
+    }
+  }
+  return out;
+}
+
 export function checkMissingImages(
   products: Array<{ slug: string; navn: string; billede?: string | null }>,
-  category: string
+  category: string,
+  existingImagePaths?: ExistingImagePaths
 ): DashboardIssue[] {
-  return products
-    .filter((p) => !p.billede)
-    .map((p) => ({
+  return imageIssues(
+    products,
+    existingImagePaths,
+    (p) => ({
       type: "missing-image" as const,
       severity: "low" as const,
       autoFixable: false,
@@ -147,19 +183,34 @@ export function checkMissingImages(
       label: `${p.navn} — intet billede`,
       file: `src/data/${category}.json`,
       context: {},
-    }));
+    }),
+    (p, path) => ({
+      type: "broken-image" as const,
+      severity: "medium" as const,
+      autoFixable: false,
+      slug: p.slug,
+      label: `${p.navn} — billedsti findes ikke: ${path}`,
+      file: `src/data/${category}.json`,
+      context: { path },
+    })
+  );
 }
 
-export function checkMissingImagesMice(mice: Mouse[]): DashboardIssue[] {
-  return checkMissingImages(mice, "mice");
+export function checkMissingImagesMice(
+  mice: Mouse[],
+  existingImagePaths?: ExistingImagePaths
+): DashboardIssue[] {
+  return checkMissingImages(mice, "mice", existingImagePaths);
 }
 
 export function checkMissingImagesPros(
-  pros: Array<{ slug: string; navn: string; billede?: string }>
+  pros: Array<{ slug: string; navn: string; billede?: string }>,
+  existingImagePaths?: ExistingImagePaths
 ): DashboardIssue[] {
-  return pros
-    .filter((p) => !p.billede)
-    .map((p) => ({
+  return imageIssues(
+    pros,
+    existingImagePaths,
+    (p) => ({
       type: "missing-pro-image" as const,
       severity: "low" as const,
       autoFixable: true,
@@ -167,7 +218,17 @@ export function checkMissingImagesPros(
       label: `${p.navn} — intet billede`,
       file: "src/data/pros.ts",
       context: { sourceUrl: `https://prosettings.net/players/${p.slug}/` },
-    }));
+    }),
+    (p, path) => ({
+      type: "broken-pro-image" as const,
+      severity: "medium" as const,
+      autoFixable: false,
+      slug: p.slug,
+      label: `${p.navn} — billedsti findes ikke: ${path}`,
+      file: "src/data/pros.ts",
+      context: { path, sourceUrl: `https://prosettings.net/players/${p.slug}/` },
+    })
+  );
 }
 
 // ─── Content quality ──────────────────────────────────────────────

@@ -14,6 +14,9 @@ type RawMousepadSize = {
   breddeMm: number;
   laengdeMm: number;
   tykkelseMm: number;
+  /** This size's own barcode, where it's known — each size is a separate
+   * retail SKU, so one product-level EAN can only name one of them. */
+  ean?: string | null;
 };
 
 type RawMousepad = {
@@ -104,6 +107,8 @@ const _builtPads: Mousepad[] = (raw.mousepads as unknown as RawMousepad[]).map((
     breddeMm: s.breddeMm,
     laengdeMm: s.laengdeMm,
     tykkelseMm: s.tykkelseMm,
+    // Per-size barcode, when it's actually known — see MousepadSchema.
+    ean: s.ean ?? null,
   })),
   bund: m.bund,
   vaskbar: m.vaskbar,

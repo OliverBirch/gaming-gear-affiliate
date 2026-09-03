@@ -109,6 +109,14 @@ export const MouseSchema = z.object({
   fordele: CopyPoints,
   ulemper: CopyPoints,
   proBrugere: z.array(z.string()),
+  /**
+   * Mice were the one category with no verification tracking at all - not
+   * "all fresh", just unmeasured, while the other four reported honestly.
+   * Nullable and never defaulted: a null reads as "aldrig verificeret" on
+   * /admin, which is the truth until someone actually checks the specs.
+   */
+  kilde: z.string().optional().nullable(),
+  sidstVerificeret: z.string().optional().nullable(),
 });
 
 export type Mouse = z.infer<typeof MouseSchema>;
@@ -156,6 +164,16 @@ export const MousepadSchema = z.object({
       breddeMm: z.number(),
       laengdeMm: z.number(),
       tykkelseMm: z.number(),
+      /**
+       * Each size is its own retail SKU with its own barcode, so the
+       * product-level `ean` above can only ever name one of them. Recording
+       * the size's own EAN is what lets a feed listing for a *different*
+       * size be confirmed as this product instead of read as a different
+       * one (the steelseries-qck-heavy ambiguity). Optional: leave it null
+       * rather than guessing - an invented EAN confirms a match that was
+       * never verified.
+       */
+      ean: z.string().regex(/^d{8,14}$/).optional().nullable(),
     })
   ),
   bund: z.string(),

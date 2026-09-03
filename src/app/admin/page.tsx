@@ -1,3 +1,5 @@
+import { readdirSync } from "node:fs";
+import { join } from "node:path";
 import Link from "next/link";
 import { pros } from "@/data/pros";
 import { mice } from "@/data/mice";
@@ -151,6 +153,25 @@ function Table({
   );
 }
 
+/**
+ * Root-relative paths of every file under `public/images/<dir>`, so the
+ * health checks can tell "no image" apart from "image path points nowhere".
+ * Runs at build time only — /admin is statically generated.
+ */
+function existingImagePaths(...dirs: string[]): Set<string> {
+  const paths = new Set<string>();
+  for (const dir of dirs) {
+    let names: string[];
+    try {
+      names = readdirSync(join(process.cwd(), "public", "images", dir));
+    } catch {
+      continue; // directory absent is itself reported by the per-item checks
+    }
+    for (const name of names) paths.add(`/images/${dir}/${name}`);
+  }
+  return paths;
+}
+
 export default function AdminDashboardPage() {
   const issues: DashboardIssue[] = [];
 
@@ -171,17 +192,23 @@ export default function AdminDashboardPage() {
   const proPeripheralKeys = new Set(Object.keys(proPeripheralsRaw));
   const peripheralsCast = proPeripheralsRaw as Record<string, Record<string, string | null | undefined>>;
 
+  const proImagePaths = existingImagePaths("pros");
+  const productImagePaths = existingImagePaths("mice", "keyboards", "headsets", "monitors", "mousepads");
+
   issues.push(...checkStalePros(pros));
   issues.push(...checkNoOffers(mice));
   issues.push(...checkMissingPrices(mice, pricedKeys));
-  issues.push(...checkMissingImagesMice(mice));
-  issues.push(...checkMissingImagesPros(pros));
+  issues.push(...checkMissingImagesMice(mice, productImagePaths));
+  issues.push(...checkMissingImagesPros(pros, proImagePaths));
   issues.push(...checkEmptyCopyMice(mice));
   issues.push(...checkOrphanedMice(pros, mouseSlugs));
   issues.push(...checkMissingPeripherals(pros, proPeripheralKeys));
   issues.push(...checkStubMice(mice));
-  // Non-mice catalogs: surfaces "aldrig verificeret" for products whose
-  // sidstVerificeret is null, instead of silently assuming a date.
+  // Every catalog: surfaces "aldrig verificeret" for products whose
+  // sidstVerificeret is null, instead of silently assuming a date. Mice
+  // joined last — until then they had no verification field at all, so the
+  // category read as clean by omission rather than by being checked.
+  issues.push(...checkProductStaleness(mice, "mice"));
   issues.push(...checkProductStaleness(keyboards, "keyboards"));
   issues.push(...checkProductStaleness(headsets, "headsets"));
   issues.push(...checkProductStaleness(monitors, "monitors"));
@@ -193,13 +220,14 @@ export default function AdminDashboardPage() {
   );
   // Non-mice catalogs: mice/pros already had missing-image tracking, the
   // other 3 categories were completely invisible on this dashboard.
-  issues.push(...checkMissingImages(keyboards, "keyboards"));
-  issues.push(...checkMissingImages(headsets, "headsets"));
-  issues.push(...checkMissingImages(monitors, "monitors"));
+  issues.push(...checkMissingImages(keyboards, "keyboards", productImagePaths));
+  issues.push(...checkMissingImages(headsets, "headsets", productImagePaths));
+  issues.push(...checkMissingImages(monitors, "monitors", productImagePaths));
   issues.push(
     ...checkMissingImages(
       mousepads.map((m) => ({ ...m, navn: `${m.brand} ${m.model}` })),
-      "mousepads"
+      "mousepads",
+      productImagePaths
     )
   );
 

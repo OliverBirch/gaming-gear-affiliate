@@ -123,6 +123,7 @@ export async function runFeedSync(
         affiliateUrl: match.affiliateUrl,
         discoveredAt: fetchedAt,
         eanConfirmed: match.eanConfirmed,
+        matchedSize: match.matchedSize ?? null,
       };
       wouldWriteCandidates.push(candidate);
       if (!options.dryRun) {

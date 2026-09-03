@@ -28,7 +28,17 @@ export function loadCatalog(): CatalogItem[] {
     items.push({ slug: mo.slug, navn: mo.navn, brand: mo.brand, category: "skaerme", ean: mo.ean ?? null });
   }
   for (const p of mousepads) {
-    items.push({ slug: p.slug, navn: p.model, brand: p.brand, category: "musemaatter", ean: p.ean ?? null });
+    // A mousepad is one product sold as several sized SKUs, so it needs
+    // every size's barcode and name - see CatalogItem.extraEans/sizeNames.
+    items.push({
+      slug: p.slug,
+      navn: p.model,
+      brand: p.brand,
+      category: "musemaatter",
+      ean: p.ean ?? null,
+      extraEans: p.størrelser.map((s) => s.ean).filter((e): e is string => Boolean(e)),
+      sizeNames: p.størrelser.map((s) => s.navn),
+    });
   }
 
   return items;

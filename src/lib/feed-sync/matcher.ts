@@ -46,6 +46,33 @@ export const DISALLOWED_EXTRA = new Set([
   "travel", "case", "opgraderings", "tilbehør", "accessory", "upgrade",
 ]);
 
+/**
+ * Danish feed titles vs. English catalog names. Retailer feeds say
+ * "HyperX Cloud II Trådløs"; the catalog says "HyperX Cloud II Wireless" -
+ * without this the wireless SKU can never match its own listing, while the
+ * *wired* `hyperx-cloud-ii` entry sees "trådløs" as a dangerous extra and
+ * (correctly) rejects it. That left the listing matching nothing at all.
+ *
+ * Only connectivity words are canonicalized, and only where both languages
+ * mean exactly the same thing - this widens what can match, so anything
+ * looser risks the false positives DISALLOWED_EXTRA exists to prevent.
+ * Note "kablet" is a STOP_WORD (dropped before this runs), so wired/kablet
+ * is deliberately not a pair here.
+ */
+const TOKEN_SYNONYMS: Record<string, string> = {
+  "trådløs": "wireless",
+  "trådløst": "wireless",
+  tradlos: "wireless",
+  tradlost: "wireless",
+  traadloes: "wireless",
+  traadloest: "wireless",
+};
+
+/** Maps a token onto the form both languages agree on. */
+export function canonicalToken(t: string): string {
+  return TOKEN_SYNONYMS[t] ?? t;
+}
+
 const SPEC_DESCRIPTORS = new Set([
   "fhd", "qhd", "wqhd", "uhd", "4k", "2k", "ips", "tn", "va", "oled", "mini", "led", "curved",
 ]);
@@ -126,31 +153,49 @@ export function matchFeedAgainstCatalog(
 
     const feedTokens = tokenize(feedName);
     if (feedTokens.length < 2) continue;
-    const feedTokenSet = new Set(feedTokens);
+    const feedTokenSet = new Set(feedTokens.map(canonicalToken));
 
     for (const cat of catCandidates) {
       if (matches.has(cat.slug)) continue;
 
       const catTokens = tokenize(cat.navn);
-      const catTokenSet = new Set(catTokens);
+      const catTokenSet = new Set(catTokens.map(canonicalToken));
 
-      const allCatTokensPresent = catTokens.every((t) => feedTokenSet.has(t));
+      const allCatTokensPresent = catTokens.every((t) => feedTokenSet.has(canonicalToken(t)));
       if (!allCatTokensPresent) continue;
 
       const brandTokens = new Set([...tokenize(cat.brand), ...tokenize(item.brand)]);
       const knapperCountMatch = feedName.match(/(\d+)\s*knapper/);
       const knapperCount = knapperCountMatch ? knapperCountMatch[1] : null;
 
+      // A token naming one of this product's own sizes describes a variant
+      // of it, not a different product - "QcK Heavy XXL" is still QcK Heavy.
+      // Size words stay in DISALLOWED_EXTRA generally, because for anything
+      // that isn't sold in sizes they really do signal a different SKU.
+      const ownSizeTokens = new Set((cat.sizeNames ?? []).flatMap((s) => tokenize(s)));
+
       const dangerousExtraTokens = feedTokens.filter(
         (t) =>
-          !catTokenSet.has(t) &&
+          !catTokenSet.has(canonicalToken(t)) &&
           !brandTokens.has(t) &&
+          !ownSizeTokens.has(t) &&
           t !== knapperCount &&
           !(cat.category === "skaerme" && isSpecDescriptor(t)) &&
           isDangerousToken(t, knapperCount)
       );
 
-      const eanConfirmed = Boolean(cat.ean) && cat.ean === item.gtin;
+      const eanConfirmed =
+        (Boolean(cat.ean) && cat.ean === item.gtin) || (cat.extraEans ?? []).includes(item.gtin);
+
+      const matchedSize =
+        (cat.sizeNames ?? []).find((s) => {
+          const sizeTokens = tokenize(s);
+          if (sizeTokens.length === 0) return false;
+          // A size already spelled out in the product's own name ("QcK
+          // Large") is not a variant caveat, it's just the product.
+          if (sizeTokens.every((t) => catTokenSet.has(canonicalToken(t)))) return false;
+          return sizeTokens.every((t) => feedTokenSet.has(canonicalToken(t)));
+        }) ?? null;
 
       if (dangerousExtraTokens.length > 0 && !eanConfirmed) {
         nearMiss.set(cat.slug, {
@@ -169,6 +214,7 @@ export function matchFeedAgainstCatalog(
         category: cat.category,
         ean: item.gtin,
         eanConfirmed,
+        matchedSize,
         priceDkk: item.priceDkk,
         inStock: item.inStock,
         produktUrl: item.produktUrl,
