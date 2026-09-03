@@ -35,7 +35,7 @@ gear to the catalog. Admin health dashboard, freshness-ticket system, and a
 weekly re-verify routine keep this from going stale — see the "Data
 freshness" checklist in `AGENTS.md`.
 
-## Data completeness snapshot (2026-08-10)
+## Data completeness snapshot (2026-09-03)
 
 Computed by walking the real transform-layer data (`pros`, `mice`,
 `keyboards`, `headsets`, `monitors`, `mousepads`) against four axes — has an
@@ -48,12 +48,18 @@ even though offers matter more) — read the columns, not just the last one,
 before prioritizing work.
 
 **Pros** (366 total) — offers/copy don't apply; "peripherals" replaces them.
-Updated 2026-08-10 (cont. 2) after a full peripheral-completeness push — see
-Log for method:
+Recomputed 2026-09-03:
 
 | Image | Has peripheral entry | Full setup (4/4 fields) | Verified (≤90d) | Overall¹ |
 |---|---|---|---|---|
-| 100% (366/366) | 94% (343/366) | 89% (324/366) | 99% (362/366) | **98%** |
+| 94% (345/366) | 94% (343/366) | 89% (324/366) | 98% (357/366) | **95%** |
+
+The image column **fell from a reported 100% to 94%, and the old number was
+the wrong one.** 345 pros carry a `billede`, every one of which resolves to
+a real file, and 21 carry none — the 2026-08-10 "100% (366/366)" counted
+files in `public/images/pros/` without checking that a pro actually pointed
+at each. `/admin` now reports this axis correctly (see the Log entry below),
+so the number is measured rather than asserted from here on.
 
 ¹ Overall averages image/peripherals/verified (same three columns as the
 original snapshot) — "full setup" is a stricter, newer sub-metric shown for
@@ -63,34 +69,39 @@ incomparable to its own history.
 
 **Products:**
 
-| Category | Image | Offers | Copy | Verified | Overall |
-|---|---|---|---|---|---|
-| Mice (55) | 62% (34/55) | 27% (15/55) | 53% (29/55) | n/a¹ | **47%** |
-| Keyboards (8) | 63% (5/8) | 38% (3/8) | 100% (8/8) | 0% (0/8)² | **50%** |
-| Headsets (12) | 100% (12/12) | 58% (7/12) | 100% (12/12) | 100% (12/12) | **90%** |
-| Monitors (5) | 80% (4/5) | 20% (1/5) | 100% (5/5) | 100% (5/5) | **75%** |
-| Mousepads (17) | 88% (15/17) | 18% (3/17) | 100% (17/17) | 100% (17/17) | **77%** |
+| Category | Image | Any offer | Real per-product offer¹ | Copy | Verified | Overall |
+|---|---|---|---|---|---|---|
+| Mice (55) | 73% (40/55) | 36% (20/55) | 36% (20/55) | 78% (43/55) | 0% (0/55)² | **47%** |
+| Keyboards (8) | 63% (5/8) | 38% (3/8) | 25% (2/8) | 100% (8/8) | 0% (0/8)³ | **50%** |
+| Headsets (12) | 100% (12/12) | 75% (9/12) | 50% (6/12) | 100% (12/12) | 100% (12/12) | **94%** |
+| Monitors (5) | 80% (4/5) | 20% (1/5) | 20% (1/5) | 100% (5/5) | 100% (5/5) | **75%** |
+| Mousepads (17) | 88% (15/17) | 24% (4/17) | 24% (4/17) | 100% (17/17) | 100% (17/17) | **78%** |
 
-¹ `MouseSchema` has no `kilde`/`sidstVerificeret` field at all — mice have no
-verification-staleness concept in the data model, unlike the other 4
-categories. Not "n/a because it's fine" — genuinely untracked.
-² All 8 keyboards read as "aldrig verificeret" — not a few stale ones, the
+¹ New column, and the one that matters for Phase 4. "Any offer" counts a
+generic category-*search* link as coverage; "real per-product offer" counts
+only a link to the product's own page. The gap between the two columns is
+the work left. Overall still averages the original four axes (image / any
+offer / copy / verified) so it stays comparable to earlier snapshots — read
+the real-offer column, not Overall, when prioritizing.
+² Mice now *have* `kilde`/`sidstVerificeret` (added 2026-09-03) — the 0% is
+a real, measured "aldrig verificeret" across all 55 rather than the previous
+snapshot's "n/a, genuinely untracked". Nothing was backfilled; a date nobody
+verified would be worse than an honest zero.
+³ All 8 keyboards read as "aldrig verificeret" — not a few stale ones, the
 entire category has zero verification-date tracking in practice.
 
-**Known dashboard bug found while computing this:** `/admin`'s "Pros uden
-billede" stat card checks `p.billede`, a field `pros.ts` structurally never
-populates (`grep billede src/data/pros.ts` → zero matches) — pro images are
-actually resolved by `pro-avatar.tsx` deriving `/images/pros/{slug}.png`
-from the slug at render time. So that stat card currently reads 366/366
-(the entire roster) as "missing an image" regardless of reality; the real
-number above (92 missing) came from checking file existence directly. Worth
-fixing `checkMissingImagesPros` to check the real signal — not done in this
-pass, flagged for a follow-up.
+**The "known dashboard bug" this section used to describe is gone**, and it
+was already gone before 2026-09-03: `pros.ts` populates `billede` for 345
+of 366 pros (the commits that closed the missing-pro-image backlog added
+it), so `checkMissingImagesPros` reads a real signal and reports 21, not
+366. The paragraph that claimed otherwise stood here long enough to send a
+later session hunting a fix that didn't need writing — when a note here
+describes a bug, re-check it against the code before acting on it.
 
-**To refresh this snapshot:** re-run the same four-axis check against
-current data (image file existence, `offers.length`, non-empty
-beskrivelse/fordele/ulemper, `sidstVerificeret` staleness) rather than
-incrementing numbers by hand.
+**To refresh this snapshot:** re-run the same axes against current data
+(image file existence, `offers.length`, offers with `generisk !== true` for
+the real-offer column, non-empty beskrivelse/fordele/ulemper,
+`sidstVerificeret` staleness) rather than incrementing numbers by hand.
 
 ## Phase 3 — Real affiliate program integration 🔄
 
@@ -140,6 +151,13 @@ Partner-ads.com is wired up (`partnerid=57198`). Status per retailer:
   EAN ambiguity (catalog `ean` likely represents one size, feed EAN a
   different one) and was left for a future pass. Monitors: no Geek'd
   candidates found in this catalog's SKUs.
+
+  **Both of those were fixed 2026-09-03** — the matcher now treats Danish
+  "trådløs" and English "wireless" as the same token, and a mousepad's own
+  size names no longer read as a different SKU. `hyperx-cloud-ii-wireless`
+  matched its Geek'd listing on the next run; `steelseries-qck-heavy`
+  matched too. Both are name-matches rather than EAN-confirmed, so both sit
+  in the `/admin/feeds` review queue rather than being applied.
 - **Computersalg, Coolshop, Elgiganten, AVXperten, Dustin Home, Komplett,
   Billo** — ❌ **removed entirely, 2026-08-10.** Same failure mode as
   MaxGaming: placeholder entries in `retailers.ts` (category-search URLs
@@ -194,7 +212,9 @@ image source** (same boundary as the price/link work — neither feed
 matched them); tracked as a follow-up, not yet a ticket of its own. The
 `/musemaatter` list page also doesn't render `billede` at all yet
 (unrelated pre-existing gap, found during this pass) — mousepad detail
-pages show the real photo, list cards still show a monogram.
+pages show the real photo, list cards still show a monogram. *(Fixed since:
+`mousepad-card.tsx` renders `billede` through `ProductImage` like every
+other category's card — verified 2026-09-03.)*
 
 **2026-08-09 follow-up audit:** a user report ("white background was never
 removed from packshots") prompted a pixel-level re-check of all 97 catalog
@@ -243,8 +263,10 @@ Goal: every catalog product has at least one real, priced, verified DK
 retailer offer — or, where no DK retailer carries it, a documented closest
 substitute instead of a dead end.
 
-Currently open as a tracked ticket: **33 mice, 5 keyboards, 4 monitors, 14
-mousepads** have zero retailer offers (mostly boutique brands — Vaxee,
+Currently open as a tracked ticket (recounted 2026-09-03): **35 mice, 5
+keyboards, 3 headsets, 4 monitors, 13 mousepads** have zero retailer offers
+of any kind, and a further 4 (1 keyboard, 3 headsets) have only a generic
+category-search link. Mostly boutique brands — Vaxee,
 Finalmouse, Fnatic, PMM, Waizowl, Fallen Gear, Sony Inzone, assorted ZOWIE
 regional SKUs — plus several products whose only offer turned out to be an
 unverified/fake link removed 2026-08-08). See `/admin/tickets` → "No
@@ -1347,3 +1369,80 @@ retailer coverage" for the current list and method.
   across 4 categories still show only their generic-fallback offer until
   someone runs feed-sync candidates through Anvend or manually sources
   real per-product links, the same way mice/some headsets already have.
+
+- **2026-09-03** — Session opened with ~2,000 lines of uncommitted work in
+  the tree: the whole `src/lib/feed-sync/` subsystem, its API routes and
+  `/admin/feeds` UI, the Redis wiring, `product-status.ts`, `pro-teams.ts`,
+  `/sammenlign/mus/[par]`, **and the 474 ROADMAP lines documenting the
+  2026-08-15 → 2026-08-22 sessions**. All four validation layers passed, so
+  it was committed as-is rather than reconstructed. One scratch file
+  (`feed-sync/__check2.test.ts`, a console.log debugging harness that hit
+  the live network from inside `npm test`) was dropped instead.
+
+  **Closed the gap that kept 4 categories at zero real offers.** Feed-sync's
+  `hasExistingOffer` counted a generic category-*search* fallback as a
+  human-verified offer, so the products that most needed a real
+  per-product URL were exactly the ones that never produced a review
+  candidate. `AffiliateOffer` now carries an optional `generisk` flag, set
+  by the three offer builders (`buildFlatOffers`, `kbOffers`, mousepads'
+  `buildOffers`) and never by hand — an offer read verbatim from a raw
+  `offers[]` array is individually authored, so absent means real and no
+  existing data changed. `mergeOffers()` drops a retailer's fallback once
+  that retailer has a real offer (both surviving would resolve the same
+  `price:{slug}__{retailer}` override behind two different URLs and render
+  as duplicate rows). `run.ts` now has three cases instead of two: no offer
+  → candidate; generic-only → refresh *and* candidate; real per-product
+  offer → refresh only. Nothing is auto-applied — the review gate is
+  untouched.
+
+  Ran the four live feeds (Proshop 261k items, Geek'd 7.3k, Komplett 6.3k,
+  AV-Cables 5.6k, zero errors). Candidates went **4 → 20**. Applied the 13
+  EAN-confirmed ones: `asus-rog-azoth-96-he`, `steelseries-qck-large`,
+  `hyperx-cloud-iii`, `zowie-xl2586x-plus`, `asus-rog-delta-ii`,
+  `zowie-ec2-dw`, `zowie-fk2-dw`, `logitech-g-pro-x`, `pulsar-es-saturn-pro`
+  (Proshop); `steelseries-qck-large`, `logitech-g915-tkl`,
+  `logitech-g-pro-x` (Geek'd); `razer-viper-v3-pro` (Komplett). Products
+  with at least one real per-product offer: **28/97 → 33/97**; keyboards
+  0 → 2, monitors 0 → 1, mousepads 3 → 4. The 7 name-matched (not
+  EAN-confirmed) candidates were left in `/admin/feeds` for a human call —
+  that gate exists precisely for matches a barcode didn't confirm.
+
+  **Two matcher gaps from 2026-08-08 closed.** Danish feed titles vs English
+  catalog names: "Trådløs" and "Wireless" are now the same token, so the 8
+  products with "Wireless" in their name can match their own Danish listing
+  (`hyperx-cloud-ii-wireless` did, immediately) while the wired sibling
+  still correctly rejects it. And a mousepad is one product sold as several
+  sized SKUs: `MousepadSchema.størrelser` entries take an optional per-size
+  `ean`, `CatalogItem` carries every known EAN plus its own size names, and
+  a feed token naming one of the product's *own* sizes no longer reads as a
+  different SKU. The matched size rides through to `/admin/feeds` so a
+  reviewer sees which size a price refers to before applying it. No
+  per-size EANs are populated yet — recording one nobody verified would
+  fake a confirmation.
+
+  **Mice joined the verification model.** `MouseSchema` gains nullable
+  `kilde`/`sidstVerificeret` — it was the one category with no staleness
+  concept at all — and `/admin` staleness-checks mice. Nothing backfilled:
+  all 55 read "aldrig verificeret", which is the honest state rather than
+  clean-by-omission.
+
+  **Image health checks hardened.** `checkMissingImages` /
+  `checkMissingImagesPros` can now tell "no `billede`" apart from "`billede`
+  points at a file that isn't there" (`broken-image` / `broken-pro-image`);
+  the checks stay pure, `/admin` walks `public/images` at build time and
+  passes the paths in. Zero broken paths across pros and all 5 catalogs
+  today — this is the regression guard for the failure that already
+  happened once (a pro image saved as `.webp` while `pros.ts` said `.png`).
+
+  **Two ROADMAP notes were wrong and are corrected in place** rather than
+  contradicted from down here: the "Known dashboard bug" paragraph under
+  the completeness snapshot (`pros.ts` does populate `billede`, for 345 of
+  366 — later commits fixed it and the note stood), and the
+  "`/musemaatter` list page doesn't render `billede`" line (it does, via
+  `ProductImage`). A stale known-bug note costs a later session a real
+  detour; both were verified against the code before rewriting.
+
+  New tests: `data-health.test.ts` (6), `feed-sync/matcher.test.ts` (8),
+  `mergeOffers` coverage in `build-offers.test.ts` (3), plus two new
+  `run.test.ts` cases pinning the generic-only behavior. 87 pass.
+  `validate-data`, `lint` (0 errors) and a full `next build` all pass.
