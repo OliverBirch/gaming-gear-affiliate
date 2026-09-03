@@ -9,13 +9,18 @@ const CATALOG: CatalogItem[] = [
   { slug: "gamma-mouse", navn: "Gammagear Nova", brand: "Gammagear", category: "mus", ean: "3333333333333" },
 ];
 
-// Only alpha-mouse and gamma-mouse already have a human-verified proshop
-// offer; beta-mouse is a brand-new pairing and must surface as a candidate,
-// never an auto-applied price.
+// Three offer states, one per fixture product:
+//   alpha-mouse — a real, individually-authored proshop offer: refresh only.
+//   gamma-mouse — only the generic category-search fallback: safe to refresh
+//                 a price against, but still missing the product's own link,
+//                 so it must ALSO surface as a candidate.
+//   beta-mouse  — no offer at all: candidate, never an auto-applied price.
 vi.mock("./catalog", () => ({ loadCatalog: () => CATALOG }));
 vi.mock("./existing-offers", () => ({
   hasExistingOffer: (slug: string, retailer: string) =>
     retailer === "proshop" && (slug === "alpha-mouse" || slug === "gamma-mouse"),
+  hasPerProductOffer: (slug: string, retailer: string) =>
+    retailer === "proshop" && slug === "alpha-mouse",
 }));
 
 const { redisGet } = await import("@/lib/redis");
@@ -115,10 +120,26 @@ describe("runFeedSync", () => {
     expect(candidate).toMatchObject({ slug: "beta-mouse", priceDkk: 799, inStock: false });
   });
 
+  it("gives a generic-fallback-only pair both a refresh and a candidate", async () => {
+    // The gap this closes: a category-search fallback made the pair look
+    // covered, so the feed's real per-product URL was never offered for
+    // review — exactly the products that most needed one.
+    await runFeedSync("proshop");
+    expect(await redisGet("price:gamma-mouse__proshop")).toEqual({ inStock: true });
+    expect(await redisGet<{ slug: string }>("feedcandidate:proshop:gamma-mouse")).toMatchObject({
+      slug: "gamma-mouse",
+    });
+  });
+
+  it("leaves a pair that already has a real per-product offer alone", async () => {
+    await runFeedSync("proshop");
+    expect(await redisGet("feedcandidate:proshop:alpha-mouse")).toBeNull();
+  });
+
   it("dryRun performs zero Redis writes", async () => {
     const { wouldWritePrices, wouldWriteCandidates } = await runFeedSync("proshop", { dryRun: true });
     expect(wouldWritePrices?.length).toBe(2); // alpha + gamma
-    expect(wouldWriteCandidates?.length).toBe(1); // beta
+    expect(wouldWriteCandidates?.length).toBe(2); // beta (no offer) + gamma (generic only)
 
     const price = await redisGet("price:alpha-mouse__proshop-dryrun-check");
     expect(price).toBeNull();

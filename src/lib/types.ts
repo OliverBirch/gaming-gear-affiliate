@@ -65,6 +65,19 @@ export const AffiliateOfferSchema = z.object({
   prisDkk: z.number().optional(),
   payoutPct: z.number(),
   inStock: z.boolean().optional(),
+  /**
+   * True when `produktUrl` is a category *search* page rather than this
+   * product's own page — the fallback several categories still carry for
+   * products with no real per-product link yet. Set by the offer builders
+   * (build-offers.ts, kbOffers, mousepads' buildOffers), never hand-written:
+   * an offer read verbatim from a raw `offers[]` array is individually
+   * authored and therefore not generic, which is why absent means real.
+   *
+   * feed-sync uses it to tell "this pair is covered" apart from "this pair
+   * has a real link" — without it a generic fallback masks the very product
+   * that most needs a real one.
+   */
+  generisk: z.boolean().optional(),
 });
 
 export type AffiliateOffer = z.infer<typeof AffiliateOfferSchema>;

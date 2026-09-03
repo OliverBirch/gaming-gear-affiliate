@@ -158,6 +158,16 @@
       "wireless": true,
       "retailers": [
         "proshop"
+      ],
+      "offers": [
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Tastatur/ASUS-ROG-Azoth-96-HE-Gaming-Tastatur-Nordisk-Sort/3419415",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 2399,
+          "produktUrl": "https://www.proshop.dk/Tastatur/ASUS-ROG-Azoth-96-HE-Gaming-Tastatur-Nordisk-Sort/3419415",
+          "retailer": "proshop"
+        }
       ]
     },
     {
@@ -222,6 +232,16 @@
       "wireless": true,
       "retailers": [
         "geekd"
+      ],
+      "offers": [
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=74912&partnerid=57198&htmlurl=https://geekd.dk/products/logitech-g915-tkl-tenkeyless-lightspeed-wireless-rgb-mechanical-gaming-tastatur-mekanisk-lightsync-tradlos-nordisk",
+          "inStock": true,
+          "payoutPct": 4,
+          "prisDkk": 1499,
+          "produktUrl": "https://geekd.dk/products/logitech-g915-tkl-tenkeyless-lightspeed-wireless-rgb-mechanical-gaming-tastatur-mekanisk-lightsync-tradlos-nordisk",
+          "retailer": "geekd"
+        }
       ]
     },
     {

@@ -99,6 +99,14 @@
           "payoutPct": 4.2,
           "prisDkk": 579,
           "inStock": true
+        },
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Hovedtelefonerheadset2/HyperX-Cloud-III-Black/3190641",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 466,
+          "produktUrl": "https://www.proshop.dk/Hovedtelefonerheadset2/HyperX-Cloud-III-Black/3190641",
+          "retailer": "proshop"
         }
       ],
       "beskrivelse": "HyperX Cloud III er den seneste generation af HyperX' populære Cloud-serie. Med forbedret komfort, DTS Headphone:X rumlig lyd og en opgraderet 53 mm driver, leverer den en endnu bedre lydoplevelse end forgængeren. Den robuste aluminiumsramme og USB-C tilslutning gør den klar til moderne gaming.",
@@ -224,6 +232,22 @@
           "prisDkk": 979,
           "produktUrl": "https://www.komplett.dk/product/1133526/gaming/spiludstyr/gamingheadset/logitech-g-pro-x-gaming-headset-sort?channable=033d1d6964003131333335323624",
           "retailer": "komplett"
+        },
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Hovedtelefonerheadset2/Logitech-G-Pro-X/3283695",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 728,
+          "produktUrl": "https://www.proshop.dk/Hovedtelefonerheadset2/Logitech-G-Pro-X/3283695",
+          "retailer": "proshop"
+        },
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=74912&partnerid=57198&htmlurl=https://geekd.dk/products/logitech-g-pro-x-gaming-headset-inkl-stand-schwarz",
+          "inStock": true,
+          "payoutPct": 4,
+          "prisDkk": 748,
+          "produktUrl": "https://geekd.dk/products/logitech-g-pro-x-gaming-headset-inkl-stand-schwarz",
+          "retailer": "geekd"
         }
       ]
     },
@@ -338,6 +362,14 @@
           "prisDkk": 1990,
           "produktUrl": "https://geekd.dk/products/asus-rog-delta-ii-wireless-gaming-headset",
           "retailer": "geekd"
+        },
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Hovedtelefonerheadset2/ASUS-ROG-DELTA-II-Sort/3279467",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 1790,
+          "produktUrl": "https://www.proshop.dk/Hovedtelefonerheadset2/ASUS-ROG-DELTA-II-Sort/3279467",
+          "retailer": "proshop"
         }
       ],
       "beskrivelse": "ASUS ROG Delta II er anden generation af ASUS' populære Delta-serie. Med 50 mm ASUS Essence drivere, quad-DAC teknologi og Hi-Res Audio certificering leverer den enestående lydkvalitet. Den understøtter både 2.4 GHz trådløs og Bluetooth, har 45 timers batteritid og en aftagelig mikrofon med AI-støjreduktion.",

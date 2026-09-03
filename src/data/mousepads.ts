@@ -1,5 +1,6 @@
 import type { Mousepad, AffiliateOffer } from "@/lib/types";
 import { MousepadSchema } from "@/lib/types";
+import { mergeOffers } from "./build-offers";
 import raw from "./mousepads.json";
 import { getMousepadProSlugs } from "./pros-peripherals-mapping";
 
@@ -81,6 +82,7 @@ function buildOffers(
       prisDkk: pris,
       payoutPct: retailer === "geekd" ? 4.0 : 3.5,
       inStock: true,
+      generisk: true,
     });
   }
   // No verified retailer carries this product: show no offer rather than a
@@ -114,7 +116,7 @@ const _builtPads: Mousepad[] = (raw.mousepads as unknown as RawMousepad[]).map((
   vaskbar: m.vaskbar,
   billede: m.billede ?? null,
   prisNiveau: m.prisNiveau,
-  offers: [...buildOffers(m.priser ?? null), ...(m.offers ?? [])],
+  offers: mergeOffers(buildOffers(m.priser ?? null), m.offers),
   beskrivelse: m.beskrivelse,
   fordele: m.fordele,
   ulemper: m.ulemper,

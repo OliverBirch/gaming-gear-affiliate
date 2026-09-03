@@ -1,6 +1,6 @@
 import type { Monitor, AffiliateOffer } from "@/lib/types";
 import { MonitorSchema } from "@/lib/types";
-import { buildFlatOffers, type BuildOffersConfig } from "./build-offers";
+import { buildFlatOffers, mergeOffers, type BuildOffersConfig } from "./build-offers";
 import raw from "./monitors.json";
 import { getMonitorProSlugs } from "./pros-peripherals-mapping";
 
@@ -63,7 +63,7 @@ const _builtMonitors: Monitor[] = (raw.monitors as RawMonitor[]).map((m) => ({
   buet: m.buet,
   prisNiveau: m.prisNiveau,
   billede: m.billede ?? null,
-  offers: [...buildFlatOffers(m.priser ?? null, OFFER_CONFIG), ...(m.offers ?? [])],
+  offers: mergeOffers(buildFlatOffers(m.priser ?? null, OFFER_CONFIG), m.offers),
   beskrivelse: m.beskrivelse,
   fordele: m.fordele,
   ulemper: m.ulemper,

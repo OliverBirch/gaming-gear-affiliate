@@ -1,6 +1,6 @@
 import type { Headset, AffiliateOffer } from "@/lib/types";
 import { HeadsetSchema } from "@/lib/types";
-import { buildFlatOffers, type BuildOffersConfig } from "./build-offers";
+import { buildFlatOffers, mergeOffers, type BuildOffersConfig } from "./build-offers";
 import raw from "./headsets.json";
 import { getHeadsetProSlugs } from "./pros-peripherals-mapping";
 
@@ -67,7 +67,7 @@ const _builtHeadsets: Headset[] = (raw.headsets as RawHeadset[]).map((h) => ({
   surroundSound: h.surroundSound,
   prisNiveau: h.prisNiveau,
   billede: h.billede ?? null,
-  offers: [...buildFlatOffers(h.priser ?? null, OFFER_CONFIG), ...(h.offers ?? [])],
+  offers: mergeOffers(buildFlatOffers(h.priser ?? null, OFFER_CONFIG), h.offers),
   beskrivelse: h.beskrivelse,
   fordele: h.fordele,
   ulemper: h.ulemper,

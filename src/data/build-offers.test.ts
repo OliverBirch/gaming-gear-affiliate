@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildFlatOffers, type BuildOffersConfig } from "./build-offers";
+import { buildFlatOffers, mergeOffers, type BuildOffersConfig } from "./build-offers";
 
 const HEADSET_CONFIG: BuildOffersConfig = {
   searchUrls: {
@@ -17,6 +17,8 @@ describe("buildFlatOffers", () => {
       { geekd: 1299, proshop: 1399 },
       HEADSET_CONFIG
     );
+    // generisk marks these as category-search links, not product pages —
+    // feed-sync reads it to know the pair still needs a real URL.
     expect(offers).toEqual([
       {
         retailer: "geekd",
@@ -24,6 +26,7 @@ describe("buildFlatOffers", () => {
         prisDkk: 1299,
         payoutPct: 4.0,
         inStock: true,
+        generisk: true,
       },
       {
         retailer: "proshop",
@@ -31,6 +34,7 @@ describe("buildFlatOffers", () => {
         prisDkk: 1399,
         payoutPct: 3.5,
         inStock: true,
+        generisk: true,
       },
     ]);
   });
@@ -71,5 +75,38 @@ describe("buildFlatOffers", () => {
     expect(
       offers.find((o) => (o.retailer as string) === "unlisted")?.payoutPct
     ).toBe(3.5);
+  });
+});
+
+describe("mergeOffers", () => {
+  const generic = (retailer: string) => ({
+    retailer: retailer as never,
+    produktUrl: `https://${retailer}/search`,
+    payoutPct: 3.5,
+    generisk: true,
+  });
+  const real = (retailer: string) => ({
+    retailer: retailer as never,
+    produktUrl: `https://${retailer}/product/x`,
+    payoutPct: 3.5,
+  });
+
+  it("drops the generic fallback for a retailer that now has a real offer", () => {
+    // Both surviving would resolve the same price:{slug}__{retailer}
+    // override behind two different URLs — a duplicate row per retailer.
+    const merged = mergeOffers([generic("proshop"), generic("geekd")], [real("proshop")]);
+    expect(merged.map((o) => [o.retailer, o.produktUrl])).toEqual([
+      ["geekd", "https://geekd/search"],
+      ["proshop", "https://proshop/product/x"],
+    ]);
+  });
+
+  it("keeps every fallback when there are no real offers", () => {
+    expect(mergeOffers([generic("proshop")], undefined)).toHaveLength(1);
+    expect(mergeOffers([generic("proshop")], [])).toHaveLength(1);
+  });
+
+  it("keeps real offers for retailers with no fallback", () => {
+    expect(mergeOffers([], [real("komplett")]).map((o) => o.retailer)).toEqual(["komplett"]);
   });
 });

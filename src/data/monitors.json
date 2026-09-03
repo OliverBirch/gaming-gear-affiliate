@@ -30,7 +30,17 @@
         "Kun Full HD opløsning"
       ],
       "udstyrskilde": "turneringsudstyr",
-      "sidstOpdateret": "2026-07-22"
+      "sidstOpdateret": "2026-07-22",
+      "offers": [
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Skaerm/241-BenQ-ZOWIE-XL2586X-1920x1080-FHD-600Hz-TN/3326554",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 7913,
+          "produktUrl": "https://www.proshop.dk/Skaerm/241-BenQ-ZOWIE-XL2586X-1920x1080-FHD-600Hz-TN/3326554",
+          "retailer": "proshop"
+        }
+      ]
     },
     {
       "slug": "zowie-xl2566k",

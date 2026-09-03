@@ -542,6 +542,22 @@
           "prisDkk": 145,
           "produktUrl": "https://www.komplett.dk/product/1337642/gaming/spiludstyr/gamingmusemaatte/steelseries-qck-large-musemaatte-hvid?channable=033d1d69640031333337363432f2",
           "retailer": "komplett"
+        },
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Musemaatte-tilbehoer/SteelSeries-QcK-Large/2100985",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 159,
+          "produktUrl": "https://www.proshop.dk/Musemaatte-tilbehoer/SteelSeries-QcK-Large/2100985",
+          "retailer": "proshop"
+        },
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=74912&partnerid=57198&htmlurl=https://geekd.dk/products/steelseries-qck-large-musematte",
+          "inStock": true,
+          "payoutPct": 4,
+          "prisDkk": 271,
+          "produktUrl": "https://geekd.dk/products/steelseries-qck-large-musematte",
+          "retailer": "geekd"
         }
       ]
     },
@@ -667,7 +683,17 @@
         "Høj pris",
         "Kan være udsolgt i populære varianter"
       ],
-      "anbefaletEdpiInterval": "200–400"
+      "anbefaletEdpiInterval": "200–400",
+      "offers": [
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Musemaatte-tilbehoer/Pulsar-eS-Pad-Series-Saturn-Pro/3479709",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 489,
+          "produktUrl": "https://www.proshop.dk/Musemaatte-tilbehoer/Pulsar-eS-Pad-Series-Saturn-Pro/3479709",
+          "retailer": "proshop"
+        }
+      ]
     },
     {
       "slug": "xtrfy-gp4",

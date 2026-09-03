@@ -20,6 +20,25 @@ export type BuildOffersConfig = {
   defaultPayoutPct: number;
 };
 
+/**
+ * Generic fallbacks plus individually-authored real offers, with the
+ * fallback dropped for any retailer that now has a real one.
+ *
+ * Both would otherwise survive into `offers[]` for the same retailer, and
+ * the price override that drives live pricing is keyed `{slug}__{retailer}`
+ * — so the two entries would resolve to the same price behind two different
+ * URLs and render as duplicate rows in the price comparison. Dropping the
+ * fallback per retailer is also the ROADMAP's stated intent: remove a
+ * category's fallback once, and only once, real data actually backs it.
+ */
+export function mergeOffers(
+  generic: AffiliateOffer[],
+  real: AffiliateOffer[] | undefined
+): AffiliateOffer[] {
+  const realRetailers = new Set((real ?? []).map((o) => o.retailer));
+  return [...generic.filter((o) => !realRetailers.has(o.retailer)), ...(real ?? [])];
+}
+
 export function buildFlatOffers(
   priser: Record<string, number | null | undefined> | null,
   config: BuildOffersConfig
@@ -37,6 +56,7 @@ export function buildFlatOffers(
       prisDkk: pris,
       payoutPct: config.payoutPct[retailer] ?? config.defaultPayoutPct,
       inStock: true,
+      generisk: true,
     });
   }
 

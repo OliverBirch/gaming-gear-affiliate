@@ -96,6 +96,14 @@
           "prisDkk": 950,
           "produktUrl": "https://www.proshop.dk/Mus/Razer-Viper-V3-Pro-Wireless-Gaming-Mus-Optisk-6-knapper-Sort/3241622",
           "retailer": "proshop"
+        },
+        {
+          "affiliateUrl": "https://go.adt231.net/t/t?a=1658323777&as=2095414612&t=2&tk=1&cupa_sku=1305009&fid=846&url=https://www.komplett.dk/product/1305009/gaming/spiludstyr/gamingmus/razer-viper-v3-pro-wireless-esports-gaming-mus-sort?channable=033d1d6964003133303530303905",
+          "inStock": true,
+          "payoutPct": 2.5,
+          "prisDkk": 1160,
+          "produktUrl": "https://www.komplett.dk/product/1305009/gaming/spiludstyr/gamingmus/razer-viper-v3-pro-wireless-esports-gaming-mus-sort?channable=033d1d6964003133303530303905",
+          "retailer": "komplett"
         }
       ],
       "pollingHz": 4000,
@@ -140,7 +148,16 @@
       "lodMm": 1.5,
       "maxDpi": 3200,
       "navn": "ZOWIE EC2-DW",
-      "offers": [],
+      "offers": [
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Mus/BenQ-Zowie-EC2-DW-Medium-Wireless-Mouse-for-Esports-Gaming-Mus-Optisk-7-knapper-Sort/3373269",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 1149,
+          "produktUrl": "https://www.proshop.dk/Mus/BenQ-Zowie-EC2-DW-Medium-Wireless-Mouse-for-Esports-Gaming-Mus-Optisk-7-knapper-Sort/3373269",
+          "retailer": "proshop"
+        }
+      ],
       "pollingHz": 1000,
       "prisNiveau": "mid",
       "sensor": "3360",
@@ -831,6 +848,14 @@
           "prisDkk": 1130,
           "produktUrl": "https://geekd.dk/products/zowie-by-benq-fk2-dw-wireless-mouse-pixart-3950-4k-polling-middle-size-black",
           "retailer": "geekd"
+        },
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Mus/BenQ-Zowie-FK2-DW-Medium-Wireless-Mouse-for-Esports-Gaming-Mus-Optisk-7-knapper-Sort/3335584",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 1149,
+          "produktUrl": "https://www.proshop.dk/Mus/BenQ-Zowie-FK2-DW-Medium-Wireless-Mouse-for-Esports-Gaming-Mus-Optisk-7-knapper-Sort/3335584",
+          "retailer": "proshop"
         }
       ],
       "pollingHz": 4000,

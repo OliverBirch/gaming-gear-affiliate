@@ -4,7 +4,7 @@ import type { OfferOverride } from "@/data/prices";
 import { redisSet } from "@/lib/redis";
 import { loadCatalog } from "./catalog";
 import { FEED_CONFIGS, FEED_TRANSPORT } from "./configs";
-import { hasExistingOffer } from "./existing-offers";
+import { hasExistingOffer, hasPerProductOffer } from "./existing-offers";
 import { matchFeedAgainstCatalog } from "./matcher";
 import { parsePartnerAdsXml } from "./adapters/partner-ads-xml";
 import { parseGoogleShoppingRss } from "./adapters/google-shopping-rss";
@@ -96,6 +96,13 @@ export async function runFeedSync(
   const wouldWriteCandidates: FeedCandidate[] = [];
 
   for (const match of matches.values()) {
+    // Three cases, not two. A pair whose only offer is the generic
+    // category-search fallback is "covered" enough to refresh a price
+    // against, but it still has no link to the product itself — and the
+    // feed is holding exactly that link. Those pairs get both: the refresh
+    // now, and a candidate so a human can trade the search page for the
+    // real one. Anything auto-applied would bypass the review gate, so
+    // nothing here writes to the catalog.
     if (hasExistingOffer(match.slug, retailer)) {
       // Only a refresh on an already human-verified pair is safe to
       // automate. priceDkk is omitted (not written as null) when the feed
@@ -108,9 +115,11 @@ export async function runFeedSync(
       if (!options.dryRun) {
         await redisSet(`price:${match.slug}__${retailer}`, value, FEED_SYNC_TTL_SECONDS);
       }
-    } else {
-      // A brand-new pairing must never be auto-applied — surfaced for
-      // manual review only.
+    }
+
+    if (!hasPerProductOffer(match.slug, retailer)) {
+      // Either a brand-new pairing or a generic-only one — never
+      // auto-applied, surfaced for manual review.
       const candidate: FeedCandidate = {
         retailer,
         slug: match.slug,

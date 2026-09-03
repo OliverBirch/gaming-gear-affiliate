@@ -18,16 +18,30 @@ import type { OfferableProduct, RetailerSlug } from "@/lib/types";
  * already-trusted pair is safe to automate.
  */
 let offerKeysCache: Set<string> | null = null;
+let perProductKeysCache: Set<string> | null = null;
 
-function buildOfferKeys(): Set<string> {
+function buildOfferKeys(): { all: Set<string>; perProduct: Set<string> } {
   const products: OfferableProduct[] = [...mice, ...keyboards, ...headsets, ...monitors, ...mousepads];
-  const keys = new Set<string>();
+  const all = new Set<string>();
+  const perProduct = new Set<string>();
   for (const product of products) {
     for (const offer of product.offers) {
-      keys.add(`${product.slug}__${offer.retailer}`);
+      const key = `${product.slug}__${offer.retailer}`;
+      all.add(key);
+      // A generic offer points at the retailer's category search page, so it
+      // covers the pair without linking to the product — see
+      // AffiliateOfferSchema.generisk.
+      if (!offer.generisk) perProduct.add(key);
     }
   }
-  return keys;
+  return { all, perProduct };
+}
+
+function ensureCaches(): void {
+  if (offerKeysCache && perProductKeysCache) return;
+  const { all, perProduct } = buildOfferKeys();
+  offerKeysCache = all;
+  perProductKeysCache = perProduct;
 }
 
 /** Call after writing a new offer directly to a category's JSON file (see
@@ -36,15 +50,26 @@ function buildOfferKeys(): Set<string> {
  * the process lifetime. */
 export function invalidateOfferKeysCache(): void {
   offerKeysCache = null;
+  perProductKeysCache = null;
 }
 
 /** Every `${slug}__${retailer}` pair with a human-verified offer today. */
 export function allOfferKeys(): string[] {
-  if (!offerKeysCache) offerKeysCache = buildOfferKeys();
-  return [...offerKeysCache];
+  ensureCaches();
+  return [...offerKeysCache!];
 }
 
+/** Any offer at all — generic fallback included. Gates the automated
+ * price/stock refresh, which is safe for either kind. */
 export function hasExistingOffer(slug: string, retailer: RetailerSlug): boolean {
-  if (!offerKeysCache) offerKeysCache = buildOfferKeys();
-  return offerKeysCache.has(`${slug}__${retailer}`);
+  ensureCaches();
+  return offerKeysCache!.has(`${slug}__${retailer}`);
+}
+
+/** A real, individually-authored per-product offer. A pair without one is
+ * still worth surfacing as a candidate even though it technically has an
+ * offer — the feed knows the product's own URL and the catalog doesn't. */
+export function hasPerProductOffer(slug: string, retailer: RetailerSlug): boolean {
+  ensureCaches();
+  return perProductKeysCache!.has(`${slug}__${retailer}`);
 }

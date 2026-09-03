@@ -1,5 +1,6 @@
 import type { Keyboard, AffiliateOffer } from "@/lib/types";
 import { KeyboardSchema } from "@/lib/types";
+import { mergeOffers } from "./build-offers";
 import raw from "./keyboards.json";
 import { getKeyboardProSlugs } from "./pros-peripherals-mapping";
 
@@ -58,6 +59,7 @@ function kbOffers(retailers: string[]): AffiliateOffer[] {
       retailer: r as AffiliateOffer["retailer"],
       produktUrl: KB_SEARCH_URLS[r],
       payoutPct: r === "geekd" ? 4.0 : 3.5,
+      generisk: true,
       // Left undefined (not hardcoded true) so a prices.json override can
       // actually mark a specific retailer out of stock — resolveOffer's
       // `offer.inStock ?? override?.inStock ?? true` only consults the
@@ -86,7 +88,7 @@ const _builtKeyboards: Keyboard[] = (raw.keyboards as RawKeyboard[]).map((k) => 
   fordele: k.fordele,
   ulemper: k.ulemper,
   billede: k.billede,
-  offers: [...kbOffers(k.retailers), ...(k.offers ?? [])],
+  offers: mergeOffers(kbOffers(k.retailers), k.offers),
   proBrugere: getKeyboardProSlugs(k.slug),
 }));
 
