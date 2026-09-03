@@ -1,4 +1,4 @@
-import type { Monitor } from "@/lib/types";
+import type { Monitor, AffiliateOffer } from "@/lib/types";
 import { MonitorSchema } from "@/lib/types";
 import { buildFlatOffers, type BuildOffersConfig } from "./build-offers";
 import raw from "./monitors.json";
@@ -24,6 +24,13 @@ type RawMonitor = {
   prisNiveau: Monitor["prisNiveau"];
   billede?: string | null;
   priser?: Record<string, number | null | undefined> | null;
+  /**
+   * Individually-authored per-product offers, additive to `priser`'s
+   * generic category-page offers — for a retailer whose feed gives a real
+   * per-product tracking link (see headsets.ts for the pattern this
+   * mirrors, and feed-sync/apply.ts which writes into this field).
+   */
+  offers?: AffiliateOffer[];
   beskrivelse: string;
   fordele: string[];
   ulemper: string[];
@@ -56,7 +63,7 @@ const _builtMonitors: Monitor[] = (raw.monitors as RawMonitor[]).map((m) => ({
   buet: m.buet,
   prisNiveau: m.prisNiveau,
   billede: m.billede ?? null,
-  offers: buildFlatOffers(m.priser ?? null, OFFER_CONFIG),
+  offers: [...buildFlatOffers(m.priser ?? null, OFFER_CONFIG), ...(m.offers ?? [])],
   beskrivelse: m.beskrivelse,
   fordele: m.fordele,
   ulemper: m.ulemper,

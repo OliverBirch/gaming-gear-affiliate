@@ -102,7 +102,7 @@ describe("productSchema", () => {
       ],
     });
     expect(schema.offers).toHaveLength(1);
-    expect(schema.offers[0].seller.name).toBe("geekd");
+    expect(schema.offers![0].seller.name).toBe("geekd");
   });
 
   it("prefers the affiliate URL when present", () => {
@@ -118,7 +118,7 @@ describe("productSchema", () => {
         },
       ],
     });
-    expect(schema.offers[0].url).toBe("https://tracked.test");
+    expect(schema.offers![0].url).toBe("https://tracked.test");
   });
 
   it("omits currency when an offer carries no price", () => {
@@ -126,7 +126,23 @@ describe("productSchema", () => {
       ...base,
       offers: [{ retailer: "geekd", produktUrl: "https://a.test", inStock: true }],
     });
-    expect(schema.offers[0].price).toBeUndefined();
-    expect(schema.offers[0].priceCurrency).toBeUndefined();
+    expect(schema.offers![0].price).toBeUndefined();
+    expect(schema.offers![0].priceCurrency).toBeUndefined();
+  });
+
+  // A bare `offers: []` is invalid for Google's Product rich-result
+  // eligibility — the key must be absent, not empty, when there's nothing
+  // to show (no offers configured, or every offer filtered as out-of-stock).
+  it("omits the offers key entirely when the input is empty", () => {
+    const schema = productSchema({ ...base, offers: [] });
+    expect("offers" in schema).toBe(false);
+  });
+
+  it("omits the offers key entirely when every offer is out of stock", () => {
+    const schema = productSchema({
+      ...base,
+      offers: [{ retailer: "geekd", produktUrl: "https://a.test", inStock: false }],
+    });
+    expect("offers" in schema).toBe(false);
   });
 });

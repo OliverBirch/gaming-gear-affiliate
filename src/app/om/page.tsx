@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import { breadcrumbList, webPageSchema, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata({
@@ -20,9 +20,9 @@ export default function OmPage() {
           den rigtige mus til dit spil.
         </p>
         <p>
-          Vores data stammer fra offentligt tilgængelige kilder som
-           prosettings.net og Liquipedia. Vi viser dato for sidste
-           verificering, fordi pro-gear skifter.
+          Vores data stammer fra offentligt tilgængelige kilder om
+          pro-spilleres udstyr. Vi viser dato for sidste verificering, fordi
+          pro-gear skifter.
         </p>
         <p>
           Vi tester ikke selv mus fysisk. Vores værdi ligger i at syntetisere
@@ -30,31 +30,30 @@ export default function OmPage() {
         </p>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Om ProSetups.dk", item: "https://prosetups.dk/om" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Om ProSetups.dk", path: "/om" },
+            ])
+          ),
         }}
       />
-      <Script
+      <script
         id="schema-webpage"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "AboutPage",
-            name: "Om ProSetups.dk",
-            description:
-              "ProSetups.dk er en dansk guide til gaming-mus med fokus på hvad professionelle esport-spillere bruger.",
-          }),
+          __html: jsonLd(
+            webPageSchema({
+              type: "AboutPage",
+              name: "Om ProSetups.dk",
+              description:
+                "ProSetups.dk er en dansk guide til gaming-mus med fokus på hvad professionelle esport-spillere bruger.",
+            })
+          ),
         }}
       />
     </div>

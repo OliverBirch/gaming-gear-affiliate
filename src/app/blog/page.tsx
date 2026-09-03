@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { blogPosts } from "@/data/blog";
+import { breadcrumbList, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata({
@@ -55,18 +55,16 @@ export default function BlogPage() {
         </div>
       </div>
 
-      <Script
+      <script
         id="schema-blog-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Blog", item: "https://prosetups.dk/blog" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Blog", path: "/blog" },
+            ])
+          ),
         }}
       />
     </>

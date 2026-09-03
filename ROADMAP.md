@@ -873,3 +873,477 @@ retailer coverage" for the current list and method.
   **Scope note:** `pulsar-susanto-x` remains a genuine stub (still zero
   specs) — it was never among the 14 tracked `stub-mouse-created` tickets,
   so it fell outside this pass; no ticket currently tracks it either.
+- **2026-08-16** — Fixed the Critical/High findings from the 2026-08-15 SEO
+  audit artifact (55/100 score). The site-wide `noindex`/`robots.txt` block
+  (Phase 5, pre-launch) was confirmed intentional again and left untouched,
+  along with its two dependent findings (`X-Robots-Tag` header, AI-crawler
+  robots.txt allow-listing) — both need the same three-layer unblock at
+  launch (robots.txt **and** the response header **and** the layout's
+  `<meta>` tag together, per the audit's own warning that fixing one without
+  the others leaves crawlers blocked). LCP/critical-CSS was deferred by
+  explicit user choice — GTM already loads `afterInteractive`, so the real
+  cause is one global Tailwind bundle with no critical-CSS split, a bigger
+  investigation than this pass. The audit's "no canonical tags" finding
+  turned out to be stale: `buildMetadata()` already sets
+  `alternates.canonical` on all ~29 routes — confirmed, no work needed.
+
+  **Fixed:** (1) All ~60 JSON-LD `<Script>` call sites across 32 files
+  switched from `next/script` (default `afterInteractive`, client-injected —
+  invisible to any crawler that doesn't run JS) to plain
+  `<script dangerouslySetInnerHTML>`, which Next inlines into static server
+  HTML. Verified empirically post-build by grepping `.next/server/app/**`
+  for `application/ld+json` — JSON-LD text is now physically present in the
+  prerendered HTML on every sampled route. (2) The 19 pages that hand-wrote
+  raw `JSON.stringify` JSON-LD instead of `schema-org.ts`'s builders were
+  migrated; added 5 new builders (`personSchema`, `personItemList`,
+  `articleSchema`, `faqSchema`, `webPageSchema`) to cover Person/Article/FAQ/
+  WebPage shapes the existing builders didn't. Homepage's duplicate `WebSite`
+  block (hand-rolled, redundant with `layout.tsx`'s site-wide one) was
+  removed rather than migrated. (3) `productSchema()` now omits the `offers`
+  key entirely instead of serializing `offers: []` when nothing survives the
+  in-stock filter (34/55 mice were emitting the invalid empty array) — kept
+  the rest of the Product block (name/brand/description/image) since that's
+  still valid with zero offers. (4) `SITE_URL` moved from apex
+  (`prosetups.dk`) to `www.prosetups.dk`, matching what the audit found
+  production actually serving from (apex 308-redirects to www) — user
+  confirmed www is correct and that this has no effect on local dev.
+  (5) Sitemap dedup: `sitemap.ts`'s team-page section built its `Set` over
+  freshly-constructed object literals, which never dedupes (`Set` uses
+  reference equality) — ~255 of 850 entries were exact duplicates. Root
+  cause was deeper than one dedup bug: the sitemap's own team filter
+  (excluded `"Content Creator"`, no esport-active filter) disagreed with
+  `[esport]/hold/[slug]/page.tsx`'s `generateStaticParams` filter (opposite
+  on both counts), so the sitemap was also listing pages that don't exist.
+  Extracted both into one shared `getTeamPages()` (`src/data/pro-teams.ts`)
+  so they can't drift again. Also found and fixed a second, unrelated
+  duplicate: `/guides/greb` was hardcoded in `sitemap.ts`'s static-pages list
+  *and* separately generated from the `guides` data array (it's a real guide
+  entry there) — removed the hardcoded copy. Sitemap: 850 → 596 unique
+  entries (then 606 after adding the new compare-pair pages below). Added
+  regression tests (`src/data/pro-teams.test.ts`, `src/app/sitemap.test.ts`)
+  asserting both global URL uniqueness and that the sitemap's team-page URLs
+  exactly match `getTeamPages()`'s output. (6) Stub product pages (zero
+  offers or zero core specs) get a per-page `generateMetadata` `robots:
+  {index: false, follow: true}` override via a new `buildMetadata({robots})`
+  param and shared `isStubOffers()` predicate (`src/lib/product-status.ts`)
+  — noindexed on their own merits so they stay excluded once the Phase 5
+  block eventually lifts, `follow: true` so internal links still get
+  crawled. Confirmed via build output: a known-stub mouse
+  (`pulsar-es-fs-1`) renders `noindex, follow`; a non-stub mouse
+  (`logitech-g-pro-x-superlight-2`) still inherits the layout's site-wide
+  `noindex, nofollow` unchanged. Applied to all 5 product categories, not
+  just mice. Paired with a UI fix: literal `0g`/`0×0×0mm`/`0 knapper`
+  spec-table values (and `PriceComparison` rendering nothing at all with no
+  offers) now show "Specs kommer snart" / "Ingen tilbud endnu" instead.
+  (7) Pro pages now state gear as a sentence per item (`"{pro} bruger en
+  {brand} {model}"`) inside each `GearItemCard`, not just a card grid with
+  no prose — the literal query pattern ("what mouse does X use") the site
+  exists to answer, previously answered nowhere in page text. Includes
+  Danish en/et article agreement per slot and a brand-prefix guard (skips
+  prepending when the product name already carries the brand, e.g.
+  mousepads). Verified in prerendered HTML. (8) `/sammenlign/mus` was an
+  empty shell with zero indexable pair URLs (canonical always collapsed
+  every `?p=` combination onto the bare picker page). Added 10 curated
+  static pages (`/sammenlign/mus/[par]`) among 5 mice that are both
+  pro-popular and have real offers/specs (avoided pairing in the several
+  top-pro-count mice that are themselves stub/zero-offer), each with a
+  pre-filled `CompareTable` and a short catalog-grounded verdict paragraph.
+  Wired into `sitemap.ts`, linked from a new "Populære sammenligninger"
+  section on the picker page, and from `/mus/[slug]`'s "Sammenlign side om
+  side" link when the pairing is curated (falls back to the `?p=` form
+  otherwise) — the missing internal link was caught and fixed after an
+  advisor review flagged the pages were otherwise unreachable from anywhere
+  on the site.
+
+  `tsc`, `vitest` (48 passed, up from 42 — 6 new tests), `npm run lint`
+  (clean of new issues — all pre-existing warnings/errors predate this
+  session, confirmed via `git show HEAD`), and a full `next build` (626
+  pages, up from 610) all pass.
+
+  **Completion vs. the audit:** Critical — 2/2 addressable items fixed (the
+  3rd, the robots block, is the intentional Phase 5 gate, not a defect).
+  High — 6/9 resolved (5 fixed + canonical tags confirmed already
+  implemented), 3/9 deferred by design (2 tied to the same Phase 5 block,
+  1 — LCP/critical-CSS — deferred by explicit user choice). Medium/Low
+  findings (thin guide content, duplicate title suffix, missing affiliate
+  disclosure, no visible author/methodology copy, duplicate-stat guide
+  content) are untouched — out of scope for this pass, not yet ticketed.
+- **2026-08-16 (cont.)** — Picked up the deferred LCP/critical-CSS finding
+  (homepage LCP 5.1s lab/mobile, hero `<h1>` waiting ~2.6s render delay
+  behind a render-blocking stylesheet). Two premises from the original
+  audit turned out to need correcting, verified against a real production
+  build rather than assumed: the "16KB stylesheet" is the **gzip** size of
+  one shared 87,340-byte-raw CSS chunk (`08e1w_hhfm454.css`, identical
+  across all ~626 prerendered routes since `cssChunking: true` already
+  merges all site CSS into one file) — the audit's core claim held up.
+  Separately, `tw-animate-css` and `shadcn/tailwind.css` (suspected dead
+  weight bypassing Tailwind's tree-shaking, since they're `@import`ed
+  wholesale) turned out to already be correctly tree-shaken — both are
+  written in Tailwind v4's own `@utility` directive syntax, not plain
+  finished CSS, confirmed by grepping known-unused utility names
+  (`shimmer`, `scroll-fade*`) against the actual built CSS and finding them
+  absent. No vendor-CSS trimming work was needed.
+
+  **Fix applied:** enabled Next 16.2.10's `experimental.inlineCss` flag
+  (`next.config.ts`) — confirmed via the installed version's own bundled
+  docs (`node_modules/next/dist/docs/`), not assumed from general Next
+  knowledge, per `AGENTS.md`'s standing warning that this Next version's
+  APIs may differ from training data. Replaces the render-blocking
+  `<link rel="stylesheet">` with an inlined `<style>` in the initial server
+  HTML. Verified structurally post-build (link count 1→0, `<style>` count
+  0→1, containing the full 87,373-byte compiled CSS) on the homepage plus
+  `/mus` and `/pro/s1mple`. Flagged explicitly as experimental/not-GA in
+  this Next version, global-only (no per-route opt-out), production-build-
+  only (no effect in `next dev`), and duplicating CSS bytes once into the
+  inlined `<style>` and again into the embedded RSC payload — judged an
+  acceptable tradeoff for a search-entry content site where most sessions
+  are single-page arrivals rather than deep return navigation. A
+  Chrome-driven before/after LCP number was planned as supporting evidence
+  but skipped — the `claude-in-chrome` browser extension wasn't connected
+  in this environment; the structural build-output check was the plan's
+  primary gate regardless, not this.
+
+  **Investigated and explicitly declined**, to avoid it being re-attempted
+  blind later: extracting the ~110-line `.btn-main` CTA-button animation
+  block out of `globals.css` into a scoped CSS Module. The homepage doesn't
+  use `.btn-main`, but `page.tsx` statically imports `buttonVariants` from
+  the same `button.tsx` file that defines it — a CSS side-effect import
+  isn't pruned by JS tree-shaking, and `cssChunking: true` would likely
+  fold a new CSS Module back into the same shared chunk anyway. Real
+  savings ≈ zero; real risk non-zero, since 6 files hand-roll `.btn-main`'s
+  inner markup as raw class-name strings instead of rendering
+  `<Button variant="cta">`, with nothing tying them to the component —
+  `src/app/guides/bedste-mus-til-cs2/page.tsx`,
+  `bedste-mus-til-valorant/page.tsx`, `bedste-mus-under-500-kr/page.tsx`,
+  `traadloes-eller-kablet-mus/page.tsx`, `src/app/pro/[slug]/page.tsx`,
+  `src/components/finder-quiz.tsx`, `src/components/price-comparison.tsx`.
+  Logged as a separate **code-health** follow-up (not performance) — should
+  render `<Button variant="cta">` instead of duplicating its markup.
+
+  `tsc`, `vitest run` (48 passed), `npm run lint` (same 18 pre-existing
+  issues as before this change, confirmed unrelated via `git show HEAD`),
+  and a full `next build` (626 pages) all pass.
+- **2026-08-16 (cont. 2)** — Closed out the "missing affiliate disclosure"
+  Medium finding from the SEO audit. Investigation found disclosure copy
+  already existed in 3 places (a global footer-adjacent note, `/transparens`,
+  a finder-quiz end screen) but none of them next to an actual outbound
+  affiliate link — `PriceComparison`/`PriceCta`
+  (`src/components/price-comparison.tsx`), the one component shared by all
+  5 product detail templates and the genuine click-through point for every
+  affiliate link on the site (guide pages link internally to `/mus/[slug]`,
+  not out to a retailer directly), showed zero disclosure copy anywhere near
+  the price list, CTA button, or sticky mobile bar.
+
+  Added a personal, signed disclosure line directly above the "Sammenlign
+  priser" heading in `PriceComparison`'s `#priser` card — user (Oliver, who
+  runs the site) opted for first-person/signed copy over formal boilerplate
+  ("— Oliver her, som driver ProSetups.dk. Køber du via links herunder, får
+  jeg en lille kommission (ingen ekstra omkostning for dig). Tak for
+  opbakningen!") rather than legal-style phrasing — satisfies "clear and
+  conspicuous" disclosure just as well and doubles as a lightweight author
+  signal (the audit's separate "no visible author" Medium finding) without
+  building a full byline system. Scoped to price/CTA only per explicit
+  choice — the existing global footer component and `/om` keep their
+  existing formal/collective voice, untouched. Correctly absent on products
+  with zero offers (verified on `hyperx-cloud-ii`, `wooting-80he`,
+  `zowie-xl2566k` — all hit the pre-existing "Ingen tilbud endnu" branch,
+  nothing to disclose when there's no link) and present wherever a real
+  offer exists (verified on `logitech-g-pro-x-superlight-2`,
+  `hyperx-cloud-iii`).
+
+  **Found and fixed along the way**: `/transparens`'s retailer list was
+  hardcoded and stale — still named Computersalg and Coolshop, both removed
+  from the site entirely on 2026-08-10, and missing Komplett/AV-Cables,
+  added as real partners on 2026-08-15. A transparency page naming wrong
+  partners undermines the point of disclosure, so this was treated as
+  in-scope rather than a separate ticket. Now derived from
+  `src/data/retailers.ts` (`retailers.filter(r => r.harFeed)`) instead of a
+  hand-written list, so it can't silently drift out of sync the next time a
+  partner is added or removed — same "compute it, don't hand-maintain it"
+  reasoning this file already applies to per-product counts. Verified in
+  rebuilt HTML: Proshop/Geek'd/Komplett/AV-Cables all present, Computersalg/
+  Coolshop gone. Incidental fix: replacing the hardcoded `Geek'd` JSX text
+  with data-driven `{r.navn}` also happened to clear a pre-existing
+  `react/no-unescaped-entities` lint error on that line (18→17 problems;
+  one unrelated pre-existing error remains on `src/app/page.tsx:326`, same
+  "Geek'd" apostrophe pattern, untouched — not part of this fix's scope).
+
+  `tsc`, `vitest run` (48 passed), `npm run lint` (17, down from 18),
+  and a full `next build` (626 pages) all pass.
+- **2026-08-16 (cont. 3)** — User decision: stop naming specific affiliate
+  retailers and specific data-source sites in public copy, while keeping
+  the underlying disclosures general. `/transparens`'s "Affiliate-links"
+  section (which, as of the previous log entry, dynamically listed the 4
+  real retailer partners) now reads as a plain disclosure sentence with no
+  named retailers; its "Datakilder" section (prosettings.net/Liquipedia)
+  was removed entirely, per explicit user choice, rather than generalized.
+
+  Grepped for the same specific names across every user-facing page (not
+  just `/transparens`) and found the identical pattern in **5 more spots**
+  — generalized all of them for consistency, since leaving specifics
+  elsewhere would just recreate what was being asked to remove: `/om`'s
+  "data stammer fra prosettings.net og Liquipedia" line, `mus/[slug]`'s
+  meta description ("...hos Proshop eller Geek'd"), the homepage's feature
+  blurb ("...hos Proshop, Geek'd eller Computersalg" — Computersalg was
+  also stale, removed 2026-08-10), `[esport]`'s FAQ-schema answer ("via
+  affiliate-links (fx Proshop)"), and `finder-quiz.tsx`'s results screen
+  ("Proshop, Computersalg og Coolshop" — both Computersalg and Coolshop
+  stale, both removed 2026-08-10). All now read generically ("danske
+  forhandlere" / no named example).
+
+  **Deliberately not touched**: the functional retailer names/logos shown
+  in `PriceComparison`'s actual price-list rows (a user needs to know which
+  store they're buying from before clicking) — confirmed these are the
+  only "Proshop"/"Geek'd" mentions left in any rebuilt page's HTML, and
+  they're the product's core function, not editorial copy. Also not
+  touched: `kilde`/`sidstVerificeret` data-provenance fields, `/admin/
+  partnerships`, `AGENTS.md`'s internal sourcing-workflow docs — the
+  site's own data-quality tracking, not public disclosure text; removing
+  those would work against this repo's existing data-integrity
+  conventions and isn't what the request was about.
+
+  `tsc`, `vitest run` (48 passed), `npm run lint` (16, 0 errors — down
+  from 17/1, the last pre-existing unescaped-apostrophe error on
+  `page.tsx` cleared along with the "Geek'd" mention it was attached to),
+  and a full `next build` (626 pages) all pass.
+- **2026-08-16 (cont. 4)** — Two related fixes. **Brand-consistent product
+  names**: user noticed some products' `navn` includes the brand and some
+  don't. Investigation (3 parallel Explore agents, one per category group)
+  found it was far more one-sided than "some do, some don't" — only 1 of 55
+  mice, 0 of 8 keyboards, 0 of 12 headsets, and 0 of 5 monitors already had
+  brand in `navn`. Mousepads were already fine — no stored `navn` field at
+  all, every render site already builds `${brand} ${model}` fresh.
+
+  Normalized all 4 categories with a one-off script (`${brand} ${navn}`
+  prepend, skipped when `navn` already contains the brand anywhere —
+  `.includes()`, not `.startsWith()`, to correctly skip
+  `fnatic-lamzu-maya-8k` whose navn contains "Lamzu" mid-string, not as a
+  prefix). First attempt round-tripped the JSON through
+  `JSON.stringify(data, null, 2)` and introduced unrelated formatting noise
+  (collapsed multi-line empty `offers: []` arrays, reformatted nested-array
+  indentation) — caught via `git diff --stat` showing 489 changed lines in
+  `mice.json` for what should have been 53 one-line edits, reverted, redone
+  as a surgical per-line regex replacement instead. Final diff: exactly 78
+  insertions/78 deletions across the 4 files, matching the 78 changed
+  entries 1:1. No special-casing needed for the ASUS/ROG or Sony/INZONE
+  sub-brand cases — `${brand} ${navn}` produces a legitimate real product
+  name either way ("ASUS ROG Delta II", "Sony INZONE H9 II").
+
+  Monitors were the one category where code already explicitly
+  concatenated brand into `navn` at several call sites — fixed all of them
+  so the now-brand-inclusive `navn` doesn't double up:
+  `skaerme/[slug]/page.tsx`'s `generateMetadata` title/description, `<h1>`,
+  and the `productSchema({...monitor, navn: `${brand} ${navn}`})` override
+  (collapsed to a plain `productSchema(monitor)` call), plus
+  `[esport]/page.tsx`'s `monitorNavn` field. Incidental fix: this also
+  closes an existing list-vs-detail schema discrepancy on monitors — the
+  list page's `ItemList` schema was already passing `navn` un-concatenated
+  while the detail page's `Product` schema concatenated it, so the same
+  product's JSON-LD `name` disagreed between the two pages; both now agree.
+
+  **Decision, not silently made**: left the ~6 card components
+  (`mouse-card.tsx`, `mouse-card-compact.tsx`, `keyboard-card.tsx`,
+  `headset-card.tsx`, `monitor-card.tsx`, `product-card-compact.tsx`) and
+  every detail page's `SpecTable` "Brand" row showing `navn` and `brand` as
+  separate adjacent elements — now mildly redundant text ("Logitech G Pro
+  X Superlight 2" title + "Logitech" chip right below) but not a doubled
+  substring, and the chip is a real nav affordance to `/maerke/{slug}`, not
+  just repeated text. Rewriting 6 card components was judged bigger/riskier
+  than what was asked; flagged for the user to revisit if they'd rather
+  trim it. `productSchema()`'s JSON-LD `Product.name` containing brand text
+  alongside the separate `Product.brand.name` field is likewise left as-is
+  — a common, valid schema.org pattern, not a bug.
+
+  **Moved the pro-page gear sentence out of the cards.** The per-item
+  "{pro} bruger en {brand} {model}" sentence added inside each
+  `GearItemCard` earlier this session was cluttering the card UI (user
+  feedback, mid-session). Removed it from inside the cards; added one new
+  section after the gear grid on `src/app/pro/[slug]/page.tsx`, rendering
+  the same sentences (one per gear item, not merged into a single
+  grammatically-joined list — merging would make the "endnu ikke i
+  kataloget" qualifier ambiguous about which item it refers to, and
+  separate entity+product sentences are better for AI-citability anyway)
+  in a small `text-xs text-muted-foreground` block. Still real, visible,
+  crawlable text — not hidden/`display:none`, which would read as cloaking
+  to search engines. Verified in rebuilt HTML: gone from inside
+  `GearItemCard`, present once (not duplicated) in the new bottom block on
+  a sampled pro page, now correctly brand-prefixed for every gear item.
+
+  `tsc`, `vitest run` (48 passed — confirms no test hardcoded a real
+  product `navn`, as all 3 research agents predicted), `npm run lint` (16,
+  0 errors), and a full `next build` (626 pages) all pass.
+- **2026-08-22** — Built the missing orchestrator for `src/lib/feed-sync/`
+  (adapters, catalog, matcher, diagnostics, existing-offers had all been
+  built previously but never wired together — `existing-offers.ts`'s own
+  comment named the missing file: `src/lib/feed-sync/run.ts`). New:
+  `src/lib/feed-sync/configs.ts` (per-retailer `FEED_CAT_TO_OUR` category
+  maps + brand aliases, ported verbatim from `scripts/match-{retailer}-eans.mjs`,
+  not re-derived), `run.ts` (fetches each retailer's live feed URL, runs it
+  through the matcher, writes `price:{slug}__{retailer}` for
+  already-verified pairs and `feedcandidate:{retailer}:{slug}` for new ones
+  — never auto-applying a new pairing), `POST /api/feed-sync/run?retailer=X`
+  (one retailer per call, optional `FEED_SYNC_SECRET` gate, `dryRun`
+  support), and a "Kør sync nu" button on `/admin/feeds` per retailer card.
+  Fixed a real correctness trap along the way: `fetch()`'s body yields raw
+  `Uint8Array` chunks, not `Buffer` — both existing adapters silently
+  mishandle that (mojibake on Proshop/Geek'd's latin1 feed, broken
+  `.toString()` on the Adtraction RSS one), so `run.ts` wraps each chunk in
+  a real `Buffer` via a small async generator before handing it to the
+  adapter, keeping true streaming rather than buffering Komplett's
+  ~6,230-item feed whole. All 4 retailers' real feed URLs (provided by the
+  user — direct-hosted, no login-gated export needed) went into
+  `.env.development.local`, not committed.
+
+  **Ground-truth regression check** (dry-run diffed against
+  `scripts/{retailer}-ean-matches.json` before trusting a live write, per
+  the plan's own verification gate): Proshop 25→30 matched, Geek'd 14→14,
+  Komplett 13→14, AV-Cables 1→1 (clean, zero drift). Every loss was traced
+  to a specific cause, not random breakage — `zowie-xl2586x-plus` is
+  genuinely gone from Proshop's feed; Komplett retired
+  `steelseries-arctis-nova-pro-wireless`'s old EAN (`...058032`) in favor of
+  a renamed "Arctis Nova Pro WL" line under new EANs
+  (`...068574`/`...068550`) — our catalog's EAN is now stale, a real
+  follow-up, not a matcher bug; Geek'd's 4 losses split into 2 correct
+  rejections (a colorway/EAN mismatch on `logitech-g-pro-2-lightspeed`, and
+  the known wired-vs-wireless Cloud II false-positive class already
+  documented in `AGENTS.md`) and 2 real matcher false negatives —
+  `razer-blackshark-v2-pro` and `logitech-g-pro-x-2` are both wireless-only
+  product lines (no wired variant exists), so the shared `DISALLOWED_EXTRA`
+  ban on "trådløst"/"wireless" incorrectly rejects them. Not fixed this
+  session — the ban-list is shared across all 4 retailers specifically to
+  prevent wired/wireless mismatches elsewhere, so loosening it needs a
+  product-line-aware rule, not a blanket removal. Flagged as a follow-up,
+  along with the stale Komplett EAN.
+
+  User reviewed the findings and chose to run all 4 retailers live rather
+  than hold any back. Live run wrote 42 `price:*` refreshes + 17
+  `feedcandidate:*` entries to Redis — exactly matching the 59-item total
+  matched count (30+14+14+1) across all 4 retailers, confirmed by a direct
+  Redis scan. `/admin/feeds` now shows real `FeedRunSummary` data instead
+  of "ALDRIG KØRT" for the first time. `tsc`, `vitest run` (54 passed, up
+  from 48 — 6 new tests in `run.test.ts`), and `npm run lint` all pass; full
+  `next build` was already re-verified earlier this session before the live
+  run (626+ pages, `/api/feed-sync/run` registers as dynamic).
+
+  **Not done, flagged for follow-up:** no cron/schedule triggers this yet —
+  runs are manual via the admin button or a direct `POST` for now. The
+  Komplett stale-EAN and Geek'd wireless-ban items above are real,
+  actionable gaps, not blockers. A separate "add a new retailer from the
+  admin UI" request came up mid-session and was deliberately deferred —
+  `RETAILER_SLUGS` is a closed enum precisely because category-mapping
+  tuning and payout verification need a human pass per retailer (the
+  MaxGaming/Ultrashop/7-placeholder-retailer cleanups are exactly what
+  skipping that step causes); revisit as its own task if wanted.
+- **2026-08-22 (cont.)** — Closed the review-to-catalog gap the previous
+  entry left open: `/admin/feeds`'s 17 pending candidates had no way to
+  actually get applied short of hand-editing JSON. Added an "Anvend" button
+  per candidate row, backed by a new `POST /api/feed-sync/apply` (re-reads
+  the candidate from Redis rather than trusting client-supplied price/URL
+  for a write into committed data) and `src/lib/feed-sync/apply.ts`.
+  User's framing going in: the human keeps the match-judgment call
+  (one click after checking the linked product page), the code only
+  automates the mechanical JSON write — mirrors why candidates were never
+  auto-applied in the first place.
+
+  **Category support is real, not uniform** — checked each category's
+  actual offer-storage mechanics before writing anything, since assuming
+  they were alike would have been wrong: mice and headsets both have a raw
+  `offers[]` field for individually-authored per-product URLs (headsets'
+  own code comment already named this exact use case: "used for retailers
+  ...whose feed gives a real per-product tracking link"), so both append
+  there with `payoutPct` sourced from `retailers.ts`'s `basePayoutPct`
+  (verified against mice.json's existing komplett/av-cables offers, which
+  already use exactly those rates: 2.5/4.2). Mousepads only render a price
+  for proshop/geekd (hardcoded in `mousepads.ts`'s `buildOffers()`) with no
+  per-product-URL slot at all, so those two retailers write through
+  `priser` (generic search link, not the feed's real URL — deliberately,
+  not a bug) and every other retailer (the one pending `komplett |
+  musemaatter` candidate) is rejected with an explicit unsupported-error
+  rather than silently dropped. Keyboards (no per-product-URL storage
+  mechanism) and monitors (offer-builder only wired for proshop) have zero
+  pending candidates today, so both are marked unsupported rather than
+  guessed at.
+
+  **Avoided a repeat of this session's own documented incident:** a prior
+  pass this session hand-typed the brand-prefix script's file rewrite via
+  `JSON.parse` → mutate → `JSON.stringify(data, null, 2)` and produced a
+  489-line diff for what should've been ~50 one-line edits (collapsed
+  pre-existing multi-line empty arrays, reformatted nesting). Before
+  trusting the same round-trip pattern here, empirically diffed
+  `JSON.stringify(JSON.parse(file), null, 2)` against each target file
+  (CRLF-normalized): `headsets.json` and `monitors.json` are byte-identical
+  to that round-trip today; `mice.json` and `mousepads.json` are not (a
+  handful of pre-existing multi-line-formatted entries elsewhere in each
+  file would get incidentally reformatted). Verified live against a real
+  candidate rather than trusting the theory alone: applied
+  `steelseries-arctis-nova-pro-wireless`'s pending Proshop candidate
+  through the real running route, diffed the file before/after outside
+  git — exactly the 8 new lines for the new offer, `mice.json` untouched.
+  Also added `redisDel` (missing from `src/lib/redis.ts` — only
+  get/mget/keys/set existed) so an applied candidate's key actually clears
+  instead of lingering until its 3-day TTL, and
+  `invalidateOfferKeysCache()` on `feed-sync/existing-offers.ts` so a
+  same-process sync run afterward sees the new offer as trusted rather than
+  reading a stale cached key set.
+
+  Also added loading skeletons (new `src/components/ui/skeleton.tsx`,
+  standard shadcn pulse pattern) to `ProductImage` and `ProAvatar` — the
+  two components rendering meaningful product/pro photos site-wide.
+  Small fixed-size icons (retailer/brand/team logos, all under 40px) were
+  left alone as not worth the treatment. `priority` (LCP-critical) images
+  skip the fade-in entirely, so this doesn't work against the earlier
+  `inlineCss` LCP fix. Not visually verified in-browser — the
+  `claude-in-chrome` extension wasn't connected this session; worth a
+  manual check with network throttling.
+
+  `tsc`, `vitest run` (61 passed, up from 54 — 7 new tests in
+  `apply.test.ts`), and `npm run lint` (11 pre-existing warnings, 0 new, 0
+  errors — confirmed via `git status` that every flagged file is untouched
+  this session) all pass. Full `next build` clean.
+- **2026-08-22 (cont. 2)** — User asked directly: "why can't Komplett show
+  mousepads?" Answer was a real schema gap, not policy — `mousepads.ts`'s
+  offer-builder hardcodes `["proshop","geekd"]` with no slot for a real
+  per-product URL. User's response: every category should behave like
+  mice — individually-authored real offers, not a generic category-search
+  fallback. Surfaced the actual blast radius before touching anything:
+  **37 of 42 non-mouse products** (7/12 headsets, 5/5 monitors, 17/17
+  mousepads, 8/8 keyboards) would drop to zero offers immediately if the
+  fallbacks were removed outright, since none of them have any real
+  per-product data yet — keyboards in particular have never had a real
+  price or URL at all, only a generic category-search link. User chose the
+  non-destructive path once they saw the numbers: give every category the
+  `offers[]` capability now, remove each category's fallback only once
+  real data actually backs it — nothing goes dark today.
+
+  Added the same additive `offers?: AffiliateOffer[]` raw-JSON field
+  headsets.ts already had to `monitors.ts`, `mousepads.ts`, and
+  `keyboards.ts` — each category's existing generic-fallback offer
+  (`buildFlatOffers`/`buildOffers`/`kbOffers`) stays first in the array,
+  unchanged, with any real applied offers appended after. Simplified
+  `feed-sync/apply.ts` accordingly: it now treats every category
+  identically (append to `offers[]`, `payoutPct` from `retailers.ts`'s
+  `basePayoutPct`) instead of special-casing mousepads through `priser` —
+  which also directly resolves the original question: the one pending
+  `komplett | musemaatter` candidate can now be applied with its real
+  product link.
+
+  **`keyboards.json` needed a one-time normalization first.** The same
+  byte-identical-round-trip check run before the original apply.ts (see
+  previous entry) now had to cover 2 more files: `monitors.json` was
+  already clean, but `keyboards.json` wasn't — all 8 entries store
+  `"retailers": ["x"]` inline, and a naive round-trip would have expanded
+  every one of them to multi-line as unrelated noise (confirmed: 37
+  differing lines for what should be a 1-keyboard change). Normalized it
+  once as an isolated, explicit write — verified `JSON.stringify(before)
+  === JSON.stringify(after)` (zero data change) before writing, then
+  re-ran the round-trip check to confirm it's now stable. `mice.json` and
+  `mousepads.json` turned out to already be round-trip-safe (unclear why
+  they weren't earlier this session — re-verified fresh rather than
+  trusting the earlier result).
+
+  `tsc`, `vitest run` (62 passed), `npm run lint` (0 new issues), and a
+  full `next build` (same page count, all categories compile) all pass.
+  **Not done:** the actual data-sourcing work this unlocks — 37 products
+  across 4 categories still show only their generic-fallback offer until
+  someone runs feed-sync candidates through Anvend or manually sources
+  real per-product links, the same way mice/some headsets already have.

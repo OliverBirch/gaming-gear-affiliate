@@ -88,12 +88,12 @@ gtag('js', new Date());
 gtag('config', 'G-BPNT90SDZ3');`,
           }}
         />
-        <Script
+        <script
           id="schema-organization"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: jsonLd(organizationSchema()) }}
         />
-        <Script
+        <script
           id="schema-website"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: jsonLd(websiteSchema()) }}

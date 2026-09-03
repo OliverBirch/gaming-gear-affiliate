@@ -33,8 +33,13 @@ function product(offers: Array<Partial<Offer>>, slug = "test-mouse") {
 }
 
 describe("resolveOffer via bestOffers", () => {
-  it("uses the static price when one is set", async () => {
+  it("prefers the live override over a static price when both are present", async () => {
     const [offer] = await bestOffers(product([{ retailer: "proshop", prisDkk: 399 }]));
+    expect(offer.prisDkk).toBe(449);
+  });
+
+  it("falls back to the static price when no override exists", async () => {
+    const [offer] = await bestOffers(product([{ retailer: "komplett", prisDkk: 399 }]));
     expect(offer.prisDkk).toBe(399);
   });
 
@@ -67,30 +72,30 @@ describe("bestOffer", () => {
     const best = await bestOffer(
       product([
         { retailer: "geekd", prisDkk: 500 },
-        { retailer: "proshop", prisDkk: 450 },
+        { retailer: "komplett", prisDkk: 450 },
       ])
     );
-    expect(best?.retailer).toBe("proshop");
+    expect(best?.retailer).toBe("komplett");
   });
 
   it("breaks price ties on the higher payout", async () => {
     const best = await bestOffer(
       product([
         { retailer: "geekd", prisDkk: 500, payoutPct: 3.5 },
-        { retailer: "proshop", prisDkk: 500, payoutPct: 5.0 },
+        { retailer: "komplett", prisDkk: 500, payoutPct: 5.0 },
       ])
     );
-    expect(best?.retailer).toBe("proshop");
+    expect(best?.retailer).toBe("komplett");
   });
 
   it("ranks priceless offers last rather than first", async () => {
     const best = await bestOffer(
       product([
         { retailer: "geekd" },
-        { retailer: "proshop", prisDkk: 900 },
+        { retailer: "komplett", prisDkk: 900 },
       ])
     );
-    expect(best?.retailer).toBe("proshop");
+    expect(best?.retailer).toBe("komplett");
   });
 
   it("returns null when every offer is out of stock", async () => {
@@ -110,7 +115,7 @@ describe("getLowestPrice", () => {
       await getLowestPrice(
         product([
           { retailer: "geekd", prisDkk: 800 },
-          { retailer: "proshop", prisDkk: 650 },
+          { retailer: "komplett", prisDkk: 650 },
         ])
       )
     ).toBe(650);
@@ -119,7 +124,7 @@ describe("getLowestPrice", () => {
   it("ignores offers with no price", async () => {
     expect(
       await getLowestPrice(
-        product([{ retailer: "geekd" }, { retailer: "proshop", prisDkk: 700 }])
+        product([{ retailer: "geekd" }, { retailer: "komplett", prisDkk: 700 }])
       )
     ).toBe(700);
   });

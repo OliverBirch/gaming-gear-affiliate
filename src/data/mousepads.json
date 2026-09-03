@@ -10,9 +10,24 @@
       "type": "control",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Medium", "breddeMm": 320, "laengdeMm": 270, "tykkelseMm": 6 },
-        { "navn": "Large", "breddeMm": 450, "laengdeMm": 400, "tykkelseMm": 6 },
-        { "navn": "XXL", "breddeMm": 900, "laengdeMm": 400, "tykkelseMm": 6 }
+        {
+          "navn": "Medium",
+          "breddeMm": 320,
+          "laengdeMm": 270,
+          "tykkelseMm": 6
+        },
+        {
+          "navn": "Large",
+          "breddeMm": 450,
+          "laengdeMm": 400,
+          "tykkelseMm": 6
+        },
+        {
+          "navn": "XXL",
+          "breddeMm": 900,
+          "laengdeMm": 400,
+          "tykkelseMm": 6
+        }
       ],
       "kant": "syet",
       "bund": "Naturgummi",
@@ -21,7 +36,8 @@
       "billede": "/images/mousepads/steelseries-qck-heavy.png",
       "prisNiveau": "budget",
       "priser": {
-        "proshop": null
+        "proshop": null,
+        "geekd": 369
       },
       "billigstePris": 149,
       "lagerstatus": "på-lager",
@@ -39,7 +55,17 @@
         "Kanterne kan med tiden begynde at flosse",
         "Langsommere end speed-pads — ikke ideel til tracking-tunge spillere"
       ],
-      "anbefaletEdpiInterval": "200–400"
+      "anbefaletEdpiInterval": "200–400",
+      "offers": [
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Musemaatte-tilbehoer/SteelSeries-QcK-Heavy-XXL-Sort/2531052",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 299,
+          "produktUrl": "https://www.proshop.dk/Musemaatte-tilbehoer/SteelSeries-QcK-Heavy-XXL-Sort/2531052",
+          "retailer": "proshop"
+        }
+      ]
     },
     {
       "slug": "zowie-g-sr-iii",
@@ -49,7 +75,12 @@
       "type": "control",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Standard", "breddeMm": 480, "laengdeMm": 400, "tykkelseMm": 3.5 }
+        {
+          "navn": "Standard",
+          "breddeMm": 480,
+          "laengdeMm": 400,
+          "tykkelseMm": 3.5
+        }
       ],
       "kant": "syet",
       "bund": "Gummibase med skridsikker overflade",
@@ -86,8 +117,18 @@
       "type": "control",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "XL", "breddeMm": 490, "laengdeMm": 420, "tykkelseMm": 4 },
-        { "navn": "XXL", "breddeMm": 920, "laengdeMm": 400, "tykkelseMm": 4 }
+        {
+          "navn": "XL",
+          "breddeMm": 490,
+          "laengdeMm": 420,
+          "tykkelseMm": 4
+        },
+        {
+          "navn": "XXL",
+          "breddeMm": 920,
+          "laengdeMm": 400,
+          "tykkelseMm": 4
+        }
       ],
       "kant": "syet",
       "bund": "Skridsikker silikonebase",
@@ -124,8 +165,18 @@
       "type": "speed",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "XL", "breddeMm": 490, "laengdeMm": 420, "tykkelseMm": 4 },
-        { "navn": "XXL", "breddeMm": 920, "laengdeMm": 400, "tykkelseMm": 4 }
+        {
+          "navn": "XL",
+          "breddeMm": 490,
+          "laengdeMm": 420,
+          "tykkelseMm": 4
+        },
+        {
+          "navn": "XXL",
+          "breddeMm": 920,
+          "laengdeMm": 400,
+          "tykkelseMm": 4
+        }
       ],
       "kant": "syet",
       "bund": "Skridsikker silikonebase",
@@ -162,7 +213,12 @@
       "type": "control",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "XL", "breddeMm": 490, "laengdeMm": 420, "tykkelseMm": 4 }
+        {
+          "navn": "XL",
+          "breddeMm": 490,
+          "laengdeMm": 420,
+          "tykkelseMm": 4
+        }
       ],
       "kant": "syet",
       "bund": "Skridsikker silikonebase",
@@ -199,9 +255,24 @@
       "type": "balanced",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Medium", "breddeMm": 355, "laengdeMm": 254, "tykkelseMm": 3 },
-        { "navn": "Large", "breddeMm": 455, "laengdeMm": 355, "tykkelseMm": 3 },
-        { "navn": "XXL", "breddeMm": 940, "laengdeMm": 410, "tykkelseMm": 3 }
+        {
+          "navn": "Medium",
+          "breddeMm": 355,
+          "laengdeMm": 254,
+          "tykkelseMm": 3
+        },
+        {
+          "navn": "Large",
+          "breddeMm": 455,
+          "laengdeMm": 355,
+          "tykkelseMm": 3
+        },
+        {
+          "navn": "XXL",
+          "breddeMm": 940,
+          "laengdeMm": 410,
+          "tykkelseMm": 3
+        }
       ],
       "kant": "syet",
       "bund": "Gummibase med tekstureret overflade",
@@ -228,7 +299,17 @@
         "Gummibase er mindre stabil end silikone",
         "Tyndere profil (3 mm) giver mindre dæmpning"
       ],
-      "anbefaletEdpiInterval": "240–500"
+      "anbefaletEdpiInterval": "240–500",
+      "offers": [
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=74912&partnerid=57198&htmlurl=https://geekd.dk/products/razer-gigantus-v2-xxl-tastatur-og-musepude",
+          "inStock": true,
+          "payoutPct": 4,
+          "prisDkk": 425,
+          "produktUrl": "https://geekd.dk/products/razer-gigantus-v2-xxl-tastatur-og-musepude",
+          "retailer": "geekd"
+        }
+      ]
     },
     {
       "slug": "zowie-h-sr-iii",
@@ -238,7 +319,12 @@
       "type": "control",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Standard", "breddeMm": 480, "laengdeMm": 400, "tykkelseMm": 3.5 }
+        {
+          "navn": "Standard",
+          "breddeMm": 480,
+          "laengdeMm": 400,
+          "tykkelseMm": 3.5
+        }
       ],
       "kant": "syet",
       "bund": "Gummibase med skridsikker overflade",
@@ -274,7 +360,12 @@
       "type": "balanced",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Standard", "breddeMm": 480, "laengdeMm": 400, "tykkelseMm": 3.5 }
+        {
+          "navn": "Standard",
+          "breddeMm": 480,
+          "laengdeMm": 400,
+          "tykkelseMm": 3.5
+        }
       ],
       "kant": "syet",
       "bund": "Gummibase",
@@ -310,7 +401,12 @@
       "type": "control",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Standard", "breddeMm": 460, "laengdeMm": 400, "tykkelseMm": 3 }
+        {
+          "navn": "Standard",
+          "breddeMm": 460,
+          "laengdeMm": 400,
+          "tykkelseMm": 3
+        }
       ],
       "kant": "syet",
       "bund": "Gummibase",
@@ -346,7 +442,12 @@
       "type": "balanced",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Standard", "breddeMm": 460, "laengdeMm": 400, "tykkelseMm": 3 }
+        {
+          "navn": "Standard",
+          "breddeMm": 460,
+          "laengdeMm": 400,
+          "tykkelseMm": 3
+        }
       ],
       "kant": "syet",
       "bund": "Gummibase",
@@ -383,9 +484,24 @@
       "type": "balanced",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Medium", "breddeMm": 320, "laengdeMm": 270, "tykkelseMm": 2 },
-        { "navn": "Large", "breddeMm": 450, "laengdeMm": 400, "tykkelseMm": 2 },
-        { "navn": "XXL", "breddeMm": 900, "laengdeMm": 300, "tykkelseMm": 2 }
+        {
+          "navn": "Medium",
+          "breddeMm": 320,
+          "laengdeMm": 270,
+          "tykkelseMm": 2
+        },
+        {
+          "navn": "Large",
+          "breddeMm": 450,
+          "laengdeMm": 400,
+          "tykkelseMm": 2
+        },
+        {
+          "navn": "XXL",
+          "breddeMm": 900,
+          "laengdeMm": 300,
+          "tykkelseMm": 2
+        }
       ],
       "kant": "syet",
       "bund": "Naturgummi",
@@ -394,8 +510,12 @@
       "billede": "/images/mousepads/steelseries-qck-large.png",
       "prisNiveau": "budget",
       "priser": {
-        "proshop": { "Large": 159 },
-        "geekd": { "Large": 271 }
+        "proshop": {
+          "Large": 159
+        },
+        "geekd": {
+          "Large": 271
+        }
       },
       "billigstePris": 159,
       "lagerstatus": "på-lager",
@@ -413,7 +533,17 @@
         "Slides hurtigere end tykkere pads",
         "Overfladen er følsom over for fugt/sved"
       ],
-      "anbefaletEdpiInterval": "280–550"
+      "anbefaletEdpiInterval": "280–550",
+      "offers": [
+        {
+          "affiliateUrl": "https://go.adt231.net/t/t?a=1658323777&as=2095414612&t=2&tk=1&cupa_sku=1337642&url=https://www.komplett.dk/product/1337642/gaming/spiludstyr/gamingmusemaatte/steelseries-qck-large-musemaatte-hvid?channable=033d1d69640031333337363432f2",
+          "inStock": true,
+          "payoutPct": 2.5,
+          "prisDkk": 145,
+          "produktUrl": "https://www.komplett.dk/product/1337642/gaming/spiludstyr/gamingmusemaatte/steelseries-qck-large-musemaatte-hvid?channable=033d1d69640031333337363432f2",
+          "retailer": "komplett"
+        }
+      ]
     },
     {
       "slug": "vaxee-pa",
@@ -423,7 +553,12 @@
       "type": "control",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Standard", "breddeMm": 470, "laengdeMm": 390, "tykkelseMm": 3.5 }
+        {
+          "navn": "Standard",
+          "breddeMm": 470,
+          "laengdeMm": 390,
+          "tykkelseMm": 3.5
+        }
       ],
       "kant": "syet",
       "bund": "Gummibase",
@@ -459,7 +594,12 @@
       "type": "control",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Standard", "breddeMm": 480, "laengdeMm": 400, "tykkelseMm": 3.5 }
+        {
+          "navn": "Standard",
+          "breddeMm": 480,
+          "laengdeMm": 400,
+          "tykkelseMm": 3.5
+        }
       ],
       "kant": "syet",
       "bund": "Gummibase",
@@ -496,7 +636,12 @@
       "type": "control",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Large", "breddeMm": 490, "laengdeMm": 420, "tykkelseMm": 4 }
+        {
+          "navn": "Large",
+          "breddeMm": 490,
+          "laengdeMm": 420,
+          "tykkelseMm": 4
+        }
       ],
       "kant": "syet",
       "bund": "Poron-skum med skridsikker base",
@@ -532,7 +677,12 @@
       "type": "balanced",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Large", "breddeMm": 450, "laengdeMm": 400, "tykkelseMm": 3 }
+        {
+          "navn": "Large",
+          "breddeMm": 450,
+          "laengdeMm": 400,
+          "tykkelseMm": 3
+        }
       ],
       "kant": "syet",
       "bund": "Naturgummi",
@@ -568,7 +718,12 @@
       "type": "balanced",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Large", "breddeMm": 450, "laengdeMm": 400, "tykkelseMm": 3 }
+        {
+          "navn": "Large",
+          "breddeMm": 450,
+          "laengdeMm": 400,
+          "tykkelseMm": 3
+        }
       ],
       "kant": "syet",
       "bund": "Gummibase",
@@ -604,7 +759,12 @@
       "type": "balanced",
       "materiale": "stof",
       "størrelser": [
-        { "navn": "Large", "breddeMm": 450, "laengdeMm": 400, "tykkelseMm": 3 }
+        {
+          "navn": "Large",
+          "breddeMm": 450,
+          "laengdeMm": 400,
+          "tykkelseMm": 3
+        }
       ],
       "kant": "syet",
       "bund": "Gummibase",

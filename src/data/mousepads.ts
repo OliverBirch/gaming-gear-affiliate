@@ -30,6 +30,13 @@ type RawMousepad = {
   billede?: string | null;
   prisNiveau: Mousepad["prisNiveau"];
   priser?: Record<string, number | Record<string, number> | null> | null;
+  /**
+   * Individually-authored per-product offers, additive to `priser`'s
+   * generic category-page offers — for a retailer whose feed gives a real
+   * per-product tracking link (see headsets.ts for the pattern this
+   * mirrors, and feed-sync/apply.ts which writes into this field).
+   */
+  offers?: AffiliateOffer[];
   beskrivelse: string;
   fordele: string[];
   ulemper: string[];
@@ -102,7 +109,7 @@ const _builtPads: Mousepad[] = (raw.mousepads as unknown as RawMousepad[]).map((
   vaskbar: m.vaskbar,
   billede: m.billede ?? null,
   prisNiveau: m.prisNiveau,
-  offers: buildOffers(m.priser ?? null),
+  offers: [...buildOffers(m.priser ?? null), ...(m.offers ?? [])],
   beskrivelse: m.beskrivelse,
   fordele: m.fordele,
   ulemper: m.ulemper,

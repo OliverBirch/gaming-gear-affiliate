@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Script from "next/script";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { getMousepad, mousepads } from "@/data/mousepads";
 import { breadcrumbList, productSchema, jsonLd } from "@/lib/schema-org";
+import { isStubOffers } from "@/lib/product-status";
 import { prisNiveauLabels } from "@/lib/product-labels";
 import { ProductImage } from "@/components/product-image";
 import { ProUsersBand } from "@/components/pro-users-band";
@@ -23,11 +23,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const mp = getMousepad(slug);
   if (!mp) return {};
+  const stub = isStubOffers(mp);
   return buildMetadata({
     title: mp.brand + " " + mp.model + " - specifikationer, fordele og priser",
     description: "Se komplette specifikationer for " + mp.brand + " " + mp.model + ": glide-type, materiale, størrelser og find den bedste pris.",
     path: `/musemaatter/${mp.slug}`,
     image: mp.billede,
+    ...(stub && { robots: { index: false, follow: true } }),
   });
 }
 
@@ -138,7 +140,7 @@ export default async function MusemaattePage({ params }: Props) {
         </Link>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -151,7 +153,7 @@ export default async function MusemaattePage({ params }: Props) {
           ),
         }}
       />
-      <Script
+      <script
         id="schema-product"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { ProductImage } from "@/components/product-image";
 import { mice } from "@/data/mice";
 import { bestOffers } from "@/lib/affiliate";
@@ -8,6 +7,7 @@ import { brandSlug } from "@/data/brands";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { breadcrumbList, articleSchema, productItemList, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata({
@@ -256,54 +256,44 @@ export default async function BedsteMusTilCS2() {
         </Link>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Guides", item: "https://prosetups.dk/guides" },
-              { "@type": "ListItem", position: 3, name: "Bedste mus til CS2", item: "https://prosetups.dk/guides/bedste-mus-til-cs2" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Guides", path: "/guides" },
+              { name: "Bedste mus til CS2", path: "/guides/bedste-mus-til-cs2" },
+            ])
+          ),
         }}
       />
-      <Script
+      <script
         id="schema-article"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: "Bedste mus til CS2 i 2026",
-            description: "Find den bedste gaming-mus til Counter-Strike 2. Vi har analyseret hvad CS2-pros bruger og fundet de bedste valg til alle budgetter.",
-          }),
+          __html: jsonLd(
+            articleSchema({
+              headline: "Bedste mus til CS2 i 2026",
+              description: "Find den bedste gaming-mus til Counter-Strike 2. Vi har analyseret hvad CS2-pros bruger og fundet de bedste valg til alle budgetter.",
+              path: "/guides/bedste-mus-til-cs2",
+            })
+          ),
         }}
       />
-      <Script
+      <script
         id="schema-itemlist"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            name: "Bedste mus til CS2",
-            description: "Anbefalede gaming-mus til Counter-Strike 2",
-            itemListElement: sortedMice.map(({ mouse }, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "Product",
-                name: mouse.navn,
-                brand: mouse.brand,
-                url: `https://prosetups.dk/mus/${mouse.slug}`,
-              },
-            })),
-            numberOfItems: sortedMice.length,
-          }),
+          __html: jsonLd(
+            productItemList({
+              name: "Bedste mus til CS2",
+              description: "Anbefalede gaming-mus til Counter-Strike 2",
+              products: sortedMice.map(({ mouse }) => mouse),
+              urlPrefix: "mus",
+            })
+          ),
         }}
       />
     </div>

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Script from "next/script";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getHeadset, headsets } from "@/data/headsets";
 import { breadcrumbList, productSchema, jsonLd } from "@/lib/schema-org";
+import { isStubOffers } from "@/lib/product-status";
 import { prisNiveauLabels } from "@/lib/product-labels";
 import { ProductImage } from "@/components/product-image";
 import { ProUsersBand } from "@/components/pro-users-band";
@@ -22,11 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const headset = getHeadset(slug);
   if (!headset) return {};
+  const stub = isStubOffers(headset) || headset.vaegtGram === 0;
   return buildMetadata({
     title: headset.navn + " - specifikationer, fordele og priser",
     description: "Se komplette specifikationer for " + headset.navn + ": vægt, driver, forbindelse og find den bedste pris.",
     path: `/headset/${headset.slug}`,
     image: headset.billede,
+    ...(stub && { robots: { index: false, follow: true } }),
   });
 }
 
@@ -55,7 +57,7 @@ export default async function HeadsetPage({ params }: Props) {
             <span className="text-border/50">|</span>
             <span>{headset.wireless ? "Trådløs" : "Kablet"}</span>
             <span className="text-border/50">|</span>
-            <span>{headset.vaegtGram}g</span>
+            <span>{headset.vaegtGram ? `${headset.vaegtGram}g` : "Specs kommer snart"}</span>
             <span className="text-border/50">|</span>
             <span>{headset.driverStoerrelseMm ? headset.driverStoerrelseMm + " mm" : "-"}</span>
           </div>
@@ -85,7 +87,7 @@ export default async function HeadsetPage({ params }: Props) {
             ["Forbindelse", headset.forbindelse],
             ["Trådløs", headset.wireless ? "Ja" : "Nej"],
             ["Batteritid", headset.batteritidTimer ? headset.batteritidTimer + " timer" : "-"],
-            ["Vægt", headset.vaegtGram + " g"],
+            ["Vægt", headset.vaegtGram ? `${headset.vaegtGram} g` : "Specs kommer snart"],
             ["Driver", headset.driverStoerrelseMm ? headset.driverStoerrelseMm + " mm" : "-"],
             ["Mikrofon", headset.mikrofon ? "Ja" : "Nej"],
             ["Aftagelig mikrofon", headset.aftagelig === null ? "-" : headset.aftagelig ? "Ja" : "Nej"],
@@ -111,7 +113,7 @@ export default async function HeadsetPage({ params }: Props) {
         </Link>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -124,7 +126,7 @@ export default async function HeadsetPage({ params }: Props) {
           ),
         }}
       />
-      <Script
+      <script
         id="schema-product"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

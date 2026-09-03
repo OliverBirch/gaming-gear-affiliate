@@ -1,5 +1,4 @@
 ﻿import type { Metadata } from "next";
-import Script from "next/script";
 import { KeyboardCard } from "@/components/keyboard-card";
 import { CategoryStatsSection } from "@/components/category-stats-section";
 import { keyboards } from "@/data/keyboards";
@@ -35,7 +34,7 @@ export default function TastaturerPage() {
         ))}
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -47,7 +46,7 @@ export default function TastaturerPage() {
           ),
         }}
       />
-      <Script
+      <script
         id="schema-keyboards-itemlist"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

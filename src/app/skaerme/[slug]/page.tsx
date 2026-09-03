@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Script from "next/script";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getMonitor, monitors } from "@/data/monitors";
 import { breadcrumbList, productSchema, jsonLd } from "@/lib/schema-org";
+import { isStubOffers } from "@/lib/product-status";
 import { prisNiveauLabels } from "@/lib/product-labels";
 import { ProductImage } from "@/components/product-image";
 import { ProUsersBand } from "@/components/pro-users-band";
@@ -37,11 +37,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const monitor = getMonitor(slug);
   if (!monitor) return {};
+  const stub = isStubOffers(monitor);
   return buildMetadata({
-    title: `${monitor.brand} ${monitor.navn} - specifikationer og priser`,
-    description: `Se komplette specifikationer for ${monitor.brand} ${monitor.navn}: ${monitor.stoerrelseTommer}", ${monitor.opdateringsHz} Hz, ${monitor.paneltype}-panel og find den bedste pris.`,
+    title: `${monitor.navn} - specifikationer og priser`,
+    description: `Se komplette specifikationer for ${monitor.navn}: ${monitor.stoerrelseTommer}", ${monitor.opdateringsHz} Hz, ${monitor.paneltype}-panel og find den bedste pris.`,
     path: `/skaerme/${monitor.slug}`,
     image: monitor.billede,
+    ...(stub && { robots: { index: false, follow: true } }),
   });
 }
 
@@ -63,7 +65,7 @@ export default async function SkaermPage({ params }: Props) {
       <div className="grid gap-8 sm:grid-cols-[1fr_280px] mb-10 items-start">
         <div>
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-3">
-            {monitor.brand} {monitor.navn}
+            {monitor.navn}
           </h1>
           <div className="flex flex-wrap gap-2 mb-4">
             <Badge variant="secondary">{monitor.stoerrelseTommer}&quot;</Badge>
@@ -124,7 +126,7 @@ export default async function SkaermPage({ params }: Props) {
         </Link>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -137,13 +139,11 @@ export default async function SkaermPage({ params }: Props) {
           ),
         }}
       />
-      <Script
+      <script
         id="schema-product"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: jsonLd(
-            productSchema({ ...monitor, navn: `${monitor.brand} ${monitor.navn}` })
-          ),
+          __html: jsonLd(productSchema(monitor)),
         }}
       />
     </div>

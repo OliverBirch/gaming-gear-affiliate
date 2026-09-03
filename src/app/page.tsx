@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Script from "next/script";
 import { MouseCard } from "@/components/mouse-card";
 import { KeyboardCard } from "@/components/keyboard-card";
 import { MousepadCard } from "@/components/mousepad-card";
@@ -324,7 +323,7 @@ export default function Home() {
               <h3 className="mb-2 font-semibold">Find bedste pris</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Vi viser dig den bedste danske pris - klik og k&oslash;b hos
-                Proshop, Geek'd eller Computersalg.
+                danske forhandlere.
               </p>
             </div>
           </div>
@@ -385,21 +384,6 @@ export default function Home() {
           </div>
         </section>
       </div>
-
-      <Script
-        id="schema-webpage"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: "ProSetups.dk",
-            url: "https://prosetups.dk",
-            description:
-              "Se præcis hvilket gear CS2-, Valorant- og R6-pros bruger. Settings, eDPI og danske priser.",
-          }),
-        }}
-      />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Script from "next/script";
 import { blogPosts, getBlogPost } from "@/data/blog";
+import { breadcrumbList, articleSchema, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
@@ -98,37 +98,32 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       </article>
 
-      <Script
+      <script
         id="schema-article"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: post.title,
-            description: post.description,
-            datePublished: post.date,
-            author: {
-              "@type": "Organization",
-              name: "ProSetups.dk",
-            },
-          }),
+          __html: jsonLd(
+            articleSchema({
+              headline: post.title,
+              description: post.description,
+              datePublished: post.date,
+              path: `/blog/${post.slug}`,
+            })
+          ),
         }}
       />
 
-      <Script
+      <script
         id="schema-blog-post-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Blog", item: "https://prosetups.dk/blog" },
-              { "@type": "ListItem", position: 3, name: post.title, item: `https://prosetups.dk/blog/${post.slug}` },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Blog", path: "/blog" },
+              { name: post.title, path: `/blog/${post.slug}` },
+            ])
+          ),
         }}
       />
     </>

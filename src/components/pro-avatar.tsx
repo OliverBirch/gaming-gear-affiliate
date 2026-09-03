@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ProAvatarProps {
   navn: string;
@@ -26,6 +27,7 @@ const imageSizes = {
 
 export function ProAvatar({ navn, slug, billede, className, size = "sm" }: ProAvatarProps) {
   const [failed, setFailed] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const imgSrc = billede || (slug ? `/images/pros/${slug}.png` : undefined);
 
   if (imgSrc && !failed) {
@@ -37,12 +39,14 @@ export function ProAvatar({ navn, slug, billede, className, size = "sm" }: ProAv
           className
         )}
       >
+        {!loaded && <Skeleton className="absolute inset-0 rounded-full" />}
         <Image
           src={imgSrc}
           alt={navn}
           fill
-          className="object-cover"
+          className={cn("object-cover transition-opacity duration-300", loaded ? "opacity-100" : "opacity-0")}
           sizes={`${imageSizes[size]}px`}
+          onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
         />
       </div>

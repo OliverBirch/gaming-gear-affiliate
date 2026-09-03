@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { HeadsetCard } from "@/components/headset-card";
 import { CategoryStatsSection } from "@/components/category-stats-section";
 import { headsets } from "@/data/headsets";
@@ -35,7 +34,7 @@ export default function HeadsetListPage() {
         ))}
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -47,7 +46,7 @@ export default function HeadsetListPage() {
           ),
         }}
       />
-      <Script
+      <script
         id="schema-headsets-itemlist"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

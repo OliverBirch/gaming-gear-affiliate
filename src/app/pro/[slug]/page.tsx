@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Script from "next/script";
 import { ProductImage } from "@/components/product-image";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -23,7 +22,17 @@ import {
 } from "@/data/pros-peripherals-mapping";
 import { getTeamLogo } from "@/data/team-logos";
 import { ProAvatar } from "@/components/pro-avatar";
+import { breadcrumbList, personSchema, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
+
+/** Danish indefinite-article agreement per gear slot ("en mus", "et tastatur"). */
+const SLOT_ARTICLE: Record<string, string> = {
+  Mus: "en",
+  Tastatur: "et",
+  Headset: "et",
+  Musemåtte: "en",
+  Skærm: "en",
+};
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -47,6 +56,16 @@ type GearCard = {
   prisDkk?: number | null;
   featured?: boolean;
 };
+
+/** Brand-prefixed product name for the gear sentence — skips the prefix
+ * when the name already carries the brand (e.g. mousepad navn is already
+ * "Artisan Ninja FX Zero", so prepending "Artisan" would double it). */
+function gearFullName(item: GearCard): string {
+  if (item.brand && !item.navn.toLowerCase().startsWith(item.brand.toLowerCase())) {
+    return `${item.brand} ${item.navn}`;
+  }
+  return item.navn;
+}
 
 function GearItemCard({ item }: { item: GearCard }) {
   const cardClass = cn(
@@ -138,9 +157,6 @@ function GearItemCard({ item }: { item: GearCard }) {
               </span>
             </span>
           </div>
-        )}
-        {!item.href && (
-          <p className="mt-2 text-xs text-muted-foreground">Ikke i katalog endnu</p>
         )}
       </div>
     </div>
@@ -269,29 +285,9 @@ export default async function ProPage({ params }: Props) {
   }
 
   const knowsAbout = [
-    {
-      "@type": "Product" as const,
-      name: mouse.navn,
-      brand: { "@type": "Brand" as const, name: mouse.brand },
-    },
-    ...(keyboard
-      ? [
-          {
-            "@type": "Product" as const,
-            name: keyboard.navn,
-            brand: { "@type": "Brand" as const, name: keyboard.brand },
-          },
-        ]
-      : []),
-    ...(headset
-      ? [
-          {
-            "@type": "Product" as const,
-            name: headset.navn,
-            brand: { "@type": "Brand" as const, name: headset.brand },
-          },
-        ]
-      : []),
+    { navn: mouse.navn, brand: mouse.brand },
+    ...(keyboard ? [{ navn: keyboard.navn, brand: keyboard.brand }] : []),
+    ...(headset ? [{ navn: headset.navn, brand: headset.brand }] : []),
   ];
 
   return (
@@ -356,46 +352,42 @@ export default async function ProPage({ params }: Props) {
             <GearItemCard key={item.slot} item={item} />
           ))}
         </div>
-        <p className="mt-4 text-xs text-muted-foreground">
-        </p>
       </section>
 
-      <Script
+      <section className="mb-12 text-xs text-muted-foreground space-y-1">
+        {gear.map((item) => (
+          <p key={item.slot}>
+            {pro.navn} bruger {SLOT_ARTICLE[item.slot] ?? "en"} {gearFullName(item)}
+            {!item.href && ", endnu ikke i kataloget"}.
+          </p>
+        ))}
+      </section>
+
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: pro.esport.toUpperCase(),
-                item: `https://prosetups.dk/${pro.esport}`,
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: pro.navn,
-                item: `https://prosetups.dk/pro/${pro.slug}`,
-              },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: pro.esport.toUpperCase(), path: `/${pro.esport}` },
+              { name: pro.navn, path: `/pro/${pro.slug}` },
+            ])
+          ),
         }}
       />
-      <Script
+      <script
         id="schema-person"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            name: pro.navn,
-            affiliation: pro.hold,
-            knowsAbout,
-          }),
+          __html: jsonLd(
+            personSchema({
+              navn: pro.navn,
+              slug: pro.slug,
+              affiliation: pro.hold,
+              knowsAbout,
+            })
+          ),
         }}
       />
     </div>

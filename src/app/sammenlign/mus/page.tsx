@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { ComparePicker } from "@/components/compare/compare-picker";
 import { CompareTable } from "@/components/compare/compare-table";
 import {
@@ -8,6 +7,9 @@ import {
   parseCompareSlugs,
   resolveCompareMice,
 } from "@/lib/compare/resolve";
+import { CURATED_PAIRS, findCuratedPair } from "@/lib/compare/curated-pairs";
+import { getMouse } from "@/data/mice";
+import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 
 interface Props {
@@ -19,11 +21,20 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const slugs = parseCompareSlugs(sp.p);
   const selected = resolveCompareMice(slugs);
 
-  // Canonical always points at the bare comparison page (matches
-  // sitemap.ts) — not the specific `?p=` pair, so every mouse combination
-  // consolidates its signal onto one indexed URL instead of fragmenting
-  // across unbounded query-string variants.
+  // Canonical points at the bare comparison page for most `?p=` pairs, so
+  // they consolidate their signal onto one indexed URL instead of
+  // fragmenting across unbounded query-string variants — except the small
+  // curated set, which has its own static, indexable page and should
+  // canonicalize there instead of back to the generic picker.
   if (selected.length === 2) {
+    const curated = findCuratedPair(selected[0].slug, selected[1].slug);
+    if (curated) {
+      return buildMetadata({
+        title: `${selected[0].navn} vs ${selected[1].navn} – sammenligning`,
+        description: `Sammenlign ${selected[0].navn} og ${selected[1].navn}: vægt, sensor, greb, pro-brugere og danske priser.`,
+        path: `/sammenlign/mus/${curated.par}`,
+      });
+    }
     return buildMetadata({
       title: `${selected[0].navn} vs ${selected[1].navn} – sammenligning`,
       description: `Sammenlign ${selected[0].navn} og ${selected[1].navn}: vægt, sensor, greb, pro-brugere og danske priser.`,
@@ -79,6 +90,26 @@ export default async function SammenlignMusPage({ searchParams }: Props) {
 
       <CompareTable mouseA={mouseA} mouseB={mouseB} />
 
+      <div className="mt-10">
+        <h2 className="text-lg font-semibold mb-3">Populære sammenligninger</h2>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {CURATED_PAIRS.map((p) => {
+            const a = getMouse(p.a);
+            const b = getMouse(p.b);
+            if (!a || !b) return null;
+            return (
+              <Link
+                key={p.par}
+                href={`/sammenlign/mus/${p.par}`}
+                className="rounded-lg border border-border/50 px-4 py-2.5 text-sm hover:border-primary/30 hover:text-primary transition-colors"
+              >
+                {a.navn} vs {b.navn}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
       <div className="mt-8 flex flex-wrap gap-4 text-sm">
         <Link href="/mus" className="text-muted-foreground hover:text-primary transition-colors">
           ← Alle mus
@@ -88,47 +119,32 @@ export default async function SammenlignMusPage({ searchParams }: Props) {
         </Link>
       </div>
 
-      <Script
+      <script
         id="schema-compare-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Mus", item: "https://prosetups.dk/mus" },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: "Sammenlign",
-                item: "https://prosetups.dk/sammenlign/mus",
-              },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Mus", path: "/mus" },
+              { name: "Sammenlign", path: "/sammenlign/mus" },
+            ])
+          ),
         }}
       />
       {mouseA && mouseB && (
-        <Script
+        <script
           id="schema-compare-itemlist"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ItemList",
-              name: `${mouseA.navn} vs ${mouseB.navn}`,
-              numberOfItems: 2,
-              itemListElement: [mouseA, mouseB].map((m, i) => ({
-                "@type": "ListItem",
-                position: i + 1,
-                item: {
-                  "@type": "Product",
-                  name: m.navn,
-                  brand: m.brand,
-                  url: `https://prosetups.dk/mus/${m.slug}`,
-                },
-              })),
-            }),
+            __html: jsonLd(
+              productItemList({
+                name: `${mouseA.navn} vs ${mouseB.navn}`,
+                description: `Sammenligning af ${mouseA.navn} og ${mouseB.navn}`,
+                products: [mouseA, mouseB],
+                urlPrefix: "mus",
+              })
+            ),
           }}
         />
       )}

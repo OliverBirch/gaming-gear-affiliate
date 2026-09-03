@@ -36,11 +36,20 @@ export async function PriceCta({ product }: { product: OfferableProduct }) {
 /**
  * The #priser price list plus the sticky mobile bottom CTA bar. Bundled
  * together since the sticky bar is fixed-positioned and needs no separate
- * placement in the page layout. Renders nothing without offers.
+ * placement in the page layout. Shows a "no offers yet" note instead of
+ * disappearing entirely when a product has no retailer relationships
+ * configured yet (a stub product) — the section used to just vanish.
  */
 export async function PriceComparison({ product, pagePath }: { product: OfferableProduct; pagePath: string }) {
   const allOffers = await bestOffers(product);
-  if (allOffers.length === 0) return null;
+  if (allOffers.length === 0) {
+    return (
+      <div id="priser" className="rounded-xl border border-border/50 bg-card p-7 mb-8 scroll-mt-20">
+        <h2 className="text-xl font-semibold mb-2">Priser</h2>
+        <p className="text-sm text-muted-foreground">Ingen tilbud endnu.</p>
+      </div>
+    );
+  }
 
   const sorted = [...allOffers].sort((a, b) => (a.prisDkk ?? Infinity) - (b.prisDkk ?? Infinity));
   const lowest = await getLowestPrice(product);
@@ -49,9 +58,13 @@ export async function PriceComparison({ product, pagePath }: { product: Offerabl
   return (
     <>
       <div id="priser" className="rounded-xl border border-border/50 bg-card p-7 mb-8 scroll-mt-20">
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 className="text-xl font-semibold mb-1.5">
           Sammenlign priser{lowest != null ? ` (fra ${formatPriceDkk(lowest)})` : ""}
         </h2>
+        <p className="text-xs text-muted-foreground mb-4">
+          Køber du via links herunder, får jeg en lille kommission (ingen ekstra
+          omkostning for dig). Tak for opbakningen!
+        </p>
         <div className="space-y-3">
           {sorted.map((o) => {
             const r = getRetailer(o.retailer);

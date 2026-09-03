@@ -19,12 +19,19 @@ export function buildMetadata(opts: {
   path: string;
   /** Site-root-relative image path, e.g. a product's `billede` field. */
   image?: string | null;
+  /** Per-page override, e.g. `{ index: false, follow: true }` for a stub
+   * product page. Replaces (not merges with) the root layout's `robots` —
+   * the layout's site-wide noindex is a separate, intentional pre-launch
+   * block; this exists so a stub page stays noindexed on its own merits
+   * once that block eventually lifts. */
+  robots?: Metadata["robots"];
 }): Metadata {
   const url = absoluteUrl(opts.path);
   const images = opts.image ? [absoluteUrl(opts.image)] : undefined;
   return {
     ...(opts.title !== undefined && { title: opts.title }),
     ...(opts.description !== undefined && { description: opts.description }),
+    ...(opts.robots !== undefined && { robots: opts.robots }),
     alternates: { canonical: url },
     openGraph: {
       ...(opts.title !== undefined && { title: opts.title }),

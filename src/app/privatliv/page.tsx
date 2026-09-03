@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import { breadcrumbList, webPageSchema, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata({
@@ -52,30 +52,28 @@ export default function PrivatlivPage() {
         </section>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Privatlivspolitik", item: "https://prosetups.dk/privatliv" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Privatlivspolitik", path: "/privatliv" },
+            ])
+          ),
         }}
       />
-      <Script
+      <script
         id="schema-webpage"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: "Privatlivspolitik",
-            description: "Læs om hvordan ProSetups.dk håndterer dine data og cookies.",
-          }),
+          __html: jsonLd(
+            webPageSchema({
+              name: "Privatlivspolitik",
+              description: "Læs om hvordan ProSetups.dk håndterer dine data og cookies.",
+            })
+          ),
         }}
       />
     </div>

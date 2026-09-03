@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import FinderQuiz, { type MousePriceInfo } from "@/components/finder-quiz";
 import { mice } from "@/data/mice";
 import { bestOffers } from "@/lib/affiliate";
+import { breadcrumbList, faqSchema, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata({
@@ -30,66 +30,44 @@ export default async function FindMusPage() {
     )
   );
 
+  const faqItems = [
+    {
+      q: "Hvilket greb bruger du på din mus?",
+      a: "Palm-greb: hele hånden hviler på musen. Claw-greb: håndfladen hviler, fingrene er krummet. Fingertip-greb: kun fingerspidserne rører musen.",
+    },
+    {
+      q: "Hvilken håndstørrelse har du?",
+      a: "Lille (under 17 cm), Medium (17-20 cm) eller Stor (over 20 cm) målt fra håndrod til langefinger.",
+    },
+    {
+      q: "Hvad koster en god gaming-mus?",
+      a: "Budget: under 500 kr. Mellemklasse: 500-1000 kr. Flagship: over 1000 kr. Pros bruger typisk flagskibsmus som Logitech G Pro X Superlight 2 og Razer Viper V3 Pro.",
+    },
+    {
+      q: "Hvilken mus bruger CS2-pros?",
+      a: "De mest populære mus blandt CS2-pros er Logitech G Pro X Superlight 2, Razer Viper V3 Pro og ZOWIE EC2-DW. Over 60% af trackede pros bruger Logitech G Pro X Superlight 2.",
+    },
+  ];
+
   return (
     <>
-      <Script
+      <script
         id="schema-find-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Find din mus", item: "https://prosetups.dk/find-mus" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Find din mus", path: "/find-mus" },
+            ])
+          ),
         }}
       />
       <FinderQuiz priceMap={priceMap} />
-      <Script
+      <script
         id="schema-faq"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: [
-              {
-                "@type": "Question",
-                name: "Hvilket greb bruger du på din mus?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Palm-greb: hele hånden hviler på musen. Claw-greb: håndfladen hviler, fingrene er krummet. Fingertip-greb: kun fingerspidserne rører musen.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Hvilken håndstørrelse har du?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Lille (under 17 cm), Medium (17-20 cm) eller Stor (over 20 cm) målt fra håndrod til langefinger.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Hvad koster en god gaming-mus?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "Budget: under 500 kr. Mellemklasse: 500-1000 kr. Flagship: over 1000 kr. Pros bruger typisk flagskibsmus som Logitech G Pro X Superlight 2 og Razer Viper V3 Pro.",
-                },
-              },
-              {
-                "@type": "Question",
-                name: "Hvilken mus bruger CS2-pros?",
-                acceptedAnswer: {
-                  "@type": "Answer",
-                  text: "De mest populære mus blandt CS2-pros er Logitech G Pro X Superlight 2, Razer Viper V3 Pro og ZOWIE EC2-DW. Over 60% af trackede pros bruger Logitech G Pro X Superlight 2.",
-                },
-              },
-            ],
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(faqItems)) }}
       />
     </>
   );

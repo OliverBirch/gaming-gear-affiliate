@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import Script from "next/script";
 import { MouseCard } from "@/components/mouse-card";
 import { KeyboardCard } from "@/components/keyboard-card";
 import { MousepadCard } from "@/components/mousepad-card";
@@ -14,6 +13,7 @@ import { keyboards } from "@/data/keyboards";
 import { mousepads } from "@/data/mousepads";
 import { headsets } from "@/data/headsets";
 import { monitors } from "@/data/monitors";
+import { breadcrumbList, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 interface Props {
   params: Promise<{ slug: string }>;
@@ -219,18 +219,16 @@ export default async function BrandPage({ params }: Props) {
         ) : null;
       })()}
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: brand.navn, item: `https://prosetups.dk/maerke/${slug}` },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: brand.navn, path: `/maerke/${slug}` },
+            ])
+          ),
         }}
       />
     </div>

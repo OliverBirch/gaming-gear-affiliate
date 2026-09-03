@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import { breadcrumbList, webPageSchema, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Transparens - affiliate og datakilder",
-  description: "Læs om vores affiliate-partnerskaber, datakilder og hvordan vi tjener penge.",
+  title: "Transparens",
+  description: "Læs om affiliate-links på ProSetups.dk og hvordan vi tjener penge.",
   path: "/transparens",
 });
 
@@ -18,26 +18,9 @@ export default function TransparensPage() {
             Affiliate-links
           </h2>
           <p>
-            Nogle links på denne side er affiliate-links. Hvis du klikker på et
-            affiliate-link og foretager et køb, modtager vi en provision, uden
-            ekstra omkostning for dig. Vi samarbejder med:
-          </p>
-          <ul className="list-disc pl-5 mt-2 space-y-1">
-            <li>Proshop (Partner-ads)</li>
-            <li>Computersalg (Partner-ads)</li>
-            <li>Coolshop (Partner-ads)</li>
-            <li>Geek'd (Partner-ads)</li>
-          </ul>
-        </section>
-        <section>
-          <h2 className="mb-2 text-lg font-semibold text-foreground">
-            Datakilder
-          </h2>
-          <p>
-            Vores pro-data (mus, DPI, settings) stammer primært fra
-            prosettings.net og Liquipedia. Alle data er krediteret med
-            verificeringsdato. Pro-gear skifter med roster-moves og nye
-            product-launches. Vi bestræber os på at holde data opdateret.
+            Nogle links på denne side er affiliate-links til danske
+            forhandlere. Hvis du klikker på et affiliate-link og foretager et
+            køb, modtager vi en provision, uden ekstra omkostning for dig.
           </p>
         </section>
         <section>
@@ -51,31 +34,29 @@ export default function TransparensPage() {
         </section>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Transparens", item: "https://prosetups.dk/transparens" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Transparens", path: "/transparens" },
+            ])
+          ),
         }}
       />
-      <Script
+      <script
         id="schema-webpage"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: "Transparens - affiliate og datakilder",
-            description:
-              "Læs om vores affiliate-partnerskaber, datakilder og hvordan vi tjener penge.",
-          }),
+          __html: jsonLd(
+            webPageSchema({
+              name: "Transparens",
+              description:
+                "Læs om affiliate-links på ProSetups.dk og hvordan vi tjener penge.",
+            })
+          ),
         }}
       />
     </div>

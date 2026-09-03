@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const paddingClasses = {
   xs: "p-2",
@@ -37,6 +38,7 @@ export function ProductImage({
   padding = "md",
 }: ProductImageProps) {
   const [failed, setFailed] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   if (!src || failed) {
     return (
@@ -55,16 +57,22 @@ export function ProductImage({
 
   return (
     <div className={cn("relative overflow-hidden rounded-lg", className)}>
+      {/* priority (LCP-critical) images skip the fade-in — a delayed paint
+       * there would hurt the metric the skeleton is meant to make feel
+       * faster elsewhere. */}
+      {!priority && !loaded && <Skeleton className="absolute inset-0 rounded-lg" />}
       <Image
         src={src}
         alt={alt}
         fill
         className={cn(
           "object-contain transition-transform duration-300 group-hover:scale-105",
-          paddingClasses[padding]
+          paddingClasses[padding],
+          !priority && cn("transition-opacity duration-300", loaded ? "opacity-100" : "opacity-0")
         )}
         sizes={sizes}
         priority={priority}
+        onLoad={() => setLoaded(true)}
         onError={() => setFailed(true)}
       />
     </div>

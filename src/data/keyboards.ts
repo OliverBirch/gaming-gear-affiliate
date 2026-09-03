@@ -6,11 +6,14 @@ import { getKeyboardProSlugs } from "./pros-peripherals-mapping";
 /**
  * Shape of a row in keyboards.json. Declared explicitly rather than inferred:
  * JSON widens enum-ish fields to `string`, and KeyboardSchema.parse below is
- * what actually guarantees the narrower types at build time. Unlike mice,
- * keyboard offers were never individually-authored per-product URLs —
- * every entry just points at a retailer's category page — so the raw row
- * stores the retailer list and `kbOffers` below expands it, instead of
- * storing (and duplicating) the generated offer objects.
+ * what actually guarantees the narrower types at build time. `retailers`
+ * (a bare name list, expanded into generic category-page offers by
+ * `kbOffers` below) is the fallback for a keyboard with no real
+ * per-product data yet; `offers` is additive, individually-authored real
+ * per-product offers, same escape hatch headsets/monitors/mousepads use.
+ * No keyboard has one today — every current offer is still the generic
+ * fallback — but the field exists so a feed-sync candidate can be applied
+ * with a real link instead of being rejected.
  */
 type RawKeyboard = {
   slug: string;
@@ -34,6 +37,13 @@ type RawKeyboard = {
   ulemper: string[];
   billede?: string;
   retailers: string[];
+  /**
+   * Individually-authored per-product offers, additive to `retailers`'s
+   * generic category-page offers — for a retailer whose feed gives a real
+   * per-product tracking link (see headsets.ts for the pattern this
+   * mirrors, and feed-sync/apply.ts which writes into this field).
+   */
+  offers?: AffiliateOffer[];
 };
 
 const KB_SEARCH_URLS: Record<string, string> = {
@@ -76,7 +86,7 @@ const _builtKeyboards: Keyboard[] = (raw.keyboards as RawKeyboard[]).map((k) => 
   fordele: k.fordele,
   ulemper: k.ulemper,
   billede: k.billede,
-  offers: kbOffers(k.retailers),
+  offers: [...kbOffers(k.retailers), ...(k.offers ?? [])],
   proBrugere: getKeyboardProSlugs(k.slug),
 }));
 

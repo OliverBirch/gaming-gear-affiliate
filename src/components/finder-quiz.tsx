@@ -248,7 +248,7 @@ export default function FinderQuiz({ priceMap }: { priceMap: Record<string, Mous
           Svar på 5 spørgsmål, så matcher vi dig med den bedste mus baseret på hvad pros bruger.
         </p>
         <p className="text-sm text-muted-foreground/70 mb-8">
-          Vi sammenligner priser fra Proshop, Computersalg og Coolshop.
+          Vi sammenligner priser fra danske forhandlere.
         </p>
         <button onClick={next} className={cn(buttonVariants({ variant: "cta", size: "lg" }), "text-base px-10")}>
           <span className="btn-main-text-container">

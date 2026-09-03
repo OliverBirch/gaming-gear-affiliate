@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, ListChecks, HelpCircle, Handshake } from "lucide-react";
+import { LayoutDashboard, ListChecks, HelpCircle, Handshake, Rss } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -37,6 +37,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               <Handshake className="h-4 w-4" />
               Partnere
+            </Link>
+            <Link
+              href="/admin/feeds"
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <Rss className="h-4 w-4" />
+              Feeds
             </Link>
           </div>
 

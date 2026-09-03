@@ -29,7 +29,7 @@
       "laengdeMm": 125,
       "lodMm": 1,
       "maxDpi": 32000,
-      "navn": "G Pro X Superlight 2",
+      "navn": "Logitech G Pro X Superlight 2",
       "offers": [
         {
           "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-X-SUPERLIGHT-2-Gaming-Mus-Optisk-5-knapper-Sort/3184282",
@@ -87,8 +87,17 @@
       "laengdeMm": 127.1,
       "lodMm": 1,
       "maxDpi": 35000,
-      "navn": "Viper V3 Pro",
-      "offers": [],
+      "navn": "Razer Viper V3 Pro",
+      "offers": [
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Mus/Razer-Viper-V3-Pro-Wireless-Gaming-Mus-Optisk-6-knapper-Sort/3241622",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 950,
+          "produktUrl": "https://www.proshop.dk/Mus/Razer-Viper-V3-Pro-Wireless-Gaming-Mus-Optisk-6-knapper-Sort/3241622",
+          "retailer": "proshop"
+        }
+      ],
       "pollingHz": 4000,
       "prisNiveau": "flagship",
       "sensor": "Focus Pro 35K",
@@ -130,7 +139,7 @@
       "laengdeMm": 120,
       "lodMm": 1.5,
       "maxDpi": 3200,
-      "navn": "EC2-DW",
+      "navn": "ZOWIE EC2-DW",
       "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "mid",
@@ -173,7 +182,7 @@
       "laengdeMm": 124,
       "lodMm": 1,
       "maxDpi": 25600,
-      "navn": "G403 Hero",
+      "navn": "Logitech G403 Hero",
       "offers": [
         {
           "affiliateUrl": "https://geekd.dk/products/logitech-g403-hero-gaming-mus",
@@ -239,7 +248,7 @@
       "laengdeMm": 128,
       "lodMm": 1,
       "maxDpi": 30000,
-      "navn": "DeathAdder V3 Pro",
+      "navn": "Razer DeathAdder V3 Pro",
       "offers": [
         {
           "affiliateUrl": "https://www.proshop.dk/Mus/Razer-DeathAdder-V3-Pro-Gaming-Mus-Optisk-5-knapper-Sort/3099869",
@@ -304,9 +313,8 @@
       "laengdeMm": 115,
       "lodMm": 1,
       "maxDpi": 16000,
-      "navn": "Starlight Pro Small",
-      "offers": [
-      ],
+      "navn": "Finalmouse Starlight Pro Small",
+      "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "flagship",
       "sensor": "Finalmouse Gen 2",
@@ -347,7 +355,7 @@
       "laengdeMm": 120,
       "lodMm": 1,
       "maxDpi": 26000,
-      "navn": "X2H",
+      "navn": "Pulsar X2H",
       "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "mid",
@@ -389,7 +397,7 @@
       "laengdeMm": 126,
       "lodMm": 1.5,
       "maxDpi": 26000,
-      "navn": "XE Wireless",
+      "navn": "VAXEE XE Wireless",
       "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "mid",
@@ -431,7 +439,7 @@
       "laengdeMm": 117,
       "lodMm": 1,
       "maxDpi": 26000,
-      "navn": "HTS Pro 4K",
+      "navn": "G-Wolves HTS Pro 4K",
       "offers": [],
       "pollingHz": 4000,
       "prisNiveau": "mid",
@@ -474,7 +482,7 @@
       "laengdeMm": 121,
       "lodMm": 1,
       "maxDpi": 26000,
-      "navn": "Maya X",
+      "navn": "Lamzu Maya X",
       "offers": [
         {
           "retailer": "proshop",
@@ -482,6 +490,14 @@
           "affiliateUrl": "https://www.proshop.dk/Mus/Lamzu-Maya-X-Gaming-Mus-Optisk-6-knapper-Sort/3449499",
           "payoutPct": 3.5,
           "inStock": false
+        },
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=74912&partnerid=57198&htmlurl=https://geekd.dk/products/lamzu-maya-x-8k-dongle-omron-optical-charcoal-black",
+          "inStock": true,
+          "payoutPct": 4,
+          "prisDkk": 989,
+          "produktUrl": "https://geekd.dk/products/lamzu-maya-x-8k-dongle-omron-optical-charcoal-black",
+          "retailer": "geekd"
         }
       ],
       "pollingHz": 4000,
@@ -524,7 +540,7 @@
       "laengdeMm": 128,
       "lodMm": 1,
       "maxDpi": 45000,
-      "navn": "DeathAdder V4 Pro",
+      "navn": "Razer DeathAdder V4 Pro",
       "offers": [
         {
           "affiliateUrl": "https://www.proshop.dk/Mus/Razer-DeathAdder-V4-Pro-Gaming-Mus-Optisk-6-knapper-Sort/3452053",
@@ -592,8 +608,25 @@
       "laengdeMm": 127,
       "lodMm": 1,
       "maxDpi": 50000,
-      "navn": "Viper V4 Pro",
-      "offers": [],
+      "navn": "Razer Viper V4 Pro",
+      "offers": [
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Mus/Razer-Viper-V4-Pro-Wireless-Gaming-Mus-Optisk-6-knapper-Sort/3457139",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 1199,
+          "produktUrl": "https://www.proshop.dk/Mus/Razer-Viper-V4-Pro-Wireless-Gaming-Mus-Optisk-6-knapper-Sort/3457139",
+          "retailer": "proshop"
+        },
+        {
+          "affiliateUrl": "https://go.adt231.net/t/t?a=1658323777&as=2095414612&t=2&tk=1&cupa_sku=1338594&url=https://www.komplett.dk/product/1338594/gaming/spiludstyr/gamingmus/razer-viper-v4-pro-traadloes-gamingmus-sort?channable=033d1d6964003133333835393416",
+          "inStock": true,
+          "payoutPct": 2.5,
+          "prisDkk": 1499,
+          "produktUrl": "https://www.komplett.dk/product/1338594/gaming/spiludstyr/gamingmus/razer-viper-v4-pro-traadloes-gamingmus-sort?channable=033d1d6964003133333835393416",
+          "retailer": "komplett"
+        }
+      ],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
       "sensor": "Focus Pro 50K Gen-3",
@@ -634,7 +667,7 @@
       "laengdeMm": 120,
       "lodMm": 1,
       "maxDpi": 32000,
-      "navn": "TenZ Signature Edition",
+      "navn": "Pulsar TenZ Signature Edition",
       "offers": [
         {
           "affiliateUrl": "https://www.proshop.dk/Mus/Pulsar-TenZ-Signature-Edition-Gaming-Mus-Optisk-5-knapper-Sort/3395272",
@@ -693,7 +726,7 @@
       "laengdeMm": 119,
       "lodMm": 1.5,
       "maxDpi": 3200,
-      "navn": "U2-DW",
+      "navn": "ZOWIE U2-DW",
       "offers": [],
       "pollingHz": 4000,
       "prisNiveau": "flagship",
@@ -738,7 +771,7 @@
       "laengdeMm": 125,
       "lodMm": 1,
       "maxDpi": 32000,
-      "navn": "G Pro X2 SUPERSTRIKE",
+      "navn": "Logitech G Pro X2 SUPERSTRIKE",
       "offers": [
         {
           "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-X2-SUPERSTRIKE-Gaming-Mus-Optisk-6-knapper-Hvid/3421921",
@@ -789,8 +822,17 @@
       "laengdeMm": 125,
       "lodMm": 1.5,
       "maxDpi": 3200,
-      "navn": "FK2-DW",
-      "offers": [],
+      "navn": "ZOWIE FK2-DW",
+      "offers": [
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=74912&partnerid=57198&htmlurl=https://geekd.dk/products/zowie-by-benq-fk2-dw-wireless-mouse-pixart-3950-4k-polling-middle-size-black",
+          "inStock": true,
+          "payoutPct": 4,
+          "prisDkk": 1130,
+          "produktUrl": "https://geekd.dk/products/zowie-by-benq-fk2-dw-wireless-mouse-pixart-3950-4k-polling-middle-size-black",
+          "retailer": "geekd"
+        }
+      ],
       "pollingHz": 4000,
       "prisNiveau": "mid",
       "sensor": "PAW3950",
@@ -831,9 +873,8 @@
       "laengdeMm": 122,
       "lodMm": 1,
       "maxDpi": 30000,
-      "navn": "Beast X Pro",
-      "offers": [
-      ],
+      "navn": "WLmouse Beast X Pro",
+      "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
       "sensor": "PAW3950HS",
@@ -876,7 +917,7 @@
       "laengdeMm": 125,
       "lodMm": 1,
       "maxDpi": 32000,
-      "navn": "G Pro X Superlight 2c",
+      "navn": "Logitech G Pro X Superlight 2c",
       "offers": [
         {
           "affiliateUrl": "https://geekd.dk/products/logitech-g-pro-x-superlight-2c",
@@ -884,6 +925,14 @@
           "payoutPct": 4,
           "produktUrl": "https://geekd.dk/products/logitech-g-pro-x-superlight-2c",
           "retailer": "geekd"
+        },
+        {
+          "affiliateUrl": "https://www.partner-ads.com/dk/klikbanner.php?bannerid=67757&partnerid=57198&htmlurl=https://www.proshop.dk/Mus/Logitech-G-PRO-X-SUPERLIGHT-2c-Compact-Gaming-Mus-Optisk-5-knapper-Hvid/3389093",
+          "inStock": true,
+          "payoutPct": 3.5,
+          "prisDkk": 1399,
+          "produktUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-X-SUPERLIGHT-2c-Compact-Gaming-Mus-Optisk-5-knapper-Hvid/3389093",
+          "retailer": "proshop"
         }
       ],
       "pollingHz": 4000,
@@ -928,7 +977,7 @@
       "laengdeMm": 125,
       "lodMm": 1,
       "maxDpi": 44000,
-      "navn": "G Pro X Superlight 2 Dex",
+      "navn": "Logitech G Pro X Superlight 2 Dex",
       "offers": [
         {
           "affiliateUrl": "https://www.proshop.dk/Mus/Logitech-G-PRO-X-SUPERLIGHT-2-DEX-Gaming-Mus-Optisk-5-knapper-Sort/3303623",
@@ -1026,7 +1075,7 @@
       "laengdeMm": 128,
       "lodMm": 1,
       "maxDpi": 26000,
-      "navn": "Ultralight X Large",
+      "navn": "Finalmouse Ultralight X Large",
       "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
@@ -1044,15 +1093,21 @@
     },
     {
       "slug": "finalmouse-ultralight-x-small",
-      "navn": "Ultralight X Small",
+      "navn": "Finalmouse Ultralight X Small",
       "brand": "Finalmouse",
       "vaegtGram": 31,
       "laengdeMm": 115,
       "breddeMm": 55,
       "hoejdeMm": 36,
       "formfaktor": "symmetrisk",
-      "greb": ["claw", "fingertip"],
-      "haandStoerrelse": ["lille", "medium"],
+      "greb": [
+        "claw",
+        "fingertip"
+      ],
+      "haandStoerrelse": [
+        "lille",
+        "medium"
+      ],
       "wireless": true,
       "forbindelse": "2,4 GHz",
       "batteritidTimer": null,
@@ -1066,8 +1121,17 @@
       "prisNiveau": "flagship",
       "offers": [],
       "beskrivelse": "Finalmouse' ultra-lette carbonfiber-mus i den mindste Cheetah-størrelse. 31 gram, PAW3395-sensor og 4000 Hz polling gør den til en af de letteste konkurrencemus på markedet. Drop-only og svær at få fat i — bruges af FURIAs R6-spiller nade.",
-      "fordele": ["Kun 31 gram — en af verdens letteste mus", "PAW3395 flagskibssensor", "4000 Hz trådløs polling", "Carbonfiber-komposit skal"],
-      "ulemper": ["Kun via limited drops — ekstremt svær at købe", "Ikke tilgængelig hos danske forhandlere", "Høj pris og begrænset garanti"]
+      "fordele": [
+        "Kun 31 gram — en af verdens letteste mus",
+        "PAW3395 flagskibssensor",
+        "4000 Hz trådløs polling",
+        "Carbonfiber-komposit skal"
+      ],
+      "ulemper": [
+        "Kun via limited drops — ekstremt svær at købe",
+        "Ikke tilgængelig hos danske forhandlere",
+        "Høj pris og begrænset garanti"
+      ]
     },
     {
       "batteritidTimer": 70,
@@ -1095,8 +1159,17 @@
       "laengdeMm": 120,
       "lodMm": 1,
       "maxDpi": 26000,
-      "navn": "X2",
-      "offers": [],
+      "navn": "Pulsar X2",
+      "offers": [
+        {
+          "affiliateUrl": "https://go.adt231.net/t/t?a=1658323777&as=2095414612&t=2&tk=1&cupa_sku=1325356&url=https://www.komplett.dk/product/1325356/gaming/spiludstyr/gamingmus/pulsar-x2-gamingmus-hvidt?channable=033d1d6964003133323533353666",
+          "inStock": true,
+          "payoutPct": 2.5,
+          "prisDkk": 449,
+          "produktUrl": "https://www.komplett.dk/product/1325356/gaming/spiludstyr/gamingmus/pulsar-x2-gamingmus-hvidt?channable=033d1d6964003133323533353666",
+          "retailer": "komplett"
+        }
+      ],
       "pollingHz": 1000,
       "prisNiveau": "mid",
       "sensor": "PAW3395",
@@ -1137,9 +1210,8 @@
       "laengdeMm": 120,
       "lodMm": 0.7,
       "maxDpi": 32000,
-      "navn": "Jinggg X",
-      "offers": [
-      ],
+      "navn": "Pulsar Jinggg X",
+      "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
       "sensor": "XS-1",
@@ -1181,9 +1253,8 @@
       "laengdeMm": 121,
       "lodMm": 1,
       "maxDpi": 26000,
-      "navn": "Sora V2",
-      "offers": [
-      ],
+      "navn": "Ninjutso Sora V2",
+      "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "mid",
       "sensor": "PAW3395",
@@ -1225,9 +1296,8 @@
       "laengdeMm": 126,
       "lodMm": 1,
       "maxDpi": 42000,
-      "navn": "ROG Harpe Ace 2",
-      "offers": [
-      ],
+      "navn": "ASUS ROG Harpe Ace 2",
+      "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
       "sensor": "ROG AimPoint",
@@ -1258,7 +1328,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "eS FS-1",
+      "navn": "Pulsar eS FS-1",
       "offers": [
         {
           "affiliateUrl": "https://www.proshop.dk/Mus/Pulsar-eS-FS-1-Gaming-Mus-Optisk-5-knapper-Blaa/3450990",
@@ -1293,7 +1363,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "Beast X Max",
+      "navn": "WLmouse Beast X Max",
       "offers": [],
       "pollingHz": 0,
       "prisNiveau": "mid",
@@ -1321,7 +1391,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "OUTSET AX Wireless",
+      "navn": "VAXEE OUTSET AX Wireless",
       "offers": [],
       "pollingHz": 0,
       "prisNiveau": "mid",
@@ -1348,7 +1418,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "Viper Mini Signature Edition",
+      "navn": "Razer Viper Mini Signature Edition",
       "offers": [],
       "pollingHz": 0,
       "prisNiveau": "mid",
@@ -1376,7 +1446,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "Susanto-X",
+      "navn": "Pulsar Susanto-X",
       "offers": [],
       "pollingHz": 0,
       "prisNiveau": "mid",
@@ -1405,7 +1475,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "X2N Crazylight Medium",
+      "navn": "Pulsar X2N Crazylight Medium",
       "offers": [
         {
           "retailer": "proshop",
@@ -1442,7 +1512,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "DeathAdder V3 HyperSpeed",
+      "navn": "Razer DeathAdder V3 HyperSpeed",
       "offers": [
         {
           "retailer": "proshop",
@@ -1514,7 +1584,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "OP1 8k V2",
+      "navn": "Endgame Gear OP1 8k V2",
       "offers": [
         {
           "retailer": "proshop",
@@ -1550,7 +1620,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "ZYGEN NP-01S V2 Wireless",
+      "navn": "VAXEE ZYGEN NP-01S V2 Wireless",
       "offers": [],
       "pollingHz": 0,
       "prisNiveau": "mid",
@@ -1578,7 +1648,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "EC1-C",
+      "navn": "ZOWIE EC1-C",
       "offers": [],
       "pollingHz": 0,
       "prisNiveau": "mid",
@@ -1605,7 +1675,7 @@
       "laengdeMm": 0,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "XE V2",
+      "navn": "VAXEE XE V2",
       "offers": [],
       "pollingHz": 0,
       "prisNiveau": "mid",
@@ -1624,16 +1694,23 @@
       "brand": "Pulsar",
       "breddeMm": 66,
       "forbindelse": "2,4 GHz",
-      "fordele": ["Kun 65 gram trods trådløs forbindelse", "8000 Hz polling rate med medfølgende dongle", "Driverless - indstillinger styres uden software", "Justerbar lift-off distance (0,7/1/2 mm)"],
+      "fordele": [
+        "Kun 65 gram trods trådløs forbindelse",
+        "8000 Hz polling rate med medfølgende dongle",
+        "Driverless - indstillinger styres uden software",
+        "Justerbar lift-off distance (0,7/1/2 mm)"
+      ],
       "formfaktor": "ergonomisk",
-      "greb": ["palm"],
+      "greb": [
+        "palm"
+      ],
       "haandStoerrelse": [],
       "hoejdeMm": 43,
       "knapper": 0,
       "laengdeMm": 122,
       "lodMm": 1,
       "maxDpi": 32000,
-      "navn": "Xlite V4 Es Medium",
+      "navn": "Pulsar Xlite V4 Es Medium",
       "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
@@ -1641,7 +1718,11 @@
       "slug": "pulsar-xlite-v4-es",
       "softwarePaakraevet": false,
       "switchType": "optisk",
-      "ulemper": ["Ikke velegnet til fingertip-greb", "Enkelte brugere har rapporteret udfald i sensorsporing", "Knapantal ikke offentliggjort af producenten"],
+      "ulemper": [
+        "Ikke velegnet til fingertip-greb",
+        "Enkelte brugere har rapporteret udfald i sensorsporing",
+        "Knapantal ikke offentliggjort af producenten"
+      ],
       "vaegtGram": 65,
       "wireless": true
     },
@@ -1651,16 +1732,26 @@
       "brand": "ZOWIE",
       "breddeMm": 66,
       "forbindelse": "Kabel",
-      "fordele": ["PMW3360-sensor med op til 3200 DPI", "Plug-and-play - ingen driver nødvendig", "Symmetrisk facon der passer til palm-, claw- og fingertip-greb"],
+      "fordele": [
+        "PMW3360-sensor med op til 3200 DPI",
+        "Plug-and-play - ingen driver nødvendig",
+        "Symmetrisk facon der passer til palm-, claw- og fingertip-greb"
+      ],
       "formfaktor": "symmetrisk",
-      "greb": ["palm", "claw", "fingertip"],
-      "haandStoerrelse": ["medium"],
+      "greb": [
+        "palm",
+        "claw",
+        "fingertip"
+      ],
+      "haandStoerrelse": [
+        "medium"
+      ],
       "hoejdeMm": 39,
       "knapper": 5,
       "laengdeMm": 126,
       "lodMm": 1.5,
       "maxDpi": 3200,
-      "navn": "S1",
+      "navn": "ZOWIE S1",
       "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "budget",
@@ -1668,7 +1759,11 @@
       "slug": "zowie-s1",
       "softwarePaakraevet": false,
       "switchType": "mekanisk",
-      "ulemper": ["87 gram er tungere end mange nyere konkurrencemus", "Kun 1000 Hz polling rate", "Kun 5 knapper - færre end nyere Zowie-modeller"],
+      "ulemper": [
+        "87 gram er tungere end mange nyere konkurrencemus",
+        "Kun 1000 Hz polling rate",
+        "Kun 5 knapper - færre end nyere Zowie-modeller"
+      ],
       "vaegtGram": 87,
       "wireless": false
     },
@@ -1679,16 +1774,27 @@
       "brand": "ZOWIE",
       "breddeMm": 63,
       "forbindelse": "2,4 GHz",
-      "fordele": ["Kun 65 gram trods trådløs forbindelse", "PAW3950-sensor med op til 4000 Hz polling rate", "Op til 80 timers batteritid ved 1000 Hz", "Plug-and-play uden driver"],
+      "fordele": [
+        "Kun 65 gram trods trådløs forbindelse",
+        "PAW3950-sensor med op til 4000 Hz polling rate",
+        "Op til 80 timers batteritid ved 1000 Hz",
+        "Plug-and-play uden driver"
+      ],
       "formfaktor": "symmetrisk",
-      "greb": ["palm", "claw"],
-      "haandStoerrelse": ["lille", "medium"],
+      "greb": [
+        "palm",
+        "claw"
+      ],
+      "haandStoerrelse": [
+        "lille",
+        "medium"
+      ],
       "hoejdeMm": 40,
       "knapper": 7,
       "laengdeMm": 122,
       "lodMm": 1.5,
       "maxDpi": 3200,
-      "navn": "ZA13-DW",
+      "navn": "ZOWIE ZA13-DW",
       "offers": [],
       "pollingHz": 4000,
       "prisNiveau": "mid",
@@ -1696,7 +1802,11 @@
       "slug": "zowie-za13-dw",
       "softwarePaakraevet": false,
       "switchType": "mekanisk",
-      "ulemper": ["Batteritiden falder til 24 timer ved 4000 Hz polling", "Ikke velegnet til fingertip-greb", "Den høje pukkelform passer bedst til mindre til mellemstore hænder"],
+      "ulemper": [
+        "Batteritiden falder til 24 timer ved 4000 Hz polling",
+        "Ikke velegnet til fingertip-greb",
+        "Den høje pukkelform passer bedst til mindre til mellemstore hænder"
+      ],
       "vaegtGram": 65,
       "wireless": true
     },
@@ -1706,16 +1816,24 @@
       "brand": "ZOWIE",
       "breddeMm": 61,
       "forbindelse": "2,4 GHz",
-      "fordele": ["76 gram i et trådløst ergonomisk design", "Op til 70 timers batteritid ved konstant brug", "PixArt 3370-sensor med op til 3200 DPI", "Plug-and-play uden driver"],
+      "fordele": [
+        "76 gram i et trådløst ergonomisk design",
+        "Op til 70 timers batteritid ved konstant brug",
+        "PixArt 3370-sensor med op til 3200 DPI",
+        "Plug-and-play uden driver"
+      ],
       "formfaktor": "ergonomisk",
-      "greb": ["palm", "claw"],
+      "greb": [
+        "palm",
+        "claw"
+      ],
       "haandStoerrelse": [],
       "hoejdeMm": 41,
       "knapper": 7,
       "laengdeMm": 119,
       "lodMm": 1.5,
       "maxDpi": 3200,
-      "navn": "EC3-CW",
+      "navn": "ZOWIE EC3-CW",
       "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "mid",
@@ -1723,7 +1841,11 @@
       "slug": "zowie-ec3-cw",
       "softwarePaakraevet": false,
       "switchType": "mekanisk",
-      "ulemper": ["Kun 1000 Hz polling rate mod op til 4000 Hz på nyere Zowie-modeller", "Ingen software til finjustering af indstillinger", "Ergonomisk facon er mest oplagt til palm- og claw-greb"],
+      "ulemper": [
+        "Kun 1000 Hz polling rate mod op til 4000 Hz på nyere Zowie-modeller",
+        "Ingen software til finjustering af indstillinger",
+        "Ergonomisk facon er mest oplagt til palm- og claw-greb"
+      ],
       "vaegtGram": 76,
       "wireless": true
     },
@@ -1733,16 +1855,24 @@
       "brand": "ZOWIE",
       "breddeMm": 65,
       "forbindelse": "2,4 GHz",
-      "fordele": ["77 gram trådløs mus med op til 70 timers batteritid", "Op til 3200 DPI i faste trin (400/800/1600/3200)", "7 knapper og 24-trins scrollhjul", "Plug-and-play uden driver"],
+      "fordele": [
+        "77 gram trådløs mus med op til 70 timers batteritid",
+        "Op til 3200 DPI i faste trin (400/800/1600/3200)",
+        "7 knapper og 24-trins scrollhjul",
+        "Plug-and-play uden driver"
+      ],
       "formfaktor": "ergonomisk",
-      "greb": ["palm", "claw"],
+      "greb": [
+        "palm",
+        "claw"
+      ],
       "haandStoerrelse": [],
       "hoejdeMm": 42,
       "knapper": 7,
       "laengdeMm": 123,
       "lodMm": 1.5,
       "maxDpi": 3200,
-      "navn": "EC2-CW",
+      "navn": "ZOWIE EC2-CW",
       "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "mid",
@@ -1750,7 +1880,11 @@
       "slug": "zowie-ec2-cw",
       "softwarePaakraevet": false,
       "switchType": "mekanisk",
-      "ulemper": ["Maks. 1000 Hz polling rate", "Ergonomisk facon er kun til højrehåndede brugere", "Ingen software til finjustering af indstillinger"],
+      "ulemper": [
+        "Maks. 1000 Hz polling rate",
+        "Ergonomisk facon er kun til højrehåndede brugere",
+        "Ingen software til finjustering af indstillinger"
+      ],
       "vaegtGram": 77,
       "wireless": true
     },
@@ -1761,16 +1895,24 @@
       "brand": "Pulsar",
       "breddeMm": 67.5,
       "forbindelse": "2,4 GHz + Bluetooth + Kabel",
-      "fordele": ["Kun 62 gram - let nok til hurtige flicks", "Udviklet sammen med ZywOo til palm-greb", "8000 Hz polling rate via Link 8K Receiver", "100 mio. kliks optiske switches", "Justerbar lift-off distance (0,7/1/2 mm)"],
+      "fordele": [
+        "Kun 62 gram - let nok til hurtige flicks",
+        "Udviklet sammen med ZywOo til palm-greb",
+        "8000 Hz polling rate via Link 8K Receiver",
+        "100 mio. kliks optiske switches",
+        "Justerbar lift-off distance (0,7/1/2 mm)"
+      ],
       "formfaktor": "ergonomisk",
-      "greb": ["palm"],
+      "greb": [
+        "palm"
+      ],
       "haandStoerrelse": [],
       "hoejdeMm": 43.5,
       "knapper": 0,
       "laengdeMm": 119.4,
       "lodMm": 1,
       "maxDpi": 32000,
-      "navn": "ZywOo The Chosen Mouse Gen.2",
+      "navn": "Pulsar ZywOo The Chosen Mouse Gen.2",
       "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
@@ -1778,7 +1920,11 @@
       "slug": "pulsar-zywoo-chosen-mouse-gen2",
       "softwarePaakraevet": false,
       "switchType": "optisk",
-      "ulemper": ["Ikke velegnet til claw- eller fingertip-greb", "Kun til højrehåndede brugere", "Knapantal ikke offentliggjort af producenten"],
+      "ulemper": [
+        "Ikke velegnet til claw- eller fingertip-greb",
+        "Kun til højrehåndede brugere",
+        "Knapantal ikke offentliggjort af producenten"
+      ],
       "vaegtGram": 62,
       "wireless": true
     },
@@ -1789,16 +1935,25 @@
       "brand": "PMM",
       "breddeMm": 60.7,
       "forbindelse": "",
-      "fordele": ["Cirka 30 gram inklusiv batteri", "Bevarer Viper V3 Pros Focus Pro-sensor og optiske switches", "Mindre skal velegnet til fingertip-greb og mindre hænder"],
+      "fordele": [
+        "Cirka 30 gram inklusiv batteri",
+        "Bevarer Viper V3 Pros Focus Pro-sensor og optiske switches",
+        "Mindre skal velegnet til fingertip-greb og mindre hænder"
+      ],
       "formfaktor": "symmetrisk",
-      "greb": ["fingertip", "claw"],
-      "haandStoerrelse": ["lille"],
+      "greb": [
+        "fingertip",
+        "claw"
+      ],
+      "haandStoerrelse": [
+        "lille"
+      ],
       "hoejdeMm": 38.4,
       "knapper": 0,
       "laengdeMm": 120.8,
       "lodMm": 0,
       "maxDpi": 0,
-      "navn": "Zen 8K Mini",
+      "navn": "PMM Zen 8K Mini",
       "offers": [],
       "pollingHz": 0,
       "prisNiveau": "flagship",
@@ -1806,7 +1961,11 @@
       "slug": "pmm-zen-8k-mini",
       "softwarePaakraevet": false,
       "switchType": "mekanisk",
-      "ulemper": ["Sælges uden sensor og switches - kræver egen Viper V3 Pro", "Cirka 60 minutters samling påkrævet", "Boutique-produkt med begrænset tilgængelighed"],
+      "ulemper": [
+        "Sælges uden sensor og switches - kræver egen Viper V3 Pro",
+        "Cirka 60 minutters samling påkrævet",
+        "Boutique-produkt med begrænset tilgængelighed"
+      ],
       "vaegtGram": 30,
       "wireless": false
     },
@@ -1816,16 +1975,24 @@
       "brand": "Sony",
       "breddeMm": 64.2,
       "forbindelse": "2,4 GHz + Kabel",
-      "fordele": ["Kun 48 gram", "8000 Hz trådløs polling rate", "Op til 90 timers batterilevetid ved 1000 Hz"],
+      "fordele": [
+        "Kun 48 gram",
+        "8000 Hz trådløs polling rate",
+        "Op til 90 timers batterilevetid ved 1000 Hz"
+      ],
       "formfaktor": "symmetrisk",
-      "greb": ["palm", "claw", "fingertip"],
+      "greb": [
+        "palm",
+        "claw",
+        "fingertip"
+      ],
       "haandStoerrelse": [],
       "hoejdeMm": 40.8,
       "knapper": 5,
       "laengdeMm": 119.8,
       "lodMm": 1,
       "maxDpi": 30000,
-      "navn": "INZONE Mouse-A",
+      "navn": "Sony INZONE Mouse-A",
       "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
@@ -1833,7 +2000,11 @@
       "slug": "sony-inzone-mouse-a",
       "softwarePaakraevet": true,
       "switchType": "optisk",
-      "ulemper": ["Batterilevetid falder markant ved 8000 Hz polling", "Kræver INZONE Hub-software for fuld tilpasning", "Højere pris end mange konkurrenter"],
+      "ulemper": [
+        "Batterilevetid falder markant ved 8000 Hz polling",
+        "Kræver INZONE Hub-software for fuld tilpasning",
+        "Højere pris end mange konkurrenter"
+      ],
       "vaegtGram": 48,
       "wireless": true
     },
@@ -1845,16 +2016,24 @@
       "breddeMm": 66,
       "ean": "6975637430893",
       "forbindelse": "2,4 GHz + Kabel",
-      "fordele": ["Kun 55 gram trods 300 mAh batteri", "8000 Hz native polling rate trådløst", "Optiske Kailh-kontakter med lang levetid", "Understøtter både palm- og klogreb"],
+      "fordele": [
+        "Kun 55 gram trods 300 mAh batteri",
+        "8000 Hz native polling rate trådløst",
+        "Optiske Kailh-kontakter med lang levetid",
+        "Understøtter både palm- og klogreb"
+      ],
       "formfaktor": "ergonomisk",
-      "greb": ["palm", "claw"],
+      "greb": [
+        "palm",
+        "claw"
+      ],
       "haandStoerrelse": [],
       "hoejdeMm": 42,
       "knapper": 0,
       "laengdeMm": 124,
       "lodMm": 1,
       "maxDpi": 50000,
-      "navn": "Thorn V2",
+      "navn": "Lamzu Thorn V2",
       "offers": [
         {
           "retailer": "proshop",
@@ -1870,7 +2049,11 @@
       "slug": "lamzu-thorn-v2",
       "softwarePaakraevet": false,
       "switchType": "optisk",
-      "ulemper": ["Løfteafstand (LOD) ikke dokumenteret af producenten", "Batterilevetid i timer er ikke oplyst", "Kun til højrehåndede - ingen symmetrisk model"],
+      "ulemper": [
+        "Løfteafstand (LOD) ikke dokumenteret af producenten",
+        "Batterilevetid i timer er ikke oplyst",
+        "Kun til højrehåndede - ingen symmetrisk model"
+      ],
       "vaegtGram": 55,
       "wireless": true
     },
@@ -1881,16 +2064,23 @@
       "brand": "Fallen Gear",
       "breddeMm": 65,
       "forbindelse": "2,4 GHz + Kabel",
-      "fordele": ["Designet af CS-legenden FalleNs eget brand", "Understøtter både palm- og claw-greb", "Premium PTFE-fødder for lav friktion"],
+      "fordele": [
+        "Designet af CS-legenden FalleNs eget brand",
+        "Understøtter både palm- og claw-greb",
+        "Premium PTFE-fødder for lav friktion"
+      ],
       "formfaktor": "ergonomisk",
-      "greb": ["palm", "claw"],
+      "greb": [
+        "palm",
+        "claw"
+      ],
       "haandStoerrelse": [],
       "hoejdeMm": 41,
       "knapper": 0,
       "laengdeMm": 127,
       "lodMm": 1,
       "maxDpi": 0,
-      "navn": "Lobo Wireless",
+      "navn": "Fallen Gear Lobo Wireless",
       "offers": [],
       "pollingHz": 1000,
       "prisNiveau": "mid",
@@ -1898,7 +2088,11 @@
       "slug": "fallen-gear-lobo-wireless",
       "softwarePaakraevet": false,
       "switchType": "mekanisk",
-      "ulemper": ["Polling rate begrænset til 1000 Hz", "Færre uafhængige tests tilgængelige end store mærker", "Løftehøjde, knapantal og software ikke offentliggjort"],
+      "ulemper": [
+        "Polling rate begrænset til 1000 Hz",
+        "Færre uafhængige tests tilgængelige end store mærker",
+        "Løftehøjde, knapantal og software ikke offentliggjort"
+      ],
       "vaegtGram": 62,
       "wireless": true
     },
@@ -1908,16 +2102,27 @@
       "brand": "VAXEE",
       "breddeMm": 59.1,
       "forbindelse": "2,4 GHz + Bluetooth",
-      "fordele": ["4000 Hz polling rate", "Huano-switches med mekanisk ALPS-encoder", "Konfigureres direkte på musen - ingen software nødvendig"],
+      "fordele": [
+        "4000 Hz polling rate",
+        "Huano-switches med mekanisk ALPS-encoder",
+        "Konfigureres direkte på musen - ingen software nødvendig"
+      ],
       "formfaktor": "symmetrisk",
-      "greb": ["palm", "claw", "fingertip"],
-      "haandStoerrelse": ["lille", "medium"],
+      "greb": [
+        "palm",
+        "claw",
+        "fingertip"
+      ],
+      "haandStoerrelse": [
+        "lille",
+        "medium"
+      ],
       "hoejdeMm": 37.1,
       "knapper": 5,
       "laengdeMm": 118.6,
       "lodMm": 1,
       "maxDpi": 3200,
-      "navn": "ZYGEN NP-01S Wireless",
+      "navn": "VAXEE ZYGEN NP-01S Wireless",
       "offers": [],
       "pollingHz": 4000,
       "prisNiveau": "mid",
@@ -1925,7 +2130,11 @@
       "slug": "vaxee-np01s-wireless",
       "softwarePaakraevet": false,
       "switchType": "mekanisk",
-      "ulemper": ["Kun 5 knapper", "Kun tilgængelig i begrænsede farver via Vaxees egen shop", "Ikke velegnet til meget store hænder"],
+      "ulemper": [
+        "Kun 5 knapper",
+        "Kun tilgængelig i begrænsede farver via Vaxees egen shop",
+        "Ikke velegnet til meget store hænder"
+      ],
       "vaegtGram": 67,
       "wireless": true
     },
@@ -1935,16 +2144,26 @@
       "brand": "ZOWIE",
       "breddeMm": 61,
       "forbindelse": "2,4 GHz",
-      "fordele": ["Kun 59 gram trods trådløs forbindelse", "PAW3950-sensor med op til 4000 Hz polling rate", "80 timers batteritid ved 1000 Hz polling", "Plug-and-play uden driver"],
+      "fordele": [
+        "Kun 59 gram trods trådløs forbindelse",
+        "PAW3950-sensor med op til 4000 Hz polling rate",
+        "80 timers batteritid ved 1000 Hz polling",
+        "Plug-and-play uden driver"
+      ],
       "formfaktor": "ergonomisk",
-      "greb": ["palm", "claw"],
-      "haandStoerrelse": ["lille"],
+      "greb": [
+        "palm",
+        "claw"
+      ],
+      "haandStoerrelse": [
+        "lille"
+      ],
       "hoejdeMm": 41,
       "knapper": 7,
       "laengdeMm": 119,
       "lodMm": 1.5,
       "maxDpi": 3200,
-      "navn": "EC3-DW",
+      "navn": "ZOWIE EC3-DW",
       "offers": [],
       "pollingHz": 4000,
       "prisNiveau": "mid",
@@ -1952,7 +2171,11 @@
       "slug": "zowie-ec3-dw",
       "softwarePaakraevet": false,
       "switchType": "mekanisk",
-      "ulemper": ["Batteritiden falder til 24 timer ved 4000 Hz polling", "Kompakt 'Small'-facon passer ikke til store hænder", "Ingen software til finjustering af indstillinger"],
+      "ulemper": [
+        "Batteritiden falder til 24 timer ved 4000 Hz polling",
+        "Kompakt 'Small'-facon passer ikke til store hænder",
+        "Ingen software til finjustering af indstillinger"
+      ],
       "vaegtGram": 59,
       "wireless": true
     },
@@ -1963,16 +2186,24 @@
       "brand": "Lamzu",
       "breddeMm": 63,
       "forbindelse": "2,4 GHz + Kabel",
-      "fordele": ["Kun 40 gram - blandt de letteste på markedet", "8000 Hz native polling rate trådløst", "Omron optiske kontakter - modstandsdygtige over tid", "Symmetrisk facon velegnet til klogreb"],
+      "fordele": [
+        "Kun 40 gram - blandt de letteste på markedet",
+        "8000 Hz native polling rate trådløst",
+        "Omron optiske kontakter - modstandsdygtige over tid",
+        "Symmetrisk facon velegnet til klogreb"
+      ],
       "formfaktor": "symmetrisk",
-      "greb": ["claw", "palm"],
+      "greb": [
+        "claw",
+        "palm"
+      ],
       "haandStoerrelse": [],
       "hoejdeMm": 40,
       "knapper": 0,
       "laengdeMm": 122,
       "lodMm": 1,
       "maxDpi": 30000,
-      "navn": "Inca Black",
+      "navn": "Lamzu Inca Black",
       "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
@@ -1980,7 +2211,11 @@
       "slug": "lamzu-inca",
       "softwarePaakraevet": false,
       "switchType": "optisk",
-      "ulemper": ["Ikke ideel til fingertip-greb", "Batterilevetid i timer er ikke oplyst", "Løfteafstand (LOD) ikke dokumenteret af producenten"],
+      "ulemper": [
+        "Ikke ideel til fingertip-greb",
+        "Batterilevetid i timer er ikke oplyst",
+        "Løfteafstand (LOD) ikke dokumenteret af producenten"
+      ],
       "vaegtGram": 40,
       "wireless": true
     },
@@ -1991,16 +2226,23 @@
       "brand": "Waizowl",
       "breddeMm": 58,
       "forbindelse": "2,4 GHz + Bluetooth + Kabel",
-      "fordele": ["Kun 55 gram", "8000 Hz polling rate med inkluderet dongle", "Op til 130 timers batterilevetid"],
+      "fordele": [
+        "Kun 55 gram",
+        "8000 Hz polling rate med inkluderet dongle",
+        "Op til 130 timers batterilevetid"
+      ],
       "formfaktor": "symmetrisk",
       "greb": [],
-      "haandStoerrelse": ["medium", "stor"],
+      "haandStoerrelse": [
+        "medium",
+        "stor"
+      ],
       "hoejdeMm": 38,
       "knapper": 0,
       "laengdeMm": 126,
       "lodMm": 1,
       "maxDpi": 30000,
-      "navn": "OGM Cloud 8K",
+      "navn": "Waizowl OGM Cloud 8K",
       "offers": [],
       "pollingHz": 8000,
       "prisNiveau": "flagship",
@@ -2008,21 +2250,32 @@
       "slug": "waizowl-ogm-cloud-8k",
       "softwarePaakraevet": false,
       "switchType": "mekanisk",
-      "ulemper": ["Boutique-mærke med begrænset distribution", "Løftehøjde og knapantal ikke fuldt dokumenteret", "Skal er større - bedst til medium/store hænder"],
+      "ulemper": [
+        "Boutique-mærke med begrænset distribution",
+        "Løftehøjde og knapantal ikke fuldt dokumenteret",
+        "Skal er større - bedst til medium/store hænder"
+      ],
       "vaegtGram": 55,
       "wireless": true
     },
     {
       "slug": "zowie-fk1-c",
-      "navn": "FK1-C",
+      "navn": "ZOWIE FK1-C",
       "brand": "ZOWIE",
       "vaegtGram": 77,
       "laengdeMm": 129,
       "breddeMm": 63,
       "hoejdeMm": 39,
       "formfaktor": "symmetrisk",
-      "greb": ["palm", "claw", "fingertip"],
-      "haandStoerrelse": ["medium", "stor"],
+      "greb": [
+        "palm",
+        "claw",
+        "fingertip"
+      ],
+      "haandStoerrelse": [
+        "medium",
+        "stor"
+      ],
       "wireless": false,
       "forbindelse": "Kabel",
       "batteritidTimer": null,
@@ -2036,22 +2289,38 @@
       "prisNiveau": "mid",
       "offers": [],
       "beskrivelse": "ZOWIEs klassiske ambidextrous mus i den større FK1-størrelse. 77 gram med PMW 3360-sensor og Huano-switches — en plug-and-play favorit blandt purister. Bruges af CS2-veteranen XANTARES.",
-      "fordele": ["77 gram — let nok til konkurrencebrug", "PMW 3360-sensor med præcis tracking", "Ingen software påkrævet — plug and play", "Huano-switches med klar taktil feedback"],
-      "ulemper": ["Kun 1000 Hz polling rate", "Fast DPI-trin (maks 3200)", "Kablet — ikke trådløs"]
+      "fordele": [
+        "77 gram — let nok til konkurrencebrug",
+        "PMW 3360-sensor med præcis tracking",
+        "Ingen software påkrævet — plug and play",
+        "Huano-switches med klar taktil feedback"
+      ],
+      "ulemper": [
+        "Kun 1000 Hz polling rate",
+        "Fast DPI-trin (maks 3200)",
+        "Kablet — ikke trådløs"
+      ]
     },
     {
       "slug": "logitech-g-pro-x-superlight",
       "ean": "5099206091733",
       "billede": "/images/mice/logitech-g-pro-x-superlight.png",
-      "navn": "G Pro X Superlight",
+      "navn": "Logitech G Pro X Superlight",
       "brand": "Logitech",
       "vaegtGram": 63,
       "laengdeMm": 125,
       "breddeMm": 63.5,
       "hoejdeMm": 40,
       "formfaktor": "symmetrisk",
-      "greb": ["palm", "claw", "fingertip"],
-      "haandStoerrelse": ["medium", "stor"],
+      "greb": [
+        "palm",
+        "claw",
+        "fingertip"
+      ],
+      "haandStoerrelse": [
+        "medium",
+        "stor"
+      ],
       "wireless": true,
       "forbindelse": "2,4 GHz",
       "batteritidTimer": 70,
@@ -2063,15 +2332,23 @@
       "lodMm": 1,
       "softwarePaakraevet": true,
       "prisNiveau": "flagship",
-      "offers": [
-      ],
+      "offers": [],
       "beskrivelse": "Musen der startede ultra-letvægtskategorien. 63 gram, HERO 25K-sensor og 70 timers batteritid gør den til et sikkert valg for spillere på alle niveauer. En af de mest brugte mus i CS2- og Valorant-scenen — blandt andet af NaVis IGL aleksib.",
-      "fordele": ["63 gram — banebrydende letvægt", "HERO 25K-sensor med præcis tracking", "70 timers batteritid", "Gennemtestet af tusindvis af pros"],
-      "ulemper": ["Kun 1000 Hz polling rate", "Kræver G HUB til DPI-justering", "Micro-USB opladning (ikke USB-C)"]
+      "fordele": [
+        "63 gram — banebrydende letvægt",
+        "HERO 25K-sensor med præcis tracking",
+        "70 timers batteritid",
+        "Gennemtestet af tusindvis af pros"
+      ],
+      "ulemper": [
+        "Kun 1000 Hz polling rate",
+        "Kræver G HUB til DPI-justering",
+        "Micro-USB opladning (ikke USB-C)"
+      ]
     },
     {
       "slug": "logitech-g-pro-2-lightspeed",
-      "navn": "G Pro 2 LIGHTSPEED",
+      "navn": "Logitech G Pro 2 LIGHTSPEED",
       "brand": "Logitech",
       "ean": "5099206123427",
       "billede": "/images/mice/logitech-g-pro-2-lightspeed.png",
@@ -2080,8 +2357,15 @@
       "breddeMm": 63.5,
       "hoejdeMm": 40,
       "formfaktor": "ambidextrous",
-      "greb": ["palm", "claw", "fingertip"],
-      "haandStoerrelse": ["medium", "stor"],
+      "greb": [
+        "palm",
+        "claw",
+        "fingertip"
+      ],
+      "haandStoerrelse": [
+        "medium",
+        "stor"
+      ],
       "wireless": true,
       "forbindelse": "2,4 GHz",
       "batteritidTimer": 95,
@@ -2110,8 +2394,17 @@
         }
       ],
       "beskrivelse": "Logitech G Pro 2 LIGHTSPEED er en ambidextrous konkurrencemus med magnetiske, ombyttelige sideknapper, der gør den lige velegnet til høj- og venstrehåndede spillere. HERO 2-sensoren rammer op til 44.000 DPI, og med den separate 8K-dongle når polling rate op på 8000 Hz. Bruges af Valorant-spilleren Less fra KRÜ Esports.",
-      "fordele": ["Ambidextrous design med ombyttelige magnetiske sideknapper", "HERO 2-sensor med op til 44.000 DPI", "95 timers batteritid", "Op til 8000 Hz polling rate med separat dongle"],
-      "ulemper": ["Tungere end Superlight-serien (80g)", "Kræver separat dongle for fuld 8K Hz polling", "Kræver G HUB til fuld konfiguration"]
+      "fordele": [
+        "Ambidextrous design med ombyttelige magnetiske sideknapper",
+        "HERO 2-sensor med op til 44.000 DPI",
+        "95 timers batteritid",
+        "Op til 8000 Hz polling rate med separat dongle"
+      ],
+      "ulemper": [
+        "Tungere end Superlight-serien (80g)",
+        "Kræver separat dongle for fuld 8K Hz polling",
+        "Kræver G HUB til fuld konfiguration"
+      ]
     }
   ]
 }

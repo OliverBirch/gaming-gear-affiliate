@@ -7,8 +7,8 @@ async function resolveOffer(product: OfferableProduct, offer: AffiliateOffer): P
   const override = await getOfferOverride(product.slug, offer.retailer);
   return {
     ...offer,
-    prisDkk: offer.prisDkk ?? override?.prisDkk,
-    inStock: offer.inStock ?? override?.inStock ?? true,
+    prisDkk: override?.prisDkk ?? offer.prisDkk,
+    inStock: override?.inStock ?? offer.inStock ?? true,
   };
 }
 

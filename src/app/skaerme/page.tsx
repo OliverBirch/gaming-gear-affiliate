@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { MonitorCard } from "@/components/monitor-card";
 import { monitors } from "@/data/monitors";
 import { breadcrumbList, productItemList, jsonLd } from "@/lib/schema-org";
@@ -27,7 +26,7 @@ export default function SkaermePage() {
         </div>
       </div>
 
-      <Script
+      <script
         id="schema-skaerme-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -39,7 +38,7 @@ export default function SkaermePage() {
           ),
         }}
       />
-      <Script
+      <script
         id="schema-skaerme-itemlist"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

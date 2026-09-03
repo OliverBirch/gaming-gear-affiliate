@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Script from "next/script";
+import { breadcrumbList, faqSchema, jsonLd } from "@/lib/schema-org";
 import { getEsport } from "@/data/esports";
 import { esports } from "@/data/esports";
 import { mice } from "@/data/mice";
@@ -154,7 +154,7 @@ export default async function EsportPage({ params }: Props) {
       mousepadSlug: mpSlug ?? null,
       headsetNavn: hs?.navn ?? peri?.headset ?? null,
       headsetSlug: hsSlug ?? null,
-      monitorNavn: mon ? `${mon.brand} ${mon.navn}` : (peri?.monitor ?? null),
+      monitorNavn: mon ? mon.navn : (peri?.monitor ?? null),
     };
   });
 
@@ -295,7 +295,7 @@ export default async function EsportPage({ params }: Props) {
     },
     {
       q: "Hvor køber jeg i Danmark?",
-      a: "Produktkort og mus-sider viser danske forhandlerpriser via affiliate-links (fx Proshop). Klik dig videre fra mus eller pro-siden for aktuelle tilbud.",
+      a: "Produktkort og mus-sider viser danske forhandlerpriser via affiliate-links. Klik dig videre fra mus eller pro-siden for aktuelle tilbud.",
     },
   ].filter((x): x is { q: string; a: string } => x != null);
 
@@ -574,48 +574,23 @@ export default async function EsportPage({ params }: Props) {
           </div>
         </section>
 
-        <Script
+        <script
           id="schema-breadcrumb"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                {
-                  "@type": "ListItem",
-                  position: 1,
-                  name: "Forside",
-                  item: "https://prosetups.dk/",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 2,
-                  name: esport.navn,
-                  item: `https://prosetups.dk/${slug}`,
-                },
-              ],
-            }),
+            __html: jsonLd(
+              breadcrumbList([
+                { name: "Forside", path: "/" },
+                { name: esport.navn, path: `/${slug}` },
+              ])
+            ),
           }}
         />
         {faqItems.length > 0 && (
-          <Script
+          <script
             id="schema-faq"
             type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                mainEntity: faqItems.map((item) => ({
-                  "@type": "Question",
-                  name: item.q,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.a,
-                  },
-                })),
-              }),
-            }}
+            dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(faqItems)) }}
           />
         )}
       </div>

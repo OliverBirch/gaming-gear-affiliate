@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { esports } from "@/data/esports";
 import { pros } from "@/data/pros";
+import { getTeamPages } from "@/data/pro-teams";
 import { mice } from "@/data/mice";
 import { keyboards } from "@/data/keyboards";
 import { mousepads } from "@/data/mousepads";
@@ -8,6 +9,7 @@ import { headsets } from "@/data/headsets";
 import { monitors } from "@/data/monitors";
 import { getBrands } from "@/data/brands";
 import { guides } from "@/data/guides";
+import { CURATED_PAIRS } from "@/lib/compare/curated-pairs";
 import { SITE_URL } from "@/lib/schema-org";
 
 const BASE = SITE_URL;
@@ -16,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     { url: BASE, changeFrequency: "weekly" as const, priority: 1 },
     { url: `${BASE}/find-mus`, changeFrequency: "weekly" as const, priority: 0.9 },
-    { url: `${BASE}/guides/greb`, changeFrequency: "monthly" as const, priority: 0.6 },
     { url: `${BASE}/om`, changeFrequency: "monthly" as const, priority: 0.4 },
     { url: `${BASE}/transparens`, changeFrequency: "monthly" as const, priority: 0.4 },
     { url: `${BASE}/privatliv`, changeFrequency: "monthly" as const, priority: 0.3 },
@@ -37,14 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  const teams = [
-    ...new Set(
-      pros
-        .filter((p) => p.hold && p.hold !== "Free Agent" && p.hold !== "Retired" && p.hold !== "Content Creator")
-        .map((p) => ({ esport: p.esport, slug: p.hold!.toLowerCase().replace(/\s+/g, "-") }))
-    ),
-  ];
-  const teamPages = teams.map((t) => ({
+  const teamPages = getTeamPages().map((t) => ({
     url: `${BASE}/${t.esport}/hold/${t.slug}`,
     changeFrequency: "weekly" as const,
     priority: 0.6,
@@ -98,6 +92,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const comparePairPages = CURATED_PAIRS.map((p) => ({
+    url: `${BASE}/sammenlign/mus/${p.par}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   return [
     ...staticPages,
     ...esportPages,
@@ -110,5 +110,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...proPages,
     ...brandPages,
     ...guidePages,
+    ...comparePairPages,
   ];
 }

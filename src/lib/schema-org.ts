@@ -8,7 +8,7 @@
  * objects here so every page is structurally identical by construction.
  */
 
-export const SITE_URL = "https://prosetups.dk";
+export const SITE_URL = "https://www.prosetups.dk";
 
 /** Absolute URL from a site-root-relative path. */
 export function absoluteUrl(path: string): string {
@@ -102,7 +102,13 @@ type SchemaOffer = {
   inStock?: boolean;
 };
 
-/** Product schema for a detail page, including its offer list. */
+/**
+ * Product schema for a detail page, including its offer list. An empty
+ * `offers` key is invalid for Google's Product rich-result eligibility, so
+ * when nothing survives the in-stock filter the key is omitted entirely
+ * rather than serialized as `offers: []` — the Product block itself (name/
+ * brand/description/image) is still valid and useful with zero offers.
+ */
 export function productSchema(opts: {
   navn: string;
   brand: string;
@@ -110,6 +116,19 @@ export function productSchema(opts: {
   billede?: string | null;
   offers: SchemaOffer[];
 }) {
+  const offers = opts.offers
+    .filter((o) => o.inStock !== false)
+    .map((o) => ({
+      "@type": "Offer",
+      url: o.affiliateUrl ?? o.produktUrl,
+      price: o.prisDkk ?? undefined,
+      priceCurrency: o.prisDkk ? "DKK" : undefined,
+      availability: o.inStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      seller: { "@type": "Organization", name: o.retailer },
+    }));
+
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -117,22 +136,125 @@ export function productSchema(opts: {
     brand: { "@type": "Brand", name: opts.brand },
     description: opts.beskrivelse,
     image: opts.billede ? absoluteUrl(opts.billede) : undefined,
-    offers: opts.offers
-      .filter((o) => o.inStock !== false)
-      .map((o) => ({
-        "@type": "Offer",
-        url: o.affiliateUrl ?? o.produktUrl,
-        price: o.prisDkk ?? undefined,
-        priceCurrency: o.prisDkk ? "DKK" : undefined,
-        availability: o.inStock
-          ? "https://schema.org/InStock"
-          : "https://schema.org/OutOfStock",
-        seller: { "@type": "Organization", name: o.retailer },
-      })),
+    ...(offers.length > 0 && { offers }),
   };
 }
 
-/** Serialize for a <Script dangerouslySetInnerHTML> block. */
+type ListedPerson = { slug: string; navn: string };
+
+/** ItemList of Person entries — pro roster / all-pros listing pages. */
+export function personItemList(opts: {
+  name: string;
+  description: string;
+  people: ListedPerson[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: opts.name,
+    description: opts.description,
+    numberOfItems: opts.people.length,
+    itemListElement: opts.people.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Person",
+        name: p.navn,
+        url: absoluteUrl(`/pro/${p.slug}`),
+      },
+    })),
+  };
+}
+
+type KnowsAboutProduct = { navn: string; brand: string };
+
+/** Person schema for a pro's own page. */
+export function personSchema(opts: {
+  navn: string;
+  slug: string;
+  /** Team name, e.g. pro.hold. Rendered as an Organization, not a bare string. */
+  affiliation?: string | null;
+  knowsAbout?: KnowsAboutProduct[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: opts.navn,
+    url: absoluteUrl(`/pro/${opts.slug}`),
+    ...(opts.affiliation && {
+      affiliation: { "@type": "Organization", name: opts.affiliation },
+    }),
+    ...(opts.knowsAbout &&
+      opts.knowsAbout.length > 0 && {
+        knowsAbout: opts.knowsAbout.map((p) => ({
+          "@type": "Product",
+          name: p.navn,
+          brand: { "@type": "Brand", name: p.brand },
+        })),
+      }),
+  };
+}
+
+/**
+ * Article schema for blog posts and guides. `datePublished` is optional —
+ * guides carry no publish date in their data, and per this repo's "never
+ * invent a date" rule (see sidstVerificeret/kilde), it must not be fabricated.
+ */
+export function articleSchema(opts: {
+  headline: string;
+  description: string;
+  datePublished?: string;
+  path: string;
+  authorName?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: opts.headline,
+    description: opts.description,
+    url: absoluteUrl(opts.path),
+    ...(opts.datePublished && { datePublished: opts.datePublished }),
+    author: {
+      "@type": "Organization",
+      name: opts.authorName ?? "ProSetups.dk",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "ProSetups.dk",
+    },
+  };
+}
+
+/** FAQPage schema. Guard call sites with `items.length > 0` — some pages
+ * legitimately have zero FAQ items and should emit no FAQPage at all rather
+ * than one with an empty mainEntity. */
+export function faqSchema(items: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+}
+
+/** Generic WebPage/AboutPage schema for static informational pages. */
+export function webPageSchema(opts: {
+  type?: "WebPage" | "AboutPage";
+  name: string;
+  description: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": opts.type ?? "WebPage",
+    name: opts.name,
+    description: opts.description,
+  };
+}
+
+/** Serialize for a <script dangerouslySetInnerHTML> block. */
 export function jsonLd(value: unknown): string {
   return JSON.stringify(value);
 }

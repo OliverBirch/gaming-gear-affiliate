@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { ProductImage } from "@/components/product-image";
 import { mice } from "@/data/mice";
 import { bestOffers } from "@/lib/affiliate";
@@ -8,6 +7,7 @@ import { brandSlug } from "@/data/brands";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { breadcrumbList, articleSchema, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata({
@@ -216,31 +216,30 @@ export default async function BedsteMusUnder500() {
         </Link>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Guides", item: "https://prosetups.dk/guides" },
-              { "@type": "ListItem", position: 3, name: "Gaming-mus under 500 kr.", item: "https://prosetups.dk/guides/bedste-mus-under-500-kr" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Guides", path: "/guides" },
+              { name: "Gaming-mus under 500 kr.", path: "/guides/bedste-mus-under-500-kr" },
+            ])
+          ),
         }}
       />
-      <Script
+      <script
         id="schema-article"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: "Bedste gaming-mus under 500 kr.",
-            description: "Find den bedste gaming-mus til under 500 kroner. Budgetvenlige mus med pro-grade sensor.",
-          }),
+          __html: jsonLd(
+            articleSchema({
+              headline: "Bedste gaming-mus under 500 kr.",
+              description: "Find den bedste gaming-mus til under 500 kroner. Budgetvenlige mus med pro-grade sensor.",
+              path: "/guides/bedste-mus-under-500-kr",
+            })
+          ),
         }}
       />
     </div>

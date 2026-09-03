@@ -1,5 +1,4 @@
 ﻿import type { Metadata } from "next";
-import Script from "next/script";
 import { MousepadCard } from "@/components/mousepad-card";
 import { CategoryStatsSection } from "@/components/category-stats-section";
 import { mousepads } from "@/data/mousepads";
@@ -35,7 +34,7 @@ export default function MusemaatterPage() {
         ))}
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -47,7 +46,7 @@ export default function MusemaatterPage() {
           ),
         }}
       />
-      <Script
+      <script
         id="schema-mousepads-itemlist"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

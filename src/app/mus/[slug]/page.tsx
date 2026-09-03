@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import Script from "next/script";
 import { brandSlug } from "@/data/brands";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getMouse, mice } from "@/data/mice";
 import { bestOffer } from "@/lib/affiliate";
 import { breadcrumbList, productSchema, jsonLd } from "@/lib/schema-org";
+import { findCuratedPair } from "@/lib/compare/curated-pairs";
+import { isStubOffers } from "@/lib/product-status";
 import { buildMetadata } from "@/lib/metadata";
 import { formfaktorLabels, grebLabels, haandLabels, prisNiveauLabels } from "@/lib/product-labels";
 import { ProductImage } from "@/components/product-image";
@@ -25,11 +26,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const mouse = getMouse(slug);
   if (!mouse) return {};
+  const stub = isStubOffers(mouse) || mouse.vaegtGram === 0;
   return buildMetadata({
     title: `${mouse.navn} - specifikationer, fordele, og priser`,
-    description: `Se komplette specifikationer for ${mouse.navn}: vægt, sensor, greb, og find den bedste pris hos Proshop eller Geek'd.`,
+    description: `Se komplette specifikationer for ${mouse.navn}: vægt, sensor, greb, og find den bedste pris hos danske forhandlere.`,
     path: `/mus/${mouse.slug}`,
     image: mouse.billede,
+    ...(stub && { robots: { index: false, follow: true } }),
   });
 }
 
@@ -69,9 +72,15 @@ export default async function MusPage({ params }: Props) {
             {mouse.navn}
           </h1>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground font-sans tabular-nums mb-4">
-            <span className="text-foreground font-semibold">{mouse.vaegtGram}g</span>
-            <span className="text-border/50">|</span>
-            <span>{mouse.laengdeMm}×{mouse.breddeMm}×{mouse.hoejdeMm} mm</span>
+            <span className="text-foreground font-semibold">
+              {mouse.vaegtGram ? `${mouse.vaegtGram}g` : "Specs kommer snart"}
+            </span>
+            {mouse.laengdeMm > 0 && (
+              <>
+                <span className="text-border/50">|</span>
+                <span>{mouse.laengdeMm}×{mouse.breddeMm}×{mouse.hoejdeMm} mm</span>
+              </>
+            )}
             <span className="text-border/50">|</span>
             <span>{mouse.haandStoerrelse.map((h) => haandLabels[h] ?? h).join(", ")}</span>
             <span className="text-border/50">|</span>
@@ -106,13 +115,18 @@ export default async function MusPage({ params }: Props) {
           title="Specifikationer"
           rows={[
             ["Brand", mouse.brand, `/maerke/${brandSlug(mouse.brand)}`],
-            ["Vægt", `${mouse.vaegtGram}g`],
-            ["Mål", `${mouse.laengdeMm} × ${mouse.breddeMm} × ${mouse.hoejdeMm} mm`],
+            ["Vægt", mouse.vaegtGram ? `${mouse.vaegtGram}g` : "Specs kommer snart"],
+            [
+              "Mål",
+              mouse.laengdeMm
+                ? `${mouse.laengdeMm} × ${mouse.breddeMm} × ${mouse.hoejdeMm} mm`
+                : "Specs kommer snart",
+            ],
             ["Formfaktor", formfaktorLabels[mouse.formfaktor] ?? mouse.formfaktor],
             ["Forbindelse", mouse.forbindelse],
             ["Batteritid", mouse.batteritidTimer ? `${mouse.batteritidTimer} timer` : "-"],
             ["Switch-type", mouse.switchType === "optisk" ? "Optisk" : "Mekanisk"],
-            ["Knapper", mouse.knapper],
+            ["Knapper", mouse.knapper || "Specs kommer snart"],
             ["Greb", mouse.greb.map((g) => grebLabels[g] ?? g).join(", ")],
             ["Håndstørrelse", mouse.haandStoerrelse.map((h) => haandLabels[h] ?? h).join(", ")],
             ["Sensor", mouse.sensor],
@@ -146,6 +160,10 @@ export default async function MusPage({ params }: Props) {
           <div className="grid gap-4 sm:grid-cols-3">
             {similar.map((m) => {
               const mOffer = similarOffers.get(m.slug) ?? null;
+              const curated = findCuratedPair(mouse.slug, m.slug);
+              const compareHref = curated
+                ? `/sammenlign/mus/${curated.par}`
+                : `/sammenlign/mus?p=${mouse.slug},${m.slug}`;
               return (
                 <div
                   key={m.slug}
@@ -167,7 +185,7 @@ export default async function MusPage({ params }: Props) {
                     </div>
                   </Link>
                   <Link
-                    href={`/sammenlign/mus?p=${mouse.slug},${m.slug}`}
+                    href={compareHref}
                     className={cn(
                       buttonVariants({ variant: "outline", size: "sm" }),
                       "mt-3 w-full"
@@ -197,7 +215,7 @@ export default async function MusPage({ params }: Props) {
         </Link>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -210,7 +228,7 @@ export default async function MusPage({ params }: Props) {
           ),
         }}
       />
-      <Script
+      <script
         id="schema-product"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { ProductImage } from "@/components/product-image";
 import { mice } from "@/data/mice";
 import { pros } from "@/data/pros";
@@ -8,6 +7,7 @@ import { bestOffer } from "@/lib/affiliate";
 import { getRetailer } from "@/data/retailers";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { breadcrumbList, articleSchema, jsonLd } from "@/lib/schema-org";
 import { buildMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildMetadata({
@@ -216,31 +216,30 @@ export default function TraadloesEllerKablet() {
         </Link>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Forside", item: "https://prosetups.dk/" },
-              { "@type": "ListItem", position: 2, name: "Guides", item: "https://prosetups.dk/guides" },
-              { "@type": "ListItem", position: 3, name: "Trådløs eller kablet mus?", item: "https://prosetups.dk/guides/traadloes-eller-kablet-mus" },
-            ],
-          }),
+          __html: jsonLd(
+            breadcrumbList([
+              { name: "Forside", path: "/" },
+              { name: "Guides", path: "/guides" },
+              { name: "Trådløs eller kablet mus?", path: "/guides/traadloes-eller-kablet-mus" },
+            ])
+          ),
         }}
       />
-      <Script
+      <script
         id="schema-article"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: "Trådløs eller kablet mus? Hvad skal du vælge",
-            description: "Trådløs vs kablet gaming-mus: hvad er bedst til dig? Vi sammenligner latency, vægt, batteritid og pris.",
-          }),
+          __html: jsonLd(
+            articleSchema({
+              headline: "Trådløs eller kablet mus? Hvad skal du vælge",
+              description: "Trådløs vs kablet gaming-mus: hvad er bedst til dig? Vi sammenligner latency, vægt, batteritid og pris.",
+              path: "/guides/traadloes-eller-kablet-mus",
+            })
+          ),
         }}
       />
     </div>

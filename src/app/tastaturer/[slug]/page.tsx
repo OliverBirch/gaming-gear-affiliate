@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Script from "next/script";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getKeyboard, keyboards } from "@/data/keyboards";
 import { breadcrumbList, productSchema, jsonLd } from "@/lib/schema-org";
+import { isStubOffers } from "@/lib/product-status";
 import { prisNiveauLabels } from "@/lib/product-labels";
 import { ProductImage } from "@/components/product-image";
 import { ProUsersBand } from "@/components/pro-users-band";
@@ -22,11 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const keyboard = getKeyboard(slug);
   if (!keyboard) return {};
+  const stub = isStubOffers(keyboard);
   return buildMetadata({
     title: keyboard.navn + " - specifikationer, fordele og priser",
     description: "Se komplette specifikationer for " + keyboard.navn + ": switches, layout, polling rate og find den bedste pris.",
     path: `/tastaturer/${keyboard.slug}`,
     image: keyboard.billede,
+    ...(stub && { robots: { index: false, follow: true } }),
   });
 }
 
@@ -85,7 +87,14 @@ export default async function TastaturPage({ params }: Props) {
             ["Forbindelse", keyboard.forbindelse],
             ["Trådløs", keyboard.wireless ? "Ja" : "Nej"],
             ["Batteritid", keyboard.batteritidTimer ? keyboard.batteritidTimer + " timer" : "-"],
-            ["Polling rate", keyboard.pollingHz >= 1000 ? (keyboard.pollingHz / 1000) + "K Hz" : keyboard.pollingHz + " Hz"],
+            [
+              "Polling rate",
+              keyboard.pollingHz
+                ? keyboard.pollingHz >= 1000
+                  ? (keyboard.pollingHz / 1000) + "K Hz"
+                  : keyboard.pollingHz + " Hz"
+                : "Specs kommer snart",
+            ],
             ["Taster", keyboard.taster],
             ["Formfaktor", keyboard.formfaktor],
             ["RGB", keyboard.rgb ? "Ja" : "Nej"],
@@ -112,7 +121,7 @@ export default async function TastaturPage({ params }: Props) {
         </Link>
       </div>
 
-      <Script
+      <script
         id="schema-breadcrumb"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -125,7 +134,7 @@ export default async function TastaturPage({ params }: Props) {
           ),
         }}
       />
-      <Script
+      <script
         id="schema-product"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

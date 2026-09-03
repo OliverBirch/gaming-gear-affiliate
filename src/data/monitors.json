@@ -2,7 +2,7 @@
   "monitors": [
     {
       "slug": "zowie-xl2586x-plus",
-      "navn": "XL2586X+",
+      "navn": "ZOWIE XL2586X+",
       "brand": "ZOWIE",
       "ean": "4718755094873",
       "stoerrelseTommer": 24.1,
@@ -34,7 +34,7 @@
     },
     {
       "slug": "zowie-xl2566k",
-      "navn": "XL2566K",
+      "navn": "ZOWIE XL2566K",
       "brand": "ZOWIE",
       "stoerrelseTommer": 24.5,
       "oploesning": "1920x1080",
@@ -65,7 +65,7 @@
     },
     {
       "slug": "zowie-xl2546k",
-      "navn": "XL2546K",
+      "navn": "ZOWIE XL2546K",
       "brand": "ZOWIE",
       "stoerrelseTommer": 24.5,
       "oploesning": "1920x1080",
@@ -96,7 +96,7 @@
     },
     {
       "slug": "asus-rog-swift-pg27aqdm",
-      "navn": "ROG Swift PG27AQDM",
+      "navn": "ASUS ROG Swift PG27AQDM",
       "brand": "ASUS",
       "stoerrelseTommer": 27,
       "oploesning": "2560x1440",
@@ -127,7 +127,7 @@
     },
     {
       "slug": "alienware-aw2524h",
-      "navn": "AW2524H",
+      "navn": "Alienware AW2524H",
       "brand": "Alienware",
       "stoerrelseTommer": 25,
       "oploesning": "1920x1080",
